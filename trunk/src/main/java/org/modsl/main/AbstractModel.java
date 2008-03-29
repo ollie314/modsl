@@ -7,5 +7,5 @@ public abstract class AbstractModel {
 	public ClassGroup class_g = new ClassGroup();
 
 	public abstract void paint();
-
+	
 }
