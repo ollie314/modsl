@@ -2,5 +2,5 @@
 #labels Eclipse,Phase-Implementation
 
 Requirements:
-   * Groovy plugin
-   * Maven 2 plugin (m2eclipse)
+   * Groovy plugin -- http://dist.codehaus.org/groovy/distributions/update/
+   * Maven 2 plugin (m2eclipse) -- http://m2eclipse.sonatype.org/update/
