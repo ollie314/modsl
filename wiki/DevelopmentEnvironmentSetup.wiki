@@ -1,4 +1,5 @@
 #summary Development environment setup
+#labels Phase-Implementation,Development
 
    * Java 6
    * Maven 2
