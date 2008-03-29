@@ -1,6 +1,7 @@
-#summary How to configure Eclipse
+#summary Eclipse IDe setup
 #labels Eclipse,Phase-Implementation
 
 Requirements:
    * Groovy plugin -- http://dist.codehaus.org/groovy/distributions/update/
    * Maven 2 plugin (m2eclipse) -- http://m2eclipse.sonatype.org/update/
+   * Subclipse plugin -- http://subclipse.tigris.org/update_1.2.x
