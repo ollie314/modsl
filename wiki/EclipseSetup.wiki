@@ -1,0 +1,6 @@
+#summary How to configure Eclipse
+#labels Eclipse
+
+Requirements:
+* Groovy plugin
+* Maven 2 plugin (m2eclipse)
