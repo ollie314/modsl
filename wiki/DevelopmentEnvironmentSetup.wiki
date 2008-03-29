@@ -4,3 +4,4 @@
    * Java 6
    * Maven 2
    * Groovy 1.5
+      * Documentation http://groovy.codehaus.org/Documentation
