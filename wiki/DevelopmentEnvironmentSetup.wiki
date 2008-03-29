@@ -1,0 +1,5 @@
+#summary Development environment setup
+
+   * Java 6
+   * Maven 2
+   * Groovy 1.5
