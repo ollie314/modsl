@@ -1,4 +1,4 @@
-package org.modsl.main;
+package org.modsl.primitives;
 
 
 public class ClassPrimitive {
