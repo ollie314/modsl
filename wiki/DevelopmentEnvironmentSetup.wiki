@@ -3,5 +3,6 @@
 
    * Java 6
    * Maven 2
+      * Maven repo main http://mirrors.ibiblio.org/pub/mirrors/maven2
    * Groovy 1.5
       * Documentation http://groovy.codehaus.org/Documentation
