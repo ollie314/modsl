@@ -1,5 +1,5 @@
 #summary How to configure Eclipse
-#labels Eclipse
+#labels Eclipse,Phase-Implementation
 
 Requirements:
    * Groovy plugin
