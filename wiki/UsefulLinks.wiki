@@ -1,2 +1,5 @@
 #summary Useful Links
+
+   * How To http://www.w3.org/2002/Talks/www2002-svgtut-ih/hwtut.pdf
+   * Tutorial http://apike.ca/prog_svg.html
    * Tutorial (rus) http://www.intuit.ru/department/graphics/svg/
