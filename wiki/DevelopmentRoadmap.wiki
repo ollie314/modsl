@@ -1,0 +1,7 @@
+#summary Development roadmap
+#labels Phase-Requirements
+
+   * command line Groovy dsl -> svg
+   * Eclipse plugin
+   * command line new dsl -> svg
+   * web based tool
