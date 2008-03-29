@@ -1,0 +1,2 @@
+#summary Useful Links
+   * Tutorial (rus) http://www.intuit.ru/department/graphics/svg/
