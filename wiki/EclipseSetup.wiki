@@ -1,4 +1,4 @@
-#summary Eclipse IDe setup
+#summary Eclipse IDE setup
 #labels Eclipse,Phase-Implementation
 
 Requirements:
