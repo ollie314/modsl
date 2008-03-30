@@ -5,3 +5,6 @@
    * Eclipse plugin
    * command line new dsl -> svg
    * web based tool
+   * post snippet -> store under a unique id -> render  
+   * learning (positioning), clustering
+   * skinnable
