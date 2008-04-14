@@ -1,0 +1,41 @@
+diagram = builder._diagram(value:"Test Model", _width:800, _height:600) {
+
+	_class("TestClass")
+	
+	_class("TestClass2") {
+		_extends("TestClass")
+	}
+	
+	_class("TestClass3") {
+		_extends("TestClass2")
+	}
+	
+	_class("TestClass4") {
+		_extends("TestClass3")
+	}
+	
+	_class("TestClass5") {
+		_extends("TestClass4")
+	}
+	
+	_class("TestClass6") {
+		_extends("TestClass5")
+	}
+	
+	_class("TestClass7") {
+		_extends("TestClass6")
+	}
+	
+	_class("TestClass8") {
+		_extends("TestClass7")
+	}
+	
+	_class("TestClass9") {
+		_extends("TestClass8")
+	}
+	
+	_class("TestClass10") {
+		_extends("TestClass9")
+	}
+
+}

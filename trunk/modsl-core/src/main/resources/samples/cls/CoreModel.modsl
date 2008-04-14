@@ -1,0 +1,72 @@
+diagram = builder._diagram(/*value:"Sample Class Diagram -- ModSL Core", */_width:1024, _height:768) {
+	    	
+    _interface("Graph") {
+	    _method("getEdges()")
+	    _method("getVertexes()")
+	    _method("getEdgeLengths()")
+	    _method("getSumEdgeLengths()")
+        _method("getSize()")
+        _method("recalcSize()")
+        _method("setRequestedSize()")
+	    _method("rebase()")
+	    _method("rescale()")
+	    _method("rescaleToRequestedSize()")
+	    _method("getArea()")
+	    _method("addPositionToHistory()")
+	}
+	    	
+	_interface("Edge") {
+	    _method("getStartVertex()")
+	    _method("getEndVertex()")
+	    _method("getLength()")
+	    _method("tan()")
+	    _method("sin()")
+	    _method("cos()")
+	}
+	    	
+	_interface("Vertex") {
+	    _method("getPosition()")
+	    _method("getCenterPosition()")
+        _method("getAltPosition()")
+	    _method("getSize()")
+	    _method("getPosHistory()")
+	    _method("addPositionToHistory()")
+	    _method("tan()")
+	}
+	    	
+	_abstract_class("AbstractDiagram") {
+		_implements("Graph")
+		_association(_to:"AbstractElement", _multi_from:"1", _multi_to:"0..n")
+		_association(_to:"AbstractConnector", _multi_from:"1", _multi_to:"0..n")
+		_method("removeMePlease1()")
+		_static_method("staticGarbage0()")
+		_method("removeMePlease2()")
+		_method("removeMePlease3()")
+		_static_method("staticGarbage1()")
+		_static_method("staticGarbage2()")
+		_attribute("width")
+		_attribute("height")
+	}
+	   	
+	_abstract_class("AbstractElement") {
+	    _implements("Vertex")
+	}
+
+	_abstract_class("AbstractConnector") {
+	    _implements("Edge")
+		_association(_to:"AbstractElement", _multi_from:"1", _multi_to:"2")
+	}
+	    	
+	_class("ClassDiagram") {
+		_extends("AbstractDiagram")
+	}
+	   	
+	_class("ClassElement") {
+	    _extends("AbstractElement")
+	}
+
+	_class("ClassConnector") {
+	    _extends("AbstractConnector")
+	}
+	
+}
