@@ -1,0 +1,291 @@
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<BASE HREF="http://www.oisv.com/articles/development/gojava_lessons_on_writing_java_applications_for_godaddy_shared_hosting/"><table border=1 width=100%><tr><td><table border=1 bgcolor=#ffffff cellpadding=10 cellspacing=0 width=100% color=#ffffff><tr><td><font face="" color=black size=-1>This is <b><font color=#0039b6>G</font> <font color=#c41200>o</font> <font color=#f3c518>o</font> <font color=#0039b6>g</font> <font color=#30a72f>l</font> <font color=#c41200>e</font></b>'s <a href="http://www.google.com/intl/en/help/features.html#cached"><font color=blue>cache</font></a> of <a href="http://www.oisv.com/articles/development/gojava_lessons_on_writing_java_applications_for_godaddy_shared_hosting/"><font color=blue>http://www.oisv.com/articles/development/gojava_lessons_on_writing_java_applications_for_godaddy_shared_hosting/</font></a> as retrieved on Apr 6, 2008 11:24:12 GMT.<br>
+<b><font color=#0039b6>G</font> <font color=#c41200>o</font> <font color=#f3c518>o</font> <font color=#0039b6>g</font> <font color=#30a72f>l</font> <font color=#c41200>e</font></b>'s cache is the snapshot that we took of the page as we crawled the web.<br>
+The page may have changed since that time.  Click here for the <a href="http://www.oisv.com/articles/development/gojava_lessons_on_writing_java_applications_for_godaddy_shared_hosting/"><font color=blue>current page</font></a> without highlighting.<br>
+This cached page may reference images which are no longer available. Click here for the <A HREF="http://64.233.167.104/search?q=cache:npDOOW0Bfi4J:www.oisv.com/articles/development/gojava_lessons_on_writing_java_applications_for_godaddy_shared_hosting/+godaddy+shared+hosting+java&hl=en&client=firefox-a&gl=us&strip=1"><font color=blue>cached text</font></a> only.<br>To link to or bookmark this page, use the following url: <code>http://www.google.com/search?q=cache:npDOOW0Bfi4J:www.oisv.com/articles/development/gojava_lessons_on_writing_java_applications_for_godaddy_shared_hosting/+godaddy+shared+hosting+java&amp;hl=en&amp;ct=clnk&amp;cd=1&amp;gl=us&amp;client=firefox-a</code></font><br><br><center><font size=-2><i>Google is neither affiliated with the authors of this page nor responsible for its content.</i></font></center></td></tr>
+<tr><td>
+<table border=0 cellpadding=0 cellspacing=0><tr><td><font face="" color=black size=-1>These search terms have been highlighted:&nbsp;</font></td><td bgcolor=#ffff66><b><font face="" color=black size=-1>godaddy&nbsp;</font></b></td><td bgcolor=#a0ffff><b><font face="" color=black size=-1>shared&nbsp;</font></b></td><td bgcolor=#99ff99><b><font face="" color=black size=-1>hosting&nbsp;</font></b></td><td bgcolor=#ff9999><b><font face="" color=black size=-1>java&nbsp;</font></b></td></tr></table>
+</td></tr></table></td></tr></table>
+<hr>
+<div style="position:relative">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+ <title>GoJava: Lessons on Writing Java Applications for GoDaddy Shared Hosting | OISV - Organization of Independent Software Vendors</title>
+ <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+ <meta http-equiv="content-language" content="en" />
+ <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/layout.css" />
+  <script type="text/javascript" src="/javascript/prototype.js"></script>
+ <script type="text/javascript" src="/javascript/rico.js"></script>
+ <script type="text/javascript" src="/javascript/oisv.js"></script>
+ <script type="text/javascript" src="/sifr/sifr.js"></script>
+ <script src="/mint/?js" type="text/javascript"></script>
+</head>
+
+<body>
+
+ <div id="header">
+  <h1><a href="/"><span>OISV Home</span></a></h1>
+  <div id="credentials">
+         Logged in as: Search Engine<br />
+   <a href="/members/searchengine/">Profile</a> |
+   <a id="logout" href="/login/logout/">Logout</a>
+        </div>
+  <ul id="navigation">
+   <li><a href="/articles/" class="on">Articles</a></li>
+   <li><a href="/forums/">Forums</a></li>
+      <li><a href="/about/">About Us</a></li>
+   <li><a href="/contact/">Contact Us</a></li>
+  </ul>
+ </div>
+
+ <div id="container">
+ 
+ <div id="content" class="view_article">
+ <h2>GoJava: Lessons on Writing <b style="color:black;background-color:#ff9999">Java</b> Applications for <b style="color:black;background-color:#ffff66">GoDaddy</b> <b style="color:black;background-color:#a0ffff">Shared</b> <b style="color:black;background-color:#99ff99">Hosting</b></h2>
+    
+ <div id="thearticle">I've spent most of my spare time for the last six months working on a <b style="color:black;background-color:#ff9999">Java</b> web application to deploy on a <a href="http://www.godaddy.com/" class="external"><b style="color:black;background-color:#ffff66">GoDaddy</b></a> Linux-based, <b style="color:black;background-color:#a0ffff">shared</b> <b style="color:black;background-color:#99ff99">hosting</b> site.  This article covers the lessons I learned along the way and provides a roadmap for anyone wishing to follow in my footsteps.<br />
+<br />
+<strong>Lesson 1: Know the Environment</strong><br />
+<br />
+Before I signed on with <b style="color:black;background-color:#ffff66">GoDaddy</b>, I did a bit of research on their Linux <b style="color:black;background-color:#a0ffff">shared</b> host offering. Their "Deluxe Plan" provided just what I needed: Linux, Apache, Tomcat, MySQL, and PHP. Not only did I know and understand each of these technologies, but I already had them installed at home from prior projects.<br />
+<br />
+Unfortunately, I forgot to check one little detail: the version numbers. You see, <b style="color:black;background-color:#ffff66">GoDaddy</b> is a little behind the technology curve. Not far, but just far enough to have caused me trouble. While I was running MySQL 5.0 at home, <b style="color:black;background-color:#ffff66">GoDaddy</b> was running MySQL 4.0. Among other things, MySQL 5.0 (actually 4.1.1) introduced a really cool feature called <a href="http://dev.mysql.com/doc/refman/4.1/en/fulltext-query-expansion.html" class="external">Query Expansion</a>, which is great for searching things, like forum postings.<br />
+<br />
+It only took a few minutes to rewrite my queries to remove Query Expansion and become compatible with MySQL 4.0. But there were several others problems I ran into because of version number differences (TRUE/FALSE keywords, BOOLEAN data types, etc.). And every minute I spent fixing these little problems was a minute I wasn't adding features to my site.<br />
+<br />
+In short, I was reminded that the devil is in the details.  And software has lots and lots of details.  Starting with version numbers.<br />
+<br />
+<strong>Lesson 2: Know the Vendor</strong><br />
+<br />
+I chose <b style="color:black;background-color:#ffff66">GoDaddy</b> for a couple of reasons, the first being price. The second reason I chose <b style="color:black;background-color:#ffff66">GoDaddy</b> was because they had been around for a while and I wasn't worried about them disappearing without warning. The third reason was their support documents. <b style="color:black;background-color:#ffff66">GoDaddy</b> has quite a bit of support material on-line for its customers. In retrospect, it's not as much as it seemed because some of the information is duplicated or out-of-date.<br />
+<br />
+Early on, I also discovered that phone support, while not exactly stellar, is decent. You usually won't be kept on hold for too long. Also, the CSRs won't transfer you when you ask a question they can't answer. They'll try to clearly articulate your question back to you, then they'll go ask second level support for you. This means you won't have to keep repeating your problem to each new person. The catch is that first-level support has no real idea what Tomcat is, much less <b style="color:black;background-color:#ff9999">Java</b>. Any question that delves into those topics will immediate send the CSR off to ask their "Tomat/<b style="color:black;background-color:#ff9999">Java</b> Guy." Thankfully, I've gotten mostly satisfactory answers from this process.<br />
+<br />
+That said, let me tell you what I think of their email support. It's worthless. I will never use it again. Was I unclear?<br />
+<br />
+Recently, I noticed my web application was down (returning 500 error codes). I checked my static content and saw it was working fine. Conclusion: Apache is running, Tomcat is not. By the time I got around to contacting <b style="color:black;background-color:#ffff66">GoDaddy</b> -- about two hours later -- the site was back up. I sent a short email to technical support clearly stating that Tomcat had been down (and cited all the checks I had made) and that I needed to know what happened. Is this something I could expect to occur regularly? Was it scheduled or unscheduled maintenance?<br />
+<br />
+I received a response within the hour. The email from <b style="color:black;background-color:#ffff66">GoDaddy</b> suggested that I should be using the <b style="color:black;background-color:#ffff66">GoDaddy</b> nameservers and directed me to the appropriate support pages. I read the email three times and still couldn't see how the CSR could possibly have thought that his response had anything to do with my request. I figure one of two things happened.\ My request hit on some keywords that auto-generated the response, or the CSR that processed it really didn't care one way or the other if they answered my question and just grabbed a random response. Either way, I don't use email support anymore.<br />
+<br />
+So, the point is that you should quickly learn the limits and behaviors of your vendor. In my case, <b style="color:black;background-color:#ffff66">GoDaddy</b> == telephone support, <b style="color:black;background-color:#ffff66">GoDaddy</b> != email support. Learning and adjusting to your provider's limits will save you frustration later on.<br />
+<br />
+<strong>Lesson 3:  Start Small</strong><br />
+<br />
+I'm very cost-conscious and I saw no reason to spend money on the <b style="color:black;background-color:#99ff99">hosting</b> plan until I actually had something tangible (like a website) to put out on it. So, I spent the first three months building quite an impressive base application, including user registration, forums, FAQs, and various other dynamic, database-driven content.<br />
+<br />
+You can probably guess what happened when I deployed for the first time. Nothing.  Nada.  Zip. I couldn't get a single web page to come up outside of the static content.<br />
+<br />
+I spent the next four weeks untangling a giant mess of problems and incompatibilities. To begin with, I was using a standard <a href="http://tomcat.apache.org/tomcat-5.0-doc/deployer-howto.html#Deploying%20using%20the%20Client%20Deployer%20Package" class="external">context.xml</a> file in my WAR file to give Tomcat additional deployment instructions. Not supported on <b style="color:black;background-color:#a0ffff">shared</b> <b style="color:black;background-color:#99ff99">hosting</b>. I was also using <a href="http://logging.apache.org/log4j/docs/" class="external">Log4J</a> to write messages to a /logs directory. <b style="color:black;background-color:#ff9999">Java</b> cannot write to any folder other then /tmp, which is public and <b style="color:black;background-color:#a0ffff">shared</b>. I was using the same name for the WAR file every time. You must delete your exploded WAR file directories before re-deploying, which you cannot do if anyone has accessed the web application since the last Tomcat <a href="http://help.godaddy.com/article.php?article_id=72&topic_id=&&" class="external">restart</a> which happens (most) every night.<br />
+<br />
+I finally ended up creating a Hello World web application in which I incrementally added feature after feature to "feel out" the system and determine what actually worked and what didn't. My context.xml file went out the window and Log4J got redirected to write to the database. I haven't found an elegant solution, yet, that resolves the WAR file naming issue and still allows me to maintain some level of <a href="http://en.wikipedia.org/wiki/Seo" class="external">SEO</a>.<br />
+<br />
+The lesson here is simple. Sign up for the <b style="color:black;background-color:#99ff99">hosting</b> plan right from the beginning. It just makes sense to spend an extra thirty or forty dollars up front to save time on the back-end. Next, start with a small, basic web application about the size of a Hello World app. Incrementally add each your features, with a deploy-and-test between each one. By features, I mean things like logging, third-party tools, and architecture/framework changes.<br />
+<br />
+<strong>Lesson 4: Start Early</strong><br />
+<br />
+One of the most frustrating aspects of the <b style="color:black;background-color:#a0ffff">shared</b> <b style="color:black;background-color:#99ff99">hosting</b> account is the time lag for things to take effect. The fact that web applications can only be deployed nightly when Tomcat restarts is a prime example. The <b style="color:black;background-color:#99ff99">Hosting</b> Manager Control Panel is another. Any changes you are allowed to make must be done through the Control Panel. This includes setting your 404 page, managing your FTP users, activating Apache error logs, and managing your MySQL database(s). Each change you make will be greeted with a "change pending" response. For some reason, none of the changes you make occur real-time. Some may take a few minutes, other a few hours. I'm partially convinced that a CSR is hiding behind the Control Panel manually implementing each of your requests.<br />
+<br />
+This behavior is reflected throughout GoDaddy's systems (sharing <b style="color:black;background-color:#99ff99">hosting</b>, email, domains, etc.). Therefore, as soon as you have an account with <b style="color:black;background-color:#ffff66">GoDaddy</b>, there are several things I recommend setting up in advance. This will give everything a chance to become effective before you actually need it.<br />
+<br />
+First, get the <b style="color:black;background-color:#a0ffff">shared</b> <b style="color:black;background-color:#99ff99">hosting</b> plan active and make sure <a href="http://help.godaddy.com/article.php?article_id=4&topic_id=&&" class="external"><b style="color:black;background-color:#ff9999">Java</b> support is enabled</a>. Next, set up the following using the Control Panel: point your domains to the <b style="color:black;background-color:#a0ffff">shared</b> host, create your FTP user(s), create your MySQL database(s), set your 404 error behavior, and create your sub-domains (i.e. - blog.domain.com, support.domain.com, etc.). Next, set up your free and paid email accounts, as well as, your email forwards. Lastly, set up a simple <a href="http://httpd.apache.org/docs/1.3/mod/mod_rewrite.html" class="external">mod_rewrite</a> script on your host. You may find at some point that you will need to use mod_rewrite and some people have reported that their servers did not have it initially enabled.<br />
+<br />
+Setting all this up at the start will require a bit of planning, but at least you won't have to wait a indeterminate amount of time for the "pending change" to take effect.<br />
+<br />
+<strong>Lesson 5: Keep It Simple</strong><br />
+<br />
+I'm used to working in environments where you have complete control over the systems involved, or you at least have someone you can count on that has complete control over the environment. So I found it a bit disheartening to hear things like "you can't do that" or "that's not allowed" from the <b style="color:black;background-color:#ffff66">GoDaddy</b> support team. Writing to the file system from <b style="color:black;background-color:#ff9999">Java</b> is one glaring example. Manual deployment to Tomcat is another.<br />
+<br />
+The only way to deploy a web application under Tomcat is to copy the WAR file to the file system and wait for Tomcat to be restarted, which happens most every night. I say "most every night" because I've experienced a few incidents where Tomcat did not restart (or the web application did not deploy... the support team was unable to say which it was). The only way to un-deploy a web application is to delete the exploded directory structure, which I mentioned earlier cannot be done if some has accessed even one of the pages in the application.<br />
+<br />
+I say all this to emphasize how difficult and time-consuming it can be to put your <b style="color:black;background-color:#ff9999">Java</b> code out on the server. Therefore, you should make every effort to remove everything possible from the WAR file (i.e.- the web application). Static content should be copied directly onto the server, not packaged in the WAR file. Dynamic content should be placed in a database to be read and displayed by the web application, so when you need to change some wording on the web page, you won't have to redeploy. In fact, you may want to consider moving all the content into a database and allow the JSPs to pull the text using <a href="http://jakarta.apache.org/taglibs/index.html" class="external">custom tags</a>. Disclaimer: I have not checked the performance of the <b style="color:black;background-color:#ffff66">GoDaddy</b> web/database servers to know if this will perform well under heavy loads.<br />
+<br />
+In short, your web application should contain the bare minimum required to operate. Other content, such as style sheets, static pages, dynamic text, etc., should be removed and placed in an appropriate location. This will minimuze the number of deployments you'll need to perform and will give you more immediate control over changes to the site.<br />
+<br />
+<strong>Lesson 6: Keep Good Records</strong><br />
+<br />
+My first week with <b style="color:black;background-color:#ffff66">GoDaddy</b> was spent mostly staring at blank web pages, wondering why they didn't load, and looking for log files, wondering why they were never created. Of course, it turned out that my logging infrastructure was the culprit in most of my pain. Once I disabled it, I started actually seeing some real errors and was able to perform some real troubleshooting.<br />
+<br />
+Not all errors, though, show up in the rendered web page. That's why you need logging. Despite my earlier trials, I still fully support using Log4J. In this case, however, you'll need a database appender such as the one that ships with Log4J or the one maintained by <a href="http://www.dankomannhaupt.de/projects/index.html" class="external">Danko Mannhaupt</a>. This will allow you to view the log entries even if the web application refuses to come up.<br />
+<br />
+Of course, if you cannot acquire a database connection from the very start, a database appender will not do you much good. Therefore, I recommend implementing a logging framework with a failover to the file system in the event the database cannot be reached.<br />
+<br />
+As I mentioned earlier, the only location <b style="color:black;background-color:#ff9999">Java</b> can write to is the public, <b style="color:black;background-color:#a0ffff">shared</b> /tmp folder. So, it is a simple matter of creating and appending to your own log file in that location. Being the paranoid type that I am, I recommend using a <a href="http://java.sun.com/j2se/1.4.2/docs/guide/security/jce/JCERefGuide.html" class="external">symmetric encryption algorithm</a> to keep prying eyes from reading your files. You should also delete your log files on a regular basis, rather than relying of <b style="color:black;background-color:#ffff66">GoDaddy</b> to do it for you.<br />
+<br />
+In the end, all this logging will do you no good if you haven't established a proper logging policy for yourself. I know, I know. Having a logging policy sounds so... corporate. What I really mean is that you should decide where you're going to do logging (database and/or file), when you're going to write to the log (info vs. debug vs. fatal), and what you're going to log (I really like including usernames and session information). Even further, you should use logging statements consistently throughout your entire application, because the one class you neglect to include logging in will be the one that blows up next.<br />
+<br />
+So, in summary, I highly recommend putting up front effort into a logging process that both supports your debugging needs and fits within the limitations of a <b style="color:black;background-color:#ffff66">GoDaddy</b> <b style="color:black;background-color:#a0ffff">shared</b> <b style="color:black;background-color:#99ff99">hosting</b> site.<br />
+<br />
+<strong>Lesson 7: Work Around the Limits</strong><br />
+<br />
+I was quite disappointed to discover that you cannot connect directly (or indirectly) to a <b style="color:black;background-color:#ffff66">GoDaddy</b> MySQL database. The best tool offered by <b style="color:black;background-color:#ffff66">GoDaddy</b> is <a href="http://www.phpmyadmin.net/" class="external">phpMyAdmin 2.7</a>. This is a very respectable tool and I tip my hat to the development team. That said, however, it's a terrible way to administer a production database.<br />
+<br />
+That's why I built a couple of features into my web application. First, my web application will create or upgrade the existing database when the application starts. This eliminates the need for separately deployed database updates. It also means I don't have to use the phpMyAdmin interface very often.<br />
+<br />
+The second feature I built into the application is a data maintenance page. I can add, edit, or delete data for certain parts of the application, such as the user and FAQ lists. Other features of the web application are "in place" editing, such as in the user forums. I can moderate forum postings while reading them, as long as I am logged in as an administrator.<br />
+<br />
+The third feature I included is a page to load, decrypt, and display the log file in the /tmp folder. Of course, I have a stand-alone application to do the same in case the web application is completely down. I simply have to grab the file via FTP and run it locally.<br />
+<br />
+The common thread running through each of these features is they overcome some limitation of the <b style="color:black;background-color:#ffff66">GoDaddy</b> setup. Therefore, I recommend to you that you build a suite of tools customized to your needs, which help you overcome the obstacles inherent to your environment.<br />
+<br />
+<strong>Lesson 8: Plan for Growth</strong><br />
+<br />
+Other developers have asked me why I didn't write my application in PHP or .Net. After all, I know each language and there are plenty of free tools I could use for both. My short answer is that I am comfortable with <b style="color:black;background-color:#ff9999">Java</b> as a highly-scalable, enterprise-level platform. PHP does not naturally encourage good programming and object-oriented design practices. As for .Net, it only runs on Windows servers under IIS and I prefer to use the Linux/Apache combination which is "free" and reasonably reliable.<br />
+<br />
+The choice of <b style="color:black;background-color:#ff9999">Java</b> also allowed me to design a web application that operates under Tomcat, yet has an upgrade path to J2EE. I modeled the business layer to mimic some of the architecture found in a J2EE application, such as session beans. Later on, I can easily migrate the web application to full enterprise application status with minimal changes. This will be especially important when the activity level of the site outgrows <b style="color:black;background-color:#a0ffff">shared</b> or virtual <b style="color:black;background-color:#99ff99">hosting</b>.<br />
+<br />
+Having an upgrade path for the website is just one aspect of planning for growth. The fundamental idea here is that you should expect your website to grow in terms of visitors and functionality. Keep this in mind as you design each component and/or feature remembering to allow for growth.<br />
+<br />
+<strong>Lesson 9: Monitor</strong><br />
+<br />
+I discovered early on that <b style="color:black;background-color:#ffff66">GoDaddy</b> Web Statistics are mildly interesting, but completely useless for actually monitoring a website site. That being the case, I chose to sign up for <a href="http://www.google.com/analytics/" class="external">Google Analytics</a>. It was quite simple to add the Google Analytics JavaScript to the bottom of each page in the web application, especially since I was using Struts/Tiles to construct the JSP pages. Google Analytics allows me to track visitors and navigation with great detail.<br />
+<br />
+On the other hand, I also needed a way to track the status of the site, to make sure everything was working properly. I elected to schedule a simple <a href="http://jakarta.apache.org/jmeter/" class="external">JMeter</a> test to run every so often from another server. I can review the test results to see if any downtime occurred.<br />
+<br />
+As a side note, you should also create and maintain a sitemap for your website. Google has <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=40318" class="external">excellent resources</a> on the topic. A sitemap will help Google understand and crawl your site. You can also use it to mark off-limits areas.<br />
+<br />
+In short, it is your responsibility to plan for and track activities on your site. The only thing worse than a site with no visitors is a site that you can't tell if it has any visitors at all.<br />
+<br />
+<strong>Lesson 10: Automate</strong><br />
+<br />
+I'm basically lazy.  So, I automate anything and everything. Automation saves me time and effort and reduces the chance that I will screw something up. Here's a few automation tips I'd like to offer.<br />
+<br />
+Ant Builds. I use Ant scripts to build my WAR files. In fact, my Ant script builds separate WAR files for my home server and for the <b style="color:black;background-color:#ffff66">GoDaddy</b> server. My Ant scripts stop, deploy, and restart Tomcat. They clear old logs files. In short, they do anything I've had to do more than once.<br />
+<br />
+Script-fu Buttons. I don't pay for buttons for my website and I don't steal graphics from others. I use a simple little script for <a href="http://www.gimp.org/" class="external">Gimp</a> called <a href="http://docs.gimp.org/en/gimp-concepts-script-fu.html" class="external">Simple Beveled Button</a>. In fact, I keep a copy of the complete script required to create the buttons. In the event I change color schemes, I can re-run the script with the change and presto! New buttons.<br />
+<br />
+JUnit. I don't write software that isn't backed by a unit test. Period.  Unit tests are simply a necessity. And <a href="http://www.junit.org/" class="external">JUnit</a> is a simple, complete, and effective way to build them.<br />
+<br />
+<strong>Lesson 11: Get the Right Tools</strong><br />
+<br />
+I use a fairly standard set of tools for <b style="color:black;background-color:#ff9999">Java</b> development: Eclipse, Subversion, FireFox, FileZilla, Ant, JUnit, JMeter, and GIMP. Eclipse is an excellent <b style="color:black;background-color:#ff9999">Java</b> IDE with tons of plug-ins available. Subversion is, in my opinion, the best version control system available. I've used CVS, SourceSafe, and PVCS, and Subversion handily outperforms then all. I use FireFox with the Web Developer plug-in, which is invaluable for troubleshooting problematic HTML. I use FileZilla for FTP operations and it handles every protocol I need. I use Ant for all my build and JUnit/JMeter for all my testing. Lastly, I use GIMP for all my image editing.<br />
+<br />
+You can see that all of these tools are either free or open source, making my toolbox extremely cost effective. However, I still have a few tools I've paid for, simply because the right tool will pay for itself many times over. For example, I use <a href="http://www.ultraedit.com/" class="external">UltraEdit</a> for all text editing outside the IDE.<br />
+<br />
+Lastly, I understand my limitations as a developer, my biggest being a lack of artistic skills. Specifically, I couldn't design a clean, beautiful website to save my life. Therefore, I've pulled various templates from the <a href="http://www.oswd.org/" class="external">OSWD</a> site. I've learned to avoid the "most popular" templates after seeing another site nearly identical to mine in look-and-feel, because we had used the exact same template.<br />
+<br />
+Ultimately, I recommend building a toolbox that you are comfortable with, using a blend of free and open source software, commercial software (where warranted), and knowledge sites (like OSWD.org).<br />
+<br />
+<strong>Lesson 12: Search Engine Optimization (SEO)</strong><br />
+<br />
+I wanted to make sure that Google, Yahoo, and MSN Search could easily crawl and catalog my site. So, I used all the standard SEO technique: proper titles, H2 tags, etc. However, I ran into a little problem with the pages in the web application itself.<br />
+<br />
+I've already pointed out how you cannot deploy over an existing web application. Initially, I renamed the web application's WAR file on each deploy, resulting in the web application begin found under http://www.somedomain.com/app1, then http://www.somedomain.com/app2, then http://www.somedomain.com/app3, etc.<br />
+<br />
+I realized, though, that the search engines would not appreciate this kind of moving content. So, I set up a mod_rewrite script to redirect http://www.somedomain.com/app requests to http://www.somedomain.com/app9 (or whatever it was this week). The problem is, Apache handles the URL rewrite, while Tomcat handles the web application requests. So, rewritten URLs never made it to Tomcat, resulting in more blank pages.<br />
+<br />
+My final solution is not terribly elegant but it is effective (if you have a better idea, send me an email via the website below). I decided to deploy the web application under a standard URL such as http://www.somedomain.com/app with a permanent redirect from the server root (http://www.somedomain.com/index.html). Any visitors, including search engines, will bounce from http://www.somedomain.com/index.html to http://www.somedomain.com/app. Then, the new version would be deployed under http://www.somedomain.com/app-temp with a temporary redirect from the server root (http://www.somedomain.com/index.html). A day later I would be able to delete the web application from http://www.somedomain.com/app and deploy the new version. Lastly, I would put back the permanent redirect from the server root to http://www.somedomain.com/app.<br />
+<br />
+If you actually kept up with that, then I'm impressed. If not, then look at it this way... New versions of the web application are temporarily installed in a new folder where I temporarily direct all traffic until I can replace the web application in the "standard" location.<br />
+<br />
+In short, if your site depends on traffic from search engines, you will have go beyond simple SEO. You'll need to put extra thought into how to construct a search-engine friendly site for the long term.<br />
+<br />
+<strong>Lesson 13: Blog It</strong><br />
+<br />
+There are dozens of experts out there telling you to blog, blog, blog. I happen to agree with them. I've noticed that most of the traffic my site is receiving is coming from one or another of my blogs.<br />
+<br />
+As for what to blog about... that's up to you. Just keep in mind that the information in the blog should ultimately be targeted at the intended audience for your site. Give them good information on topics you know something about.<br />
+<br />
+For example, I know this guy who has some fairly specific experience building web applications for deployment on <b style="color:black;background-color:#ffff66">GoDaddy</b>...<br />
+<br />
+<strong>A GoJava Roadmap</strong><br />
+<br />
+I wanted to summarize as much of the information in this article as possible. The result is my <a href="http://www.usefullittlethings.com/GoJavaRoadmap.html" class="external">GoJava Roadmap</a>. In the roadmap, you'll find step-by-step guidelines on building your next <b style="color:black;background-color:#ff9999">Java</b> web application for <b style="color:black;background-color:#ffff66">GoDaddy</b>.<br />
+<br />
+</div>
+  <hr style="float:right;height:0;border:0;" /> 
+</div>
+
+<div id="sidebar">
+
+  <ul id="services">
+  <li id="sb_pad"><a href="/padmanager/"><span>PAD File Manager</span></a></li>
+    <li id="sb_press"><a href="/press/"><span>Free Press Releases</span></a></li>
+ </ul>
+ <h4>About the Author</h4>
+ <ul id="author_meta">
+  <li>
+   <img src="/images/avatars/157.jpg" alt="Russell Thackston" class="author_avatar" />
+   <b>Russell Thackston</b><br />
+   I am a veteran of the U.S. Air Force and I have a BBA/MIS degree from Georgia Southern University and an MS/CIS from Georgia State University.
+  </li>
+   </ul>
+
+  <h4>Related Development Articles</h4>
+ <ul class="article_breakdown">
+   <li><a href="/articles/development/software_product_documentation/">Software Product Documentation</a></li>
+   <li><a href="/articles/development/hosting_amp_developers_a_partnership_made_in_heaven/"><b style="color:black;background-color:#99ff99">Hosting</b> &amp; Developers a partnership made in heaven?</a></li>
+   <li><a href="/articles/development/how_software_reviewing_should_really_be_done/">How Software Reviewing Should Really Be Done</a></li>
+   <li><a href="/articles/development/virtualization_an_opportunity_for_isvs/">Virtualization an Opportunity for ISVs</a></li>
+   <li><a href="/articles/development/oisv__from_concept_to_launch_in_10_days/">OISV - From Concept to Launch in 10 days</a></li>
+  </ul>
+ 
+ 
+ <h4>Article Categories</h4>
+ <ul class="article_breakdown">
+   <li><a href="/articles/marketing/">Marketing - (66)</a></li>
+   <li><a href="/articles/distribution/">Distribution - (4)</a></li>
+   <li><a href="/articles/development/">Development - (13)</a></li>
+   <li><a href="/articles/web_design/">Web Design - (19)</a></li>
+   <li><a href="/articles/seo/">SEO - (28)</a></li>
+   <li><a href="/articles/ecommerce/">E-Commerce - (2)</a></li>
+   <li><a href="/articles/customer_service/">Customer Service - (5)</a></li>
+   <li><a href="/articles/oisv_ideas_and_updates/">OISV Ideas And Updates - (1)</a></li>
+   <li><a href="/articles/business/">Running Your Business - (1)</a></li>
+  </ul>
+</div>
+ <br class="clear-fix" />
+ </div>
+
+ <div id="footer"> 
+  <div id="supplemental">
+   <h4 class="small">Thanks to our Charter Sponsors</h4>
+   <div id="sponsor_logos">
+        <a class="external" href="http://www.coffeecup.com/"><img src="/images/sponsors/coffeecup.gif" alt="CoffeeCup Software" /></a>
+        <a class="external" href="http://www.softwrap.com/"><img src="/images/sponsors/softwrap.png" alt="Softwrap" /></a>
+        <a class="external" href="http://www.digitalriver.com"><img src="/images/sponsors/digitalriver.png" alt="Digital River" /></a>
+        <a class="external" href="http://www.microsoft.com/"><img src="/images/sponsors/microsoft.png" alt="Microsoft" /></a>
+        <a class="external" href="http://www.tucows.com/"><img src="/images/sponsors/tucows.png" alt="Tucows" /></a>
+        <a class="external" href="http://www.download.com"><img src="/images/sponsors/cnet.gif" alt="C|net Download.com" /></a>
+        <a class="external" href="http://www.infacta.com"><img src="/images/sponsors/infacta.png" alt="Infacta" /></a>
+        <a class="external" href="http://www.lunarpages.com/id/oisv"><img src="/images/sponsors/lunarpages.png" alt="Lunarpages" /></a>
+        <a class="external" href="http://www.indigorose.com/"><img src="/images/sponsors/indigorose.png" alt="Indigo Rose" /></a>
+        <a class="external" href="http://www.panda-america.com"><img src="/images/sponsors/pa.png" alt="P&amp;A America" /></a>
+        <a class="external" href="http://www.userscape.com/"><img src="/images/sponsors/userscape.png" alt="UserScape" /></a>
+        <a class="external" href="http://www.swiftcd.com/"><img src="/images/sponsors/swiftcd.png" alt="SwiftCD" /></a>
+        <a class="external" href="http://www.stopzilla.com/"><img src="/images/sponsors/stopzilla.png" alt="StopZilla" /></a>
+        <a class="external" href="http://www.alcohol-soft.com"><img src="/images/sponsors/alcohol.png" alt="Alcohol Software" /></a>
+        <a class="external" href="http://www.vandyke.com/"><img src="/images/sponsors/vandyke.png" alt="VanDyke Software" /></a>
+        <a class="external" href="http://www.cleverbridge.com/"><img src="/images/sponsors/cleverbridge.png" alt="CleverBridge" /></a>
+        <a class="external" href="http://www.topsystems.com/"><img src="/images/sponsors/topsystems.png" alt="Top Systems" /></a>
+        <a class="external" href="http://www.plimus.com/"><img src="/images/sponsors/plimus.gif" alt="Plimus" /></a>
+       </div>
+  </div>
+  <div id="close">
+    <form id="searchbar" name="search" method="get" action="/search/">
+   <fieldset>
+    <input type="hidden" name="f" value="true" />
+    <input type="hidden" name="articles" value="true" />
+    <input type="hidden" name="forums" value="true" />
+    <input type="hidden" name="contents" value="true" />
+    <input type="hidden" name="titles" value="true" />
+    <input type="hidden" name="authors" value="true" />
+    <label>Search: <input class="searchinput" type="text" name="q" /></label> 
+    <input class="searchbutton" type="submit" name="submit" value="Go!" />
+   </fieldset>
+  </form>
+    
+   <a href="/">OISV Home</a> |
+   <a href="/articles/">Articles</a> |
+   <a href="/forums/">Forums</a> |
+      <a href="/about/">About Us</a> |
+   <a href="/contact/">Contact Us</a> |
+   <a href="/join/">Join OISV</a> |
+   <a href="/legal/">Legal Notices</a><br />
+    &copy; Organization of Independent Software Vendors | Microsoft is a registered trademark of Microsoft Corporation
+  </div>
+ </div>
+
+</body>
+</html>
