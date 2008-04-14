@@ -175,10 +175,10 @@
 	<line x1="440" y1="564" x2="529" y2="564" class="element"/>
 	<text x="445" y="557" font-size="14" class="element_header">TestClass10</text>
 
-<rect x="0" y="0" width="800" height="27" rx="2" class="header"/>
-<text x="6" y="19" font-size="16" class="header_text">Test Model</text>
+	<rect x="0" y="0" width="800" height="27" rx="2" class="header"/>
+	<text x="6" y="19" font-size="16" class="header_text">Test Model</text>
 	<rect x="0" y="581" width="800" height="19" class="footer"/>
-	<text x="5" y="593" font-size="10" class="footer_text">Created by ModSL in 453 milliseconds (15, 16, 422). Layout (594.924,594.20703) -> Final (800.0,600.0).</text>
+	<text x="5" y="593" font-size="10" class="footer_text">Created by ModSL in 1000 milliseconds (16, 390, 594). Layout (594.924,594.20703) -> Final (800.0,600.0).</text>
 	
 </svg>
 
