@@ -23,65 +23,6 @@ import java.awt.Graphics;
 
 public class FontSizeTransform {
 
-	static {
-		System.setProperty("java.awt.headless", "true");
-	}
-
-	protected String fontName;
-	protected int fontSize;
-	protected FontMetrics fontMetrics;
-
-	public FontSizeTransform(String fontName, int fontSize) {
-
-		this.fontName = fontName;
-		this.fontSize = fontSize;
-
-		HeadlessCanvas hc = new HeadlessCanvas(fontName, fontSize);
-		hc.paint(null);
-		this.fontMetrics = hc.fontMetrics;
-
-	}
-
-	public int getXLead() {
-		return 3 + fontSize / 5;
-	}
-
-	public int getXTrail() {
-		return 3 + fontSize / 5;
-	}
-
-	public int getYLead() {
-		return fontSize / 5;
-	}
-
-	public int getYTrail() {
-		return 5 + fontSize / 5;
-	}
-
-	public int getYGap() {
-		return 1 + fontSize / 5;
-	}
-
-	public int getYStack(int num) {
-		return num > 0 ? (getYLead() + num * getFontSize() + (num - 1) * getYGap() + getYTrail()) : 0;
-	}
-
-	public int getFontSize() {
-		return fontSize;
-	}
-
-	public int getYSize() {
-		return getYLead() + getFontSize() + getYTrail();
-	}
-
-	public int getYBaseLine() {
-		return getYLead() + getFontSize();
-	}
-
-	public String getFontName() {
-		return fontName;
-	}
-
 	private static class HeadlessCanvas extends Canvas {
 
 		private static final long serialVersionUID = 1L;
@@ -103,8 +44,76 @@ public class FontSizeTransform {
 
 	}
 
-	public FontMetrics getFontMetrics() {
-		return fontMetrics;
+	static {
+		System.setProperty("java.awt.headless", "true");
+	}
+
+	protected String fontName;
+	protected int fontSize;
+
+	protected FontMetrics fontMetrics;
+
+	public FontSizeTransform(String fontName, int fontSize) {
+
+		this.fontName = fontName;
+		this.fontSize = fontSize;
+
+		HeadlessCanvas hc = new HeadlessCanvas(fontName, fontSize);
+		hc.paint(null);
+		this.fontMetrics = hc.fontMetrics;
+
+	}
+
+	public String getFontName() {
+		return fontName;
+	}
+
+	public int getFontSize() {
+		return fontSize;
+	}
+
+	public int getHeight() {
+		return fontMetrics.getHeight();
+	}
+
+	public int getXLead() {
+		return 3 + fontSize / 5;
+	}
+
+	public int getXTrail() {
+		return 3 + fontSize / 5;
+	}
+
+	public int getYBaseLine() {
+		return getYLead() + getFontSize();
+	}
+
+	public int getYGap() {
+		return 1 + fontSize / 5;
+	}
+
+	public int getYLead() {
+		return fontSize / 5;
+	}
+
+	public int getYSize() {
+		return getYLead() + getFontSize() + getYTrail();
+	}
+
+	public int getYStack(int num) {
+		return num > 0 ? (getYLead() + num * getFontSize() + (num - 1) * getYGap() + getYTrail()) : 0;
+	}
+
+	public int getYTrail() {
+		return 5 + fontSize / 5;
+	}
+
+	public int getYUnderLine() {
+		return getYBaseLine() + 2;
+	}
+
+	public int stringWidth(String str) {
+		return fontMetrics.stringWidth(str);
 	}
 
 }

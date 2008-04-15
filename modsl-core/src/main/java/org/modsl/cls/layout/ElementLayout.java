@@ -37,11 +37,11 @@ public class ElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConf
 	}
 
 	private double getTextWidth(ClassElement e) {
-		return config.elementHeaderFST.getFontMetrics().stringWidth(e.getName());
+		return config.elementHeaderFST.stringWidth(e.getName());
 	}
 
 	private double getTextWidth(ClassElementDetail ed) {
-		return config.elementDetailFST.getFontMetrics().stringWidth(ed.getName());
+		return config.elementDetailFST.stringWidth(ed.getName());
 	}
 
 	private void update(ClassElement element) {
