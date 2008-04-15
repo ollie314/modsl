@@ -79,6 +79,11 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<libDirectory>
+						target/generated-sources/antlr/org/modsl/antlr
+					</libDirectory>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
