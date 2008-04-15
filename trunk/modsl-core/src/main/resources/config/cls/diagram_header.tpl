@@ -1,2 +1,2 @@
-<rect x="0" y="0" width="${(int)diagram.size.x}" height="$config.diagramHeaderFST.ySize" rx="2" class="header"/>
-<text x="$config.diagramHeaderFST.xLead" y="$config.diagramHeaderFST.yBaseLine" font-size="$config.diagramHeaderFST.fontSize" class="header_text">$diagram.name</text>
+<rect x="0" y="0" width="${(int)diagram.size.x}" height="${config.diagramHeaderFST.getExtHeight(1)}" rx="2" class="header"/>
+<text x="$config.diagramHeaderFST.leftLeading" y="${config.diagramHeaderFST.getExtBaseline(1)}" font-size="$config.diagramHeaderFST.fontSize" class="header_text">$diagram.name</text>
