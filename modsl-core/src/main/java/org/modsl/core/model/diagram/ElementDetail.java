@@ -21,6 +21,7 @@ import org.modsl.core.model.XY;
 public class ElementDetail<P extends Element> extends AbstractDiagramObject<P> {
 
     protected XY position = new XY();
+    protected XY size = new XY();
 
     public ElementDetail(String metaKey, P parent, String name) {
         super(metaKey, parent, name);
@@ -29,6 +30,10 @@ public class ElementDetail<P extends Element> extends AbstractDiagramObject<P> {
 
     public XY getPosition() {
         return position;
+    }
+    
+    public XY getSize() {
+        return size;
     }
 
     public XY getAbsolutePosition() {

@@ -17,10 +17,13 @@
 package org.modsl.cls.model;
 
 import static java.lang.Math.exp;
+import static java.lang.Math.max;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modsl.cls.ClassFontSizeTransform;
+import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.Element;
 
 /**
@@ -47,7 +50,7 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
 		return ef;
 	}
 
-	public void calculateWeight() {
+	public void calcWeight() {
 		setWeight(1d / (1d + exp(-getExtendsFromCount())));
 	}
 
@@ -63,4 +66,41 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
 		return methods;
 	}
 
+	public void calcSize(ClassFontSizeTransform elementHeaderFST, ClassFontSizeTransform elementDetailFST) {
+
+		double maxExtStringWidth = elementHeaderFST.getExtStringWidth(name);
+		double maxExtHeight = elementHeaderFST.getExtHeight(1);
+
+		XY attrAreaPosition = new XY(position.x, position.y + maxExtHeight);
+		for (int i = 0; i < attributes.size(); i++) {
+			ClassElementDetail ed = attributes.get(i);
+			ed.calcSizeAndPosition(attrAreaPosition, elementDetailFST, i);
+			maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
+			maxExtHeight = ed.getPosition().y;
+		}
+
+		XY methodAreaPosition;
+		if (attributes.size() > 0) {
+			maxExtHeight += elementDetailFST.getHeight() + elementDetailFST.getBottomTrailing();
+			methodAreaPosition = new XY(position.x, maxExtHeight);
+		} else {
+			methodAreaPosition = attrAreaPosition;
+		}
+
+		for (int i = 0; i < methods.size(); i++) {
+			ClassElementDetail ed = methods.get(i);
+			methods.get(i).calcSizeAndPosition(methodAreaPosition, elementDetailFST, i);
+			maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
+			maxExtHeight = ed.getPosition().y;
+		}
+
+		if (methods.size() > 0) {
+			maxExtHeight += elementDetailFST.getHeight() + elementDetailFST.getBottomTrailing();
+		}
+
+		size.x = maxExtStringWidth;
+		size.y = maxExtHeight;
+
+	}
+	
 }

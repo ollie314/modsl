@@ -40,9 +40,9 @@ public class ClassDiagram extends Diagram<Object, ClassElement, ClassConnector> 
         });
     }
 
-    public void calculateElementWeights() {
+    public void calcElementWeights() {
         for (ClassElement e : orderedElements) {
-            e.calculateWeight();
+            e.calcWeight();
         }
     }
 

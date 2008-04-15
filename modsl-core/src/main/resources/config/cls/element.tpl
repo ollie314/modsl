@@ -1,5 +1,5 @@
 <%
-	header_baseline = (int)(element.position.y + config.elementHeaderFST.getExtBaseline(1));
+	header_baseline = (int)(element.position.y + config.elementHeaderFST.getExtBaseline(0));
 	header_line = (int)(element.position.y  + config.elementHeaderFST.getExtHeight(1));
 	vm_line = header_line + config.elementDetailFST.getExtHeight(element.attributes.size());
 %>	
