@@ -27,9 +27,25 @@ import org.modsl.core.model.XY;
 public interface Edge {
 
 	/**
-	 * @return start vertex
+	 * @return angle of this edge from 0 to 2*PI, 0 being edge pointing EAST
 	 */
-	public Vertex getStartVertex();
+	public double angle();
+
+	/**
+	 * @return cos() of the angle between this edge and horizontal line at the
+	 *         start vertex
+	 */
+	public double cos();
+
+	/**
+	 * @return end XY adjusted for vertex size
+	 */
+	public XY getAdjustedEndPosition();
+
+	/**
+	 * @return start XY adjusted for vertex size
+	 */
+	public XY getAdjustedStartPosition();
 
 	/**
 	 * @return end vertex
@@ -40,12 +56,11 @@ public interface Edge {
 	 * @return length of this edge between centers of the vertexes
 	 */
 	public double getLength();
-
+	
 	/**
-	 * @return tan() of the angle between this edge and horizontal line at the
-	 *         start vertex
+	 * @return start vertex
 	 */
-	public double tan();
+	public Vertex getStartVertex();
 
 	/**
 	 * @return sin() of the angle between this edge and horizontal line at the
@@ -54,24 +69,9 @@ public interface Edge {
 	public double sin();
 
 	/**
-	 * @return cos() of the angle between this edge and horizontal line at the
+	 * @return tan() of the angle between this edge and horizontal line at the
 	 *         start vertex
 	 */
-	public double cos();
-	
-	/**
-	 * @return angle from 0 to 2*PI
-	 */
-	public double angle();
-
-	/**
-	 * @return start XY adjusted for vertex size
-	 */
-	public XY getAdjustedStartPosition();
-
-	/**
-	 * @return end XY adjusted for vertex size
-	 */
-	public XY getAdjustedEndPosition();
+	public double tan();
 
 }
