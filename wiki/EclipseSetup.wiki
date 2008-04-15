@@ -5,4 +5,5 @@ Requirements:
    * Groovy plugin -- http://dist.codehaus.org/groovy/distributions/update/
    * Maven 2 plugin (m2eclipse) -- http://m2eclipse.sonatype.org/update/
    * Subclipse plugin -- http://subclipse.tigris.org/update_1.2.x
-   * Eclipse Test & Performance Tools Platform Project (TPTP) http://www.eclipse.org/tptp/
+   * Antlr plugin -- http://antlreclipse.sourceforge.net/updates
+   * Eclipse Test & Performance Tools Platform Project (TPTP) (optional) -- http://www.eclipse.org/tptp/
