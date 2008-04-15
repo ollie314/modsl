@@ -16,12 +16,9 @@
 
 package org.modsl.cls.layout;
 
-import static java.lang.Math.max;
-
 import org.modsl.cls.ClassDiagramConfig;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.cls.model.ClassElement;
-import org.modsl.cls.model.ClassElementDetail;
 import org.modsl.core.layout.AbstractLayout;
 
 public class ElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
@@ -37,40 +34,7 @@ public class ElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConf
 	}
 
 	private void update(ClassElement element) {
-
-		// position Y attributes
-		int count = 0;
-		double attrMaxY = config.elementHeaderFST.getHeight();
-		for (ClassElementDetail ed : element.getAttributes()) {
-			ed.getPosition().y = config.elementHeaderFST.getExtHeight(1) + config.elementDetailFST.getExtHeight(count);
-			attrMaxY = ed.getPosition().y + config.elementDetailFST.getHeight() + config.elementDetailFST.getBottomTrailing();
-			count++;
-		}
-
-		// position Y methods
-		count = 0;
-		for (ClassElementDetail ed : element.getMethods()) {
-			ed.getPosition().y = attrMaxY + config.elementDetailFST.getExtHeight(count);
-			count++;
-		}
-
-		// adjust X postion for all the details and check them for max X
-		double maxExtStringWidth = 0;
-		int maxLeading = max(config.elementDetailFST.getLeftLeading(), config.elementHeaderFST.getLeftLeading());
-		for (ClassElementDetail ed : element.getDetails()) {
-			ed.getPosition().x = maxLeading;
-			maxExtStringWidth = max(maxExtStringWidth, config.elementDetailFST.getStringWidth(ed.getName()));
-		}
-		maxExtStringWidth += config.elementDetailFST.getRightTrailing();
-
-		// then check and position the header
-		maxExtStringWidth = max(maxExtStringWidth, config.elementHeaderFST.getStringWidth(element.getName()));
-
-		element.getSize().x = maxExtStringWidth;
-		element.getSize().y = config.elementHeaderFST.getExtHeight(1)
-				+ config.elementDetailFST.getExtHeight(element.getAttributes().size())
-				+ config.elementDetailFST.getExtHeight(element.getMethods().size());
-
+		element.calcSize(config.elementHeaderFST, config.elementDetailFST);
 	}
 	
 }

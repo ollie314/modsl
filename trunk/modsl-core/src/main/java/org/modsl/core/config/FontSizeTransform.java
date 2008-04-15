@@ -89,12 +89,21 @@ public class FontSizeTransform {
 	}
 
 	/**
-	 * @param num -
+	 * @param index -
 	 *            line number
 	 * @return baseline of the nums line in multiline text
 	 */
-	public int getExtBaseline(int num) {
-		return num > 0 ? num * getBaseline() : 0;
+	public int getExtBaseline(int index) {
+		return getExtPosition(index) + getBaseline();
+	}
+
+	/**
+	 * @param index -
+	 *            line number (starting with 0)
+	 * @return relative position of the nums line in multiline text
+	 */
+	public int getExtPosition(int index) {
+		return getTopLeading() + (index > 0 ? index * getHeight() : 0);
 	}
 
 	/**
@@ -110,8 +119,8 @@ public class FontSizeTransform {
 		return getBaseline() + 2;
 	}
 
-	public int getExtUnderline(int num) {
-		return getExtBaseline(num) + 2;
+	public int getExtUnderline(int index) {
+		return getExtBaseline(index) + 2;
 	}
 
 	public int getStringWidth(String str) {
@@ -129,5 +138,5 @@ public class FontSizeTransform {
 	public int getExtStringWidth(String str) {
 		return getLeftLeading() + getStringWidth(str) + getRightTrailing();
 	}
-	
+
 }

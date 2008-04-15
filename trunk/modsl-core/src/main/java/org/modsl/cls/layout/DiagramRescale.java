@@ -23,20 +23,21 @@ import org.modsl.core.layout.AbstractLayout;
 
 public class DiagramRescale extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
 
-    protected Logger log = Logger.getLogger(getClass());
+	protected Logger log = Logger.getLogger(getClass());
 
-    public DiagramRescale(ClassDiagramConfig config) {
-        super(config);
-    }
+	public DiagramRescale(ClassDiagramConfig config) {
+		super(config);
+	}
 
-    public void apply(ClassDiagram diagram) {
-        if (diagram.getRequestedSize().isZero()) {
-            diagram.getRequestedSize().x = config.diagramDefaultWidth;
-            diagram.getRequestedSize().y = config.diagramDefaultHeight;
-        }
-        diagram.setPaddingHeader((diagram.getName() == null ? 0 : config.diagramHeaderFST.getHeight()) + config.diagramPadding);
-        diagram.setPaddingFooter(config.diagramFooterFST.getHeight() + +config.diagramPadding);
-        diagram.setPaddingSides(config.diagramPadding);
-        diagram.rescaleToRequestedSize();
-    }
+	public void apply(ClassDiagram diagram) {
+		if (diagram.getRequestedSize().isZero()) {
+			diagram.getRequestedSize().x = config.diagramDefaultWidth;
+			diagram.getRequestedSize().y = config.diagramDefaultHeight;
+		}
+		diagram.setPaddingHeader((diagram.getName() == null ? 0 : config.diagramHeaderFST.getExtHeight(1))
+				+ config.diagramPadding);
+		diagram.setPaddingFooter(config.diagramFooterFST.getExtHeight(1) + config.diagramPadding);
+		diagram.setPaddingSides(config.diagramPadding);
+		diagram.rescaleToRequestedSize();
+	}
 }

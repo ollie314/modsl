@@ -49,7 +49,7 @@ public class InitialCirclePosition extends AbstractLayout<ClassDiagram, ClassDia
 		this.circlePositions = diag.getElements().size();
 		this.angle = 2d * PI / circlePositions;
 
-		diag.calculateElementWeights();
+		diag.calcElementWeights();
 
 		initCircle();
 		optimizeEdgeLength();
