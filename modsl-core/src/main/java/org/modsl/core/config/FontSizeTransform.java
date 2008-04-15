@@ -103,12 +103,12 @@ public class FontSizeTransform {
 	 * @return relative position of the nums line in multiline text
 	 */
 	public int getExtPosition(int index) {
-		return getTopLeading() + (index > 0 ? index * getHeight() : 0);
+		return getTopLeading() + index * getHeight();
 	}
 
 	/**
 	 * @param num -
-	 *            number of lines
+	 *            number of lines (starting with 1)
 	 * @return total height of multi line text -- leading+height*num+trailing
 	 */
 	public int getExtHeight(int num) {
