@@ -128,7 +128,7 @@ public class FontSizeTransform {
 	}
 
 	public int getTopLeading() {
-		return fontMetrics.getLeading();
+		return fontMetrics.getLeading() + 2;
 	}
 
 	public int getBottomTrailing() {
