@@ -71,18 +71,18 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
 		double maxExtStringWidth = elementHeaderFST.getExtStringWidth(name);
 		double maxExtHeight = elementHeaderFST.getExtHeight(1);
 
-		XY attrAreaPosition = new XY(position.x, position.y + maxExtHeight);
+		XY attrAreaPosition = new XY(0, maxExtHeight);
 		for (int i = 0; i < attributes.size(); i++) {
 			ClassElementDetail ed = attributes.get(i);
 			ed.calcSizeAndPosition(attrAreaPosition, elementDetailFST, i);
 			maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
-			maxExtHeight = ed.getPosition().y;
+			maxExtHeight = ed.getPosition().y + ed.getSize().y;
 		}
 
 		XY methodAreaPosition;
 		if (attributes.size() > 0) {
-			maxExtHeight += elementDetailFST.getHeight() + elementDetailFST.getBottomTrailing();
-			methodAreaPosition = new XY(position.x, maxExtHeight);
+			maxExtHeight += elementDetailFST.getBottomTrailing();
+			methodAreaPosition = new XY(0, maxExtHeight);
 		} else {
 			methodAreaPosition = attrAreaPosition;
 		}
@@ -91,16 +91,20 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
 			ClassElementDetail ed = methods.get(i);
 			methods.get(i).calcSizeAndPosition(methodAreaPosition, elementDetailFST, i);
 			maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
-			maxExtHeight = ed.getPosition().y;
+			maxExtHeight = ed.getPosition().y + ed.getSize().y;
 		}
 
 		if (methods.size() > 0) {
-			maxExtHeight += elementDetailFST.getHeight() + elementDetailFST.getBottomTrailing();
+			maxExtHeight += elementDetailFST.getBottomTrailing();
+		}
+
+		if (methods.size() == 0 && attributes.size() == 0) {
+			maxExtHeight += elementDetailFST.getFontSize();
 		}
 
 		size.x = maxExtStringWidth;
 		size.y = maxExtHeight;
 
 	}
-	
+
 }
