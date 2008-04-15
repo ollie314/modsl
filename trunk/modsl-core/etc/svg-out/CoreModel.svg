@@ -82,279 +82,279 @@
 </style>
 
 
-<line x1="524" y1="183" x2="505" y2="177" class="connector"/>
-<line x1="514" y1="195" x2="505" y2="177" class="connector"/>
+<line x1="790" y1="279" x2="796" y2="260" class="connector"/>
+<line x1="778" y1="269" x2="796" y2="260" class="connector"/>
 
 
-		<polygon points="524,183 514,195 505,177" 
+		<polygon points="790,279 778,269 796,260" 
 			class="connector"/>
 	
 
-<line x1="623" y1="281" x2="519" y2="189" class="connector"/>
+<line x1="734" y1="331" x2="784" y2="274" class="connector"/>
 
 
 
 
-<line x1="600" y1="503" x2="600" y2="523" class="connector"/>
-<line x1="614" y1="509" x2="600" y2="523" class="connector"/>
-
-	
-
-<line x1="650" y1="407" x2="600" y2="523" class="connector"/>
+<line x1="463" y1="466" x2="448" y2="479" class="connector"/>
+<line x1="468" y1="480" x2="448" y2="479" class="connector"/>
 
 	
-		<rect x="642" y="414" 
+
+<line x1="616" y1="419" x2="448" y2="479" class="connector"/>
+
+	
+		<rect x="597" y="414" 
 			width="7" height="12" class="connector_text_background"/>
-		<text x="642" y="426" class="connector_text" 
+		<text x="597" y="426" class="connector_text" 
 			font-size="12">1</text>
 	
-		<rect x="613" y="482" 
+		<rect x="478" y="456" 
 			width="22" height="12" class="connector_text_background"/>
-		<text x="613" y="494" class="connector_text" 
+		<text x="478" y="468" class="connector_text" 
 			font-size="12">0..n</text>
 
 
 
-<line x1="405" y1="380" x2="388" y2="391" class="connector"/>
-<line x1="408" y1="395" x2="388" y2="391" class="connector"/>
+<line x1="442" y1="295" x2="422" y2="295" class="connector"/>
+<line x1="436" y1="309" x2="422" y2="295" class="connector"/>
 
 	
 
-<line x1="623" y1="344" x2="388" y2="391" class="connector"/>
+<line x1="616" y1="374" x2="422" y2="295" class="connector"/>
 
 	
-		<rect x="603" y="336" 
+		<rect x="597" y="354" 
 			width="7" height="12" class="connector_text_background"/>
-		<text x="603" y="348" class="connector_text" 
+		<text x="597" y="366" class="connector_text" 
 			font-size="12">1</text>
 	
-		<rect x="420" y="372" 
+		<rect x="452" y="295" 
 			width="22" height="12" class="connector_text_background"/>
-		<text x="420" y="384" class="connector_text" 
+		<text x="452" y="307" class="connector_text" 
 			font-size="12">0..n</text>
 
 
 
-<line x1="862" y1="590" x2="882" y2="586" class="connector"/>
-<line x1="864" y1="575" x2="882" y2="586" class="connector"/>
+<line x1="260" y1="604" x2="250" y2="622" class="connector"/>
+<line x1="269" y1="616" x2="250" y2="622" class="connector"/>
 
 
-		<polygon points="862,590 864,575 882,586" 
+		<polygon points="260,604 269,616 250,622" 
 			class="connector"/>
 	
 
-<line x1="648" y1="549" x2="863" y2="583" class="connector"/>
+<line x1="382" y1="512" x2="265" y2="610" class="connector"/>
 
 
 
 
-<line x1="130" y1="292" x2="111" y2="290" class="connector"/>
-<line x1="123" y1="305" x2="111" y2="290" class="connector"/>
+<line x1="412" y1="142" x2="407" y2="123" class="connector"/>
+<line x1="397" y1="139" x2="407" y2="123" class="connector"/>
 
 
-		<polygon points="130,292 123,305 111,290" 
+		<polygon points="412,142 397,139 407,123" 
 			class="connector"/>
 	
 
-<line x1="294" y1="387" x2="127" y2="299" class="connector"/>
+<line x1="384" y1="262" x2="404" y2="141" class="connector"/>
 
 
 
 
-<line x1="540" y1="522" x2="560" y2="523" class="connector"/>
-<line x1="547" y1="508" x2="560" y2="523" class="connector"/>
-
-	
-
-<line x1="357" y1="420" x2="560" y2="523" class="connector"/>
+<line x1="391" y1="462" x2="400" y2="479" class="connector"/>
+<line x1="406" y1="460" x2="400" y2="479" class="connector"/>
 
 	
-		<rect x="375" y="417" 
+
+<line x1="383" y1="295" x2="400" y2="479" class="connector"/>
+
+	
+		<rect x="385" y="303" 
 			width="7" height="12" class="connector_text_background"/>
-		<text x="375" y="429" class="connector_text" 
+		<text x="385" y="315" class="connector_text" 
 			font-size="12">1</text>
 	
-		<rect x="532" y="497" 
+		<rect x="397" y="435" 
 			width="7" height="12" class="connector_text_background"/>
-		<text x="532" y="509" class="connector_text" 
+		<text x="397" y="447" class="connector_text" 
 			font-size="12">2</text>
 
 
 
-<line x1="741" y1="239" x2="736" y2="258" class="connector"/>
-<line x1="753" y1="248" x2="736" y2="258" class="connector"/>
+<line x1="753" y1="407" x2="734" y2="411" class="connector"/>
+<line x1="750" y1="422" x2="734" y2="411" class="connector"/>
 
 
-		<polygon points="741,239 753,248 736,258" 
+		<polygon points="753,407 750,422 734,411" 
 			class="connector"/>
 	
 
-<line x1="827" y1="132" x2="747" y2="243" class="connector"/>
+<line x1="925" y1="452" x2="752" y2="415" class="connector"/>
 
 
 
 
-<line x1="581" y1="576" x2="584" y2="556" class="connector"/>
-<line x1="568" y1="569" x2="584" y2="556" class="connector"/>
+<line x1="434" y1="521" x2="417" y2="512" class="connector"/>
+<line x1="423" y1="531" x2="417" y2="512" class="connector"/>
 
 
-		<polygon points="581,576 568,569 584,556" 
+		<polygon points="434,521 423,531 417,512" 
 			class="connector"/>
 	
 
-<line x1="498" y1="710" x2="575" y2="572" class="connector"/>
+<line x1="550" y1="663" x2="429" y2="526" class="connector"/>
 
 
 
 
-<line x1="282" y1="435" x2="294" y2="420" class="connector"/>
-<line x1="274" y1="422" x2="294" y2="420" class="connector"/>
+<line x1="299" y1="276" x2="318" y2="271" class="connector"/>
+<line x1="301" y1="261" x2="318" y2="271" class="connector"/>
 
 
-		<polygon points="282,435 274,422 294,420" 
+		<polygon points="299,276 301,261 318,271" 
 			class="connector"/>
 	
 
-<line x1="108" y1="520" x2="278" y2="428" class="connector"/>
+<line x1="113" y1="245" x2="300" y2="269" class="connector"/>
 
 
 	
 
-<rect name="Graph" x="353" y="8" width="152" height="205" rx="2" class="element"/>
-<line x1="353" y1="29" x2="505" y2="29" class="element"/>
+<rect name="Graph" x="796" y="71" width="152" height="205" rx="2" class="element"/>
+<line x1="796" y1="92" x2="948" y2="92" class="element"/>
 
 
-<text x="358" y="24" font-size="14" class="element_header">Graph</text>
-<text x="358" y="43" class="element_detail" font-size="12">getEdges()</text>
+<text x="801" y="87" font-size="14" class="element_header">Graph</text>
+<text x="801" y="106" class="element_detail" font-size="12">getEdges()</text>
 
-<text x="358" y="58" class="element_detail" font-size="12">getVertexes()</text>
+<text x="801" y="121" class="element_detail" font-size="12">getVertexes()</text>
 
-<text x="358" y="73" class="element_detail" font-size="12">getEdgeLengths()</text>
+<text x="801" y="136" class="element_detail" font-size="12">getEdgeLengths()</text>
 
-<text x="358" y="88" class="element_detail" font-size="12">getSumEdgeLengths()</text>
+<text x="801" y="151" class="element_detail" font-size="12">getSumEdgeLengths()</text>
 
-<text x="358" y="103" class="element_detail" font-size="12">getSize()</text>
+<text x="801" y="166" class="element_detail" font-size="12">getSize()</text>
 
-<text x="358" y="118" class="element_detail" font-size="12">recalcSize()</text>
+<text x="801" y="181" class="element_detail" font-size="12">recalcSize()</text>
 
-<text x="358" y="133" class="element_detail" font-size="12">setRequestedSize()</text>
+<text x="801" y="196" class="element_detail" font-size="12">setRequestedSize()</text>
 
-<text x="358" y="148" class="element_detail" font-size="12">rebase()</text>
+<text x="801" y="211" class="element_detail" font-size="12">rebase()</text>
 
-<text x="358" y="163" class="element_detail" font-size="12">rescale()</text>
+<text x="801" y="226" class="element_detail" font-size="12">rescale()</text>
 
-<text x="358" y="178" class="element_detail" font-size="12">rescaleToRequestedSize()</text>
+<text x="801" y="241" class="element_detail" font-size="12">rescaleToRequestedSize()</text>
 
-<text x="358" y="193" class="element_detail" font-size="12">getArea()</text>
+<text x="801" y="256" class="element_detail" font-size="12">getArea()</text>
 
-<text x="358" y="208" class="element_detail" font-size="12">addPositionToHistory()</text>
-
-	
-
-<rect name="Edge" x="8" y="205" width="103" height="115" rx="2" class="element"/>
-<line x1="8" y1="226" x2="111" y2="226" class="element"/>
-
-
-<text x="13" y="221" font-size="14" class="element_header">Edge</text>
-<text x="13" y="240" class="element_detail" font-size="12">getStartVertex()</text>
-
-<text x="13" y="255" class="element_detail" font-size="12">getEndVertex()</text>
-
-<text x="13" y="270" class="element_detail" font-size="12">getLength()</text>
-
-<text x="13" y="285" class="element_detail" font-size="12">tan()</text>
-
-<text x="13" y="300" class="element_detail" font-size="12">sin()</text>
-
-<text x="13" y="315" class="element_detail" font-size="12">cos()</text>
+<text x="801" y="271" class="element_detail" font-size="12">addPositionToHistory()</text>
 
 	
 
-<rect name="Vertex" x="882" y="532" width="134" height="130" rx="2" class="element"/>
-<line x1="882" y1="553" x2="1016" y2="553" class="element"/>
+<rect name="Edge" x="365" y="8" width="103" height="115" rx="2" class="element"/>
+<line x1="365" y1="29" x2="468" y2="29" class="element"/>
 
 
-<text x="887" y="548" font-size="14" class="element_header">Vertex</text>
-<text x="887" y="567" class="element_detail" font-size="12">getPosition()</text>
+<text x="370" y="24" font-size="14" class="element_header">Edge</text>
+<text x="370" y="43" class="element_detail" font-size="12">getStartVertex()</text>
 
-<text x="887" y="582" class="element_detail" font-size="12">getCenterPosition()</text>
+<text x="370" y="58" class="element_detail" font-size="12">getEndVertex()</text>
 
-<text x="887" y="597" class="element_detail" font-size="12">getAltPosition()</text>
+<text x="370" y="73" class="element_detail" font-size="12">getLength()</text>
 
-<text x="887" y="612" class="element_detail" font-size="12">getSize()</text>
+<text x="370" y="88" class="element_detail" font-size="12">tan()</text>
 
-<text x="887" y="627" class="element_detail" font-size="12">getPosHistory()</text>
+<text x="370" y="103" class="element_detail" font-size="12">sin()</text>
 
-<text x="887" y="642" class="element_detail" font-size="12">addPositionToHistory()</text>
-
-<text x="887" y="657" class="element_detail" font-size="12">tan()</text>
+<text x="370" y="118" class="element_detail" font-size="12">cos()</text>
 
 	
 
-<rect name="AbstractDiagram" x="623" y="258" width="118" height="149" rx="2" class="element"/>
-<line x1="623" y1="279" x2="741" y2="279" class="element"/>
+<rect name="Vertex" x="116" y="613" width="134" height="130" rx="2" class="element"/>
+<line x1="116" y1="634" x2="250" y2="634" class="element"/>
 
 
-	<line x1="623" y1="313" x2="741" y2="313" class="element"/>
+<text x="121" y="629" font-size="14" class="element_header">Vertex</text>
+<text x="121" y="648" class="element_detail" font-size="12">getPosition()</text>
 
-<text x="628" y="274" font-size="14" class="element_header">AbstractDiagram</text>
-<text x="628" y="327" class="element_detail" font-size="12">removeMePlease1()</text>
+<text x="121" y="663" class="element_detail" font-size="12">getCenterPosition()</text>
 
-<text x="628" y="342" class="element_detail" font-size="12">staticGarbage0()</text>
+<text x="121" y="678" class="element_detail" font-size="12">getAltPosition()</text>
 
-		<line x1="628" y1="344" x2="719" y2="344" class="element_detail_underline"/>
+<text x="121" y="693" class="element_detail" font-size="12">getSize()</text>
 
-<text x="628" y="357" class="element_detail" font-size="12">removeMePlease2()</text>
+<text x="121" y="708" class="element_detail" font-size="12">getPosHistory()</text>
 
-<text x="628" y="372" class="element_detail" font-size="12">removeMePlease3()</text>
+<text x="121" y="723" class="element_detail" font-size="12">addPositionToHistory()</text>
 
-<text x="628" y="387" class="element_detail" font-size="12">staticGarbage1()</text>
-
-		<line x1="628" y1="389" x2="719" y2="389" class="element_detail_underline"/>
-
-<text x="628" y="402" class="element_detail" font-size="12">staticGarbage2()</text>
-
-		<line x1="628" y1="404" x2="719" y2="404" class="element_detail_underline"/>
-
-<text x="628" y="293" class="element_detail" font-size="12">width</text>
-
-<text x="628" y="308" class="element_detail" font-size="12">height</text>
+<text x="121" y="738" class="element_detail" font-size="12">tan()</text>
 
 	
 
-<rect name="AbstractElement" x="538" y="523" width="110" height="33" rx="2" class="element"/>
-<line x1="538" y1="544" x2="648" y2="544" class="element"/>
+<rect name="AbstractDiagram" x="616" y="323" width="118" height="149" rx="2" class="element"/>
+<line x1="616" y1="344" x2="734" y2="344" class="element"/>
 
 
-<text x="543" y="539" font-size="14" class="element_header">AbstractElement</text>
+	<line x1="616" y1="378" x2="734" y2="378" class="element"/>
+
+<text x="621" y="339" font-size="14" class="element_header">AbstractDiagram</text>
+<text x="621" y="392" class="element_detail" font-size="12">removeMePlease1()</text>
+
+<text x="621" y="407" class="element_detail" font-size="12">staticGarbage0()</text>
+
+		<line x1="621" y1="409" x2="712" y2="409" class="element_detail_underline"/>
+
+<text x="621" y="422" class="element_detail" font-size="12">removeMePlease2()</text>
+
+<text x="621" y="437" class="element_detail" font-size="12">removeMePlease3()</text>
+
+<text x="621" y="452" class="element_detail" font-size="12">staticGarbage1()</text>
+
+		<line x1="621" y1="454" x2="712" y2="454" class="element_detail_underline"/>
+
+<text x="621" y="467" class="element_detail" font-size="12">staticGarbage2()</text>
+
+		<line x1="621" y1="469" x2="712" y2="469" class="element_detail_underline"/>
+
+<text x="621" y="358" class="element_detail" font-size="12">width</text>
+
+<text x="621" y="373" class="element_detail" font-size="12">height</text>
+
 	
 
-<rect name="AbstractConnector" x="262" y="387" width="126" height="33" rx="2" class="element"/>
-<line x1="262" y1="408" x2="388" y2="408" class="element"/>
+<rect name="AbstractElement" x="347" y="479" width="110" height="33" rx="2" class="element"/>
+<line x1="347" y1="500" x2="457" y2="500" class="element"/>
 
 
-<text x="267" y="403" font-size="14" class="element_header">AbstractConnector</text>
+<text x="352" y="495" font-size="14" class="element_header">AbstractElement</text>
 	
 
-<rect name="ClassDiagram" x="794" y="99" width="91" height="33" rx="2" class="element"/>
-<line x1="794" y1="120" x2="885" y2="120" class="element"/>
+<rect name="AbstractConnector" x="318" y="262" width="126" height="33" rx="2" class="element"/>
+<line x1="318" y1="283" x2="444" y2="283" class="element"/>
 
 
-<text x="799" y="115" font-size="14" class="element_header">ClassDiagram</text>
+<text x="323" y="278" font-size="14" class="element_header">AbstractConnector</text>
 	
 
-<rect name="ClassElement" x="444" y="710" width="89" height="33" rx="2" class="element"/>
-<line x1="444" y1="731" x2="533" y2="731" class="element"/>
+<rect name="ClassDiagram" x="925" y="446" width="91" height="33" rx="2" class="element"/>
+<line x1="925" y1="467" x2="1016" y2="467" class="element"/>
 
 
-<text x="449" y="726" font-size="14" class="element_header">ClassElement</text>
+<text x="930" y="462" font-size="14" class="element_header">ClassDiagram</text>
 	
 
-<rect name="ClassConnector" x="25" y="520" width="105" height="33" rx="2" class="element"/>
-<line x1="25" y1="541" x2="130" y2="541" class="element"/>
+<rect name="ClassElement" x="520" y="663" width="89" height="33" rx="2" class="element"/>
+<line x1="520" y1="684" x2="609" y2="684" class="element"/>
 
 
-<text x="30" y="536" font-size="14" class="element_header">ClassConnector</text>
+<text x="525" y="679" font-size="14" class="element_header">ClassElement</text>
+	
+
+<rect name="ClassConnector" x="8" y="222" width="105" height="33" rx="2" class="element"/>
+<line x1="8" y1="243" x2="113" y2="243" class="element"/>
+
+
+<text x="13" y="238" font-size="14" class="element_header">ClassConnector</text>
 	
 
 <rect x="0" 
@@ -366,7 +366,7 @@
 <text x="5" 
 	y="763" 
 	font-size="10" 
-	class="footer_text">Created by ModSL in 1021 milliseconds (10, 30, 981). Layout (816.497,809.0217) -> Final (1024.0,768.0).</text>
+	class="footer_text">Created by ModSL in 671 milliseconds (20, 30, 621). Layout (842.39996,781.4456) -> Final (1024.0,768.0).</text>
 
 </svg>
 
