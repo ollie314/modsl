@@ -1,11 +1,13 @@
 tree grammar Eval;
 
 options {
-    tokenVocab=Expr;
+    tokenVocab=Eval;
     ASTLabelType=CommonTree;
 }
 
 @header {
+package org.modsl.antlr;	
+
 import java.util.HashMap;
 }
 
