@@ -3,27 +3,20 @@
 godaddy hosting http://help.godaddy.com/article/1668
 shadow using gradient?
 mirror/flip diagram based on x, y sizes
-make diagram objects responsible for calclating sizes/positions, pass config in
 cl diagram add note
 cl d abstract (italics)
 cl d additional connector decorations for aggregation
 template class diagram notation
-use objectBoundingBox for scaling?
 baricenter, disconnected graphs
 separate styleesheet + cmd
 collaboration diagram
-static vs member, public etc
-correct text handling -- baseline, ascent descent etc
 rescale before fr layout
 test on padding
 rotate for low weight?
-xy coordinates - double check adjusted connector since Y is reverted, the same for circling the vertexes
 horizontal bars for the FR algorithm
 weights for FR algorithm
 padding of the diagram when rendering
 font metrics vs dpi, serif is off base
-document lead->gap->trail
-official publishing terms (to replace lead, trail)
 IE compat
 GEM, including random vertex selection, baricenter, local temp, skew, rot/oscillation detection
 limit time + number of iterations
@@ -41,6 +34,13 @@ ANTLR
 
 ### DONE
 
+* make diagram objects responsible for calclating sizes/positions, pass config in
+x use objectBoundingBox for scaling?
+* static vs member, public etc
+* correct text handling -- baseline, ascent descent etc
+* xy coordinates - double check adjusted connector since Y is reverted, the same for circling the vertexes
+* document lead->gap->trail
+* official publishing terms (to replace lead, trail)
 * command line utility
 * reading resources from jar file
 * transform by flipping 90, 180, 270 degrees to bring lowest weight vertexes on top
