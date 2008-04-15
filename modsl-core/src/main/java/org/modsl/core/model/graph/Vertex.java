@@ -29,9 +29,44 @@ import org.modsl.core.model.XY;
 public interface Vertex {
 
     /**
+     * @return add current position to history
+     */
+    public void addPositionToHistory();
+
+    /**
+     * @return alternate (future) position, used as temp storage in algorithms
+     */
+    public XY getAltPosition();
+
+    /**
+     * @return current position (center)
+     */
+    public XY getCenterPosition();
+
+    /**
+     * @return diagonal
+     */
+    public double getDiagonal();
+
+    /**
+     * @return history of position values (useful for debugging of layout algorithms)
+     */
+    public List<XY> getPosHistory();
+
+    /**
      * @return current position (top left)
      */
     public XY getPosition();
+
+    /**
+     * @return dimensions (width, height) of this vertex 
+     */
+    public XY getSize();
+
+    /**
+     * @return "weight" of this vertex
+     */
+    public double getWeight();
 
     /**
      * Set vertex position 
@@ -40,9 +75,10 @@ public interface Vertex {
     public void setPosition(XY position);
 
     /**
-     * @return "weight" of this vertex
+     * Set new size
+     * @param size
      */
-    public double getWeight();
+    public void setSize(XY size);
 
     /**
      * Set the new weight (lighter vertexes will be positioned closer to the top).
@@ -50,46 +86,10 @@ public interface Vertex {
      * @param weight
      */
     public void setWeight(double weight);
-
-    /**
-     * @return current position (center)
-     */
-    public XY getCenterPosition();
-
-    /**
-     * @return alternate (future) position, used as temp storage in algorithms
-     */
-    public XY getAltPosition();
-
-    /**
-     * @return dimensions (width, height) of this vertex 
-     */
-    public XY getSize();
-
-    /**
-     * Set new size
-     * @param size
-     */
-    public void setSize(XY size);
-
-    /**
-     * @return history of position values (useful for debugging of layout algorithms)
-     */
-    public List<XY> getPosHistory();
-
-    /**
-     * @return add current position to history
-     */
-    public void addPositionToHistory();
-
+    
     /**
     * @return tan() of the angle between this vertex's diagonal and horizontal line
     */
     public double tan();
-    
-    /**
-     * @return diagonal
-     */
-    public double getDiagonal();
 
 }

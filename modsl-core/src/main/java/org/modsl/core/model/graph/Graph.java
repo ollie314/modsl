@@ -29,49 +29,9 @@ import org.modsl.core.model.XY;
 public interface Graph {
 
 	/**
-	 * @return list of all vertexes
+	 * Adds current position of each vertex to its local history
 	 */
-	public Collection<Vertex> getVertexes();
-
-	/**
-	 * @return list of all edges
-	 */
-	public List<Edge> getEdges();
-
-	/**
-	 * @return list of edge lengths
-	 */
-	public List<Double> getEdgeLengths();
-
-	/**
-	 * @return sum of all edge lengths in the graph
-	 */
-	public double getSumEdgeLength();
-
-	/**
-	 * @return baricenter of the graph
-	 */
-	public XY getBaricenter();
-
-	/**
-	 * @return size (width, height) of this graph
-	 */
-	public XY getSize();
-
-	/**
-	 * @return recalculate size based on max(x,y) across all vertexes
-	 */
-	public XY recalcSize();
-
-	/**
-	 * Sets the size for future rescaling
-	 */
-	public void setRequestedSize(XY requestedSize);
-
-	/**
-	 * Will rescale the graph according to the requested size
-	 */
-	public void rescaleToRequestedSize();
+	public void addPositionToHistory();
 
 	/**
 	 * @return area of the graph (width * height)
@@ -79,14 +39,54 @@ public interface Graph {
 	public double getArea();
 
 	/**
-	 * Adds current position of each vertex to its local history
+	 * @return baricenter of the graph
 	 */
-	public void addPositionToHistory();
+	public XY getBaricenter();
+
+	/**
+	 * @return list of edge lengths
+	 */
+	public List<Double> getEdgeLengths();
+
+	/**
+	 * @return list of all edges
+	 */
+	public List<Edge> getEdges();
+
+	/**
+	 * @return size (width, height) of this graph
+	 */
+	public XY getSize();
+
+	/**
+	 * @return sum of all edge lengths in the graph
+	 */
+	public double getSumEdgeLength();
 
 	/**
 	 * @param i
 	 * @return vertex for given index i
 	 */
 	public Vertex getVertex(int i);
+
+	/**
+	 * @return list of all vertexes
+	 */
+	public Collection<Vertex> getVertexes();
+
+	/**
+	 * @return recalculate size based on max(x,y) across all vertexes
+	 */
+	public XY recalcSize();
+
+	/**
+	 * Will rescale the graph according to the requested size
+	 */
+	public void rescaleToRequestedSize();
+
+	/**
+	 * Sets the size for future rescaling
+	 */
+	public void setRequestedSize(XY requestedSize);
 
 }
