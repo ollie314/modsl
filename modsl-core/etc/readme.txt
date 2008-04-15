@@ -31,6 +31,7 @@ separate properties for layout, different kinds of layout, read *.properties for
 common resources for svg (styles etc), use references
 rescale on every fr layout iteration?
 ANTLR
+collaboration diagram
 
 ### DONE
 
