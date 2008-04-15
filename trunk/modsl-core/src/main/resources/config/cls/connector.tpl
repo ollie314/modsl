@@ -23,12 +23,12 @@
 <line x1="${(int)sp.x}" y1="${(int)sp.y}" x2="${(int)emp.x}" y2="${(int)emp.y}" class="connector"/>
 
 <%	if (connector.startMultiplicity != null) {
-		startMText = (int)(config.connectorFST.fontMetrics.stringWidth(connector.startMultiplicity)); %>	
+		startMText = (int)(config.connectorFST.stringWidth(connector.startMultiplicity)); %>	
 		<rect x="${(int)m1.x}" y="${(int)(m1.y - config.connectorFST.fontSize)}" width="${(int)startMText}" height="${(int)config.connectorFST.fontSize}" class="connector_text_background"/>
 		<text x="${(int)m1.x}" y="${(int)m1.y}" class="connector_text" font-size="$config.connectorFST.fontSize">$connector.startMultiplicity</text>
 <%	} 
 	if (connector.endMultiplicity != null) {
-		endMText = (int)(config.connectorFST.fontMetrics.stringWidth(connector.endMultiplicity)); %>	
+		endMText = (int)(config.connectorFST.stringWidth(connector.endMultiplicity)); %>	
 		<rect x="${(int)m2.x}" y="${(int)(m2.y - config.connectorFST.fontSize)}" width="${(int)endMText}" height="${(int)config.connectorFST.fontSize}" class="connector_text_background"/>
 		<text x="${(int)m2.x}" y="${(int)m2.y}" class="connector_text" font-size="$config.connectorFST.fontSize">$connector.endMultiplicity</text>
 <%	} %>

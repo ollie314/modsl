@@ -16,18 +16,16 @@
 
 package org.modsl.utils;
 
-import java.awt.FontMetrics;
+import junit.framework.TestCase;
 
 import org.modsl.core.config.FontSizeTransform;
 
-import junit.framework.TestCase;
-
 public class UtilsTest extends TestCase {
 
-    public void testGetFontMetrics() {
-        FontMetrics fm = new FontSizeTransform("Serif", 12).getFontMetrics();
-        assertTrue(fm.stringWidth("test") > 0d);
-        //assertEquals(fm.getHeight(), 12);
-    }
+	public void testGetFontMetrics() {
+		FontSizeTransform fts = new FontSizeTransform("Serif", 12);
+		assertTrue(fts.stringWidth("test") > 0d);
+		// assertEquals(fm.getHeight(), 12);
+	}
 
 }
