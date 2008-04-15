@@ -36,52 +36,41 @@ public class ElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConf
 		}
 	}
 
-	private double getTextWidth(ClassElement e) {
-		return config.elementHeaderFST.stringWidth(e.getName());
-	}
-
-	private double getTextWidth(ClassElementDetail ed) {
-		return config.elementDetailFST.stringWidth(ed.getName());
-	}
-
 	private void update(ClassElement element) {
 
 		// position Y attributes
 		int count = 0;
-		double attrMaxY = config.elementHeaderFST.getYSize();
+		double attrMaxY = config.elementHeaderFST.getHeight();
 		for (ClassElementDetail ed : element.getAttributes()) {
-			ed.getPosition().y = config.elementHeaderFST.getYSize() + config.elementDetailFST.getYLead()
-					+ (config.elementDetailFST.getFontSize() + config.elementDetailFST.getYGap()) * count;
-			attrMaxY = ed.getPosition().y + config.elementDetailFST.getFontSize() + config.elementDetailFST.getYTrail();
+			ed.getPosition().y = config.elementHeaderFST.getExtHeight(1) + config.elementDetailFST.getExtHeight(count);
+			attrMaxY = ed.getPosition().y + config.elementDetailFST.getHeight() + config.elementDetailFST.getBottomTrailing();
 			count++;
 		}
 
 		// position Y methods
 		count = 0;
 		for (ClassElementDetail ed : element.getMethods()) {
-			ed.getPosition().y = attrMaxY + config.elementDetailFST.getYLead()
-					+ (config.elementDetailFST.getFontSize() + config.elementDetailFST.getYGap()) * count;
+			ed.getPosition().y = attrMaxY + config.elementDetailFST.getExtHeight(count);
 			count++;
 		}
 
 		// adjust X postion for all the details and check them for max X
-		double maxX = 0;
+		double maxExtStringWidth = 0;
+		int maxLeading = max(config.elementDetailFST.getLeftLeading(), config.elementHeaderFST.getLeftLeading());
 		for (ClassElementDetail ed : element.getDetails()) {
-			int x = max(config.elementDetailFST.getXLead(), config.elementHeaderFST.getXLead());
-			ed.getPosition().x = x;
-			maxX = max(maxX, x + getTextWidth(ed));
+			ed.getPosition().x = maxLeading;
+			maxExtStringWidth = max(maxExtStringWidth, config.elementDetailFST.getStringWidth(ed.getName()));
 		}
-		maxX += config.elementDetailFST.getXTrail();
+		maxExtStringWidth += config.elementDetailFST.getRightTrailing();
 
 		// then check and position the header
-		maxX = max(maxX, getTextWidth(element));
+		maxExtStringWidth = max(maxExtStringWidth, config.elementHeaderFST.getStringWidth(element.getName()));
 
-		element.getSize().x = config.elementHeaderFST.getXLead() + maxX + config.elementHeaderFST.getXTrail();
-		element.getSize().y = config.elementHeaderFST.getYSize()
-				+ max(config.elementDetailFST.getYStack(element.getAttributes().size())
-						+ config.elementDetailFST.getYStack(element.getMethods().size()), config.elementDetailFST.getYLead()
-						+ config.elementDetailFST.getYTrail());
+		element.getSize().x = maxExtStringWidth;
+		element.getSize().y = config.elementHeaderFST.getExtHeight(1)
+				+ config.elementDetailFST.getExtHeight(element.getAttributes().size())
+				+ config.elementDetailFST.getExtHeight(element.getMethods().size());
 
 	}
-
+	
 }

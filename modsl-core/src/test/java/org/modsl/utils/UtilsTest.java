@@ -24,7 +24,7 @@ public class UtilsTest extends TestCase {
 
 	public void testGetFontMetrics() {
 		FontSizeTransform fts = new FontSizeTransform("Serif", 12);
-		assertTrue(fts.stringWidth("test") > 0d);
+		assertTrue(fts.getStringWidth("test") > 0d);
 		// assertEquals(fm.getHeight(), 12);
 	}
 

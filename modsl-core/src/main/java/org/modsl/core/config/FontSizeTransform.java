@@ -76,44 +76,58 @@ public class FontSizeTransform {
 		return fontMetrics.getHeight();
 	}
 
-	public int getXLead() {
+	public int getLeftLeading() {
 		return 3 + fontSize / 5;
 	}
 
-	public int getXTrail() {
+	public int getRightTrailing() {
 		return 3 + fontSize / 5;
 	}
 
-	public int getYBaseLine() {
-		return getYLead() + getFontSize();
+	public int getBaseline() {
+		return fontMetrics.getAscent();
 	}
 
-	public int getYGap() {
-		return 1 + fontSize / 5;
+	/**
+	 * @param num -
+	 *            line number
+	 * @return baseline of the nums line in multiline text
+	 */
+	public int getExtBaseline(int num) {
+		return num > 0 ? num * getBaseline() : 0;
 	}
 
-	public int getYLead() {
-		return fontSize / 5;
+	/**
+	 * @param num -
+	 *            number of lines
+	 * @return total height of multi line text -- leading+height*num+trailing
+	 */
+	public int getExtHeight(int num) {
+		return getTopLeading() + num * getHeight() + getBottomTrailing();
 	}
 
-	public int getYSize() {
-		return getYLead() + getFontSize() + getYTrail();
+	public int getUnderline() {
+		return getBaseline() + 2;
 	}
 
-	public int getYStack(int num) {
-		return num > 0 ? (getYLead() + num * getFontSize() + (num - 1) * getYGap() + getYTrail()) : 0;
+	public int getExtUnderline(int num) {
+		return getExtBaseline(num) + 2;
 	}
 
-	public int getYTrail() {
-		return 5 + fontSize / 5;
-	}
-
-	public int getYUnderLine() {
-		return getYBaseLine() + 2;
-	}
-
-	public int stringWidth(String str) {
+	public int getStringWidth(String str) {
 		return fontMetrics.stringWidth(str);
 	}
 
+	public int getTopLeading() {
+		return fontMetrics.getLeading();
+	}
+
+	public int getBottomTrailing() {
+		return getTopLeading();
+	}
+
+	public int getExtStringWidth(String str) {
+		return getLeftLeading() + getStringWidth(str) + getRightTrailing();
+	}
+	
 }
