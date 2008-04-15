@@ -1,15 +1,2 @@
-diagram = builder._diagram(_width:1024, _height:768) {
-	    	
-    _object("ModSL") {
-    	_send(value: "createNode", to: "CollaborationDiagramBuilder", seq: "1")
-	}
-	    	
-    _object("CollaborationDiagramBuilder") {
-    	_send(value: "create", to: "CollaborationDiagamFactory", seq: "2")
-	}
-	
-	_object("ModSL") {
-    	_send(value: "layout", to: "CollaborationDiagramLayout", seq: "1")
-	}
-	
-}
+ModSL message to Builder
+Builder message to Factory
