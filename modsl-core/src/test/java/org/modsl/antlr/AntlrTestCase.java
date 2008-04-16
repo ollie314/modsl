@@ -4,15 +4,14 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
-import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.apache.tools.ant.filters.StringInputStream;
 
 public class AntlrTestCase extends TestCase {
 
 	public void testExpr() throws IOException, RecognitionException {
-		ANTLRInputStream input = new ANTLRInputStream(new StringInputStream("\nx=1\nx+3\n"));
+		ANTLRStringStream input = new ANTLRStringStream("\nx=1\nx+3\n");
 		ExprLexer lexer = new ExprLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		ExprParser parser = new ExprParser(tokens);
