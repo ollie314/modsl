@@ -8,7 +8,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 
-public class AbstractModSLAntlrTestCase extends TestCase {
+public abstract class AbstractModSLAntlrTestCase extends TestCase {
 
 	protected ModSLParser createParser(String testString) throws IOException {
 		CharStream stream = new ANTLRStringStream(testString);
