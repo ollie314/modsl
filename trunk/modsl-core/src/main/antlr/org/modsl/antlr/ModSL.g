@@ -12,8 +12,10 @@ options {
 	package org.modsl.antlr;
 }
 
-emptyRule: ;
-
-line :	NEWLINE;
+line returns [List<String> result]
+@init {
+    result = new ArrayList<String>();
+}
+	:	NEWLINE;
 
 NEWLINE	:	'\r'? '\n';
