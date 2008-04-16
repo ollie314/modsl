@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.antlr.runtime.RecognitionException;
 
-public class BasicTestCcase extends AbstractModSLAntlrTestCase {
+public class BasicTestCase extends AbstractModSLAntlrTestCase {
 
 	public void testNewline() throws IOException, RecognitionException {
 		ModSLParser parser = createParser("\n");
