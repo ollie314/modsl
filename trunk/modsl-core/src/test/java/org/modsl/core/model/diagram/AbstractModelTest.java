@@ -16,13 +16,15 @@
 
 package org.modsl.core.model.diagram;
 
+import org.junit.Before;
 import org.modsl.core.model.XY;
 
 public abstract class AbstractModelTest {
 
 	Diagram<Object, Element, Connector> diag;
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 
 		diag = new Diagram<Object, Element, Connector>("_diagram", null, null);
 
