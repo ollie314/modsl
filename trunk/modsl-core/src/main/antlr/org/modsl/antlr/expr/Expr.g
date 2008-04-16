@@ -5,11 +5,11 @@ options {
 }
 
 @lexer::header {
-	package org.modsl.antlr;
+package org.modsl.antlr.expr;
 }
 
 @parser::header {
-package org.modsl.antlr;
+package org.modsl.antlr.expr;
 import java.util.HashMap;
 }
 
