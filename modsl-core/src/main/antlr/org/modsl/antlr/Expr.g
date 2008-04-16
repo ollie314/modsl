@@ -4,6 +4,14 @@ options {
     ASTLabelType=CommonTree; // type of $stat.tree ref etc...
 }
 
+@parser::header {
+	package org.modsl.antlr;
+}
+
+@lexer::header {
+	package org.modsl.antlr;
+}
+
 prog:   ( stat {System.out.println($stat.tree.toStringTree());} )+ ;
 
 stat:   expr NEWLINE        -> expr
