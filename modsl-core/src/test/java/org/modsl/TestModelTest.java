@@ -14,20 +14,20 @@
  * limitations under the License. 
  */
 
-package org.modsl.utils;
+package org.modsl;
 
-import static org.junit.Assert.assertTrue;
+import groovy.util.ResourceException;
+import groovy.util.ScriptException;
+
+import java.io.IOException;
 
 import org.junit.Test;
-import org.modsl.core.config.FontSizeTransform;
 
-public class UtilsTest {
+public class TestModelTest extends AbstractDiagramTest {
 
 	@Test
-	public void getFontMetrics() {
-		FontSizeTransform fts = new FontSizeTransform("Serif", 12);
-		assertTrue(fts.getStringWidth("test") > 0d);
-		// assertEquals(fm.getHeight(), 12);
+	public void testModel() throws ResourceException, IOException, ScriptException {
+		processDiagram("TestModel");
 	}
 
 }
