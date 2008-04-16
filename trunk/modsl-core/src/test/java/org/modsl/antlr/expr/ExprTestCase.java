@@ -8,7 +8,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
-public class AntlrTestCase extends TestCase {
+public class ExprTestCase extends TestCase {
 
 	public void testExpr() throws IOException, RecognitionException {
 		ANTLRStringStream input = new ANTLRStringStream("\nx=1\nx+3\n");
