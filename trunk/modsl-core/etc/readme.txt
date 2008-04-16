@@ -1,5 +1,8 @@
 ### TODO
 
+graphviz
+http://www.umlgraph.org/
+
 godaddy hosting http://help.godaddy.com/article/1668
 shadow using gradient?
 mirror/flip diagram based on x, y sizes
