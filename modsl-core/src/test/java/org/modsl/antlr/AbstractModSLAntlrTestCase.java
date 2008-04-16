@@ -8,13 +8,13 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 
-public class AbstractAntlrTestCase extends TestCase {
+public class AbstractModSLAntlrTestCase extends TestCase {
 
-	protected CSVParser createParser(String testString) throws IOException {
+	protected ModSLParser createParser(String testString) throws IOException {
 		CharStream stream = new ANTLRStringStream(testString);
-		CSVLexer lexer = new CSVLexer(stream);
+		ModSLLexer lexer = new ModSLLexer(stream);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		CSVParser parser = new CSVParser(tokens);
+		ModSLParser parser = new ModSLParser(tokens);
 		return parser;
 	}
 
