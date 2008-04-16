@@ -83,6 +83,12 @@
 					<libDirectory>
 						target/generated-sources/antlr/org/modsl/antlr
 					</libDirectory>
+					<includes>
+						<include>**/*.g</include>
+					</includes>
+					<excludes>
+						<exclude>**/*__.g</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
