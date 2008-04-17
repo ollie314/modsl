@@ -24,20 +24,57 @@ import java.util.Map;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.graph.Vertex;
 
+/**
+ * Basic diagram element (box with name and size)
+ * @author avishnyakov
+ *
+ * @param <P> parent class (usually a Diagram)
+ * @param <ED> element detail class or Object if none
+ */
 public class Element<P extends Diagram, ED extends ElementDetail> extends AbstractDiagramObject<P> implements Vertex {
 
     protected static int sequence = 0;
 
+    /**
+     * All details for easy lookup by name
+     */
     protected Map<String, ED> elementDetails = new HashMap<String, ED>();
+    
+    /**
+     * Ordered list of details for indexed lookup
+     */
     protected List<ED> orderedElementDetails = new LinkedList<ED>();
+    
+    /**
+     * Position history
+     */
     protected List<XY> history = new LinkedList<XY>();
 
+    /**
+     * Current position
+     */
     protected XY position = new XY(sequence++, sequence++);
+    
+    /**
+     * Size
+     */
     protected XY size = new XY(1d, 1d);
-    protected XY headerPosition = new XY();
+    
+    /**
+     * New/alternate position (for layout calculation)
+     */
     protected XY altPos = new XY();
+    
+    /**
+     * "Weight"
+     */
     protected double weight = 1d;
 
+    /**
+     * New instance given parent diagram and name 
+     * @param parent
+     * @param name
+     */
     public Element(P parent, String name) {
         super(parent, name);
         this.parent.addElement(this);
@@ -48,6 +85,22 @@ public class Element<P extends Diagram, ED extends ElementDetail> extends Abstra
         orderedElementDetails.add(detail);
     }
 
+    public void addPositionToHistory() {
+        history.add(new XY(getPosition()));
+    }
+
+    public double cos() {
+        return size.x / getDiagonal();
+    }
+
+    public XY getAltPosition() {
+        return altPos;
+    }
+
+    public XY getCenterPosition() {
+        return position.plus(size.div(2d));
+    }
+
     public ED getDetail(String key) {
         return elementDetails.get(key);
     }
@@ -56,64 +109,49 @@ public class Element<P extends Diagram, ED extends ElementDetail> extends Abstra
         return orderedElementDetails;
     }
 
-    public XY getSize() {
-        return size;
-    }
-
-    public XY getPosition() {
-        return position;
-    }
-
-    public void setPosition(XY position) {
-        this.position = position;
-    }
-
-    public XY getCenterPosition() {
-        return position.plus(size.div(2d));
-    }
-
-    public XY getAltPosition() {
-        return altPos;
+    public double getDiagonal() {
+        return Math.sqrt(size.x * size.x + size.y * size.y);
     }
 
     public List<XY> getPosHistory() {
         return history;
     }
 
-    public void addPositionToHistory() {
-        history.add(new XY(getPosition()));
+    public XY getPosition() {
+        return position;
     }
 
-    public String toString() {
-        return "{" + getName() + "," + getPosition() + "}";
-    }
-
-    public double tan() {
-        return size.y / size.x;
-    }
-
-    public double sin() {
-        return size.y / getDiagonal();
-    }
-
-    public double getDiagonal() {
-        return Math.sqrt(size.x * size.x + size.y * size.y);
-    }
-
-    public double cos() {
-        return size.x / getDiagonal();
+    public XY getSize() {
+        return size;
     }
 
     public double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setPosition(XY position) {
+        this.position = position;
     }
 
     public void setSize(XY size) {
         this.size = size;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double sin() {
+        return size.y / getDiagonal();
+    }
+
+    public double tan() {
+        return size.y / size.x;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + getName() + "," + getPosition() + "}";
     }
 
 }

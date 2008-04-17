@@ -50,8 +50,8 @@ public class ClassElementDetail extends ElementDetail<ClassElement> {
 	}
 
 	public void calcSizeAndPosition(XY startPosition, ClassFontSizeTransform elementDetailFST, int index) {
-		position.x = elementDetailFST.getLeftPadding();
-		position.y = startPosition.y + elementDetailFST.getExtPosition(index);
+		realtivePosition.x = elementDetailFST.getLeftPadding();
+		realtivePosition.y = startPosition.y + elementDetailFST.getExtPosition(index);
 		size.x = elementDetailFST.getExtStringWidth(name);
 		size.y = elementDetailFST.getHeight();
 	}
