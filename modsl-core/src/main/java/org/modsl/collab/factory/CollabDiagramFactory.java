@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.modsl.cls.model.ClassDiagram;
+import org.modsl.collab.model.CollabDiagram;
 import org.modsl.core.model.diagram.AbstractDiagramObject;
 
 /**
@@ -37,7 +37,7 @@ public class CollabDiagramFactory extends CollabAbstractFactory {
 
     public AbstractDiagramObject<Object> build(String metaKey, String value, Object current, Map<String, Object> map) {
         checkParentClass(metaKey, current, null);
-        ClassDiagram d = new ClassDiagram(value);
+        CollabDiagram d = new CollabDiagram(value);
         d.getRequestedSize().x = getNullableIntegerAttribute((int) d.getRequestedSize().x, "_width", map);
         d.getRequestedSize().y = getNullableIntegerAttribute((int) d.getRequestedSize().y, "_height", map);
         return d;
