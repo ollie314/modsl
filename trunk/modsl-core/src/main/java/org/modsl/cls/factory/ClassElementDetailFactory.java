@@ -26,29 +26,35 @@ import org.modsl.cls.model.ClassElementDetailScope;
 import org.modsl.cls.model.ClassElementDetailType;
 import org.modsl.utils.Utils;
 
+/**
+ * Creates class diagram elements details from the given Groovy script input
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassElementDetailFactory extends ClassAbstractFactory {
 
-	protected Map<String, Object> typeMap, scopeMap;
+    protected Map<String, Object> typeMap, scopeMap;
 
-	public ClassElementDetailFactory() {
-		metaKeys = Arrays.asList(new String[] { "_attribute", "_static_attribute", "_method", "_static_method" });
-		typeMap = Utils.toMap(new Object[] { "_attribute", ClassElementDetailType.ATTRIBUTE, "_static_attribute",
-				ClassElementDetailType.ATTRIBUTE, "_method", ClassElementDetailType.METHOD, "_static_method",
-				ClassElementDetailType.METHOD });
-		scopeMap = Utils.toMap(new Object[] { "_attribute", ClassElementDetailScope.INSTANCE, "_static_attribute",
-				ClassElementDetailScope.STATIC, "_method", ClassElementDetailScope.INSTANCE, "_static_method",
-				ClassElementDetailScope.STATIC });
-	}
+    public ClassElementDetailFactory() {
+        metaKeys = Arrays.asList(new String[] { "_attribute", "_static_attribute", "_method", "_static_method" });
+        typeMap = Utils.toMap(new Object[] { "_attribute", ClassElementDetailType.ATTRIBUTE, "_static_attribute",
+                ClassElementDetailType.ATTRIBUTE, "_method", ClassElementDetailType.METHOD, "_static_method",
+                ClassElementDetailType.METHOD });
+        scopeMap = Utils.toMap(new Object[] { "_attribute", ClassElementDetailScope.INSTANCE, "_static_attribute",
+                ClassElementDetailScope.STATIC, "_method", ClassElementDetailScope.INSTANCE, "_static_method",
+                ClassElementDetailScope.STATIC });
+    }
 
-	public ClassElementDetail build(String metaKey, String value, Object current, Map<String, Object> map) {
-		checkParentClass(metaKey, current, ClassElement.class);
-		ClassElementDetail ed = new ClassElementDetail(value, (ClassElement) current, (ClassElementDetailType) typeMap
-				.get(metaKey), (ClassElementDetailScope) scopeMap.get(metaKey));
-		return ed;
-	}
+    public ClassElementDetail build(String metaKey, String value, Object current, Map<String, Object> map) {
+        checkParentClass(metaKey, current, ClassElement.class);
+        ClassElementDetail ed = new ClassElementDetail(value, (ClassElement) current,
+                (ClassElementDetailType) typeMap.get(metaKey), (ClassElementDetailScope) scopeMap.get(metaKey));
+        return ed;
+    }
 
-	public List<String> getMetaKeys() {
-		return metaKeys;
-	}
+    public List<String> getMetaKeys() {
+        return metaKeys;
+    }
 
 }

@@ -23,6 +23,11 @@ import org.modsl.core.builder.AbstractFactory;
 import org.modsl.core.builder.BuilderException;
 import org.modsl.utils.Utils;
 
+/**
+ * Abstract factpry for all class diagram objects
+ * 
+ * @author avishnyakov
+ */
 public abstract class ClassAbstractFactory extends AbstractFactory {
 
     protected static List<AbstractFactory> factories = new ArrayList<AbstractFactory>();

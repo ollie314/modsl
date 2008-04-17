@@ -20,6 +20,12 @@ import org.modsl.cls.ClassDiagramConfig;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.layout.AbstractLayout;
 
+/**
+ * Layout flow for the class diagram. Aggregates ohter layout calls.
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassDiagramLayout extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
 
     public ClassDiagramLayout(ClassDiagramConfig config) {

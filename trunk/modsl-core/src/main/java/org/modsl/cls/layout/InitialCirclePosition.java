@@ -30,115 +30,74 @@ import org.modsl.cls.model.ClassElement;
 import org.modsl.core.layout.AbstractLayout;
 import org.modsl.core.model.XY;
 
+/**
+ * Lays the element out on a circle to reduce edge crossing in the FR algorithm later
+ * @author avishnyakov
+ *
+ */
 public class InitialCirclePosition extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
 
-	private Logger log = Logger.getLogger(getClass());
+    private Logger log = Logger.getLogger(getClass());
 
-	protected double angle;
-	protected ClassDiagram diag;
-	protected int circlePositions;
-	protected double initLayoutWeightSegment = 1d / 3d;
+    protected double angle;
+    protected ClassDiagram diag;
+    protected int circlePositions;
 
-	public InitialCirclePosition(ClassDiagramConfig config) {
-		super(config);
-	}
+    public InitialCirclePosition(ClassDiagramConfig config) {
+        super(config);
+    }
 
-	public void apply(ClassDiagram diag) {
+    public void apply(ClassDiagram diag) {
 
-		this.diag = diag;
-		this.circlePositions = diag.getElements().size();
-		this.angle = 2d * PI / circlePositions;
+        this.diag = diag;
+        this.circlePositions = diag.getElements().size();
+        this.angle = 2d * PI / circlePositions;
 
-		diag.calcElementWeights();
+        diag.calcElementWeights();
 
-		initCircle();
-		optimizeEdgeLength();
-		// rotateToMinWeight();
+        initCircle();
+        optimizeEdgeLength();
 
-	}
+    }
 
-	private void rotateToMinWeight() {
-		int minWIndex = findMinWeightSegment();
-		// index points to the left boundary of the min weight segment
-		// need to be brought to the SOUTH - 1/6 point
-		int shiftBy = circlePositions - minWIndex - (int) (initLayoutWeightSegment * circlePositions / 2d);
-		for (int i = 0; i < circlePositions; i++) {
-			int newp = i - shiftBy;
-			newp = newp < 0 ? newp + circlePositions : newp;
-			setCirclePosition(diag.getElement(i), newp);
-		}
-	}
+    private void optimizeEdgeLength() {
+        circlePositions = diag.getElements().size();
+        for (int i = 0; i < config.initLayoutMaxRounds * circlePositions; i++) {
+            double curLen = diag.getSumEdgeLength();
+            int p1 = (int) floor(random() * circlePositions);
+            int p2 = (int) floor(random() * circlePositions);
+            swap(p1, p2);
+            if (diag.getSumEdgeLength() > curLen) {
+                swap(p1, p2);
+            }
+        }
+    }
 
-	private int findMinWeightSegment() {
-		double minW = Double.MAX_VALUE;
-		int minWp = -1;
-		for (int i = 0; i < circlePositions; i++) {
-			double cw = calcSegmentWeight(i);
-			if (cw < minW) {
-				minW = cw;
-				minWp = i;
-			}
-		}
-		return minWp;
-	}
+    private void initCircle() {
+        for (int iv = 0; iv < diag.getElements().size(); iv++) {
+            setCirclePosition(diag.getElement(iv), iv);
+        }
+    }
 
-	/**
-	 * Calculates weight for the circle segment between p1 to p1+1/3 of the
-	 * circle
-	 * 
-	 * @param i
-	 */
-	private double calcSegmentWeight(int p1) {
-		int p2 = p1 + (int) (initLayoutWeightSegment * circlePositions);
-		double w = 0d;
-		for (int j = p1; j < p2; j++) {
-			if (j < circlePositions) {
-				w += diag.getElement(j).getWeight();
-			} else {
-				w += diag.getElement(j - circlePositions).getWeight();
-			}
-		}
-		return w;
-	}
+    private void setCirclePosition(ClassElement e, int p) {
+        e.getPosition().x = getRequestedSizeDiagonal() / 2d * cos(getPositionAngle(p));
+        e.getPosition().y = getRequestedSizeDiagonal() / 2d * sin(getPositionAngle(p));
+    }
 
-	private void optimizeEdgeLength() {
-		circlePositions = diag.getElements().size();
-		for (int i = 0; i < config.initLayoutMaxRounds * circlePositions; i++) {
-			double curLen = diag.getSumEdgeLength();
-			int p1 = (int) floor(random() * circlePositions);
-			int p2 = (int) floor(random() * circlePositions);
-			swap(p1, p2);
-			if (diag.getSumEdgeLength() > curLen) {
-				swap(p1, p2);
-			}
-		}
-	}
+    private double getRequestedSizeDiagonal() {
+        return sqrt(diag.getRequestedSize().x * diag.getRequestedSize().x + diag.getRequestedSize().y * diag.getRequestedSize().y);
+    }
 
-	private void initCircle() {
-		for (int iv = 0; iv < diag.getElements().size(); iv++) {
-			setCirclePosition(diag.getElement(iv), iv);
-		}
-	}
+    private double getPositionAngle(int p) {
+        return PI / 4d - angle * p;
+    }
 
-	private void setCirclePosition(ClassElement e, int p) {
-		e.getPosition().x = getRequestedSizeDiagonal() / 2d * cos(getPositionAngle(p));
-		e.getPosition().y = getRequestedSizeDiagonal() / 2d * sin(getPositionAngle(p));
-	}
-
-	private double getRequestedSizeDiagonal() {
-		return sqrt(diag.getRequestedSize().x * diag.getRequestedSize().x + diag.getRequestedSize().y
-				* diag.getRequestedSize().y);
-	}
-
-	private double getPositionAngle(int p) {
-		return PI / 4d - angle * p;
-	}
-
-	private void swap(int p1, int p2) {
-		ClassElement e1 = diag.getElement(p1);
-		ClassElement e2 = diag.getElement(p2);
-		XY xy1 = e1.getPosition();
-		e1.setPosition(e2.getPosition());
-		e2.setPosition(xy1);
-	}
+    private void swap(int p1, int p2) {
+        ClassElement e1 = diag.getElement(p1);
+        ClassElement e2 = diag.getElement(p2);
+        XY xy1 = e1.getPosition();
+        e1.setPosition(e2.getPosition());
+        e2.setPosition(xy1);
+    }
+    
 }
