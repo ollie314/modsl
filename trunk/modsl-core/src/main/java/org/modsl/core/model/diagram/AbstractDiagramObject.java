@@ -34,7 +34,7 @@ public abstract class AbstractDiagramObject<P> {
      * Parent object
      */
     protected P parent;
-    
+
     /**
      * This element is visible
      */
@@ -46,26 +46,47 @@ public abstract class AbstractDiagramObject<P> {
         this.name = name;
     }
 
+    /**
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * @return parent
+     */
     public P getParent() {
         return parent;
     }
 
-    public void setParent(P parent) {
-        this.parent = parent;
-    }
-
+    /**
+     * @return true if visible
+     */
     public boolean isVisible() {
         return visible;
     }
 
+    /**
+     * Set name
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Set parent
+     * @param parent
+     */
+    public void setParent(P parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * Set visible flag
+     * @param visible
+     */
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
