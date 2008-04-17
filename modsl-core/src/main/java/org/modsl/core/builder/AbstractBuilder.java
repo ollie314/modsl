@@ -24,6 +24,12 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Superclass for all Groovy based builders
+ * 
+ * @author avishnyakov
+ *
+ */
 public abstract class AbstractBuilder extends BuilderSupport {
 
 	public static final String VALUE = "value";

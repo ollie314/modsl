@@ -21,122 +21,178 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+/**
+ * Encapsulates all font metric related attributes and functions
+ * 
+ * @author avishnyakov
+ *
+ */
 public class FontSizeTransform {
 
-	private static class HeadlessCanvas extends Canvas {
+    /**
+     * Needed to get access to font metrics in headless environment
+     * @author avishnyakov
+     *
+     */
+    private static class HeadlessCanvas extends Canvas {
 
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
-		private String fontName;
-		private int fontSize;
+        private String fontName;
+        private int fontSize;
 
-		private FontMetrics fontMetrics;
+        private FontMetrics fontMetrics;
 
-		public HeadlessCanvas(String fontName, int fontSize) {
-			super();
-			this.fontName = fontName;
-			this.fontSize = fontSize;
-		}
+        public HeadlessCanvas(String fontName, int fontSize) {
+            super();
+            this.fontName = fontName;
+            this.fontSize = fontSize;
+        }
 
-		public void paint(Graphics g) {
-			this.fontMetrics = getFontMetrics(new Font(fontName, Font.PLAIN, fontSize));
-		}
+        public void paint(Graphics g) {
+            this.fontMetrics = getFontMetrics(new Font(fontName, Font.PLAIN, fontSize));
+        }
 
-	}
+    }
 
-	static {
-		System.setProperty("java.awt.headless", "true");
-	}
+    static {
+        System.setProperty("java.awt.headless", "true");
+    }
 
-	protected String fontName;
-	protected int fontSize;
+    protected String fontName;
+    protected int fontSize;
 
-	protected FontMetrics fontMetrics;
+    protected FontMetrics fontMetrics;
 
-	public FontSizeTransform(String fontName, int fontSize) {
+    /**
+     * Create new FST given font name and size
+     * @param fontName
+     * @param fontSize
+     */
+    public FontSizeTransform(String fontName, int fontSize) {
 
-		this.fontName = fontName;
-		this.fontSize = fontSize;
+        this.fontName = fontName;
+        this.fontSize = fontSize;
 
-		HeadlessCanvas hc = new HeadlessCanvas(fontName, fontSize);
-		hc.paint(null);
-		this.fontMetrics = hc.fontMetrics;
+        HeadlessCanvas hc = new HeadlessCanvas(fontName, fontSize);
+        hc.paint(null);
+        this.fontMetrics = hc.fontMetrics;
 
-	}
+    }
 
-	public String getFontName() {
-		return fontName;
-	}
+    /**
+     * @return font name
+     */
+    public String getFontName() {
+        return fontName;
+    }
 
-	public int getFontSize() {
-		return fontSize;
-	}
+    /**
+     * @return font size
+     */
+    public int getFontSize() {
+        return fontSize;
+    }
 
-	public int getHeight() {
-		return fontMetrics.getHeight();
-	}
+    /**
+     * @see java.awt.FontMetrics#getHeight()
+     * @return font height
+     */
+    public int getHeight() {
+        return fontMetrics.getHeight();
+    }
 
-	public int getLeftLeading() {
-		return 3 + fontSize / 5;
-	}
+    /**
+     * @return left padding in pixels for this font size
+     */
+    public int getLeftPadding() {
+        return 3 + fontSize / 5;
+    }
 
-	public int getRightTrailing() {
-		return 3 + fontSize / 5;
-	}
+    /**
+     * @return right padding whitespace in pixels for this font size
+     */
+    public int getRightPadding() {
+        return 3 + fontSize / 5;
+    }
 
-	public int getBaseline() {
-		return fontMetrics.getAscent();
-	}
+    /**
+     * @see java.awt.FontMertics#getAscent()
+     * @return difference in pixels between the top of the outer box around text and the baseline 
+     */
+    public int getBaseline() {
+        return fontMetrics.getAscent();
+    }
 
-	/**
-	 * @param index -
-	 *            line number
-	 * @return baseline of the nums line in multiline text
-	 */
-	public int getExtBaseline(int index) {
-		return getExtPosition(index) + getBaseline();
-	}
+    /**
+     * @param index -
+     *            line number
+     * @return baseline of the line <code>index</code> in multi-line text
+     */
+    public int getExtBaseline(int index) {
+        return getExtPosition(index) + getBaseline();
+    }
 
-	/**
-	 * @param index -
-	 *            line number (starting with 0)
-	 * @return relative position of the nums line in multiline text
-	 */
-	public int getExtPosition(int index) {
-		return getTopLeading() + index * getHeight();
-	}
+    /**
+     * @param index line number (starting with 0)
+     * @return top (position) of the line <code>index</code> in multi-line text
+     */
+    public int getExtPosition(int index) {
+        return getTopPadding() + index * getHeight();
+    }
 
-	/**
-	 * @param num -
-	 *            number of lines (starting with 1)
-	 * @return total height of multi line text -- leading+height*num+trailing
-	 */
-	public int getExtHeight(int num) {
-		return getTopLeading() + num * getHeight() + getBottomTrailing();
-	}
+    /**
+     * @param num -
+     *            number of lines (starting with 1)
+     * @return total height of multi-line text -- <code>padding + height*num + padding</code>
+     */
+    public int getExtHeight(int num) {
+        return getTopPadding() + num * getHeight() + getBottomPadding();
+    }
 
-	public int getUnderline() {
-		return getBaseline() + 2;
-	}
+    /**
+     * @return position of the underline
+     */
+    public int getUnderline() {
+        return getBaseline() + 2;
+    }
 
-	public int getExtUnderline(int index) {
-		return getExtBaseline(index) + 2;
-	}
+    /**
+     * @param index line number (starting with 0)
+     * @return underline position of the line <code>index</code> in multi-line text
+     */
+    public int getExtUnderline(int index) {
+        return getExtBaseline(index) + 2;
+    }
 
-	public int getStringWidth(String str) {
-		return fontMetrics.stringWidth(str);
-	}
+    /**
+     * @param str 
+     * @return string width in pixels if rendered with given fond style and size
+     */
+    public int getStringWidth(String str) {
+        return fontMetrics.stringWidth(str);
+    }
 
-	public int getTopLeading() {
-		return fontMetrics.getLeading() + 2;
-	}
+    /**
+     * @return top padding in pixels for this font size
+     */
+    public int getTopPadding() {
+        return fontMetrics.getLeading() + 2;
+    }
 
-	public int getBottomTrailing() {
-		return getTopLeading();
-	}
+    /**
+     * @return bottom padding in pixels for this font size
+     */
+    public int getBottomPadding() {
+        return getTopPadding();
+    }
 
-	public int getExtStringWidth(String str) {
-		return getLeftLeading() + getStringWidth(str) + getRightTrailing();
-	}
+    /**
+     * @param str 
+     * @return string width in pixels if rendered with given fond style and size plus necessary padding on the sides
+     */
+    public int getExtStringWidth(String str) {
+        return getLeftPadding() + getStringWidth(str) + getRightPadding();
+    }
 
 }

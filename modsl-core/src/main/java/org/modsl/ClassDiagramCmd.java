@@ -29,6 +29,12 @@ import org.modsl.cls.ClassDiagramSvgWriter;
 import org.modsl.cls.layout.ClassDiagramLayout;
 import org.modsl.cls.model.ClassDiagram;
 
+/**
+ * Command line utility to process a diagram script
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassDiagramCmd {
 
     public static void main(String[] args) throws CompilationFailedException, IOException {
@@ -38,7 +44,7 @@ public class ClassDiagramCmd {
     private void run(String[] args) throws CompilationFailedException, IOException {
 
         if (args.length < 2) {
-            System.err.println("Usage: " + getClass().getName() + " input_script_name output_file_name");
+            System.err.println("Usage: " + getClass().getName() + " input_file_name output_file_name");
         }
 
         Binding binding = new Binding();
