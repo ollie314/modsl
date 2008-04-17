@@ -14,22 +14,21 @@
  * limitations under the License. 
  */
 
-package org.modsl;
+package org.modsl.collab.model;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import org.modsl.core.model.diagram.Connector;
 import org.modsl.core.model.diagram.Diagram;
+import org.modsl.core.model.diagram.Element;
 
-public class CoreModelTest extends AbstractClassDiagramTest {
+/**
+ * Collaboration diagram implementation
+ * 
+ * @author avishnyakov
+ */
+public class CollabDiagram extends Diagram<Object, Element, Connector> {//CollabElement, CollabConnector> {
 
-    @Test
-    public void coreModel() {
-        Diagram d = processDiagram("CoreModel");
-        assertTrue(d.getElement("Graph").getSize().x > 50);
-        assertTrue(d.getElement("Graph").getSize().y > 20);
-        assertTrue(d.getSize().x > 0);
-        assertTrue(d.getSize().y > 0);
+    public CollabDiagram(String name) {
+        super(null, name);
     }
 
 }
