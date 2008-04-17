@@ -37,4 +37,4 @@
 
 === Misc ===
    * junit on padding
-   * separate properties for layout, different kinds of layout, read {*.properties} form the folder
+   * separate properties for layout, different kinds of layout, read {STAR  DOT properties} form the folder
