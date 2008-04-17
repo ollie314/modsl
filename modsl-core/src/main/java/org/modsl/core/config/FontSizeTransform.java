@@ -30,7 +30,7 @@ import java.awt.Graphics;
 public class FontSizeTransform {
 
     /**
-     * Needed to get access to font metrics in headless environment
+     * This inner class is used to get access to font metrics in headless environment
      * @author avishnyakov
      *
      */
@@ -81,6 +81,63 @@ public class FontSizeTransform {
     }
 
     /**
+     * @see java.awt.FontMertics#getAscent()
+     * @return difference in pixels between the top of the outer box around text and the baseline 
+     */
+    public int getBaseline() {
+        return fontMetrics.getAscent();
+    }
+
+    /**
+     * @return bottom padding in pixels for this font size
+     */
+    public int getBottomPadding() {
+        return getTopPadding();
+    }
+
+    /**
+     * @param index -
+     *            line number
+     * @return baseline of the line <code>index</code> in multi-line text
+     */
+    public int getExtBaseline(int index) {
+        return getExtPosition(index) + getBaseline();
+    }
+
+    /**
+     * @param num -
+     *            number of lines (starting with 1)
+     * @return total height of multi-line text -- <code>padding + height*num + padding</code>
+     */
+    public int getExtHeight(int num) {
+        return getTopPadding() + num * getHeight() + getBottomPadding();
+    }
+
+    /**
+     * @param index line number (starting with 0)
+     * @return top (position) of the line <code>index</code> in multi-line text
+     */
+    public int getExtPosition(int index) {
+        return getTopPadding() + index * getHeight();
+    }
+
+    /**
+     * @param str 
+     * @return string width in pixels if rendered with given fond style and size plus necessary padding on the sides
+     */
+    public int getExtStringWidth(String str) {
+        return getLeftPadding() + getStringWidth(str) + getRightPadding();
+    }
+
+    /**
+     * @param index line number (starting with 0)
+     * @return underline position of the line <code>index</code> in multi-line text
+     */
+    public int getExtUnderline(int index) {
+        return getExtBaseline(index) + 2;
+    }
+
+    /**
      * @return font name
      */
     public String getFontName() {
@@ -117,55 +174,6 @@ public class FontSizeTransform {
     }
 
     /**
-     * @see java.awt.FontMertics#getAscent()
-     * @return difference in pixels between the top of the outer box around text and the baseline 
-     */
-    public int getBaseline() {
-        return fontMetrics.getAscent();
-    }
-
-    /**
-     * @param index -
-     *            line number
-     * @return baseline of the line <code>index</code> in multi-line text
-     */
-    public int getExtBaseline(int index) {
-        return getExtPosition(index) + getBaseline();
-    }
-
-    /**
-     * @param index line number (starting with 0)
-     * @return top (position) of the line <code>index</code> in multi-line text
-     */
-    public int getExtPosition(int index) {
-        return getTopPadding() + index * getHeight();
-    }
-
-    /**
-     * @param num -
-     *            number of lines (starting with 1)
-     * @return total height of multi-line text -- <code>padding + height*num + padding</code>
-     */
-    public int getExtHeight(int num) {
-        return getTopPadding() + num * getHeight() + getBottomPadding();
-    }
-
-    /**
-     * @return position of the underline
-     */
-    public int getUnderline() {
-        return getBaseline() + 2;
-    }
-
-    /**
-     * @param index line number (starting with 0)
-     * @return underline position of the line <code>index</code> in multi-line text
-     */
-    public int getExtUnderline(int index) {
-        return getExtBaseline(index) + 2;
-    }
-
-    /**
      * @param str 
      * @return string width in pixels if rendered with given fond style and size
      */
@@ -181,18 +189,10 @@ public class FontSizeTransform {
     }
 
     /**
-     * @return bottom padding in pixels for this font size
+     * @return position of the underline
      */
-    public int getBottomPadding() {
-        return getTopPadding();
-    }
-
-    /**
-     * @param str 
-     * @return string width in pixels if rendered with given fond style and size plus necessary padding on the sides
-     */
-    public int getExtStringWidth(String str) {
-        return getLeftPadding() + getStringWidth(str) + getRightPadding();
+    public int getUnderline() {
+        return getBaseline() + 2;
     }
 
 }

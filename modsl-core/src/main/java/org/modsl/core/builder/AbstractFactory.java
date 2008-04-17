@@ -19,47 +19,78 @@ package org.modsl.core.builder;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Base class for all diagram object's factories
+ * 
+ * @author avishnyakov
+ *
+ */
 public abstract class AbstractFactory {
 
-	protected List<String> metaKeys;
+    protected List<String> metaKeys;
 
-	public abstract Object build(String metaKey, String value, Object current, Map<String, Object> map);
+    public abstract Object build(String metaKey, String value, Object current, Map<String, Object> map);
 
-	public abstract List<String> getMetaKeys();
+    public abstract List<String> getMetaKeys();
 
-	public String getStringAttribute(String value, Map<String, Object> map) {
-		return (String) map.get(value);
-	}
+    /**
+     * @param key
+     * @param map
+     * @return values of the given attribute as String or null if attribute doesn't exist
+     */
+    public String getStringAttribute(String key, Map<String, Object> map) {
+        return (String) map.get(key);
+    }
 
-	public Integer getIntegerAttribute(String key, Map<String, Object> map) {
-		return (Integer) map.get(key);
-	}
+    /**
+     * @param key
+     * @param map
+     * @return values of the given attribute as Integer or null if attribute doesn't exist
+     */
+    public Integer getIntegerAttribute(String key, Map<String, Object> map) {
+        return (Integer) map.get(key);
+    }
 
-	public int getNullableIntegerAttribute(int defaultValue, String key, Map<String, Object> map) {
-		Integer t = getIntegerAttribute(key, map);
-		if (t == null) {
-			return defaultValue;
-		} else {
-			return t;
-		}
-	}
-	
-	public String getNullableStringAttribute(String defaultValue, String key, Map<String, Object> map) {
-		String s = getStringAttribute(key, map);
-		if (s == null) {
-			return defaultValue;
-		} else {
-			return s;
-		}
-	}
+    /**
+     * @param key
+     * @param map
+     * @return values of the given attribute as int or given default value if attribute doesn't exist
+     */
+    public int getNullableIntegerAttribute(int defaultValue, String key, Map<String, Object> map) {
+        Integer t = getIntegerAttribute(key, map);
+        if (t == null) {
+            return defaultValue;
+        } else {
+            return t;
+        }
+    }
 
-	public String getMandatoryStringAttribute(String key, Map<String, Object> map) {
-		String s = getStringAttribute(key, map);
-		if (s == null) {
-			throw new BuilderException("Mandatory attribute " + key + " is missing from the list of attributes " + map);
-		} else {
-			return s;
-		}
-	}
+    /**
+     * @param key
+     * @param map
+     * @return values of the given attribute as String or given default value if attribute doesn't exist
+     */
+    public String getNullableStringAttribute(String defaultValue, String key, Map<String, Object> map) {
+        String s = getStringAttribute(key, map);
+        if (s == null) {
+            return defaultValue;
+        } else {
+            return s;
+        }
+    }
+
+    /**
+     * @param key
+     * @param map
+     * @return values of the given attribute as String or throws exception if attribute doesn't exist
+     */
+    public String getMandatoryStringAttribute(String key, Map<String, Object> map) {
+        String s = getStringAttribute(key, map);
+        if (s == null) {
+            throw new BuilderException("Mandatory attribute " + key + " is missing from the list of attributes " + map);
+        } else {
+            return s;
+        }
+    }
 
 }

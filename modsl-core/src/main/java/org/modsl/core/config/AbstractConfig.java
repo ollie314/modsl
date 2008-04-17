@@ -23,6 +23,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * Base class for all diagram configuration sets
+ * 
+ * @author avishnyakov
+ *
+ * @param <F> font size transformer class
+ */
 public abstract class AbstractConfig<F extends FontSizeTransform> {
 
 	protected static final String PROPS_FILE_NAME = "template.properties";
@@ -65,10 +72,16 @@ public abstract class AbstractConfig<F extends FontSizeTransform> {
 		return Boolean.parseBoolean(getProp(key));
 	}
 
+	/**
+	 * @return location of the configuration directory
+	 */
 	public String getPath() {
 		return path;
 	}
 
+	/**
+	 * @return map of all properties
+	 */
 	public Map<String, String> getProps() {
 		return props;
 	}
