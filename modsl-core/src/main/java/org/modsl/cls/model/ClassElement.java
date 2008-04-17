@@ -77,7 +77,7 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
             ClassElementDetail ed = attributes.get(i);
             ed.calcSizeAndPosition(attrAreaPosition, elementDetailFST, i);
             maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
-            maxExtHeight = ed.getPosition().y + ed.getSize().y;
+            maxExtHeight = ed.getRelativePosition().y + ed.getSize().y;
         }
 
         XY methodAreaPosition;
@@ -92,7 +92,7 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
             ClassElementDetail ed = methods.get(i);
             methods.get(i).calcSizeAndPosition(methodAreaPosition, elementDetailFST, i);
             maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
-            maxExtHeight = ed.getPosition().y + ed.getSize().y;
+            maxExtHeight = ed.getRelativePosition().y + ed.getSize().y;
         }
 
         if (methods.size() > 0) {

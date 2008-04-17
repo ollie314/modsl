@@ -71,16 +71,8 @@ public class Diagram<P, E extends Element, C extends Connector> extends Abstract
         super(parent, name);
     }
 
-    public E getElement(String key) {
-        return elements.get(key);
-    }
-
-    public E getElement(int i) {
-        return orderedElements.get(i);
-    }
-
-    public List<E> getElements() {
-        return orderedElements;
+    public void addConnector(C connector) {
+        connectors.add(connector);
     }
 
     public void addElement(E element) {
@@ -88,8 +80,24 @@ public class Diagram<P, E extends Element, C extends Connector> extends Abstract
         orderedElements.add(element);
     }
 
-    public void addConnector(C connector) {
-        connectors.add(connector);
+    public void addPositionToHistory() {
+        for (Vertex v : orderedElements) {
+            v.addPositionToHistory();
+        }
+    }
+
+    public double getArea() {
+        return size.x * size.y;
+    }
+
+    public XY getBaricenter() {
+        XY bc = new XY();
+        for (E e : orderedElements) {
+            bc.x += e.getCenterPosition().x;
+            bc.y += e.getCenterPosition().y;
+        }
+        bc.divBy(orderedElements.size());
+        return bc;
     }
 
     public List<C> getConnectors() {
@@ -104,57 +112,28 @@ public class Diagram<P, E extends Element, C extends Connector> extends Abstract
         return lens;
     }
 
-    public double getSumEdgeLength() {
-        double len = 0d;
-        for (C e : connectors) {
-            len += e.getLength();
-        }
-        return len;
+    public List getEdges() {
+        return connectors;
     }
 
-    public XY getBaricenter() {
-        XY bc = new XY();
-        for (E e : orderedElements) {
-            bc.x += e.getCenterPosition().x;
-            bc.y += e.getCenterPosition().y;
-        }
-        bc.divBy(orderedElements.size());
-        return bc;
+    public E getElement(int i) {
+        return orderedElements.get(i);
     }
 
-    public XY getSize() {
-        return size;
+    public E getElement(String key) {
+        return elements.get(key);
     }
 
-    public XY recalcSize() {
-        size = getMaxXY().minus(getMinXY());
-        return size;
+    public List<E> getElements() {
+        return orderedElements;
+    }
+
+    public XY getLastKnownSize() {
+        return lastKnownSize;
     }
 
     /**
-     * @return vertex with max x (including it's size)
-     */
-    protected Vertex maxXVertex() {
-        Vertex res = null;
-        for (Vertex v : orderedElements) {
-            res = res == null ? v : (res.getPosition().x + res.getSize().x < v.getPosition().x + v.getSize().x ? v : res);
-        }
-        return res;
-    }
-
-    /**
-     * @return vertex with max y (including it's size)
-     */
-    protected Vertex maxYVertex() {
-        Vertex res = null;
-        for (Vertex v : orderedElements) {
-            res = res == null ? v : (res.getPosition().y + res.getSize().y < v.getPosition().y + v.getSize().y ? v : res);
-        }
-        return res;
-    }
-
-    /**
-     * Bottom right
+     * (x, y) for bottom right
      * 
      * @return
      */
@@ -168,7 +147,7 @@ public class Diagram<P, E extends Element, C extends Connector> extends Abstract
     }
 
     /**
-     * Top left
+     * (x, y) for top left. Can differ from 0, 0 depending on the vertexes' positions
      * 
      * @return
      */
@@ -181,6 +160,71 @@ public class Diagram<P, E extends Element, C extends Connector> extends Abstract
         return s;
     }
 
+    public double getPaddingFooter() {
+        return paddingFooter;
+    }
+
+    public double getPaddingHeader() {
+        return paddingHeader;
+    }
+
+    public double getPaddingSides() {
+        return paddingSides;
+    }
+
+    public XY getRequestedSize() {
+        return requestedSize;
+    }
+
+    public XY getSize() {
+        return size;
+    }
+
+    public double getSumEdgeLength() {
+        double len = 0d;
+        for (C e : connectors) {
+            len += e.getLength();
+        }
+        return len;
+    }
+
+    public Timeline getTimeline() {
+        return timeline;
+    }
+
+    public E getVertex(int i) {
+        return orderedElements.get(i);
+    }
+
+    public List getVertexes() {
+        return orderedElements;
+    }
+
+    /**
+     * @return vertex with max x (the rightmost, including it's size)
+     */
+    protected Vertex maxXVertex() {
+        Vertex res = null;
+        for (Vertex v : orderedElements) {
+            res = res == null ? v : (res.getPosition().x + res.getSize().x < v.getPosition().x + v.getSize().x ? v : res);
+        }
+        return res;
+    }
+
+    /**
+     * @return vertex with max y (the lowest, including it's size)
+     */
+    protected Vertex maxYVertex() {
+        Vertex res = null;
+        for (Vertex v : orderedElements) {
+            res = res == null ? v : (res.getPosition().y + res.getSize().y < v.getPosition().y + v.getSize().y ? v : res);
+        }
+        return res;
+    }
+
+    /**
+     * Shift x, y on all vertexes to bring min(x, y) to (0, 0)
+     */
     public void rebase() {
         XY min = getMinXY();
         for (Vertex v : elements.values()) {
@@ -191,97 +235,61 @@ public class Diagram<P, E extends Element, C extends Connector> extends Abstract
         }
     }
 
-    public double getArea() {
-        return size.x * size.y;
+    public XY recalcSize() {
+        size = getMaxXY().minus(getMinXY());
+        return size;
     }
 
-    protected void rescale(XY p) {
+    /**
+     * Rescale diagram to the given size
+     * @param newSize new size
+     */
+    protected void rescale(XY newSize) {
         rebase();
         recalcSize();
         lastKnownSize = size;
         Vertex maxX = maxXVertex();
         Vertex maxY = maxYVertex();
         XY maxXYsize = new XY(maxX.getSize().x, maxY.getSize().y);
-        XY pExt = p.minus(maxXYsize).decBy(new XY(paddingSides * 2, paddingHeader + paddingFooter));
+        XY newSizeExt = newSize.minus(maxXYsize).decBy(new XY(paddingSides * 2, paddingHeader + paddingFooter));
         XY sizeExt = size.minus(maxXYsize);
         for (Vertex v : elements.values()) {
             XY pos = v.getPosition();
-            pos.mulBy(pExt).divBy(sizeExt).incBy(new XY(paddingSides, paddingHeader));
+            pos.mulBy(newSizeExt).divBy(sizeExt).incBy(new XY(paddingSides, paddingHeader));
             for (XY hist : v.getPosHistory()) {
-                hist.mulBy(pExt).divBy(sizeExt).incBy(new XY(paddingSides, paddingHeader));
+                hist.mulBy(newSizeExt).divBy(sizeExt).incBy(new XY(paddingSides, paddingHeader));
             }
         }
-        size = new XY(p);
-    }
-
-    public void addPositionToHistory() {
-        for (Vertex v : orderedElements) {
-            v.addPositionToHistory();
-        }
-    }
-
-    public List getEdges() {
-        return connectors;
-    }
-
-    public List getVertexes() {
-        return orderedElements;
-    }
-
-    public E getVertex(int i) {
-        return orderedElements.get(i);
-    }
-
-    public String toString() {
-        return getClass().getSimpleName() + "~{e:" + orderedElements + ",c:" + connectors + "}";
-    }
-
-    public XY getRequestedSize() {
-        return requestedSize;
+        size = new XY(newSize);
     }
 
     public void rescaleToRequestedSize() {
         rescale(getRequestedSize());
     }
 
-    public void setRequestedSize(XY requestedSize) {
-        this.requestedSize = requestedSize;
-    }
-
-    public XY getLastKnownSize() {
-        return lastKnownSize;
-    }
-
-    public double getPaddingHeader() {
-        return paddingHeader;
+    public void setPaddingFooter(double paddingFooter) {
+        this.paddingFooter = paddingFooter;
     }
 
     public void setPaddingHeader(double paddingHeader) {
         this.paddingHeader = paddingHeader;
     }
 
-    public double getPaddingFooter() {
-        return paddingFooter;
-    }
-
-    public void setPaddingFooter(double paddingFooter) {
-        this.paddingFooter = paddingFooter;
-    }
-
-    public double getPaddingSides() {
-        return paddingSides;
-    }
-
     public void setPaddingSides(double paddingSides) {
         this.paddingSides = paddingSides;
+    }
+
+    public void setRequestedSize(XY requestedSize) {
+        this.requestedSize = requestedSize;
     }
 
     public void timestamp(String name) {
         timeline.timestamp(name);
     }
 
-    public Timeline getTimeline() {
-        return timeline;
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "~{e:" + orderedElements + ",c:" + connectors + "}";
     }
     
 }

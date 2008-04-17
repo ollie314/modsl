@@ -18,9 +18,23 @@ package org.modsl.core.model.diagram;
 
 import org.modsl.core.model.XY;
 
+/**
+ * Basic element detail
+ * 
+ * @author avishnyakov
+ *
+ * @param <P> parent class (usually an Element)
+ */
 public class ElementDetail<P extends Element> extends AbstractDiagramObject<P> {
 
-    protected XY position = new XY();
+    /**
+     * Position (relative to the parent)
+     */
+    protected XY realtivePosition = new XY();
+    
+    /**
+     * Size
+     */
     protected XY size = new XY();
 
     public ElementDetail(P parent, String name) {
@@ -28,16 +42,25 @@ public class ElementDetail<P extends Element> extends AbstractDiagramObject<P> {
         this.parent.addElementDetail(this);
     }
 
+    /**
+     * @return absolute position
+     */
     public XY getPosition() {
-        return position;
+        return parent.position.plus(realtivePosition);
     }
 
+    /**
+     * @return position relative to it's parent element
+     */
+    public XY getRelativePosition() {
+        return realtivePosition;
+    }
+
+    /**
+     * @return size (outer box for element's text)
+     */
     public XY getSize() {
         return size;
-    }
-
-    public XY getAbsolutePosition() {
-        return parent.position.plus(position);
     }
 
 }
