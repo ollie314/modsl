@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.modsl.cls.model.ClassDiagram;
-import org.modsl.cls.model.ClassElement;
+import org.modsl.collab.model.CollabDiagram;
+import org.modsl.collab.model.CollabElement;
 
 /**
  * Creates collaboration diagram elements from the given Groovy script input
@@ -35,9 +35,9 @@ public class CollabElementFactory extends CollabAbstractFactory {
         metaKeys = Arrays.asList(new String[] { "_object" });
     }
 
-    public ClassElement build(String metaKey, String value, Object current, Map<String, Object> map) {
-        checkParentClass(metaKey, current, ClassDiagram.class);
-        return new ClassElement(value, (ClassDiagram) current);
+    public CollabElement build(String metaKey, String value, Object current, Map<String, Object> map) {
+        checkParentClass(metaKey, current, CollabDiagram.class);
+        return new CollabElement(value, (CollabDiagram) current);
     }
 
     public List<String> getMetaKeys() {
