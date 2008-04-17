@@ -2,6 +2,8 @@
 
 == Architecture ===
    * replace input Groovy script with new Antlr-based DSL
+      * allow DSL to dynamically choose diagram type
+      * allow to connect to xternal data sources, do mashups
    * Eclipse plugin
    * web based tool/web service (post snippet -> store under a unique id -> render)
    * website - submit online, store, expire. serve through PHP/Apache?
