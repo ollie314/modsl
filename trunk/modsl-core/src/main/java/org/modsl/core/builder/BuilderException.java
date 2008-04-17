@@ -16,6 +16,12 @@
 
 package org.modsl.core.builder;
 
+/**
+ * Builder/parser errors are supposed to be reported through this class or its subclasses
+ * 
+ * @author avishnyakov
+ *
+ */
 public class BuilderException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
