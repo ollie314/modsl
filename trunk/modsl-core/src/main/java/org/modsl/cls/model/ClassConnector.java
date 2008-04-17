@@ -55,51 +55,84 @@ public class ClassConnector extends Connector<ClassDiagram, ClassElement> {
         this.type = type;
     }
 
+    /**
+     * @return position of the left arrow's side
+     */
     public XY getArrow1() {
         double alpha = angle() - arrowAngle / 2d;
         return new XY(arrowLength * Math.cos(alpha), arrowLength * Math.sin(alpha));
     }
 
+    /**
+     * @return position of the right arrow's side
+     */
     public XY getArrow2() {
         double alpha = angle() + arrowAngle / 2d;
         return new XY(arrowLength * Math.cos(alpha), arrowLength * Math.sin(alpha));
     }
 
+    /**
+     * @return position of the multiplicity label at the start location
+     */
     public XY getMultiStart() {
         double alpha = angle();
         double multiOffset = -arrowLength * 1.1d * Math.cos(arrowAngle / 2d);
         return new XY(multiOffset * Math.cos(alpha), multiOffset * Math.sin(alpha));
     }
 
+    /**
+     * @return position of the multiplicity label at the end location
+     */
     public XY getMultiEnd() {
         double alpha = angle();
         double multiOffset = arrowLength * 1.75d * Math.cos(arrowAngle / 2d);
         return new XY(multiOffset * Math.cos(alpha), multiOffset * Math.sin(alpha));
     }
 
+    /**
+     * @return true if it's EXTENDS or IMPLEMENTS relationship
+     */
     public boolean isHollowArrow() {
         return hollowArrow.contains(this.type);
     }
-
+    
+    /**
+     * @return position of the middle point of the arrow
+     */
     public XY getArrowMiddle() {
         double alpha = angle();
         double middleArrowLength = arrowLength * Math.cos(arrowAngle / 2d);
         return new XY(middleArrowLength * Math.cos(alpha), middleArrowLength * Math.sin(alpha));
     }
 
+    /**
+     * @return start multiplicity label
+     */
     public String getStartMultiplicity() {
         return startMultiplicity;
     }
 
+    /**
+     * Sets start multiplicity label 
+     * @param startMultiplicity
+     */
     public void setStartMultiplicity(String startMultiplicity) {
         this.startMultiplicity = startMultiplicity;
     }
 
+    /**
+     * @return end multiplicity label
+     */
     public String getEndMultiplicity() {
         return endMultiplicity;
     }
 
+    /**
+     * Sets end multiplicity label 
+     * @param startMultiplicity
+     */
     public void setEndMultiplicity(String endMultiplicity) {
         this.endMultiplicity = endMultiplicity;
     }
+
 }
