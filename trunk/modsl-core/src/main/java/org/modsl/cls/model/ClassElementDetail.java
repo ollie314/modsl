@@ -16,7 +16,7 @@
 
 package org.modsl.cls.model;
 
-import org.modsl.cls.ClassFontSizeTransform;
+import org.modsl.cls.ClassFontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.ElementDetail;
 
@@ -49,11 +49,17 @@ public class ClassElementDetail extends ElementDetail<ClassElement> {
 		return type;
 	}
 
-	public void calcSizeAndPosition(XY startPosition, ClassFontSizeTransform elementDetailFST, int index) {
-		realtivePosition.x = elementDetailFST.getLeftPadding();
-		realtivePosition.y = startPosition.y + elementDetailFST.getExtPosition(index);
-		size.x = elementDetailFST.getExtStringWidth(name);
-		size.y = elementDetailFST.getHeight();
+	/**
+	 * Positions this element relative to the given startPosition
+	 * @param startPosition right below class's header or below the previous class detail section
+	 * @param elementDetailFT fint size transform object
+	 * @param index seq index of this detail
+	 */
+	public void calcSizeAndPosition(XY startPosition, ClassFontTransform elementDetailFT, int index) {
+		realtivePosition.x = elementDetailFT.getLeftPadding();
+		realtivePosition.y = startPosition.y + elementDetailFT.getExtPosition(index);
+		size.x = elementDetailFT.getExtStringWidth(name);
+		size.y = elementDetailFT.getHeight();
 	}
 
 }

@@ -19,6 +19,11 @@
  */
 package org.modsl.cls.model;
 
+/**
+ * Element scope types
+ * @author avishnyakov
+ *
+ */
 public enum ClassElementDetailScope {
 	INSTANCE, STATIC
 }

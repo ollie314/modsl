@@ -37,6 +37,11 @@ public class ElementDetail<P extends Element> extends AbstractDiagramObject<P> {
      */
     protected XY size = new XY();
 
+    /**
+     * New instance given parent element and name
+     * @param parent
+     * @param name
+     */
     public ElementDetail(P parent, String name) {
         super(parent, name);
         this.parent.addElementDetail(this);

@@ -34,7 +34,7 @@ public class ElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConf
 	}
 
 	private void update(ClassElement element) {
-		element.calcSize(config.elementHeaderFST, config.elementDetailFST);
+		element.calcSize(config.elementHeaderFT, config.elementDetailFT);
 	}
 	
 }

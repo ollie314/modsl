@@ -32,64 +32,75 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractBuilder extends BuilderSupport {
 
-	public static final String VALUE = "value";
-	Logger log = Logger.getLogger(this.getClass());
+    public static final String VALUE = "value";
+    Logger log = Logger.getLogger(this.getClass());
 
-	public AbstractBuilder() {
-		super();
-	}
+    public AbstractBuilder() {
+        super();
+    }
 
-	public AbstractBuilder(BuilderSupport proxyBuilder) {
-		super(proxyBuilder);
-	}
+    public AbstractBuilder(BuilderSupport proxyBuilder) {
+        super(proxyBuilder);
+    }
 
-	public AbstractBuilder(Closure nameMappingClosure, BuilderSupport proxyBuilder) {
-		super(nameMappingClosure, proxyBuilder);
-	}
+    public AbstractBuilder(Closure nameMappingClosure, BuilderSupport proxyBuilder) {
+        super(nameMappingClosure, proxyBuilder);
+    }
 
-	protected abstract Object createObject(Object name, Object current, Map attributes);
+    /**
+     * Creates a model's object given the node data
+     * @param name object name
+     * @param current parent object
+     * @param attributes map of Groovy builder node's attributes
+     * @return new model object
+     */
+    protected abstract Object createObject(Object name, Object current, Map attributes);
 
-	protected Object createNode(Object name) {
-		try {
-			return createObject(name, getCurrent(), new HashMap());
-		} catch (BuilderException ex) {
-			log.error("createNode(" + name + ")", ex);
-			return null;
-		}
-	}
+    protected Object createNode(Object name) {
+        try {
+            return createObject(name, getCurrent(), new HashMap());
+        } catch (BuilderException ex) {
+            log.error("createNode(" + name + ")", ex);
+            return null;
+        }
+    }
 
-	protected Object createNode(Object name, Object value) {
-		try {
-			Map attributes = new HashMap();
-			attributes.put(VALUE, value);
-			return createObject(name, getCurrent(), attributes);
-		} catch (BuilderException ex) {
-			log.error("createNode(" + name + ", " + value + ")", ex);
-			return null;
-		}
-	}
+    @Override
+    protected Object createNode(Object name, Object value) {
+        try {
+            Map attributes = new HashMap();
+            attributes.put(VALUE, value);
+            return createObject(name, getCurrent(), attributes);
+        } catch (BuilderException ex) {
+            log.error("createNode(" + name + ", " + value + ")", ex);
+            return null;
+        }
+    }
 
-	protected Object createNode(Object name, Map attributes) {
-		try {
-			return createObject(name, getCurrent(), attributes);
-		} catch (BuilderException ex) {
-			log.error("createNode(" + name + ", " + attributes + ")", ex);
-			return null;
-		}
-	}
+    @Override
+    protected Object createNode(Object name, Map attributes) {
+        try {
+            return createObject(name, getCurrent(), attributes);
+        } catch (BuilderException ex) {
+            log.error("createNode(" + name + ", " + attributes + ")", ex);
+            return null;
+        }
+    }
 
-	protected Object createNode(Object name, Map attributes, Object value) {
-		try {
-			attributes.put(VALUE, value);
-			return createObject(name, getCurrent(), attributes);
-		} catch (BuilderException ex) {
-			log.error("createNode(" + name + ", " + attributes + ", " + value + ")", ex);
-			return null;
-		}
-	}
+    @Override
+    protected Object createNode(Object name, Map attributes, Object value) {
+        try {
+            attributes.put(VALUE, value);
+            return createObject(name, getCurrent(), attributes);
+        } catch (BuilderException ex) {
+            log.error("createNode(" + name + ", " + attributes + ", " + value + ")", ex);
+            return null;
+        }
+    }
 
-	protected void setParent(Object parent, Object child) {
-	    // do nothing
-	}
+    @Override
+    protected void setParent(Object parent, Object child) {
+        // do nothing
+    }
 
 }

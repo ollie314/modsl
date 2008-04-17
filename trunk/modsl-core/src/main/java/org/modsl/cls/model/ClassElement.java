@@ -22,7 +22,7 @@ import static java.lang.Math.max;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modsl.cls.ClassFontSizeTransform;
+import org.modsl.cls.ClassFontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.Element;
 
@@ -67,22 +67,22 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
         return methods;
     }
 
-    public void calcSize(ClassFontSizeTransform elementHeaderFST, ClassFontSizeTransform elementDetailFST) {
+    public void calcSize(ClassFontTransform elementHeaderFT, ClassFontTransform elementDetailFT) {
 
-        double maxExtStringWidth = elementHeaderFST.getExtStringWidth(name);
-        double maxExtHeight = elementHeaderFST.getExtHeight(1);
+        double maxExtStringWidth = elementHeaderFT.getExtStringWidth(name);
+        double maxExtHeight = elementHeaderFT.getExtHeight(1);
 
         XY attrAreaPosition = new XY(0, maxExtHeight);
         for (int i = 0; i < attributes.size(); i++) {
             ClassElementDetail ed = attributes.get(i);
-            ed.calcSizeAndPosition(attrAreaPosition, elementDetailFST, i);
+            ed.calcSizeAndPosition(attrAreaPosition, elementDetailFT, i);
             maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
             maxExtHeight = ed.getRelativePosition().y + ed.getSize().y;
         }
 
         XY methodAreaPosition;
         if (attributes.size() > 0) {
-            maxExtHeight += elementDetailFST.getBottomPadding();
+            maxExtHeight += elementDetailFT.getBottomPadding();
             methodAreaPosition = new XY(0, maxExtHeight);
         } else {
             methodAreaPosition = attrAreaPosition;
@@ -90,17 +90,17 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
 
         for (int i = 0; i < methods.size(); i++) {
             ClassElementDetail ed = methods.get(i);
-            methods.get(i).calcSizeAndPosition(methodAreaPosition, elementDetailFST, i);
+            methods.get(i).calcSizeAndPosition(methodAreaPosition, elementDetailFT, i);
             maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
             maxExtHeight = ed.getRelativePosition().y + ed.getSize().y;
         }
 
         if (methods.size() > 0) {
-            maxExtHeight += elementDetailFST.getBottomPadding();
+            maxExtHeight += elementDetailFT.getBottomPadding();
         }
 
         if (methods.size() == 0 && attributes.size() == 0) {
-            maxExtHeight += elementDetailFST.getFontSize();
+            maxExtHeight += elementDetailFT.getFontSize();
         }
 
         size.x = maxExtStringWidth;

@@ -24,7 +24,7 @@ import org.modsl.core.config.AbstractConfig;
  * @author avishnyakov
  *
  */
-public class ClassDiagramConfig extends AbstractConfig<ClassFontSizeTransform> {
+public class ClassDiagramConfig extends AbstractConfig<ClassFontTransform> {
 
 	public final int initLayoutMaxRounds = getIntegerProp("initLayoutMaxRounds");
 
@@ -44,15 +44,15 @@ public class ClassDiagramConfig extends AbstractConfig<ClassFontSizeTransform> {
 
 	public final String diagramFontFamily = getProp("diagramFontFamily");
 
-	public final ClassFontSizeTransform diagramHeaderFST = new ClassFontSizeTransform(diagramFontFamily,
+	public final ClassFontTransform diagramHeaderFT = new ClassFontTransform(diagramFontFamily,
 			getIntegerProp("diagramHeaderFontSize"));
-	public final ClassFontSizeTransform diagramFooterFST = new ClassFontSizeTransform(diagramFontFamily,
+	public final ClassFontTransform diagramFooterFT = new ClassFontTransform(diagramFontFamily,
 			getIntegerProp("diagramFooterFontSize"));
-	public final ClassFontSizeTransform elementHeaderFST = new ClassFontSizeTransform(diagramFontFamily,
+	public final ClassFontTransform elementHeaderFT = new ClassFontTransform(diagramFontFamily,
 			getIntegerProp("elementHeaderFontSize"));
-	public final ClassFontSizeTransform elementDetailFST = new ClassFontSizeTransform(diagramFontFamily,
+	public final ClassFontTransform elementDetailFT = new ClassFontTransform(diagramFontFamily,
 			getIntegerProp("elementDetailFontSize"));
-	public final ClassFontSizeTransform connectorFST = new ClassFontSizeTransform(diagramFontFamily,
+	public final ClassFontTransform connectorFT = new ClassFontTransform(diagramFontFamily,
 			getIntegerProp("connectorFontSize"));
 
 	public ClassDiagramConfig() {
