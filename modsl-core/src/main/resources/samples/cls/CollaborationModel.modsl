@@ -1,2 +1,18 @@
-ModSL message to Builder
-Builder message to Factory
+diagram = builder._diagram(value:"Collaboration Model", _width:800, _height:600) {
+
+	_object("Class1:Object1") {
+		_calls("Class2:Object2")
+	}
+	
+	_object("Class2:Object2") {
+		_calls("Class2:Object3")
+		_calls("Class2:Object4")
+		_calls("Class2:Object5")
+	}
+
+	_object("Class2:Object3")
+	_object("Class2:Object4")
+	_object("Class2:Object5")
+	
+}
+	

@@ -18,7 +18,7 @@ package org.modsl;
 
 import org.junit.Test;
 
-public class TestModelTest extends AbstractDiagramTest {
+public class TestModelTest extends AbstractClassDiagramTest {
 
     @Test
     public void testModel() {

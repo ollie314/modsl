@@ -37,7 +37,7 @@ import org.modsl.core.model.diagram.Diagram;
  * 
  * @author avishnyakov
  */
-public abstract class AbstractDiagramTest {
+public abstract class AbstractClassDiagramTest {
 
     private static final String[] scriptRoots = new String[] { "./target/classes/samples/cls" };
     private static GroovyScriptEngine scriptEngine;
@@ -46,13 +46,13 @@ public abstract class AbstractDiagramTest {
         try {
             scriptEngine = new GroovyScriptEngine(scriptRoots);
         } catch (IOException ex) {
-            Logger.getLogger(AbstractDiagramTest.class).error(ex);
+            Logger.getLogger(AbstractClassDiagramTest.class).error(ex);
         }
     }
 
     protected Logger log = Logger.getLogger(getClass());
 
-    public Diagram processDiagram(String name) {
+    public ClassDiagram processDiagram(String name) {
 
         try {
 
@@ -76,9 +76,9 @@ public abstract class AbstractDiagramTest {
 
             log.error(ex);
             return null;
-            
+
         }
 
     }
-    
+
 }
