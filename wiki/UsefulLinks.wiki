@@ -1,5 +1,14 @@
 #summary Useful Links
 
+=== Graph Layout ===
+   * UMLGraph http://www.umlgraph.org/ 
+   * Graphviz http://www.graphviz.org/
+   * Grappa (Java wrapper for Graphviz) http://www.research.att.com/~john/Grappa/
+
+=== ANTLR ===
+   * Antlr homepage http://www.antlr.org/
+   * Antlr tutorial http://javadude.com/articles/antlrtut/
+
+=== SVG ===
    * How To http://www.w3.org/2002/Talks/www2002-svgtut-ih/hwtut.pdf
    * Tutorial http://apike.ca/prog_svg.html
-   * Tutorial (rus) http://www.intuit.ru/department/graphics/svg/
