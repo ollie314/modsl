@@ -41,17 +41,27 @@ public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagramConfig>
     }
 
     private StringBuffer renderDiagram(StringBuffer sb, ClassDiagram d) {
+
+        d.timestamp("template_engine_init");        
+        
         invokeTemplate(sb, d, "diagram", "diagram_start");
         invokeTemplate(sb, d, "diagram", "diagram_stylesheet");
+        
         renderHistory(sb, d.getElements());
         renderConnectors(sb, d.getConnectors());
         renderElements(sb, d.getElements());
+        
         if (d.getName() != null) {
             invokeTemplate(sb, d, "diagram", "diagram_header");
         }
+
+        // before the end tag completes
         d.timestamp("svg_rendering");
+        
         invokeTemplate(sb, d, "diagram", "diagram_end");
+        
         return sb;
+        
     }
 
     private void renderHistory(StringBuffer sb, List<ClassElement> elements) {
