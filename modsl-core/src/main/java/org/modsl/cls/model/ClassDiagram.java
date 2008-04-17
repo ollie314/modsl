@@ -28,8 +28,8 @@ import org.modsl.core.model.diagram.Diagram;
  */
 public class ClassDiagram extends Diagram<Object, ClassElement, ClassConnector> {
 
-    public ClassDiagram(String metaKey, String name) {
-        super(metaKey, null, name);
+    public ClassDiagram(String name) {
+        super(null, name);
     }
 
     public void sortElementsByWeight() {

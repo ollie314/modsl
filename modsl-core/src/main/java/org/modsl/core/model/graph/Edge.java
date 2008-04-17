@@ -38,12 +38,12 @@ public interface Edge {
 	public double cos();
 
 	/**
-	 * @return end XY adjusted for vertex size
+	 * @return end XY adjusted for vertex size for non-overlapping
 	 */
 	public XY getAdjustedEndPosition();
 
 	/**
-	 * @return start XY adjusted for vertex size
+	 * @return start XY adjusted for vertex size for non-overlapping
 	 */
 	public XY getAdjustedStartPosition();
 

@@ -38,8 +38,8 @@ public class Element<P extends Diagram, ED extends ElementDetail> extends Abstra
     protected XY altPos = new XY();
     protected double weight = 1d;
 
-    public Element(String metaKey, P parent, String name) {
-        super(metaKey, parent, name);
+    public Element(P parent, String name) {
+        super(parent, name);
         this.parent.addElement(this);
     }
 

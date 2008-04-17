@@ -31,8 +31,8 @@ public class Connector<P extends Diagram, E extends Element> extends AbstractDia
     protected E endElement;
     protected String endElementName;
 
-    public Connector(String metaKey, P parent, String name) {
-        super(metaKey, parent, name);
+    public Connector(P parent, String name) {
+        super(parent, name);
         this.parent.addConnector(this);
     }
 

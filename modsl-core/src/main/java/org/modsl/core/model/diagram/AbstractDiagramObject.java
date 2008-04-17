@@ -16,17 +16,33 @@
 
 package org.modsl.core.model.diagram;
 
+/**
+ * Abstract diagram object superclass
+ * 
+ * @author avishnyakov
+ *
+ * @param <P> parent class
+ */
 public abstract class AbstractDiagramObject<P> {
 
+    /**
+     * Name of this object
+     */
     protected String name;
-    protected String metaKey;
+
+    /**
+     * Parent object
+     */
     protected P parent;
+    
+    /**
+     * This element is visible
+     */
     protected boolean visible = true;
 
-    public AbstractDiagramObject(String metaKey, P parent, String name) {
+    public AbstractDiagramObject(P parent, String name) {
         super();
         this.parent = parent;
-        this.metaKey = metaKey;
         this.name = name;
     }
 
@@ -36,14 +52,6 @@ public abstract class AbstractDiagramObject<P> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getMetaKey() {
-        return metaKey;
-    }
-
-    public void setMetaKey(String metaKey) {
-        this.metaKey = metaKey;
     }
 
     public P getParent() {

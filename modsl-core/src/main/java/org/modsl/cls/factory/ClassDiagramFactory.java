@@ -31,7 +31,7 @@ public class ClassDiagramFactory extends ClassAbstractFactory {
 
     public AbstractDiagramObject<Object> build(String metaKey, String value, Object current, Map<String, Object> map) {
         checkParentClass(metaKey, current, null);
-        ClassDiagram d = new ClassDiagram(metaKey, value);
+        ClassDiagram d = new ClassDiagram(value);
         d.getRequestedSize().x = getNullableIntegerAttribute((int) d.getRequestedSize().x, "_width", map);
         d.getRequestedSize().y = getNullableIntegerAttribute((int) d.getRequestedSize().y, "_height", map);
         return d;

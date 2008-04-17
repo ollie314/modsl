@@ -33,78 +33,79 @@ import org.modsl.core.model.diagram.Element;
  */
 public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
 
-	protected List<ClassElementDetail> attributes = new ArrayList<ClassElementDetail>();
-	protected List<ClassElementDetail> methods = new ArrayList<ClassElementDetail>();
+    protected List<ClassElementDetail> attributes = new ArrayList<ClassElementDetail>();
+    protected List<ClassElementDetail> methods = new ArrayList<ClassElementDetail>();
 
-	public ClassElement(String metaKey, String name, ClassDiagram parent) {
-		super(metaKey, parent, name);
-	}
+    public ClassElement(String name, ClassDiagram parent) {
+        super(parent, name);
+    }
 
-	public int getExtendsFromCount() {
-		int ef = 0;
-		for (ClassConnector c : parent.getConnectors()) {
-			if (c.getStartElement().equals(this) && ("_extends".equals(c.getMetaKey()) || "_implements".equals(c.getMetaKey()))) {
-				ef++;
-			}
-		}
-		return ef;
-	}
+    public int getExtendsFromCount() {
+        int ef = 0;
+        for (ClassConnector c : parent.getConnectors()) {
+            if (c.getStartElement().equals(this)
+                    && (ClassConnector.Type.IMPLEMENTS.equals(c.getType()) || ClassConnector.Type.EXTENDS.equals(c.getType()))) {
+                ef++;
+            }
+        }
+        return ef;
+    }
 
-	public void calcWeight() {
-		setWeight(1d / (1d + exp(-getExtendsFromCount())));
-	}
+    public void calcWeight() {
+        setWeight(1d / (1d + exp(-getExtendsFromCount())));
+    }
 
-	public String toString() {
-		return name + ":" + weight;
-	}
+    public String toString() {
+        return name + ":" + weight;
+    }
 
-	public List<ClassElementDetail> getAttributes() {
-		return attributes;
-	}
+    public List<ClassElementDetail> getAttributes() {
+        return attributes;
+    }
 
-	public List<ClassElementDetail> getMethods() {
-		return methods;
-	}
+    public List<ClassElementDetail> getMethods() {
+        return methods;
+    }
 
-	public void calcSize(ClassFontSizeTransform elementHeaderFST, ClassFontSizeTransform elementDetailFST) {
+    public void calcSize(ClassFontSizeTransform elementHeaderFST, ClassFontSizeTransform elementDetailFST) {
 
-		double maxExtStringWidth = elementHeaderFST.getExtStringWidth(name);
-		double maxExtHeight = elementHeaderFST.getExtHeight(1);
+        double maxExtStringWidth = elementHeaderFST.getExtStringWidth(name);
+        double maxExtHeight = elementHeaderFST.getExtHeight(1);
 
-		XY attrAreaPosition = new XY(0, maxExtHeight);
-		for (int i = 0; i < attributes.size(); i++) {
-			ClassElementDetail ed = attributes.get(i);
-			ed.calcSizeAndPosition(attrAreaPosition, elementDetailFST, i);
-			maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
-			maxExtHeight = ed.getPosition().y + ed.getSize().y;
-		}
+        XY attrAreaPosition = new XY(0, maxExtHeight);
+        for (int i = 0; i < attributes.size(); i++) {
+            ClassElementDetail ed = attributes.get(i);
+            ed.calcSizeAndPosition(attrAreaPosition, elementDetailFST, i);
+            maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
+            maxExtHeight = ed.getPosition().y + ed.getSize().y;
+        }
 
-		XY methodAreaPosition;
-		if (attributes.size() > 0) {
-			maxExtHeight += elementDetailFST.getBottomPadding();
-			methodAreaPosition = new XY(0, maxExtHeight);
-		} else {
-			methodAreaPosition = attrAreaPosition;
-		}
+        XY methodAreaPosition;
+        if (attributes.size() > 0) {
+            maxExtHeight += elementDetailFST.getBottomPadding();
+            methodAreaPosition = new XY(0, maxExtHeight);
+        } else {
+            methodAreaPosition = attrAreaPosition;
+        }
 
-		for (int i = 0; i < methods.size(); i++) {
-			ClassElementDetail ed = methods.get(i);
-			methods.get(i).calcSizeAndPosition(methodAreaPosition, elementDetailFST, i);
-			maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
-			maxExtHeight = ed.getPosition().y + ed.getSize().y;
-		}
+        for (int i = 0; i < methods.size(); i++) {
+            ClassElementDetail ed = methods.get(i);
+            methods.get(i).calcSizeAndPosition(methodAreaPosition, elementDetailFST, i);
+            maxExtStringWidth = max(maxExtStringWidth, ed.getSize().x);
+            maxExtHeight = ed.getPosition().y + ed.getSize().y;
+        }
 
-		if (methods.size() > 0) {
-			maxExtHeight += elementDetailFST.getBottomPadding();
-		}
+        if (methods.size() > 0) {
+            maxExtHeight += elementDetailFST.getBottomPadding();
+        }
 
-		if (methods.size() == 0 && attributes.size() == 0) {
-			maxExtHeight += elementDetailFST.getFontSize();
-		}
+        if (methods.size() == 0 && attributes.size() == 0) {
+            maxExtHeight += elementDetailFST.getFontSize();
+        }
 
-		size.x = maxExtStringWidth;
-		size.y = maxExtHeight;
+        size.x = maxExtStringWidth;
+        size.y = maxExtHeight;
 
-	}
+    }
 
 }

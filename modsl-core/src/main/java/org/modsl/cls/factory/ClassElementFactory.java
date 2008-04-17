@@ -31,7 +31,7 @@ public class ClassElementFactory extends ClassAbstractFactory {
 
     public ClassElement build(String metaKey, String value, Object current, Map<String, Object> map) {
         checkParentClass(metaKey, current, ClassDiagram.class);
-        return new ClassElement(metaKey, value, (ClassDiagram) current);
+        return new ClassElement(value, (ClassDiagram) current);
     }
 
     public List<String> getMetaKeys() {
