@@ -23,6 +23,12 @@ import java.util.Map;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.cls.model.ClassElement;
 
+/**
+ * Creates class diagram elements from the given Groovy script input
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassElementFactory extends ClassAbstractFactory {
 
     public ClassElementFactory() {

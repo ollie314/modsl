@@ -21,20 +21,23 @@ import org.modsl.cls.model.ClassDiagram;
 import org.modsl.cls.model.ClassElement;
 import org.modsl.core.layout.AbstractLayout;
 
+/**
+ * Update element sizes according to the fint style and size
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
 
-	public ElementLayout(ClassDiagramConfig config) {
-		super(config);
-	}
+    public ElementLayout(ClassDiagramConfig config) {
+        super(config);
+    }
 
-	public void apply(ClassDiagram diagram) {
-		for (ClassElement e : diagram.getElements()) {
-			update(e);
-		}
-	}
+    public void apply(ClassDiagram diagram) {
+        for (ClassElement e : diagram.getElements()) {
+            // delegates to the diagram element itself
+            e.calcSize(config.elementHeaderFT, config.elementDetailFT);
+        }
+    }
 
-	private void update(ClassElement element) {
-		element.calcSize(config.elementHeaderFT, config.elementDetailFT);
-	}
-	
 }

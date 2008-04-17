@@ -23,6 +23,12 @@ import java.util.Map;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.model.diagram.AbstractDiagramObject;
 
+/**
+ * Creates class diagram from the given Groovy script input
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassDiagramFactory extends ClassAbstractFactory {
 
     public ClassDiagramFactory() {

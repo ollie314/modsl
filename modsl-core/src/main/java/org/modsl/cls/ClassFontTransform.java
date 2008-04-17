@@ -18,6 +18,12 @@ package org.modsl.cls;
 
 import org.modsl.core.config.FontTransform;
 
+/**
+ * Class diagram-cpecific font transformation class
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassFontTransform extends FontTransform {
 
 	public ClassFontTransform(String fontName, int fontSize) {
