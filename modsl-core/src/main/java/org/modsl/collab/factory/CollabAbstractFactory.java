@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.cls.factory;
+package org.modsl.collab.factory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +23,20 @@ import org.modsl.core.builder.AbstractFactory;
 import org.modsl.core.builder.BuilderException;
 
 /**
- * Abstract factory for all class diagram objects
+ * Abstract factory for all collaboration diagram objects
  * 
  * @author avishnyakov
  */
-public abstract class ClassAbstractFactory extends AbstractFactory {
+
+public abstract class CollabAbstractFactory extends AbstractFactory {
 
     protected static List<AbstractFactory> factories = new ArrayList<AbstractFactory>();
 
     static {
-        factories.add(new ClassDiagramFactory());
+       /* factories.add(new ClassDiagramFactory());
         factories.add(new ClassElementFactory());
         factories.add(new ClassElementDetailFactory());
-        factories.add(new ClassConnectorFactory());
+        factories.add(new ClassConnectorFactory());*/
     }
 
     public static AbstractFactory findFactory(String metaKey) {
