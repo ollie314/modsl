@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.modsl.collab.model.CollabDiagram;
 
-public class CollaborationModelTest extends AbstractCollabDiagramTest {
+public class CollabModelTest extends AbstractCollabDiagramTest {
 
     @Test
     public void coreModel() {
