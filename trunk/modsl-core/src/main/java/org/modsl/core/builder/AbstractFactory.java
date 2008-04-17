@@ -31,6 +31,14 @@ public abstract class AbstractFactory {
 
     protected List<String> metaKeys;
 
+    /**
+     * Builds and returns a diagram object 
+     * @param metaKey
+     * @param value
+     * @param current
+     * @param map
+     * @return
+     */
     public abstract Object build(String metaKey, String value, Object current, Map<String, Object> map);
 
     public abstract List<String> getMetaKeys();
@@ -95,6 +103,12 @@ public abstract class AbstractFactory {
         }
     }
 
+    /**
+     * Checks if the current object is of a given class or it's subclass
+     * @param metaKey meta key (mostly for error reporting)
+     * @param current object to check
+     * @param cls class
+     */
     protected void checkParentClass(String metaKey, Object current, Class cls) {
         if (((cls == null) && (current == null)) || Utils.isA(current, cls)) {
             return;
