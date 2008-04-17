@@ -34,9 +34,9 @@ public class DiagramRescale extends AbstractLayout<ClassDiagram, ClassDiagramCon
 			diagram.getRequestedSize().x = config.diagramDefaultWidth;
 			diagram.getRequestedSize().y = config.diagramDefaultHeight;
 		}
-		diagram.setPaddingHeader((diagram.getName() == null ? 0 : config.diagramHeaderFST.getExtHeight(1))
+		diagram.setPaddingHeader((diagram.getName() == null ? 0 : config.diagramHeaderFT.getExtHeight(1))
 				+ config.diagramPadding);
-		diagram.setPaddingFooter(config.diagramFooterFST.getExtHeight(1) + config.diagramPadding);
+		diagram.setPaddingFooter(config.diagramFooterFT.getExtHeight(1) + config.diagramPadding);
 		diagram.setPaddingSides(config.diagramPadding);
 		diagram.rescaleToRequestedSize();
 	}

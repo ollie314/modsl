@@ -16,11 +16,11 @@
 
 package org.modsl.cls;
 
-import org.modsl.core.config.FontSizeTransform;
+import org.modsl.core.config.FontTransform;
 
-public class ClassFontSizeTransform extends FontSizeTransform {
+public class ClassFontTransform extends FontTransform {
 
-	public ClassFontSizeTransform(String fontName, int fontSize) {
+	public ClassFontTransform(String fontName, int fontSize) {
 		super(fontName, fontSize);
 	}
 

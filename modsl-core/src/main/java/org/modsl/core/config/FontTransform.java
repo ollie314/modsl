@@ -27,7 +27,7 @@ import java.awt.Graphics;
  * @author avishnyakov
  *
  */
-public class FontSizeTransform {
+public class FontTransform {
 
     /**
      * This inner class is used to get access to font metrics in headless environment
@@ -65,11 +65,11 @@ public class FontSizeTransform {
     protected FontMetrics fontMetrics;
 
     /**
-     * Create new FST given font name and size
+     * Create new FT given font name and size
      * @param fontName
      * @param fontSize
      */
-    public FontSizeTransform(String fontName, int fontSize) {
+    public FontTransform(String fontName, int fontSize) {
 
         this.fontName = fontName;
         this.fontSize = fontSize;

@@ -19,13 +19,13 @@ package org.modsl.utils;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.modsl.core.config.FontSizeTransform;
+import org.modsl.core.config.FontTransform;
 
 public class UtilsTest {
 
 	@Test
 	public void getFontMetrics() {
-		FontSizeTransform fts = new FontSizeTransform("Serif", 12);
+		FontTransform fts = new FontTransform("Serif", 12);
 		assertTrue(fts.getStringWidth("test") > 0d);
 		// assertEquals(fm.getHeight(), 12);
 	}

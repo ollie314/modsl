@@ -1,7 +1,7 @@
 <%
-	header_baseline = (int)(element.position.y + config.elementHeaderFST.getExtBaseline(0));
-	header_line = (int)(element.position.y  + config.elementHeaderFST.getExtHeight(1));
-	vm_line = header_line + config.elementDetailFST.getExtHeight(element.attributes.size());
+	header_baseline = (int)(element.position.y + config.elementHeaderFT.getExtBaseline(0));
+	header_line = (int)(element.position.y  + config.elementHeaderFT.getExtHeight(1));
+	vm_line = header_line + config.elementDetailFT.getExtHeight(element.attributes.size());
 %>	
 
 <rect name="$element.name" x="${(int)element.position.x}" y="${(int)element.position.y}" 
@@ -15,5 +15,5 @@
 	    x2="${(int)(element.position.x + element.size.x)}" y2="$vm_line" class="element"/>
 <%	} %>
 
-<text x="${(int)(element.position.x + config.elementHeaderFST.leftPadding)}" 
-    y="$header_baseline" font-size="$config.elementHeaderFST.fontSize" class="element_header">$element.name</text>
+<text x="${(int)(element.position.x + config.elementHeaderFT.leftPadding)}" 
+    y="$header_baseline" font-size="$config.elementHeaderFT.fontSize" class="element_header">$element.name</text>

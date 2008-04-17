@@ -19,6 +19,12 @@
  */
 package org.modsl.cls.model;
 
+/**
+ * Class detail types
+ * 
+ * @author avishnyakov
+ *
+ */
 public enum ClassElementDetailType {
 	ATTRIBUTE, METHOD
 }

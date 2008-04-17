@@ -30,60 +30,85 @@ import java.util.Properties;
  *
  * @param <F> font size transformer class
  */
-public abstract class AbstractConfig<F extends FontSizeTransform> {
+public abstract class AbstractConfig<F extends FontTransform> {
 
-	protected static final String PROPS_FILE_NAME = "template.properties";
+    protected static final String PROPS_FILE_NAME = "template.properties";
 
-	protected Map<String, String> props = new HashMap<String, String>();
-	protected String path;
+    protected Map<String, String> props = new HashMap<String, String>();
+    protected String path;
 
-	public AbstractConfig(String path) {
-		this.path = path;
-		try {
-			loadProps(path + PROPS_FILE_NAME);
-		} catch (IOException ex) {
-			throw new RuntimeException(ex);
-		}
-	}
+    /**
+     * New configuration at given path
+     * @param path
+     */
+    public AbstractConfig(String path) {
+        this.path = path;
+        try {
+            loadProps(path + PROPS_FILE_NAME);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
-	protected void loadProps(String name) throws IOException {
-		BufferedReader r = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(name)));
-		Properties p = new Properties();
-		p.load(r);
-		r.close();
-		for (Map.Entry<Object, Object> me : p.entrySet()) {
-			props.put((String) me.getKey(), (String) me.getValue());
-		}
-	}
+    /**
+     * Load properties
+     * @param name file name
+     * @throws IOException
+     */
+    protected void loadProps(String name) throws IOException {
+        BufferedReader r = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(name)));
+        Properties p = new Properties();
+        p.load(r);
+        r.close();
+        for (Map.Entry<Object, Object> me : p.entrySet()) {
+            props.put((String) me.getKey(), (String) me.getValue());
+        }
+    }
 
-	protected String getProp(String key) {
-		return props.get(key).trim();
-	}
+    /**
+     * @param key
+     * @return String property
+     */
+    protected String getProp(String key) {
+        return props.get(key).trim();
+    }
 
-	protected int getIntegerProp(String key) {
-		return Integer.parseInt(getProp(key));
-	}
+    /**
+     * @param key
+     * @return int property
+     */
+    protected int getIntegerProp(String key) {
+        return Integer.parseInt(getProp(key));
+    }
 
-	protected double getDoubleProp(String key) {
-		return Double.parseDouble(getProp(key));
-	}
+    /**
+     * @param key
+     * @return double property
+     */
+    protected double getDoubleProp(String key) {
+        return Double.parseDouble(getProp(key));
+    }
 
-	protected boolean getBooleanProp(String key) {
-		return Boolean.parseBoolean(getProp(key));
-	}
+    /**
+     * @param key
+     * @return booolean property
+     */
+    protected boolean getBooleanProp(String key) {
+        return Boolean.parseBoolean(getProp(key));
+    }
 
-	/**
-	 * @return location of the configuration directory
-	 */
-	public String getPath() {
-		return path;
-	}
+    /**
+     * @return location of the configuration directory
+     */
+    public String getPath() {
+        return path;
+    }
 
-	/**
-	 * @return map of all properties
-	 */
-	public Map<String, String> getProps() {
-		return props;
-	}
+    /**
+     * @return map of all properties
+     */
+    public Map<String, String> getProps() {
+        return props;
+    }
 
 }
