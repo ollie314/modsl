@@ -50,7 +50,7 @@ public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagramConfig>
         if (d.getName() != null) {
             invokeTemplate(sb, d, "diagram", "diagram_header");
         }
-        d.renderingFinishedTime = System.currentTimeMillis();
+        d.timestamp("svg_rendering");
         invokeTemplate(sb, d, "diagram", "diagram_end");
         return sb;
     }

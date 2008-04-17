@@ -33,7 +33,7 @@ public class ClassDiagramLayout extends AbstractLayout<ClassDiagram, ClassDiagra
         new FruchtermanRheingoldLayout(config).apply(diagram);
         // new DiagramRescale(config).apply(diagram);
         new DiagramRescale(config).apply(diagram);
-        diagram.layoutFinishedTime = System.currentTimeMillis();
+        diagram.timestamp("layout");
     }
 
 }
