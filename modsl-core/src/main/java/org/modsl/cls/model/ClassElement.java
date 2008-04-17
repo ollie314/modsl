@@ -40,7 +40,7 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
         super(parent, name);
     }
 
-    public int getExtendsFromCount() {
+    protected int getExtendsFromCount() {
         int ef = 0;
         for (ClassConnector c : parent.getConnectors()) {
             if (c.getStartElement().equals(this)
@@ -67,6 +67,11 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
         return methods;
     }
 
+    /**
+     * Calculate size given font transform
+     * @param elementHeaderFT
+     * @param elementDetailFT
+     */
     public void calcSize(ClassFontTransform elementHeaderFT, ClassFontTransform elementDetailFT) {
 
         double maxExtStringWidth = elementHeaderFT.getExtStringWidth(name);
