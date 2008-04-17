@@ -16,16 +16,14 @@
 
 package org.modsl.collab.model;
 
-import org.modsl.core.model.diagram.Connector;
 import org.modsl.core.model.diagram.Diagram;
-import org.modsl.core.model.diagram.Element;
 
 /**
  * Collaboration diagram implementation
  * 
  * @author avishnyakov
  */
-public class CollabDiagram extends Diagram<Object, Element, Connector> {//CollabElement, CollabConnector> {
+public class CollabDiagram extends Diagram<Object, CollabElement, CollabConnector> {
 
     public CollabDiagram(String name) {
         super(null, name);
