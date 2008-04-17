@@ -33,10 +33,10 @@ public abstract class CollabAbstractFactory extends AbstractFactory {
     protected static List<AbstractFactory> factories = new ArrayList<AbstractFactory>();
 
     static {
-       /* factories.add(new ClassDiagramFactory());
-        factories.add(new ClassElementFactory());
-        factories.add(new ClassElementDetailFactory());
-        factories.add(new ClassConnectorFactory());*/
+        factories.add(new CollabDiagramFactory());
+        /*   factories.add(new ClassElementFactory());
+          factories.add(new ClassElementDetailFactory());
+          factories.add(new ClassConnectorFactory());*/
     }
 
     public static AbstractFactory findFactory(String metaKey) {
