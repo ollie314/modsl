@@ -26,55 +26,55 @@ import org.modsl.core.builder.BuilderException;
 import org.modsl.utils.Utils;
 
 /**
- * Creates class diagram connectors from the given Groovy script input
+ * Creates class diagram from the given Groovy script input
  * 
  * @author avishnyakov
  *
  */
 public class ClassConnectorFactory extends ClassAbstractFactory {
 
-    protected Map<String, Object> typeMap;
+	protected Map<String, Object> typeMap;
 
-    public ClassConnectorFactory() {
-        metaKeys = Arrays.asList(new String[] { "_extends", "_implements", "_association" });
-        typeMap = Utils.toMap(new Object[] { "_extends", ClassConnector.Type.EXTENDS, "_implements",
-                ClassConnector.Type.IMPLEMENTS, "_association", ClassConnector.Type.ASSOCIATION });
-    }
+	public ClassConnectorFactory() {
+		metaKeys = Arrays.asList(new String[] { "_extends", "_implements", "_association" });
+		typeMap = Utils.toMap(new Object[] { "_extends", ClassConnector.Type.EXTENDS, "_implements",
+				ClassConnector.Type.IMPLEMENTS, "_association", ClassConnector.Type.ASSOCIATION });
+	}
 
-    public ClassConnector build(String metaKey, String value, Object current, Map<String, Object> map) {
-        checkParentClass(metaKey, current, ClassElement.class);
-        ClassElement se = (ClassElement) current;
-        ClassConnector c = new ClassConnector(se.getParent());
-        c.setStartElement(se);
-        if (value == null) {
-            c.setEndElementName(getMandatoryStringAttribute("_to", map));
-        } else {
-            c.setEndElementName(value);
-        }
-        ClassConnector.Type type = (ClassConnector.Type) typeMap.get(metaKey);
-        c.setType(type == null ? ClassConnector.Type.ASSOCIATION : type);
-        c.setStartMultiplicity(getNullableStringAttribute(null, "_multi_from", map));
-        c.setEndMultiplicity(getNullableStringAttribute(null, "_multi_to", map));
-        return c;
-    }
+	public ClassConnector build(String metaKey, String value, Object current, Map<String, Object> map) {
+		checkParentClass(metaKey, current, ClassElement.class);
+		ClassElement se = (ClassElement) current;
+		ClassConnector c = new ClassConnector(se.getParent());
+		c.setStartElement(se);
+		if (value == null) {
+			c.setEndElementName(getMandatoryStringAttribute("_to", map));
+		} else {
+			c.setEndElementName(value);
+		}
+		ClassConnector.Type type = (ClassConnector.Type) typeMap.get(metaKey);
+		c.setType(type == null ? ClassConnector.Type.ASSOCIATION : type);
+		c.setStartMultiplicity(getNullableStringAttribute(null, "_multi_from", map));
+		c.setEndMultiplicity(getNullableStringAttribute(null, "_multi_to", map));
+		return c;
+	}
 
-    public List<String> getMetaKeys() {
-        return metaKeys;
-    }
+	public List<String> getMetaKeys() {
+		return metaKeys;
+	}
 
-    public static void finalizeConnector(ClassConnector connector) {
-        if (connector.getEndElement() == null) {
-            if (connector.getEndElementName() == null) {
-                throw new BuilderException("Connector end element is undefined " + connector);
-            }
-            ClassElement element = connector.getParent().getElement(connector.getEndElementName());
-            if (element == null) {
-                throw new BuilderException("Cannot find end element '" + connector.getEndElementName() + "' for connector "
-                        + connector);
-            }
-            connector.setEndElement(element);
-        }
+	public static void finalizeConnector(ClassConnector connector) {
+		if (connector.getEndElement() == null) {
+			if (connector.getEndElementName() == null) {
+				throw new BuilderException("Connector end element is undefined " + connector);
+			}
+			ClassElement element = connector.getParent().getElement(connector.getEndElementName());
+			if (element == null) {
+				throw new BuilderException("Cannot find end element '" + connector.getEndElementName() + "' for connector "
+						+ connector);
+			}
+			connector.setEndElement(element);
+		}
 
-    }
+	}
 
 }

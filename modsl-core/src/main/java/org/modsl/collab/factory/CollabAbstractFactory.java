@@ -19,6 +19,8 @@ package org.modsl.collab.factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modsl.cls.factory.ClassConnectorFactory;
+import org.modsl.cls.factory.ClassElementFactory;
 import org.modsl.core.builder.AbstractFactory;
 import org.modsl.core.builder.BuilderException;
 
@@ -34,9 +36,8 @@ public abstract class CollabAbstractFactory extends AbstractFactory {
 
     static {
         factories.add(new CollabDiagramFactory());
-        /*   factories.add(new ClassElementFactory());
-          factories.add(new ClassElementDetailFactory());
-          factories.add(new ClassConnectorFactory());*/
+        factories.add(new CollabElementFactory());
+        factories.add(new ClassConnectorFactory());
     }
 
     public static AbstractFactory findFactory(String metaKey) {
