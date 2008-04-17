@@ -39,12 +39,12 @@ public class Element<P extends Diagram, ED extends ElementDetail> extends Abstra
      * All details for easy lookup by name
      */
     protected Map<String, ED> elementDetails = new HashMap<String, ED>();
-    
+
     /**
      * Ordered list of details for indexed lookup
      */
     protected List<ED> orderedElementDetails = new LinkedList<ED>();
-    
+
     /**
      * Position history
      */
@@ -54,17 +54,17 @@ public class Element<P extends Diagram, ED extends ElementDetail> extends Abstra
      * Current position
      */
     protected XY position = new XY(sequence++, sequence++);
-    
+
     /**
      * Size
      */
     protected XY size = new XY(1d, 1d);
-    
+
     /**
      * New/alternate position (for layout calculation)
      */
     protected XY altPos = new XY();
-    
+
     /**
      * "Weight"
      */
