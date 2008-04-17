@@ -31,14 +31,14 @@ public class ClassConnectorFactory extends ClassAbstractFactory {
 
 	public ClassConnectorFactory() {
 		metaKeys = Arrays.asList(new String[] { "_extends", "_implements", "_association" });
-		typeMap = Utils.toMap(new Object[] { "_extends", ClassConnector.Type.EXTENSION, "_implements",
-				ClassConnector.Type.IMPLEMENTATION, "_association", ClassConnector.Type.ASSOCIATION });
+		typeMap = Utils.toMap(new Object[] { "_extends", ClassConnector.Type.EXTENDS, "_implements",
+				ClassConnector.Type.IMPLEMENTS, "_association", ClassConnector.Type.ASSOCIATION });
 	}
 
 	public ClassConnector build(String metaKey, String value, Object current, Map<String, Object> map) {
 		checkParentClass(metaKey, current, ClassElement.class);
 		ClassElement se = (ClassElement) current;
-		ClassConnector c = new ClassConnector(metaKey, se.getParent());
+		ClassConnector c = new ClassConnector(se.getParent());
 		c.setStartElement(se);
 		if (value == null) {
 			c.setEndElementName(getMandatoryStringAttribute("_to", map));

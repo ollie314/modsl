@@ -42,7 +42,7 @@ public class ClassElementDetailFactory extends ClassAbstractFactory {
 
 	public ClassElementDetail build(String metaKey, String value, Object current, Map<String, Object> map) {
 		checkParentClass(metaKey, current, ClassElement.class);
-		ClassElementDetail ed = new ClassElementDetail(metaKey, value, (ClassElement) current, (ClassElementDetailType) typeMap
+		ClassElementDetail ed = new ClassElementDetail(value, (ClassElement) current, (ClassElementDetailType) typeMap
 				.get(metaKey), (ClassElementDetailScope) scopeMap.get(metaKey));
 		return ed;
 	}

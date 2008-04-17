@@ -30,9 +30,9 @@ public class ClassElementDetail extends ElementDetail<ClassElement> {
 	protected ClassElementDetailType type;
 	protected ClassElementDetailScope scope;
 
-	public ClassElementDetail(String metaKey, String name, ClassElement parent, ClassElementDetailType type,
+	public ClassElementDetail(String name, ClassElement parent, ClassElementDetailType type,
 			ClassElementDetailScope scope) {
-		super(metaKey, parent, name);
+		super(parent, name);
 		this.type = type;
 		this.scope = scope;
 		switch (type) {

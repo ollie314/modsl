@@ -79,14 +79,4 @@ public interface Graph {
 	 */
 	public XY recalcSize();
 
-	/**
-	 * Will rescale the graph according to the requested size
-	 */
-	public void rescaleToRequestedSize();
-
-	/**
-	 * Sets the size for future rescaling
-	 */
-	public void setRequestedSize(XY requestedSize);
-
 }

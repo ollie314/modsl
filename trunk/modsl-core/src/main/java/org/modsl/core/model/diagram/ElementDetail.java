@@ -23,15 +23,15 @@ public class ElementDetail<P extends Element> extends AbstractDiagramObject<P> {
     protected XY position = new XY();
     protected XY size = new XY();
 
-    public ElementDetail(String metaKey, P parent, String name) {
-        super(metaKey, parent, name);
+    public ElementDetail(P parent, String name) {
+        super(parent, name);
         this.parent.addElementDetail(this);
     }
 
     public XY getPosition() {
         return position;
     }
-    
+
     public XY getSize() {
         return size;
     }

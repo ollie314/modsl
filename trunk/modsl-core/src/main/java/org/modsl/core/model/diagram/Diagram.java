@@ -31,229 +31,229 @@ import org.modsl.core.model.graph.Vertex;
 
 public class Diagram<P, E extends Element, C extends Connector> extends AbstractDiagramObject<P> implements Graph {
 
-	protected Map<String, E> elements = new HashMap<String, E>();
-	protected List<E> orderedElements = new ArrayList<E>();
-	protected List<C> connectors = new LinkedList<C>();
+    protected Map<String, E> elements = new HashMap<String, E>();
+    protected List<E> orderedElements = new ArrayList<E>();
+    protected List<C> connectors = new LinkedList<C>();
 
-	protected XY size = new XY();
-	protected XY lastKnownSize = new XY();
-	protected XY requestedSize = new XY();
+    protected XY size = new XY();
+    protected XY lastKnownSize = new XY();
+    protected XY requestedSize = new XY();
 
-	protected double paddingHeader = 15d;
-	protected double paddingFooter = 25d;
-	protected double paddingSides = 10d;
+    protected double paddingHeader = 15d;
+    protected double paddingFooter = 25d;
+    protected double paddingSides = 10d;
 
-	public long startTime = System.currentTimeMillis();
-	public long parsingFinishedTime;
-	public long layoutFinishedTime;
-	public long renderingFinishedTime;
+    public long startTime = System.currentTimeMillis();
+    public long parsingFinishedTime;
+    public long layoutFinishedTime;
+    public long renderingFinishedTime;
 
-	public Diagram(String metaKey, P parent, String name) {
-		super(metaKey, parent, name);
-	}
+    public Diagram(P parent, String name) {
+        super(parent, name);
+    }
 
-	public E getElement(String key) {
-		return elements.get(key);
-	}
+    public E getElement(String key) {
+        return elements.get(key);
+    }
 
-	public E getElement(int i) {
-		return orderedElements.get(i);
-	}
+    public E getElement(int i) {
+        return orderedElements.get(i);
+    }
 
-	public List<E> getElements() {
-		return orderedElements;
-	}
+    public List<E> getElements() {
+        return orderedElements;
+    }
 
-	public void addElement(E element) {
-		elements.put(element.getName(), element);
-		orderedElements.add(element);
-	}
+    public void addElement(E element) {
+        elements.put(element.getName(), element);
+        orderedElements.add(element);
+    }
 
-	public void addConnector(C connector) {
-		connectors.add(connector);
-	}
+    public void addConnector(C connector) {
+        connectors.add(connector);
+    }
 
-	public List<C> getConnectors() {
-		return connectors;
-	}
+    public List<C> getConnectors() {
+        return connectors;
+    }
 
-	public List<Double> getEdgeLengths() {
-		List<Double> lens = new ArrayList<Double>(connectors.size());
-		for (C e : connectors) {
-			lens.add(e.getLength());
-		}
-		return lens;
-	}
+    public List<Double> getEdgeLengths() {
+        List<Double> lens = new ArrayList<Double>(connectors.size());
+        for (C e : connectors) {
+            lens.add(e.getLength());
+        }
+        return lens;
+    }
 
-	public double getSumEdgeLength() {
-		double len = 0d;
-		for (C e : connectors) {
-			len += e.getLength();
-		}
-		return len;
-	}
-	
-	public XY getBaricenter() {
-		XY bc = new XY();
-		for (E e : orderedElements) {
-			bc.x += e.getCenterPosition().x;
-			bc.y += e.getCenterPosition().y;
-		}
-		bc.divBy(orderedElements.size());
-		return bc;
-	}
+    public double getSumEdgeLength() {
+        double len = 0d;
+        for (C e : connectors) {
+            len += e.getLength();
+        }
+        return len;
+    }
 
-	public XY getSize() {
-		return size;
-	}
+    public XY getBaricenter() {
+        XY bc = new XY();
+        for (E e : orderedElements) {
+            bc.x += e.getCenterPosition().x;
+            bc.y += e.getCenterPosition().y;
+        }
+        bc.divBy(orderedElements.size());
+        return bc;
+    }
 
-	public XY recalcSize() {
-		size = getMaxXY().minus(getMinXY());
-		return size;
-	}
+    public XY getSize() {
+        return size;
+    }
 
-	/**
-	 * @return vertex with max x (including it's size)
-	 */
-	protected Vertex maxXVertex() {
-		Vertex res = null;
-		for (Vertex v : orderedElements) {
-			res = res == null ? v : (res.getPosition().x + res.getSize().x < v.getPosition().x + v.getSize().x ? v : res);
-		}
-		return res;
-	}
+    public XY recalcSize() {
+        size = getMaxXY().minus(getMinXY());
+        return size;
+    }
 
-	/**
-	 * @return vertex with max y (including it's size)
-	 */
-	protected Vertex maxYVertex() {
-		Vertex res = null;
-		for (Vertex v : orderedElements) {
-			res = res == null ? v : (res.getPosition().y + res.getSize().y < v.getPosition().y + v.getSize().y ? v : res);
-		}
-		return res;
-	}
+    /**
+     * @return vertex with max x (including it's size)
+     */
+    protected Vertex maxXVertex() {
+        Vertex res = null;
+        for (Vertex v : orderedElements) {
+            res = res == null ? v : (res.getPosition().x + res.getSize().x < v.getPosition().x + v.getSize().x ? v : res);
+        }
+        return res;
+    }
 
-	/**
-	 * Bottom right
-	 * 
-	 * @return
-	 */
-	public XY getMaxXY() {
-		XY s = new XY();
-		for (Vertex v : elements.values()) {
-			s.x = max(s.x, v.getPosition().x + v.getSize().x);
-			s.y = max(s.y, v.getPosition().y + +v.getSize().y);
-		}
-		return s;
-	}
+    /**
+     * @return vertex with max y (including it's size)
+     */
+    protected Vertex maxYVertex() {
+        Vertex res = null;
+        for (Vertex v : orderedElements) {
+            res = res == null ? v : (res.getPosition().y + res.getSize().y < v.getPosition().y + v.getSize().y ? v : res);
+        }
+        return res;
+    }
 
-	/**
-	 * Top left
-	 * 
-	 * @return
-	 */
-	public XY getMinXY() {
-		XY s = new XY(Double.MAX_VALUE, Double.MAX_VALUE);
-		for (Vertex v : elements.values()) {
-			s.x = min(s.x, v.getPosition().x);
-			s.y = min(s.y, v.getPosition().y);
-		}
-		return s;
-	}
+    /**
+     * Bottom right
+     * 
+     * @return
+     */
+    public XY getMaxXY() {
+        XY s = new XY();
+        for (Vertex v : elements.values()) {
+            s.x = max(s.x, v.getPosition().x + v.getSize().x);
+            s.y = max(s.y, v.getPosition().y + +v.getSize().y);
+        }
+        return s;
+    }
 
-	public void rebase() {
-		XY min = getMinXY();
-		for (Vertex v : elements.values()) {
-			v.getPosition().decBy(min);
-			for (XY hist : v.getPosHistory()) {
-				hist.decBy(min);
-			}
-		}
-	}
+    /**
+     * Top left
+     * 
+     * @return
+     */
+    public XY getMinXY() {
+        XY s = new XY(Double.MAX_VALUE, Double.MAX_VALUE);
+        for (Vertex v : elements.values()) {
+            s.x = min(s.x, v.getPosition().x);
+            s.y = min(s.y, v.getPosition().y);
+        }
+        return s;
+    }
 
-	public double getArea() {
-		return size.x * size.y;
-	}
+    public void rebase() {
+        XY min = getMinXY();
+        for (Vertex v : elements.values()) {
+            v.getPosition().decBy(min);
+            for (XY hist : v.getPosHistory()) {
+                hist.decBy(min);
+            }
+        }
+    }
 
-	protected void rescale(XY p) {
-		rebase();
-		recalcSize();
-		lastKnownSize = size;
-		Vertex maxX = maxXVertex();
-		Vertex maxY = maxYVertex();
-		XY maxXYsize = new XY(maxX.getSize().x, maxY.getSize().y);
-		XY pExt = p.minus(maxXYsize).decBy(new XY(paddingSides * 2, paddingHeader + paddingFooter));
-		XY sizeExt = size.minus(maxXYsize);
-		for (Vertex v : elements.values()) {
-			XY pos = v.getPosition();
-			pos.mulBy(pExt).divBy(sizeExt).incBy(new XY(paddingSides, paddingHeader));
-			for (XY hist : v.getPosHistory()) {
-				hist.mulBy(pExt).divBy(sizeExt).incBy(new XY(paddingSides, paddingHeader));
-			}
-		}
-		size = new XY(p);
-	}
+    public double getArea() {
+        return size.x * size.y;
+    }
 
-	public void addPositionToHistory() {
-		for (Vertex v : orderedElements) {
-			v.addPositionToHistory();
-		}
-	}
+    protected void rescale(XY p) {
+        rebase();
+        recalcSize();
+        lastKnownSize = size;
+        Vertex maxX = maxXVertex();
+        Vertex maxY = maxYVertex();
+        XY maxXYsize = new XY(maxX.getSize().x, maxY.getSize().y);
+        XY pExt = p.minus(maxXYsize).decBy(new XY(paddingSides * 2, paddingHeader + paddingFooter));
+        XY sizeExt = size.minus(maxXYsize);
+        for (Vertex v : elements.values()) {
+            XY pos = v.getPosition();
+            pos.mulBy(pExt).divBy(sizeExt).incBy(new XY(paddingSides, paddingHeader));
+            for (XY hist : v.getPosHistory()) {
+                hist.mulBy(pExt).divBy(sizeExt).incBy(new XY(paddingSides, paddingHeader));
+            }
+        }
+        size = new XY(p);
+    }
 
-	public List getEdges() {
-		return connectors;
-	}
+    public void addPositionToHistory() {
+        for (Vertex v : orderedElements) {
+            v.addPositionToHistory();
+        }
+    }
 
-	public List getVertexes() {
-		return orderedElements;
-	}
+    public List getEdges() {
+        return connectors;
+    }
 
-	public E getVertex(int i) {
-		return orderedElements.get(i);
-	}
+    public List getVertexes() {
+        return orderedElements;
+    }
 
-	public String toString() {
-		return getClass().getSimpleName() + "~{e:" + orderedElements + ",c:" + connectors + "}";
-	}
+    public E getVertex(int i) {
+        return orderedElements.get(i);
+    }
 
-	public XY getRequestedSize() {
-		return requestedSize;
-	}
+    public String toString() {
+        return getClass().getSimpleName() + "~{e:" + orderedElements + ",c:" + connectors + "}";
+    }
 
-	public void rescaleToRequestedSize() {
-		rescale(getRequestedSize());
-	}
+    public XY getRequestedSize() {
+        return requestedSize;
+    }
 
-	public void setRequestedSize(XY requestedSize) {
-		this.requestedSize = requestedSize;
-	}
+    public void rescaleToRequestedSize() {
+        rescale(getRequestedSize());
+    }
 
-	public XY getLastKnownSize() {
-		return lastKnownSize;
-	}
+    public void setRequestedSize(XY requestedSize) {
+        this.requestedSize = requestedSize;
+    }
 
-	public double getPaddingHeader() {
-		return paddingHeader;
-	}
+    public XY getLastKnownSize() {
+        return lastKnownSize;
+    }
 
-	public void setPaddingHeader(double paddingHeader) {
-		this.paddingHeader = paddingHeader;
-	}
+    public double getPaddingHeader() {
+        return paddingHeader;
+    }
 
-	public double getPaddingFooter() {
-		return paddingFooter;
-	}
+    public void setPaddingHeader(double paddingHeader) {
+        this.paddingHeader = paddingHeader;
+    }
 
-	public void setPaddingFooter(double paddingFooter) {
-		this.paddingFooter = paddingFooter;
-	}
+    public double getPaddingFooter() {
+        return paddingFooter;
+    }
 
-	public double getPaddingSides() {
-		return paddingSides;
-	}
+    public void setPaddingFooter(double paddingFooter) {
+        this.paddingFooter = paddingFooter;
+    }
 
-	public void setPaddingSides(double paddingSides) {
-		this.paddingSides = paddingSides;
-	}
+    public double getPaddingSides() {
+        return paddingSides;
+    }
+
+    public void setPaddingSides(double paddingSides) {
+        this.paddingSides = paddingSides;
+    }
 }

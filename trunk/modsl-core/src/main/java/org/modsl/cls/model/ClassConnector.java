@@ -34,17 +34,17 @@ public class ClassConnector extends Connector<ClassDiagram, ClassElement> {
     protected static double arrowAngle = PI / 4d;
     protected static double arrowLength = 20;
 
-    protected final static List<Type> hollowArrow = Arrays.asList(new Type[] { Type.EXTENSION, Type.IMPLEMENTATION });
+    protected final static List<Type> hollowArrow = Arrays.asList(new Type[] { Type.EXTENDS, Type.IMPLEMENTS });
 
     protected String startMultiplicity, endMultiplicity;
     protected Type type;
 
-    public ClassConnector(String metaKey, ClassDiagram parent) {
-        super(metaKey, parent, null);
+    public ClassConnector(ClassDiagram parent) {
+        super(parent, null);
     }
 
     public static enum Type {
-        EXTENSION, IMPLEMENTATION, AGGREGATION, COMPOSITION, ASSOCIATION
+        EXTENDS, IMPLEMENTS, AGGREGATION, COMPOSITION, ASSOCIATION
     }
 
     public Type getType() {

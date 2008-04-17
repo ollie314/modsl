@@ -49,7 +49,7 @@ public interface Vertex {
     public double getDiagonal();
 
     /**
-     * @return history of position values (useful for debugging of layout algorithms)
+     * @return history of this vertex's positions (useful for debugging of layout algorithms)
      */
     public List<XY> getPosHistory();
 
