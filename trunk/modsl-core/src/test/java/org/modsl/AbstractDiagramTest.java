@@ -20,8 +20,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
-import groovy.util.ResourceException;
-import groovy.util.ScriptException;
 
 import java.io.IOException;
 
@@ -41,36 +39,46 @@ import org.modsl.core.model.diagram.Diagram;
  */
 public abstract class AbstractDiagramTest {
 
-	private static final String[] scriptRoots = new String[] { "./target/classes/samples/cls" };
-	private static GroovyScriptEngine scriptEngine;
+    private static final String[] scriptRoots = new String[] { "./target/classes/samples/cls" };
+    private static GroovyScriptEngine scriptEngine;
 
-	static {
-		try {
-			scriptEngine = new GroovyScriptEngine(scriptRoots);
-		} catch (IOException ex) {
-			Logger.getLogger(AbstractDiagramTest.class).error(ex);
-		}
-	}
-	
-	protected Logger log = Logger.getLogger(getClass());
+    static {
+        try {
+            scriptEngine = new GroovyScriptEngine(scriptRoots);
+        } catch (IOException ex) {
+            Logger.getLogger(AbstractDiagramTest.class).error(ex);
+        }
+    }
 
-	public Diagram processDiagram(String name) throws IOException, ResourceException, ScriptException {
+    protected Logger log = Logger.getLogger(getClass());
 
-		Binding binding = new Binding();
-		binding.setVariable("builder", new ClassDiagramBuilder());
-		scriptEngine.run(name + ".modsl", binding);
+    public Diagram processDiagram(String name) {
 
-		ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
-		assertNotNull(d);
+        try {
 
-		ClassDiagramConfig cfg = new ClassDiagramConfig();
-		new ClassDiagramLayout(cfg).apply(d);
+            Binding binding = new Binding();
+            binding.setVariable("builder", new ClassDiagramBuilder());
+            scriptEngine.run(name + ".modsl", binding);
 
-		ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
-		String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
-		assertTrue(svg.indexOf("</svg>") > 0);
+            ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
+            assertNotNull(d);
 
-		return d;
+            ClassDiagramConfig cfg = new ClassDiagramConfig();
+            new ClassDiagramLayout(cfg).apply(d);
 
-	}
+            ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
+            String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
+            assertTrue(svg.indexOf("</svg>") > 0);
+
+            return d;
+
+        } catch (Exception ex) {
+
+            log.error(ex);
+            return null;
+            
+        }
+
+    }
+    
 }
