@@ -25,6 +25,12 @@ import org.modsl.cls.model.ClassElement;
 import org.modsl.cls.model.ClassElementDetail;
 import org.modsl.core.svg.AbstractSvgWriter;
 
+/**
+ * Renders class diagram model as SVG 
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagramConfig> {
 
     public ClassDiagramSvgWriter(ClassDiagramConfig config) {

@@ -26,6 +26,12 @@ import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.builder.AbstractBuilder;
 import org.modsl.utils.Utils;
 
+/**
+ * Builds a class diagram model from a Groovy script
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassDiagramBuilder extends AbstractBuilder {
 
 	Logger log = Logger.getLogger(this.getClass());

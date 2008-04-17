@@ -11,7 +11,7 @@
 	height="$config.diagramFooterFST.height" 
 	class="footer"/>
 	
-<text x="$config.diagramFooterFST.leftLeading" 
+<text x="$config.diagramFooterFST.leftPadding" 
 	y="${(int)(diagram.size.y - config.diagramFooterFST.getExtHeight(1) + config.diagramFooterFST.getExtBaseline(0))}" 
 	font-size="$config.diagramFooterFST.fontSize" 
 	class="footer_text">Created by ModSL in $total milliseconds ($parsing, $layout, $rendering). Layout $diagram.lastKnownSize -> Final $diagram.requestedSize.</text>

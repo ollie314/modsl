@@ -10,4 +10,4 @@
 <%	if (element.attributes.size() > 0) { %>
 	<line x1="${(int)element.position.x}" y1="$vm_line" x2="${(int)(element.position.x + element.size.x)}" y2="$vm_line" class="element"/>
 <%	} %>
-<text x="${(int)(element.position.x + config.elementHeaderFST.leftLeading)}" y="$header_baseline" font-size="$config.elementHeaderFST.fontSize" class="element_header">$element.name</text>
+<text x="${(int)(element.position.x + config.elementHeaderFST.leftPadding)}" y="$header_baseline" font-size="$config.elementHeaderFST.fontSize" class="element_header">$element.name</text>

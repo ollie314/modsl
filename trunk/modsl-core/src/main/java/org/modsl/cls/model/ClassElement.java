@@ -81,7 +81,7 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
 
 		XY methodAreaPosition;
 		if (attributes.size() > 0) {
-			maxExtHeight += elementDetailFST.getBottomTrailing();
+			maxExtHeight += elementDetailFST.getBottomPadding();
 			methodAreaPosition = new XY(0, maxExtHeight);
 		} else {
 			methodAreaPosition = attrAreaPosition;
@@ -95,7 +95,7 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
 		}
 
 		if (methods.size() > 0) {
-			maxExtHeight += elementDetailFST.getBottomTrailing();
+			maxExtHeight += elementDetailFST.getBottomPadding();
 		}
 
 		if (methods.size() == 0 && attributes.size() == 0) {

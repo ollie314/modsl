@@ -18,6 +18,12 @@ package org.modsl.cls;
 
 import org.modsl.core.config.AbstractConfig;
 
+/**
+ * Class diagram model configuration
+ * 
+ * @author avishnyakov
+ *
+ */
 public class ClassDiagramConfig extends AbstractConfig<ClassFontSizeTransform> {
 
 	public final int initLayoutMaxRounds = getIntegerProp("initLayoutMaxRounds");
