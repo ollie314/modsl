@@ -25,28 +25,47 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.modsl.core.model.Timeline;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.graph.Graph;
 import org.modsl.core.model.graph.Vertex;
 
+/**
+ * Basic diagram
+ * 
+ * @author avishnyakov
+ *
+ * @param <P> parent class (usually just Object for the diagram, since no parent is needed) 
+ * @param <E> connector class
+ * @param <C> element class
+ */
 public class Diagram<P, E extends Element, C extends Connector> extends AbstractDiagramObject<P> implements Graph {
 
+    /**
+     * Unordered elements for easy lookup by name
+     */
     protected Map<String, E> elements = new HashMap<String, E>();
+
+    /**
+     * Ordered elements for indexed access
+     */
     protected List<E> orderedElements = new ArrayList<E>();
+
+    /**
+     * Connectors (allows indexed access)
+     */
     protected List<C> connectors = new LinkedList<C>();
 
     protected XY size = new XY();
     protected XY lastKnownSize = new XY();
     protected XY requestedSize = new XY();
 
-    protected double paddingHeader = 15d;
-    protected double paddingFooter = 25d;
-    protected double paddingSides = 10d;
+    // paddings
+    protected double paddingHeader;
+    protected double paddingFooter;
+    protected double paddingSides;
 
-    public long startTime = System.currentTimeMillis();
-    public long parsingFinishedTime;
-    public long layoutFinishedTime;
-    public long renderingFinishedTime;
+    protected Timeline timeline = new Timeline();
 
     public Diagram(P parent, String name) {
         super(parent, name);
@@ -256,4 +275,13 @@ public class Diagram<P, E extends Element, C extends Connector> extends Abstract
     public void setPaddingSides(double paddingSides) {
         this.paddingSides = paddingSides;
     }
+
+    public void timestamp(String name) {
+        timeline.timestamp(name);
+    }
+
+    public Timeline getTimeline() {
+        return timeline;
+    }
+    
 }

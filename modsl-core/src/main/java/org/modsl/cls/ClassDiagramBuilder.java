@@ -52,7 +52,7 @@ public class ClassDiagramBuilder extends AbstractBuilder {
 		for (ClassConnector connector : diagram.getConnectors()) {
 			ClassConnectorFactory.finalizeConnector(connector);
 		}
-		diagram.parsingFinishedTime = System.currentTimeMillis();
+		diagram.timestamp("parsing");
 	}
 
 }
