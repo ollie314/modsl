@@ -1,4 +1,4 @@
-diagram = builder._diagram(/*value:"Sample Class Diagram -- ModSL Core", */_width:1024, _height:768) {
+diagram = builder._diagram(value:"Sample Class Diagram -- ModSL Core", _width:1024, _height:768) {
 	    	
     _interface("Graph") {
 	    _method("getEdges()")
@@ -38,12 +38,6 @@ diagram = builder._diagram(/*value:"Sample Class Diagram -- ModSL Core", */_widt
 		_implements("Graph")
 		_association(_to:"AbstractElement", _multi_from:"1", _multi_to:"0..n")
 		_association(_to:"AbstractConnector", _multi_from:"1", _multi_to:"0..n")
-		_method("removeMePlease1()")
-		_static_method("staticGarbage0()")
-		_method("removeMePlease2()")
-		_method("removeMePlease3()")
-		_static_method("staticGarbage1()")
-		_static_method("staticGarbage2()")
 		_attribute("width")
 		_attribute("height")
 	}

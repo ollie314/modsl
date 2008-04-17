@@ -16,18 +16,18 @@
 
 package org.modsl;
 
-import groovy.util.ResourceException;
-import groovy.util.ScriptException;
-
-import java.io.IOException;
-
 import org.junit.Test;
 
 public class TestModelTest extends AbstractDiagramTest {
 
-	@Test
-	public void testModel() throws ResourceException, IOException, ScriptException {
-		processDiagram("TestModel");
-	}
+    @Test
+    public void testModel() {
+        processDiagram("TestModel");
+    }
+
+    @Test
+    public void sampleClass() {
+        processDiagram("SampleClass");
+    }
 
 }
