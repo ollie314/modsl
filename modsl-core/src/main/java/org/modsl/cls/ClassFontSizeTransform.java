@@ -24,8 +24,4 @@ public class ClassFontSizeTransform extends FontSizeTransform {
 		super(fontName, fontSize);
 	}
 
-	public int getArrowLength() {
-		return fontSize + 4;
-	}
-
 }
