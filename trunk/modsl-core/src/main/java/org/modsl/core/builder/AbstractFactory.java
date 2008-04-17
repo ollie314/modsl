@@ -19,6 +19,8 @@ package org.modsl.core.builder;
 import java.util.List;
 import java.util.Map;
 
+import org.modsl.utils.Utils;
+
 /**
  * Base class for all diagram object's factories
  * 
@@ -90,6 +92,15 @@ public abstract class AbstractFactory {
             throw new BuilderException("Mandatory attribute " + key + " is missing from the list of attributes " + map);
         } else {
             return s;
+        }
+    }
+
+    protected void checkParentClass(String metaKey, Object current, Class cls) {
+        if (((cls == null) && (current == null)) || Utils.isA(current, cls)) {
+            return;
+        } else {
+            throw new BuilderException(metaKey + " must have " + cls + " as a parent (" + current.getClass().getSimpleName()
+                    + " given)");
         }
     }
 
