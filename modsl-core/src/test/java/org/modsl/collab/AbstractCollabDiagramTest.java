@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl;
+package org.modsl.collab;
 
 import groovy.util.GroovyScriptEngine;
 

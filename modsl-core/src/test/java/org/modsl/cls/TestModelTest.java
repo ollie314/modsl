@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl;
+package org.modsl.cls;
 
 import org.junit.Test;
 
