@@ -43,3 +43,5 @@
    * separate properties for layout, different kinds of layout, read {STAR  DOT properties} form the folder
    * refactor common diagram properties to the top level (header, footer, etc)
    * wire with Spring?
+   * consolidate error reporting, refactor RuntimeExceptions
+   * better error reports for configuration resources - missing file, missing attribute, misconfigured etc
