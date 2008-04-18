@@ -17,6 +17,7 @@
 package org.modsl.collab.layout;
 
 import org.modsl.collab.CollabDiagramConfig;
+import org.modsl.collab.model.CollabConnector;
 import org.modsl.collab.model.CollabDiagram;
 import org.modsl.collab.model.CollabElement;
 import org.modsl.core.layout.AbstractLayout;
@@ -36,6 +37,9 @@ public class CollabElementLayout extends AbstractLayout<CollabDiagram, CollabDia
     public void apply(CollabDiagram diagram) {
         for (CollabElement e : diagram.getElements()) {
             e.calcSize(config.elementHeaderFT);
+        }
+        for (CollabConnector c : diagram.getConnectors()) {
+            c.calcSize(config.connectorFT);
         }
     }
 

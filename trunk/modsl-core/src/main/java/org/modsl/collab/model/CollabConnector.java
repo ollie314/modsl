@@ -18,6 +18,7 @@ package org.modsl.collab.model;
 
 import static java.lang.Math.PI;
 
+import org.modsl.core.config.FontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.Connector;
 
@@ -28,8 +29,8 @@ import org.modsl.core.model.diagram.Connector;
  */
 public class CollabConnector extends Connector<CollabDiagram, CollabElement> {
 
-    protected static double arrowAngle = PI / 4d;
-    protected static double arrowLength = 20;
+    protected static double arrowAngle;
+    protected static double arrowLength;
 
     public CollabConnector(CollabDiagram parent, String name) {
         super(parent, name);
@@ -57,6 +58,11 @@ public class CollabConnector extends Connector<CollabDiagram, CollabElement> {
     public XY getMidPoint() {
         return startElement.getCenterPosition()
                 .plus(endElement.getCenterPosition().minus(startElement.getCenterPosition()).div(2d));
+    }
+
+    public void calcSize(FontTransform connectorFT) {
+        arrowAngle = PI / 5d;
+        arrowLength = connectorFT.getArrowLength();
     }
 
 }
