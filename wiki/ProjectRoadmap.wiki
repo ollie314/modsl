@@ -8,6 +8,8 @@
    * web based tool/web service (post snippet -> store under a unique id -> render)
    * website - submit online, store, expire. serve through PHP/Apache?
    * diff for online users
+   * ability to process DOT language?
+   * ability to lay out basic shape diagrams
 
 === Layout ===
    * learning (positioning), clustering
@@ -39,3 +41,4 @@
 === Misc ===
    * junit on padding
    * separate properties for layout, different kinds of layout, read {STAR  DOT properties} form the folder
+   * refactor common diagram properties to the top level (header, footer, etc)
