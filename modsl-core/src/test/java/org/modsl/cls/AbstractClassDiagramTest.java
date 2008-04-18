@@ -16,17 +16,6 @@
 
 package org.modsl.cls;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import groovy.lang.Binding;
-import groovy.util.GroovyScriptEngine;
-
-import java.io.IOException;
-
-import org.apache.log4j.Logger;
-import org.modsl.cls.layout.ClassDiagramLayout;
-import org.modsl.cls.model.ClassDiagram;
-
 /**
  * This test case is a good example of how to call ModSL from Java code to parse
  * an external Groovy diagram script.
@@ -34,48 +23,42 @@ import org.modsl.cls.model.ClassDiagram;
  * @author avishnyakov
  */
 public abstract class AbstractClassDiagramTest {
-
-    private static final String[] scriptRoots = new String[] { "./target/classes/samples/cls" };
-    private static GroovyScriptEngine scriptEngine;
-
-    static {
-        try {
-            scriptEngine = new GroovyScriptEngine(scriptRoots);
-        } catch (IOException ex) {
-            Logger.getLogger(AbstractClassDiagramTest.class).error(ex);
-        }
-    }
-
-    protected Logger log = Logger.getLogger(getClass());
-
-    public ClassDiagram processDiagram(String name) {
-
-        try {
-
-            Binding binding = new Binding();
-            binding.setVariable("builder", new ClassDiagramBuilder());
-            scriptEngine.run(name + ".modsl", binding);
-
-            ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
-            assertNotNull(d);
-
-            ClassDiagramConfig cfg = new ClassDiagramConfig("/config", "cls");
-
-            new ClassDiagramLayout(cfg.getLayoutProps()).apply(d);
-
-            ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg.getTemplateProps());
-            String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
-            assertTrue(svg.indexOf("</svg>") > 0);
-
-            return d;
-
-        } catch (Exception ex) {
-
-            log.error(ex);
-            return null;
-
-        }
-
-    }
-
+	/*
+	 * 
+	 * private static final String[] scriptRoots = new String[] {
+	 * "./target/classes/samples/cls" }; private static GroovyScriptEngine
+	 * scriptEngine;
+	 * 
+	 * static { try { scriptEngine = new GroovyScriptEngine(scriptRoots); }
+	 * catch (IOException ex) {
+	 * Logger.getLogger(AbstractClassDiagramTest.class).error(ex); } }
+	 * 
+	 * protected Logger log = Logger.getLogger(getClass());
+	 * 
+	 * public ClassDiagram processDiagram(String name) {
+	 * 
+	 * try {
+	 * 
+	 * Binding binding = new Binding(); binding.setVariable("builder", new
+	 * ClassDiagramBuilder()); scriptEngine.run(name + ".modsl", binding);
+	 * 
+	 * ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
+	 * assertNotNull(d);
+	 * 
+	 * ClassDiagramConfig cfg = new ClassDiagramConfig("/config", "cls");
+	 * 
+	 * new ClassCore(cfg.getLayoutProps()).apply(d);
+	 * 
+	 * ClassDiagramSvgWriter templ = new
+	 * ClassDiagramSvgWriter(cfg.getTemplateProps()); String svg =
+	 * templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
+	 * assertTrue(svg.indexOf("</svg>") > 0);
+	 * 
+	 * return d;
+	 *  } catch (Exception ex) {
+	 * 
+	 * log.error(ex); return null;
+	 *  }
+	 *  }
+	 */
 }

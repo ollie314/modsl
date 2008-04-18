@@ -19,17 +19,18 @@ package org.modsl.cls;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.modsl.core.model.diagram.Diagram;
+import org.modsl.cls.model.ClassDiagram;
+import org.modsl.core.ModslCore;
 
-public class CoreModelTest extends AbstractClassDiagramTest {
+public class CoreModelTest {
 
-    @Test
-    public void coreModel() {
-        Diagram d = processDiagram("CoreModel");
-        assertTrue(d.getElement("Graph").getSize().x > 50);
-        assertTrue(d.getElement("Graph").getSize().y > 20);
-        assertTrue(d.getSize().x > 0);
-        assertTrue(d.getSize().y > 0);
-    }
+	@Test
+	public void coreModel() {
+		ClassDiagram d = ModslCore.getClassCore().process("CoreModel");
+		assertTrue(d.getElement("Graph").getSize().x > 50);
+		assertTrue(d.getElement("Graph").getSize().y > 20);
+		assertTrue(d.getSize().x > 0);
+		assertTrue(d.getSize().y > 0);
+	}
 
 }
