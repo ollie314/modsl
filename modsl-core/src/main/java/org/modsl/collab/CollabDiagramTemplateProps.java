@@ -16,42 +16,26 @@
 
 package org.modsl.collab;
 
-import org.modsl.core.config.Config;
+import org.modsl.core.config.AbstractTemplateProps;
 import org.modsl.core.config.FontTransform;
 
 /**
- * Class diagram model configuration
+ * Collaboration diagram template configuration
  * 
  * @author avishnyakov
  *
  */
-public class CollabDiagramConfig extends Config<FontTransform> {
-
-    public final int initLayoutMaxRounds = getIntegerProp("initLayoutMaxRounds");
-
-    public final int layoutMaxIterations = getIntegerProp("layoutMaxIterations");
-    public final double layoutTempMultiplier = getDoubleProp("layoutTempMultiplier");
-    public final double layoutAttractionMultiplier = getDoubleProp("layoutAttractionMultiplier");
-    public final double layoutRepulsionMultiplier = getDoubleProp("layoutRepulsionMultiplier");
+public class CollabDiagramTemplateProps extends AbstractTemplateProps {
 
     public final boolean renderHistory = getBooleanProp("renderHistory");
-
     public final int diagramPadding = getIntegerProp("diagramPadding");
-
     public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
     public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
-
     public final String elementRx = getProp("elementRx");
-
     public final String diagramFontFamily = getProp("diagramFontFamily");
-
     public final FontTransform diagramHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramHeaderFontSize"));
     public final FontTransform diagramFooterFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramFooterFontSize"));
     public final FontTransform elementHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("elementHeaderFontSize"));
     public final FontTransform connectorFT = new FontTransform(diagramFontFamily, getIntegerProp("connectorFontSize"));
-
-    public CollabDiagramConfig() {
-        super("/config/collab/");
-    }
 
 }
