@@ -39,6 +39,11 @@
 			opacity: 0.75;
 		}
 			
+		.element_underline {
+			stroke: black; 
+			stroke-width: 1px;
+		}
+			
 		.element_detail {
 			fill: black;
 		}

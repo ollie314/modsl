@@ -46,7 +46,7 @@ public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, Col
 
         renderHistory(sb, d.getElements());
         renderConnectors(sb, d.getConnectors());
-        //renderElements(sb, d.getElements());
+        renderElements(sb, d.getElements());
 
         if (d.getName() != null) {
             invokeTemplate(sb, d, "diagram", "diagram_header");
