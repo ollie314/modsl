@@ -21,13 +21,13 @@ import org.modsl.collab.CollabDiagramTemplateProps;
 import org.modsl.collab.model.CollabConnector;
 import org.modsl.collab.model.CollabDiagram;
 import org.modsl.collab.model.CollabElement;
-import org.modsl.core.pre_adjust.AbstractMetricsAdjustment;
+import org.modsl.core.metrics.AbstractMetricsAdjustment;
 
-public class CollabDiagramPreAdjust extends AbstractMetricsAdjustment<CollabDiagram, CollabDiagramTemplateProps> {
+public class CollabDiagramMetricsAdjustment extends AbstractMetricsAdjustment<CollabDiagram, CollabDiagramTemplateProps> {
 
     protected Logger log = Logger.getLogger(getClass());
 
-    public CollabDiagramPreAdjust(CollabDiagramTemplateProps props) {
+    public CollabDiagramMetricsAdjustment(CollabDiagramTemplateProps props) {
         super(props);
     }
 
