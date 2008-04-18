@@ -16,7 +16,7 @@
 
 package org.modsl.core.layout;
 
-import org.modsl.core.config.AbstractConfig;
+import org.modsl.core.config.Config;
 import org.modsl.core.model.graph.Graph;
 
 /**
@@ -24,7 +24,7 @@ import org.modsl.core.model.graph.Graph;
  * 
  * @author avishnyakov
  */
-public abstract class AbstractLayout<G extends Graph, C extends AbstractConfig> {
+public abstract class AbstractLayout<G extends Graph, C extends Config> {
 
 	protected C config;
 

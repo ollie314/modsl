@@ -24,30 +24,34 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 /**
- * Base class for all diagram configuration sets
+ * Base class for all property sets
  * 
  * @author avishnyakov
  *
- * @param <F> font size transformer class
  */
-public abstract class AbstractConfig<F extends FontTransform> {
+public abstract class AbstractProps {
 
-    protected static final String PROPS_FILE_NAME = "template.properties";
-
+    protected final Logger log = Logger.getLogger(getClass());
     protected Map<String, String> props = new HashMap<String, String>();
-    protected String path;
+
+    protected String path, name;
 
     /**
-     * New configuration at given path
-     * @param path
+     * Load property set from given path for specific diagram name
+     * @param path root for config set
+     * @param name diagram/set name
+     * @param name file name 
      */
-    public AbstractConfig(String path) {
+    protected void load(String path, String name, String fileName) {
         this.path = path;
-        try {
-            loadProps(path + PROPS_FILE_NAME);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+        this.name = name;
+        loadProps(props, path + "/" + fileName);
+        loadProps(props, path + name + "/" + fileName);
+        if (props.size() == 0) {
+            throw new ConfigException("Property set is empty for path=" + path + ", name=" + name + ", file name=" + fileName);
         }
     }
 
@@ -56,17 +60,18 @@ public abstract class AbstractConfig<F extends FontTransform> {
      * @param name file name
      * @throws IOException
      */
-    protected void loadProps(String name) throws IOException {
-        InputStream is = getClass().getResourceAsStream(name);
-        if (is == null) {
-            throw new RuntimeException("Cannot find configuration file " + name);
-        }
-        BufferedReader r = new BufferedReader(new InputStreamReader(is));
-        Properties p = new Properties();
-        p.load(r);
-        r.close();
-        for (Map.Entry<Object, Object> me : p.entrySet()) {
-            props.put((String) me.getKey(), (String) me.getValue());
+    protected void loadProps(Map<String, String> map, String name) {
+        try {
+            InputStream is = getClass().getResourceAsStream(name);
+            BufferedReader r = new BufferedReader(new InputStreamReader(is));
+            Properties p = new Properties();
+            p.load(r);
+            r.close();
+            for (Map.Entry<Object, Object> me : p.entrySet()) {
+                map.put((String) me.getKey(), (String) me.getValue());
+            }
+        } catch (IOException ex) {
+            log.debug("Got exception when loading properties from " + name, ex);
         }
     }
 
@@ -100,13 +105,6 @@ public abstract class AbstractConfig<F extends FontTransform> {
      */
     protected boolean getBooleanProp(String key) {
         return Boolean.parseBoolean(getProp(key));
-    }
-
-    /**
-     * @return location of the configuration directory
-     */
-    public String getPath() {
-        return path;
     }
 
     /**

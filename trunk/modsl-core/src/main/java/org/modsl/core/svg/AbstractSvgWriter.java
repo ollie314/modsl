@@ -29,11 +29,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
-import org.modsl.core.config.AbstractConfig;
+import org.modsl.core.config.AbstractProps;
 import org.modsl.core.model.diagram.AbstractDiagramObject;
 import org.modsl.core.model.diagram.Diagram;
 
-public abstract class AbstractSvgWriter<D extends Diagram, P extends AbstractConfig> {
+public abstract class AbstractSvgWriter<D extends Diagram, P extends AbstractProps> {
 
     protected static final String TEMPLATE_FILE_EXT = ".tpl";
     protected static GStringTemplateEngine engine = new GStringTemplateEngine();
@@ -41,10 +41,10 @@ public abstract class AbstractSvgWriter<D extends Diagram, P extends AbstractCon
     private final Logger log = Logger.getLogger(getClass());
 
     protected Map<String, groovy.text.Template> templateCache = new TreeMap<String, groovy.text.Template>();
-    protected P config;
+    protected P props;
 
-    public AbstractSvgWriter(P config) {
-        this.config = config;
+    public AbstractSvgWriter(P props) {
+        this.props = props;
     }
 
     public abstract String render(D diagram);
@@ -88,12 +88,12 @@ public abstract class AbstractSvgWriter<D extends Diagram, P extends AbstractCon
     }
 
     private String getTemplateFileName(String element) {
-        return config.getPath() + element + TEMPLATE_FILE_EXT;
+        return props.getPath() + element + TEMPLATE_FILE_EXT;
     }
 
     private Map<String, Object> bind(String key, Object value) {
         Map<String, Object> b = new HashMap<String, Object>();
-        b.put("config", config);
+        b.put("config", props);
         b.put(key, value);
         return b;
     }

@@ -16,7 +16,7 @@
 
 package org.modsl.collab;
 
-import org.modsl.core.config.AbstractConfig;
+import org.modsl.core.config.Config;
 import org.modsl.core.config.FontTransform;
 
 /**
@@ -25,7 +25,7 @@ import org.modsl.core.config.FontTransform;
  * @author avishnyakov
  *
  */
-public class CollabDiagramConfig extends AbstractConfig<FontTransform> {
+public class CollabDiagramConfig extends Config<FontTransform> {
 
     public final int initLayoutMaxRounds = getIntegerProp("initLayoutMaxRounds");
 

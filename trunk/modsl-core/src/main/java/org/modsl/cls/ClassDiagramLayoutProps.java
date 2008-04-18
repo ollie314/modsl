@@ -14,34 +14,22 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.builder;
+package org.modsl.cls;
 
-import org.modsl.core.builder.common.AbstractModslException;
+import org.modsl.core.config.AbstractProps;
 
 /**
- * Builder/parser errors are supposed to be reported through this class or its subclasses
+ * Class diagram model layout configuration
  * 
  * @author avishnyakov
  *
  */
-public class BuilderException extends AbstractModslException {
+public class ClassDiagramLayoutProps extends AbstractProps {
 
-    private static final long serialVersionUID = 1L;
-
-    public BuilderException() {
-        super();
-    }
-
-    public BuilderException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public BuilderException(String message) {
-        super(message);
-    }
-
-    public BuilderException(Throwable cause) {
-        super(cause);
-    }
+    public final int frInitMaxRounds = getIntegerProp("frInitMaxRounds");
+    public final int frMaxIterations = getIntegerProp("frMaxIterations");
+    public final double frTempMultiplier = getDoubleProp("frTempMultiplier");
+    public final double frAttractionMultiplier = getDoubleProp("frAttractionMultiplier");
+    public final double frRepulsionMultiplier = getDoubleProp("frRepulsionMultiplier");
 
 }

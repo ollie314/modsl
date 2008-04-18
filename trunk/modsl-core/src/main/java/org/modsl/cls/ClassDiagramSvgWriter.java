@@ -32,7 +32,7 @@ import org.modsl.core.svg.AbstractSvgWriter;
  */
 public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagram, ClassDiagramConfig> {
 
-    public ClassDiagramSvgWriter(ClassDiagramConfig config) {
+    public ClassDiagramSvgWriter(Config config) {
         super(config);
     }
 
