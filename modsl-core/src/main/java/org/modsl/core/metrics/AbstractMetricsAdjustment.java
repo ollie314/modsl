@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.pre_adjust;
+package org.modsl.core.metrics;
 
 import org.modsl.core.config.AbstractTemplateProps;
 import org.modsl.core.model.diagram.Diagram;
