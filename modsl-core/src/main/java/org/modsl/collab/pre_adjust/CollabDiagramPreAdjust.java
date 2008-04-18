@@ -14,29 +14,40 @@
  * limitations under the License. 
  */
 
-package org.modsl.cls.layout;
+package org.modsl.collab.pre_adjust;
 
 import org.apache.log4j.Logger;
-import org.modsl.cls.ClassDiagramLayoutProps;
-import org.modsl.cls.model.ClassDiagram;
-import org.modsl.core.layout.AbstractLayout;
+import org.modsl.collab.CollabDiagramTemplateProps;
+import org.modsl.collab.model.CollabConnector;
+import org.modsl.collab.model.CollabDiagram;
+import org.modsl.collab.model.CollabElement;
+import org.modsl.core.pre_adjust.AbstractPreAdjust;
 
-public class ClassDiagramRescale extends AbstractLayout<ClassDiagram, ClassDiagramLayoutProps> {
+public class CollabDiagramPreAdjust extends AbstractPreAdjust<CollabDiagram, CollabDiagramTemplateProps> {
 
     protected Logger log = Logger.getLogger(getClass());
 
-    public ClassDiagramRescale(ClassDiagramLayoutProps props) {
+    public CollabDiagramPreAdjust(CollabDiagramTemplateProps props) {
         super(props);
     }
 
-    public void apply(ClassDiagram diagram) {
+    public void apply(CollabDiagram diagram) {
+
         if (diagram.getRequestedSize().isZero()) {
             diagram.getRequestedSize().x = props.diagramDefaultWidth;
             diagram.getRequestedSize().y = props.diagramDefaultHeight;
         }
+
         diagram.setPaddingHeader((diagram.getName() == null ? 0 : props.diagramHeaderFT.getExtHeight(1)) + props.diagramPadding);
         diagram.setPaddingFooter(props.diagramFooterFT.getExtHeight(1) + props.diagramPadding);
         diagram.setPaddingSides(props.diagramPadding);
-        diagram.rescaleToRequestedSize();
+        for (CollabElement e : diagram.getElements()) {
+            e.calcSize(props.elementHeaderFT);
+        }
+        for (CollabConnector c : diagram.getConnectors()) {
+            c.calcSize(props.connectorFT);
+        }
+
     }
+
 }
