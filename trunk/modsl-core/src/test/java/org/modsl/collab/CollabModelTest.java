@@ -26,7 +26,6 @@ public class CollabModelTest extends AbstractCollabDiagramTest {
     @Test
     public void coreModel() {
         CollabDiagram d = processDiagram("CollabModel");
-        log.debug(d.toString());
         assertNotNull(d.getElement("Class2:Object2"));
     }
 
