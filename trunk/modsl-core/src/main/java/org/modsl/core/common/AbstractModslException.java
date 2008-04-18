@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.builder.common;
+package org.modsl.core.common;
 
 public class AbstractModslException extends RuntimeException {
 

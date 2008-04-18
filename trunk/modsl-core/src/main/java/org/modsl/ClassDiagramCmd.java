@@ -16,18 +16,9 @@
 
 package org.modsl;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
-
-import java.io.File;
 import java.io.IOException;
 
 import org.codehaus.groovy.control.CompilationFailedException;
-import org.modsl.cls.ClassDiagramBuilder;
-import org.modsl.cls.ClassDiagramConfig;
-import org.modsl.cls.ClassDiagramSvgWriter;
-import org.modsl.cls.layout.ClassDiagramLayout;
-import org.modsl.cls.model.ClassDiagram;
 
 /**
  * Command line utility to process a diagram script
@@ -46,17 +37,17 @@ public class ClassDiagramCmd {
         if (args.length < 2) {
             System.err.println("Usage: " + getClass().getName() + " input_file_name output_file_name");
         }
+        /*
+                Binding binding = new Binding();
+                binding.setVariable("builder", new ClassDiagramBuilder());
+                GroovyShell shell = new GroovyShell(binding);
+                shell.evaluate(new File(args[0]));
 
-        Binding binding = new Binding();
-        binding.setVariable("builder", new ClassDiagramBuilder());
-        GroovyShell shell = new GroovyShell(binding);
-        shell.evaluate(new File(args[0]));
-
-        ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
-        ClassDiagramConfig cfg = new ClassDiagramConfig("/config", "cls");
-        new ClassDiagramLayout(cfg.getLayoutProps()).apply(d);
-        ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg.getTemplateProps());
-        templ.renderToFile(d, args[1]);
-
+                ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
+                ClassDiagramConfig cfg = new ClassDiagramConfig("/config", "cls");
+                new ClassDiagramLayout(cfg.getLayoutProps()).apply(d);
+                ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg.getTemplateProps());
+                templ.renderToFile(d, args[1]);
+        */
     }
 }
