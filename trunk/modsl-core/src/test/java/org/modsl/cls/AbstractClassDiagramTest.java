@@ -24,12 +24,9 @@ import groovy.util.GroovyScriptEngine;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
-import org.modsl.cls.ClassDiagramBuilder;
-import org.modsl.cls.ClassDiagramConfig;
-import org.modsl.cls.ClassDiagramSvgWriter;
 import org.modsl.cls.layout.ClassDiagramLayout;
 import org.modsl.cls.model.ClassDiagram;
-import org.modsl.core.model.diagram.Diagram;
+import org.modsl.core.config.Config;
 
 /**
  * This test case is a good example of how to call ModSL from Java code to parse
@@ -63,10 +60,12 @@ public abstract class AbstractClassDiagramTest {
             ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
             assertNotNull(d);
 
-            ClassDiagramConfig cfg = new ClassDiagramConfig();
-            new ClassDiagramLayout(cfg).apply(d);
-
-            ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
+            Config<ClassDiagramTemplateProps, ClassDiagramLayoutProps> cfg = new Config<ClassDiagramTemplateProps, ClassDiagramLayoutProps>(
+                    "/config", "cls", new ClassDiagramTemplateProps(), new ClassDiagramLayoutProps());
+            
+            new ClassDiagramLayout(cfg.getLayoutProps()).apply(d);
+            
+            ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg.getTemplateProps());
             String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
             assertTrue(svg.indexOf("</svg>") > 0);
 

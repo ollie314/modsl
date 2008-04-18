@@ -16,7 +16,7 @@
 
 package org.modsl.cls.layout;
 
-import org.modsl.cls.ClassDiagramConfig;
+import org.modsl.cls.ClassDiagramLayoutProps;
 import org.modsl.cls.model.ClassConnector;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.cls.model.ClassElement;
@@ -28,18 +28,18 @@ import org.modsl.core.layout.AbstractLayout;
  * @author avishnyakov
  *
  */
-public class ClassElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class ClassElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramLayoutProps> {
 
-    public ClassElementLayout(ClassDiagramConfig config) {
-        super(config);
+    public ClassElementLayout(ClassDiagramLayoutProps props) {
+        super(props);
     }
 
     public void apply(ClassDiagram diagram) {
         for (ClassElement e : diagram.getElements()) {
-            e.calcSize(config.elementHeaderFT, config.elementDetailFT);
+            e.calcSize(props.elementHeaderFT, props.elementDetailFT);
         }
         for (ClassConnector c : diagram.getConnectors()) {
-            c.calcSize(config.connectorFT);
+            c.calcSize(props.connectorFT);
         }
     }
 }

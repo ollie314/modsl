@@ -19,18 +19,18 @@ package org.modsl.cls.layout;
 import static java.lang.Math.min;
 
 import org.apache.log4j.Logger;
-import org.modsl.cls.ClassDiagramConfig;
+import org.modsl.cls.ClassDiagramLayoutProps;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.cls.model.ClassElement;
 import org.modsl.core.layout.AbstractLayout;
 import org.modsl.core.model.XY;
 
-public class WeightFlip extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class WeightFlip extends AbstractLayout<ClassDiagram, ClassDiagramLayoutProps> {
 
     protected Logger log = Logger.getLogger(getClass());
 
-    public WeightFlip(ClassDiagramConfig config) {
-        super(config);
+    public WeightFlip(ClassDiagramLayoutProps props) {
+        super(props);
     }
 
     public void apply(ClassDiagram diagram) {

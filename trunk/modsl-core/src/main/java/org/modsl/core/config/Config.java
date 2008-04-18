@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  *
  * @param <F> font size transformer class
  */
-public abstract class Config<T extends AbstractTemplateProps, L extends AbstractLayoutProps> {
+public class Config<T extends AbstractTemplateProps, L extends AbstractLayoutProps> {
 
     protected final Logger log = Logger.getLogger(getClass());
 

@@ -24,9 +24,13 @@ import groovy.util.GroovyScriptEngine;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
+import org.modsl.cls.ClassDiagramLayoutProps;
 import org.modsl.cls.ClassDiagramSvgWriter;
+import org.modsl.cls.ClassDiagramTemplateProps;
+import org.modsl.cls.layout.ClassDiagramLayout;
 import org.modsl.collab.layout.CollabDiagramLayout;
 import org.modsl.collab.model.CollabDiagram;
+import org.modsl.core.config.Config;
 
 /**
  * This test case is a good example of how to call ModSL from Java code to parse
@@ -60,11 +64,13 @@ public abstract class AbstractCollabDiagramTest {
             CollabDiagram d = (CollabDiagram) binding.getVariable("diagram");
             assertNotNull(d);
 
-            CollabDiagramConfig cfg = new CollabDiagramConfig();
+            Config<CollabDiagramTemplateProps, CollabDiagramLayoutProps> cfg = new Config<CollabDiagramTemplateProps, CollabDiagramLayoutProps>(
+                    "/config", "cls", new CollabDiagramTemplateProps(), new CollabDiagramLayoutProps());
+            
+            new CollabDiagramLayout(cfg.getLayoutProps()).apply(d);
+            
+            CollabDiagramSvgWriter templ = new CollabDiagramSvgWriter(cfg.getTemplateProps());
 
-            new CollabDiagramLayout(cfg).apply(d);
-
-            CollabDiagramSvgWriter templ = new CollabDiagramSvgWriter(cfg);
             String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
             assertTrue(svg.indexOf("</svg>") > 0);
 

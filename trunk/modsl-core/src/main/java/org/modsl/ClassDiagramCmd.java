@@ -55,9 +55,10 @@ public class ClassDiagramCmd {
         shell.evaluate(new File(args[0]));
 
         ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
-        Config cfg = new Config<ClassDiagramTemplateProps, ClassDiagramLayoutProps>("/config");
-        new ClassDiagramLayout(cfg).apply(d);
-        ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
+        Config<ClassDiagramTemplateProps, ClassDiagramLayoutProps> cfg = new Config<ClassDiagramTemplateProps, ClassDiagramLayoutProps>(
+                "/config", "cls", new ClassDiagramTemplateProps(), new ClassDiagramLayoutProps());
+        new ClassDiagramLayout(cfg.getLayoutProps()).apply(d);
+        ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg.getTemplateProps());
         templ.renderToFile(d, args[1]);
 
     }

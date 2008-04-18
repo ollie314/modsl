@@ -16,7 +16,7 @@
 
 package org.modsl.collab.layout;
 
-import org.modsl.collab.CollabDiagramConfig;
+import org.modsl.collab.CollabDiagramLayoutProps;
 import org.modsl.collab.model.CollabDiagram;
 import org.modsl.core.layout.AbstractLayout;
 
@@ -26,17 +26,15 @@ import org.modsl.core.layout.AbstractLayout;
  * @author avishnyakov
  *
  */
-public class CollabDiagramLayout extends AbstractLayout<CollabDiagram, CollabDiagramConfig> {
+public class CollabDiagramLayout extends AbstractLayout<CollabDiagram, CollabDiagramLayoutProps> {
 
-    public CollabDiagramLayout(CollabDiagramConfig config) {
-        super(config);
+    public CollabDiagramLayout(CollabDiagramLayoutProps props) {
+        super(props);
     }
 
     public void apply(CollabDiagram diagram) {
-        new CollabElementLayout(config).apply(diagram);
-        new CollabInitialCirclePosition(config).apply(diagram);
-        new CollabFRLayout(config).apply(diagram);
-        new CollabDiagramRescale(config).apply(diagram);
+        new CollabInitialCirclePosition(props).apply(diagram);
+        new CollabFRLayout(props).apply(diagram);
         diagram.timestamp("layout");
     }
 
