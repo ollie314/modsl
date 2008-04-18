@@ -26,7 +26,6 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.modsl.cls.layout.ClassDiagramLayout;
 import org.modsl.cls.model.ClassDiagram;
-import org.modsl.core.config.Config;
 
 /**
  * This test case is a good example of how to call ModSL from Java code to parse
@@ -60,11 +59,10 @@ public abstract class AbstractClassDiagramTest {
             ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
             assertNotNull(d);
 
-            Config<ClassDiagramTemplateProps, ClassDiagramLayoutProps> cfg = new Config<ClassDiagramTemplateProps, ClassDiagramLayoutProps>(
-                    "/config", "cls", new ClassDiagramTemplateProps(), new ClassDiagramLayoutProps());
-            
+            ClassDiagramConfig cfg = new ClassDiagramConfig("/config", "cls");
+
             new ClassDiagramLayout(cfg.getLayoutProps()).apply(d);
-            
+
             ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg.getTemplateProps());
             String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
             assertTrue(svg.indexOf("</svg>") > 0);
