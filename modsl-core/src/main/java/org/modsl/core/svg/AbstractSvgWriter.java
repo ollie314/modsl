@@ -28,11 +28,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
-import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.config.AbstractConfig;
 import org.modsl.core.model.diagram.AbstractDiagramObject;
+import org.modsl.core.model.diagram.Diagram;
 
-public abstract class AbstractSvgWriter<P extends AbstractConfig> {
+public abstract class AbstractSvgWriter<D extends Diagram, P extends AbstractConfig> {
 
     protected static final String TEMPLATE_FILE_EXT = ".tpl";
     protected static GStringTemplateEngine engine = new GStringTemplateEngine();
@@ -46,9 +46,9 @@ public abstract class AbstractSvgWriter<P extends AbstractConfig> {
         this.config = config;
     }
 
-    public abstract String render(ClassDiagram diagram);
+    public abstract String render(D diagram);
 
-    public String renderToFile(ClassDiagram diagram, String fileName) throws FileNotFoundException {
+    public String renderToFile(D diagram, String fileName) throws FileNotFoundException {
         PrintStream p = new PrintStream(new FileOutputStream(fileName));
         String str = render(diagram);
         p.print(str);

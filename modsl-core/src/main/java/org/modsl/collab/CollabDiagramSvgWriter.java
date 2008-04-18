@@ -14,80 +14,72 @@
  * limitations under the License. 
  */
 
-package org.modsl.cls;
+package org.modsl.collab;
 
 import java.util.Collection;
 import java.util.List;
 
-import org.modsl.cls.model.ClassConnector;
-import org.modsl.cls.model.ClassDiagram;
-import org.modsl.cls.model.ClassElement;
-import org.modsl.cls.model.ClassElementDetail;
+import org.modsl.collab.model.CollabConnector;
+import org.modsl.collab.model.CollabDiagram;
+import org.modsl.collab.model.CollabElement;
 import org.modsl.core.svg.AbstractSvgWriter;
 
 /**
- * Renders class diagram model as SVG through a collection of Groovy templates
+ * Renders collaboration diagram model as SVG through a collection of Groovy templates
  * 
  * @author avishnyakov
  */
-public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagram, ClassDiagramConfig> {
+public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, CollabDiagramConfig> {
 
-    public ClassDiagramSvgWriter(ClassDiagramConfig config) {
+    public CollabDiagramSvgWriter(CollabDiagramConfig config) {
         super(config);
     }
 
-    public String render(ClassDiagram diagram) {
+    public String render(CollabDiagram diagram) {
         return renderDiagram(new StringBuffer(), diagram).toString();
     }
 
-    private StringBuffer renderDiagram(StringBuffer sb, ClassDiagram d) {
+    private StringBuffer renderDiagram(StringBuffer sb, CollabDiagram d) {
 
-        d.timestamp("template_engine_init");        
-        
+        d.timestamp("template_engine_init");
+
         invokeTemplate(sb, d, "diagram", "diagram_start");
         invokeTemplate(sb, d, "diagram", "diagram_stylesheet");
-        
-        renderHistory(sb, d.getElements());
-        renderConnectors(sb, d.getConnectors());
-        renderElements(sb, d.getElements());
-        
+
+        //renderHistory(sb, d.getElements());
+        //renderConnectors(sb, d.getConnectors());
+        //renderElements(sb, d.getElements());
+
         if (d.getName() != null) {
             invokeTemplate(sb, d, "diagram", "diagram_header");
         }
 
         // before the end tag completes
         d.timestamp("svg_rendering");
-        
+
         invokeTemplate(sb, d, "diagram", "diagram_end");
-        
+
         return sb;
-        
+
     }
 
-    private void renderHistory(StringBuffer sb, List<ClassElement> elements) {
+    private void renderHistory(StringBuffer sb, List<CollabElement> elements) {
         if (config.renderHistory) {
-            for (ClassElement e : elements) {
+            for (CollabElement e : elements) {
                 invokeTemplate(sb, e, "element", "history");
             }
         }
     }
 
-    private void renderConnectors(StringBuffer sb, Collection<ClassConnector> connectors) {
-        for (ClassConnector c : connectors) {
+    private void renderConnectors(StringBuffer sb, Collection<CollabConnector> connectors) {
+        for (CollabConnector c : connectors) {
             invokeTemplate(sb, c, "connector", "connector");
         }
     }
 
-    private void renderElements(StringBuffer sb, Collection<ClassElement> elements) {
-        for (ClassElement e : elements) {
+    private void renderElements(StringBuffer sb, Collection<CollabElement> elements) {
+        for (CollabElement e : elements) {
             invokeTemplate(sb, e, "element", "element");
-            renderElementDetails(sb, e.getDetails());
-        }
-    }
-
-    private void renderElementDetails(StringBuffer sb, List<ClassElementDetail> details) {
-        for (ClassElementDetail ed : details) {
-            invokeTemplate(sb, ed, "element_detail", "element_detail");
         }
     }
 
