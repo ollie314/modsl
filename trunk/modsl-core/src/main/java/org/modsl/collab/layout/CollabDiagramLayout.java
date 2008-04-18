@@ -14,31 +14,31 @@
  * limitations under the License. 
  */
 
-package org.modsl.cls.layout;
+package org.modsl.collab.layout;
 
-import org.modsl.cls.ClassDiagramConfig;
-import org.modsl.cls.model.ClassDiagram;
+import org.modsl.collab.CollabDiagramConfig;
+import org.modsl.collab.model.CollabDiagram;
 import org.modsl.core.layout.AbstractLayout;
 
 /**
- * Layout flow for the class diagram. Aggregates other layout calls.
+ * Layout flow for the collaboration diagram. Aggregates other layout calls.
  * 
  * @author avishnyakov
  *
  */
-public class ClassDiagramLayout extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class CollabDiagramLayout extends AbstractLayout<CollabDiagram, CollabDiagramConfig> {
 
-    public ClassDiagramLayout(ClassDiagramConfig config) {
+    public CollabDiagramLayout(CollabDiagramConfig config) {
         super(config);
     }
 
-    public void apply(ClassDiagram diagram) {
-        new ElementLayout(config).apply(diagram);
-        new InitialCirclePosition(config).apply(diagram);
+    public void apply(CollabDiagram diagram) {
+        //new ElementLayout(config).apply(diagram);
+        //new InitialCirclePosition(config).apply(diagram);
         // new WeightFlip(config).apply(diagram);
-        new FruchtermanRheingoldLayout(config).apply(diagram);
+        //new FruchtermanRheingoldLayout(config).apply(diagram);
         // new DiagramRescale(config).apply(diagram);
-        new DiagramRescale(config).apply(diagram);
+        //new DiagramRescale(config).apply(diagram);
         diagram.timestamp("layout");
     }
 
