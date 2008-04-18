@@ -42,8 +42,6 @@ public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagram, Class
 
     private StringBuffer renderDiagram(StringBuffer sb, ClassDiagram d) {
 
-        d.timestamp("template_engine_init");        
-        
         invokeTemplate(sb, d, "diagram", "diagram_start");
         invokeTemplate(sb, d, "diagram", "diagram_stylesheet");
         

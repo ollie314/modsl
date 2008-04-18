@@ -33,13 +33,13 @@ import org.modsl.core.model.graph.Vertex;
  * 
  * @author avishnyakov
  */
-public class FruchtermanRheingoldLayout extends AbstractLayout<Graph, ClassDiagramConfig> {
+public class ClassFRLayout extends AbstractLayout<Graph, ClassDiagramConfig> {
 
 	private Logger log = Logger.getLogger(this.getClass());
 
 	protected double temp, kForce, kAttraction, kRepulsion;
 
-	public FruchtermanRheingoldLayout(ClassDiagramConfig config) {
+	public ClassFRLayout(ClassDiagramConfig config) {
 		super(config);
 	}
 

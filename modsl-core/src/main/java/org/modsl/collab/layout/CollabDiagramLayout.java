@@ -34,11 +34,9 @@ public class CollabDiagramLayout extends AbstractLayout<CollabDiagram, CollabDia
 
     public void apply(CollabDiagram diagram) {
         new CollabElementLayout(config).apply(diagram);
-        //new InitialCirclePosition(config).apply(diagram);
-        // new WeightFlip(config).apply(diagram);
-        //new FruchtermanRheingoldLayout(config).apply(diagram);
-        // new DiagramRescale(config).apply(diagram);
-        //new DiagramRescale(config).apply(diagram);
+        new CollabInitialCirclePosition(config).apply(diagram);
+        new CollabFRLayout(config).apply(diagram);
+        new CollabDiagramRescale(config).apply(diagram);
         diagram.timestamp("layout");
     }
 

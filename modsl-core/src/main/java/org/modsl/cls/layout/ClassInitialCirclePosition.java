@@ -35,7 +35,7 @@ import org.modsl.core.model.XY;
  * @author avishnyakov
  *
  */
-public class InitialCirclePosition extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class ClassInitialCirclePosition extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
 
     private Logger log = Logger.getLogger(getClass());
 
@@ -43,7 +43,7 @@ public class InitialCirclePosition extends AbstractLayout<ClassDiagram, ClassDia
     protected ClassDiagram diag;
     protected int circlePositions;
 
-    public InitialCirclePosition(ClassDiagramConfig config) {
+    public ClassInitialCirclePosition(ClassDiagramConfig config) {
         super(config);
     }
 
