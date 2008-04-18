@@ -17,27 +17,26 @@
 package org.modsl.cls.layout;
 
 import org.apache.log4j.Logger;
-import org.modsl.cls.ClassDiagramConfig;
+import org.modsl.cls.ClassDiagramLayoutProps;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.layout.AbstractLayout;
 
-public class ClassDiagramRescale extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class ClassDiagramRescale extends AbstractLayout<ClassDiagram, ClassDiagramLayoutProps> {
 
-	protected Logger log = Logger.getLogger(getClass());
+    protected Logger log = Logger.getLogger(getClass());
 
-	public ClassDiagramRescale(ClassDiagramConfig config) {
-		super(config);
-	}
+    public ClassDiagramRescale(ClassDiagramLayoutProps props) {
+        super(props);
+    }
 
-	public void apply(ClassDiagram diagram) {
-		if (diagram.getRequestedSize().isZero()) {
-			diagram.getRequestedSize().x = config.diagramDefaultWidth;
-			diagram.getRequestedSize().y = config.diagramDefaultHeight;
-		}
-		diagram.setPaddingHeader((diagram.getName() == null ? 0 : config.diagramHeaderFT.getExtHeight(1))
-				+ config.diagramPadding);
-		diagram.setPaddingFooter(config.diagramFooterFT.getExtHeight(1) + config.diagramPadding);
-		diagram.setPaddingSides(config.diagramPadding);
-		diagram.rescaleToRequestedSize();
-	}
+    public void apply(ClassDiagram diagram) {
+        if (diagram.getRequestedSize().isZero()) {
+            diagram.getRequestedSize().x = props.diagramDefaultWidth;
+            diagram.getRequestedSize().y = props.diagramDefaultHeight;
+        }
+        diagram.setPaddingHeader((diagram.getName() == null ? 0 : props.diagramHeaderFT.getExtHeight(1)) + props.diagramPadding);
+        diagram.setPaddingFooter(props.diagramFooterFT.getExtHeight(1) + props.diagramPadding);
+        diagram.setPaddingSides(props.diagramPadding);
+        diagram.rescaleToRequestedSize();
+    }
 }

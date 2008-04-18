@@ -29,8 +29,6 @@ public class CollabDiagramTemplateProps extends AbstractTemplateProps {
 
     public final boolean renderHistory = getBooleanProp("renderHistory");
     public final int diagramPadding = getIntegerProp("diagramPadding");
-    public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
-    public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
     public final String elementRx = getProp("elementRx");
     public final String diagramFontFamily = getProp("diagramFontFamily");
     public final FontTransform diagramHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramHeaderFontSize"));

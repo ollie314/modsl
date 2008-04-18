@@ -24,7 +24,7 @@ import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
 
 import org.apache.log4j.Logger;
-import org.modsl.cls.ClassDiagramConfig;
+import org.modsl.cls.ClassDiagramLayoutProps;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.cls.model.ClassElement;
 import org.modsl.core.layout.AbstractLayout;
@@ -35,7 +35,7 @@ import org.modsl.core.model.XY;
  * @author avishnyakov
  *
  */
-public class ClassInitialCirclePosition extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class ClassInitialCirclePosition extends AbstractLayout<ClassDiagram, ClassDiagramLayoutProps> {
 
     private Logger log = Logger.getLogger(getClass());
 
@@ -43,8 +43,8 @@ public class ClassInitialCirclePosition extends AbstractLayout<ClassDiagram, Cla
     protected ClassDiagram diag;
     protected int circlePositions;
 
-    public ClassInitialCirclePosition(ClassDiagramConfig config) {
-        super(config);
+    public ClassInitialCirclePosition(ClassDiagramLayoutProps props) {
+        super(props);
     }
 
     public void apply(ClassDiagram diag) {
@@ -62,7 +62,7 @@ public class ClassInitialCirclePosition extends AbstractLayout<ClassDiagram, Cla
 
     private void optimizeEdgeLength() {
         circlePositions = diag.getElements().size();
-        for (int i = 0; i < config.initLayoutMaxRounds * circlePositions; i++) {
+        for (int i = 0; i < props.frInitMaxRounds * circlePositions; i++) {
             double curLen = diag.getSumEdgeLength();
             int p1 = (int) floor(random() * circlePositions);
             int p2 = (int) floor(random() * circlePositions);
@@ -99,5 +99,5 @@ public class ClassInitialCirclePosition extends AbstractLayout<ClassDiagram, Cla
         e1.setPosition(e2.getPosition());
         e2.setPosition(xy1);
     }
-    
+
 }

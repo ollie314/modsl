@@ -29,10 +29,10 @@ import org.modsl.core.svg.AbstractSvgWriter;
  * 
  * @author avishnyakov
  */
-public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, CollabDiagramConfig> {
+public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, CollabDiagramTemplateProps> {
 
-    public CollabDiagramSvgWriter(CollabDiagramConfig config) {
-        super(config);
+    public CollabDiagramSvgWriter(CollabDiagramTemplateProps props) {
+        super(props);
     }
 
     public String render(CollabDiagram diagram) {

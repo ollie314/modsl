@@ -16,7 +16,7 @@
 
 package org.modsl.cls;
 
-import org.modsl.core.config.AbstractProps;
+import org.modsl.core.config.AbstractTemplateProps;
 import org.modsl.core.config.FontTransform;
 
 /**
@@ -24,12 +24,10 @@ import org.modsl.core.config.FontTransform;
  * 
  * @author avishnyakov
  */
-public class ClassDiagramTemplateProps extends AbstractProps {
+public class ClassDiagramTemplateProps extends AbstractTemplateProps {
 
     public final boolean renderHistory = getBooleanProp("renderHistory");
     public final int diagramPadding = getIntegerProp("diagramPadding");
-    public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
-    public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
     public final String elementRx = getProp("elementRx");
     public final String diagramFontFamily = getProp("diagramFontFamily");
     public final FontTransform diagramHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramHeaderFontSize"));

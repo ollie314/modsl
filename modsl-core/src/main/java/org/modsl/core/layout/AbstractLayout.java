@@ -16,7 +16,7 @@
 
 package org.modsl.core.layout;
 
-import org.modsl.core.config.Config;
+import org.modsl.core.config.AbstractLayoutProps;
 import org.modsl.core.model.graph.Graph;
 
 /**
@@ -24,17 +24,17 @@ import org.modsl.core.model.graph.Graph;
  * 
  * @author avishnyakov
  */
-public abstract class AbstractLayout<G extends Graph, C extends Config> {
+public abstract class AbstractLayout<G extends Graph, P extends AbstractLayoutProps> {
 
-	protected C config;
+    protected P props;
 
-	public AbstractLayout(C config) {
-		this.config = config;
-	}
+    public AbstractLayout(P props) {
+        this.props = props;
+    }
 
-	/**
-	 * Run layout algorithm, update coordinates of the graph
-	 */
-	public abstract void apply(G graph);
+    /**
+     * Run layout algorithm, update coordinates of the graph
+     */
+    public abstract void apply(G graph);
 
 }
