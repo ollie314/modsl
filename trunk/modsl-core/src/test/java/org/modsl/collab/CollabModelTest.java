@@ -16,7 +16,7 @@
 
 package org.modsl.collab;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.modsl.collab.model.CollabDiagram;
@@ -26,11 +26,8 @@ public class CollabModelTest extends AbstractCollabDiagramTest {
     @Test
     public void coreModel() {
         CollabDiagram d = processDiagram("CollabModel");
-        /*assertTrue(d.getElement("Graph").getSize().x > 50);
-        assertTrue(d.getElement("Graph").getSize().y > 20);
-        assertTrue(d.getSize().x > 0);
-        assertTrue(d.getSize().y > 0);*/
-        assertTrue(true);
+        log.debug(d.toString());
+        assertNotNull(d.getElement("Class2:Object2"));
     }
 
 }

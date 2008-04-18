@@ -63,8 +63,8 @@ public abstract class AbstractCollabDiagramTest {
                                 ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
                                 String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
                                 assertTrue(svg.indexOf("</svg>") > 0);
-
-                                return d; */
+            */
+            return d;
 
         } catch (Exception ex) {
 
@@ -73,7 +73,6 @@ public abstract class AbstractCollabDiagramTest {
 
         }
 
-        return null;
     }
 
 }
