@@ -56,19 +56,21 @@ public abstract class AbstractCollabDiagramTest {
 
             CollabDiagram d = (CollabDiagram) binding.getVariable("diagram");
             assertNotNull(d);
-            /*
-                                ClassDiagramConfig cfg = new ClassDiagramConfig();
-                                new ClassDiagramLayout(cfg).apply(d);
 
-                                ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
-                                String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
-                                assertTrue(svg.indexOf("</svg>") > 0);
+            CollabDiagramConfig cfg = new CollabDiagramConfig();
+
+            /*  new ClassDiagramLayout(cfg).apply(d);
+
+            ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
+            String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
+            assertTrue(svg.indexOf("</svg>") > 0);
             */
+
             return d;
 
         } catch (Exception ex) {
 
-            log.error(ex);
+            log.error(getClass() + " failed:", ex);
             return null;
 
         }

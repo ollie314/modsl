@@ -18,6 +18,7 @@ package org.modsl.core.config;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +57,11 @@ public abstract class AbstractConfig<F extends FontTransform> {
      * @throws IOException
      */
     protected void loadProps(String name) throws IOException {
-        BufferedReader r = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(name)));
+        InputStream is = getClass().getResourceAsStream(name);
+        if (is == null) {
+            throw new RuntimeException("Cannot find configuration file " + name);
+        }
+        BufferedReader r = new BufferedReader(new InputStreamReader(is));
         Properties p = new Properties();
         p.load(r);
         r.close();
