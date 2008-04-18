@@ -114,4 +114,12 @@ public abstract class AbstractProps {
         return props;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }

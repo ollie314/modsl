@@ -24,10 +24,12 @@ import java.io.IOException;
 
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.modsl.cls.ClassDiagramBuilder;
-import org.modsl.cls.ClassDiagramConfig;
+import org.modsl.cls.ClassDiagramLayoutProps;
 import org.modsl.cls.ClassDiagramSvgWriter;
+import org.modsl.cls.ClassDiagramTemplateProps;
 import org.modsl.cls.layout.ClassDiagramLayout;
 import org.modsl.cls.model.ClassDiagram;
+import org.modsl.core.config.Config;
 
 /**
  * Command line utility to process a diagram script
@@ -53,7 +55,7 @@ public class ClassDiagramCmd {
         shell.evaluate(new File(args[0]));
 
         ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
-        ClassDiagramConfig cfg = new ClassDiagramConfig();
+        Config cfg = new Config<ClassDiagramTemplateProps, ClassDiagramLayoutProps>("/config");
         new ClassDiagramLayout(cfg).apply(d);
         ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
         templ.renderToFile(d, args[1]);
