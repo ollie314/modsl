@@ -37,7 +37,7 @@ public class CollabElement extends Element<CollabDiagram, ElementDetail> {
      */
     public void calcSize(FontTransform elementFT) {
         size.x = elementFT.getExtStringWidth(name);
-        size.y = elementFT.getExtHeight(1);
+        size.y = elementFT.getExtHeight(1) + 2;
     }
 
 }
