@@ -18,28 +18,25 @@ package org.modsl.collab.layout;
 
 import org.modsl.collab.CollabDiagramConfig;
 import org.modsl.collab.model.CollabDiagram;
+import org.modsl.collab.model.CollabElement;
 import org.modsl.core.layout.AbstractLayout;
 
 /**
- * Layout flow for the collaboration diagram. Aggregates other layout calls.
+ * Update element sizes according to the font style and size
  * 
  * @author avishnyakov
  *
  */
-public class CollabDiagramLayout extends AbstractLayout<CollabDiagram, CollabDiagramConfig> {
+public class CollabElementLayout extends AbstractLayout<CollabDiagram, CollabDiagramConfig> {
 
-    public CollabDiagramLayout(CollabDiagramConfig config) {
+    public CollabElementLayout(CollabDiagramConfig config) {
         super(config);
     }
 
     public void apply(CollabDiagram diagram) {
-        new CollabElementLayout(config).apply(diagram);
-        //new InitialCirclePosition(config).apply(diagram);
-        // new WeightFlip(config).apply(diagram);
-        //new FruchtermanRheingoldLayout(config).apply(diagram);
-        // new DiagramRescale(config).apply(diagram);
-        //new DiagramRescale(config).apply(diagram);
-        diagram.timestamp("layout");
+        for (CollabElement e : diagram.getElements()) {
+            e.calcSize(config.elementHeaderFT);
+        }
     }
 
 }

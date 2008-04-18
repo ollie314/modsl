@@ -33,7 +33,7 @@ public class ClassDiagramLayout extends AbstractLayout<ClassDiagram, ClassDiagra
     }
 
     public void apply(ClassDiagram diagram) {
-        new ElementLayout(config).apply(diagram);
+        new ClassElementLayout(config).apply(diagram);
         new InitialCirclePosition(config).apply(diagram);
         // new WeightFlip(config).apply(diagram);
         new FruchtermanRheingoldLayout(config).apply(diagram);
