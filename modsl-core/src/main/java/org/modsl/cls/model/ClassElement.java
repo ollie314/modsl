@@ -54,11 +54,6 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
     public void calcWeight() {
         setWeight(1d / (1d + exp(-getExtendsFromCount())));
     }
-
-    public String toString() {
-        return name + ":" + weight;
-    }
-
     public List<ClassElementDetail> getAttributes() {
         return attributes;
     }
