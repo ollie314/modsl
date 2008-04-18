@@ -45,3 +45,6 @@
    * wire with Spring?
    * consolidate error reporting, refactor RuntimeExceptions
    * better error reports for configuration resources - missing file, missing attribute, misconfigured etc
+   * refactor to common calcSize, make builder to call calc size and finalize connectors
+   * use Random with fixed seed for initial pre-FR layout to make layout outcomes deterministic
+   * hierarchical diagram, generalize containment relationship
