@@ -16,7 +16,7 @@
 
 package org.modsl.core.config;
 
-import org.modsl.core.builder.common.AbstractModslException;
+import org.modsl.core.common.AbstractModslException;
 
 public class ConfigException extends AbstractModslException {
 

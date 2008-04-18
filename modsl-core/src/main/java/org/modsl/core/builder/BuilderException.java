@@ -16,7 +16,7 @@
 
 package org.modsl.core.builder;
 
-import org.modsl.core.builder.common.AbstractModslException;
+import org.modsl.core.common.AbstractModslException;
 
 /**
  * Builder/parser errors are supposed to be reported through this class or its subclasses
