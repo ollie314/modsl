@@ -14,23 +14,22 @@
  * limitations under the License. 
  */
 
-package org.modsl;
+package org.modsl.cls;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.modsl.collab.model.CollabDiagram;
+import org.modsl.core.model.diagram.Diagram;
 
-public class CollabModelTest extends AbstractCollabDiagramTest {
+public class CoreModelTest extends AbstractClassDiagramTest {
 
     @Test
     public void coreModel() {
-        CollabDiagram d = processDiagram("CoreModel");
-        /*assertTrue(d.getElement("Graph").getSize().x > 50);
+        Diagram d = processDiagram("CoreModel");
+        assertTrue(d.getElement("Graph").getSize().x > 50);
         assertTrue(d.getElement("Graph").getSize().y > 20);
         assertTrue(d.getSize().x > 0);
-        assertTrue(d.getSize().y > 0);*/
-        assertTrue(true);
+        assertTrue(d.getSize().y > 0);
     }
 
 }
