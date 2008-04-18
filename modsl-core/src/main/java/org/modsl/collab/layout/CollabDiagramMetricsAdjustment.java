@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.collab.metrics;
+package org.modsl.collab.layout;
 
 import org.apache.log4j.Logger;
 import org.modsl.collab.CollabDiagramTemplateProps;
