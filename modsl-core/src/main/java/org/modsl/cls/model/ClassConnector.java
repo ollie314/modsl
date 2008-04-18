@@ -21,6 +21,7 @@ import static java.lang.Math.PI;
 import java.util.Arrays;
 import java.util.List;
 
+import org.modsl.core.config.FontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.Connector;
 
@@ -31,8 +32,8 @@ import org.modsl.core.model.diagram.Connector;
  */
 public class ClassConnector extends Connector<ClassDiagram, ClassElement> {
 
-    protected static double arrowAngle = PI / 4d;
-    protected static double arrowLength = 20;
+    protected static double arrowAngle;
+    protected static double arrowLength;
 
     protected final static List<Type> hollowArrow = Arrays.asList(new Type[] { Type.EXTENDS, Type.IMPLEMENTS });
 
@@ -95,7 +96,7 @@ public class ClassConnector extends Connector<ClassDiagram, ClassElement> {
     public boolean isHollowArrow() {
         return hollowArrow.contains(this.type);
     }
-    
+
     /**
      * @return position of the middle point of the arrow
      */
@@ -133,6 +134,11 @@ public class ClassConnector extends Connector<ClassDiagram, ClassElement> {
      */
     public void setEndMultiplicity(String endMultiplicity) {
         this.endMultiplicity = endMultiplicity;
+    }
+
+    public void calcSize(FontTransform connectorFT) {
+        arrowAngle = PI / 4d;
+        arrowLength = connectorFT.getArrowLength();
     }
 
 }

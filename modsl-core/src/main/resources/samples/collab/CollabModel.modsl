@@ -1,4 +1,4 @@
-diagram = builder._diagram(value:"Collaboration Model", _width:480, _height:320) {
+diagram = builder._diagram(value:"Collaboration Model", _width:520, _height:360) {
 
 	_object("Class1:Object1") {
 		_call(_to:"Class2:Object2", _message:"doSomething()")

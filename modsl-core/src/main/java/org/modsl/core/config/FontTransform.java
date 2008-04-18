@@ -195,4 +195,8 @@ public class FontTransform {
         return getBaseline() + 2;
     }
 
+    public double getArrowLength() {
+        return getHeight();
+    }
+
 }

@@ -17,6 +17,7 @@
 package org.modsl.cls.layout;
 
 import org.modsl.cls.ClassDiagramConfig;
+import org.modsl.cls.model.ClassConnector;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.cls.model.ClassElement;
 import org.modsl.core.layout.AbstractLayout;
@@ -35,9 +36,10 @@ public class ClassElementLayout extends AbstractLayout<ClassDiagram, ClassDiagra
 
     public void apply(ClassDiagram diagram) {
         for (ClassElement e : diagram.getElements()) {
-            // delegates to the diagram element itself
             e.calcSize(config.elementHeaderFT, config.elementDetailFT);
         }
+        for (ClassConnector c : diagram.getConnectors()) {
+            c.calcSize(config.connectorFT);
+        }
     }
-
 }
