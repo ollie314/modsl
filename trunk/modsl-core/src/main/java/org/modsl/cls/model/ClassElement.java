@@ -22,7 +22,7 @@ import static java.lang.Math.max;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modsl.cls.ClassFontTransform;
+import org.modsl.core.config.FontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.Element;
 
@@ -72,7 +72,7 @@ public class ClassElement extends Element<ClassDiagram, ClassElementDetail> {
      * @param elementHeaderFT
      * @param elementDetailFT
      */
-    public void calcSize(ClassFontTransform elementHeaderFT, ClassFontTransform elementDetailFT) {
+    public void calcSize(FontTransform elementHeaderFT, FontTransform elementDetailFT) {
 
         double maxExtStringWidth = elementHeaderFT.getExtStringWidth(name);
         double maxExtHeight = elementHeaderFT.getExtHeight(1);

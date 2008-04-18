@@ -16,7 +16,7 @@
 
 package org.modsl.cls.model;
 
-import org.modsl.cls.ClassFontTransform;
+import org.modsl.core.config.FontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.ElementDetail;
 
@@ -27,39 +27,38 @@ import org.modsl.core.model.diagram.ElementDetail;
  */
 public class ClassElementDetail extends ElementDetail<ClassElement> {
 
-	protected ClassElementDetailType type;
-	protected ClassElementDetailScope scope;
+    protected ClassElementDetailType type;
+    protected ClassElementDetailScope scope;
 
-	public ClassElementDetail(String name, ClassElement parent, ClassElementDetailType type,
-			ClassElementDetailScope scope) {
-		super(parent, name);
-		this.type = type;
-		this.scope = scope;
-		switch (type) {
-		case ATTRIBUTE:
-			parent.getAttributes().add(this);
-			break;
-		case METHOD:
-			parent.getMethods().add(this);
-			break;
-		}
-	}
+    public ClassElementDetail(String name, ClassElement parent, ClassElementDetailType type, ClassElementDetailScope scope) {
+        super(parent, name);
+        this.type = type;
+        this.scope = scope;
+        switch (type) {
+        case ATTRIBUTE:
+            parent.getAttributes().add(this);
+            break;
+        case METHOD:
+            parent.getMethods().add(this);
+            break;
+        }
+    }
 
-	public ClassElementDetailType getType() {
-		return type;
-	}
+    public ClassElementDetailType getType() {
+        return type;
+    }
 
-	/**
-	 * Positions this element relative to the given startPosition
-	 * @param startPosition right below class's header or below the previous class detail section
-	 * @param elementDetailFT fint size transform object
-	 * @param index seq index of this detail
-	 */
-	public void calcSizeAndPosition(XY startPosition, ClassFontTransform elementDetailFT, int index) {
-		realtivePosition.x = elementDetailFT.getLeftPadding();
-		realtivePosition.y = startPosition.y + elementDetailFT.getExtPosition(index);
-		size.x = elementDetailFT.getExtStringWidth(name);
-		size.y = elementDetailFT.getHeight();
-	}
+    /**
+     * Positions this element relative to the given startPosition
+     * @param startPosition right below class's header or below the previous class detail section
+     * @param elementDetailFT fint size transform object
+     * @param index seq index of this detail
+     */
+    public void calcSizeAndPosition(XY startPosition, FontTransform elementDetailFT, int index) {
+        realtivePosition.x = elementDetailFT.getLeftPadding();
+        realtivePosition.y = startPosition.y + elementDetailFT.getExtPosition(index);
+        size.x = elementDetailFT.getExtStringWidth(name);
+        size.y = elementDetailFT.getHeight();
+    }
 
 }

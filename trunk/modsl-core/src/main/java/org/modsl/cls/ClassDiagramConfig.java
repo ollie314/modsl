@@ -17,6 +17,7 @@
 package org.modsl.cls;
 
 import org.modsl.core.config.AbstractConfig;
+import org.modsl.core.config.FontTransform;
 
 /**
  * Class diagram model configuration
@@ -24,39 +25,34 @@ import org.modsl.core.config.AbstractConfig;
  * @author avishnyakov
  *
  */
-public class ClassDiagramConfig extends AbstractConfig<ClassFontTransform> {
+public class ClassDiagramConfig extends AbstractConfig<FontTransform> {
 
-	public final int initLayoutMaxRounds = getIntegerProp("initLayoutMaxRounds");
+    public final int initLayoutMaxRounds = getIntegerProp("initLayoutMaxRounds");
 
-	public final int layoutMaxIterations = getIntegerProp("layoutMaxIterations");
-	public final double layoutTempMultiplier = getDoubleProp("layoutTempMultiplier");
-	public final double layoutAttractionMultiplier = getDoubleProp("layoutAttractionMultiplier");
-	public final double layoutRepulsionMultiplier = getDoubleProp("layoutRepulsionMultiplier");
+    public final int layoutMaxIterations = getIntegerProp("layoutMaxIterations");
+    public final double layoutTempMultiplier = getDoubleProp("layoutTempMultiplier");
+    public final double layoutAttractionMultiplier = getDoubleProp("layoutAttractionMultiplier");
+    public final double layoutRepulsionMultiplier = getDoubleProp("layoutRepulsionMultiplier");
 
-	public final boolean renderHistory = getBooleanProp("renderHistory");
+    public final boolean renderHistory = getBooleanProp("renderHistory");
 
-	public final int diagramPadding = getIntegerProp("diagramPadding");
+    public final int diagramPadding = getIntegerProp("diagramPadding");
 
-	public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
-	public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
+    public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
+    public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
 
-	public final String elementRx = getProp("elementRx");
+    public final String elementRx = getProp("elementRx");
 
-	public final String diagramFontFamily = getProp("diagramFontFamily");
+    public final String diagramFontFamily = getProp("diagramFontFamily");
 
-	public final ClassFontTransform diagramHeaderFT = new ClassFontTransform(diagramFontFamily,
-			getIntegerProp("diagramHeaderFontSize"));
-	public final ClassFontTransform diagramFooterFT = new ClassFontTransform(diagramFontFamily,
-			getIntegerProp("diagramFooterFontSize"));
-	public final ClassFontTransform elementHeaderFT = new ClassFontTransform(diagramFontFamily,
-			getIntegerProp("elementHeaderFontSize"));
-	public final ClassFontTransform elementDetailFT = new ClassFontTransform(diagramFontFamily,
-			getIntegerProp("elementDetailFontSize"));
-	public final ClassFontTransform connectorFT = new ClassFontTransform(diagramFontFamily,
-			getIntegerProp("connectorFontSize"));
+    public final FontTransform diagramHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramHeaderFontSize"));
+    public final FontTransform diagramFooterFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramFooterFontSize"));
+    public final FontTransform elementHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("elementHeaderFontSize"));
+    public final FontTransform elementDetailFT = new FontTransform(diagramFontFamily, getIntegerProp("elementDetailFontSize"));
+    public final FontTransform connectorFT = new FontTransform(diagramFontFamily, getIntegerProp("connectorFontSize"));
 
-	public ClassDiagramConfig() {
-		super("/config/cls/");
-	}
+    public ClassDiagramConfig() {
+        super("/config/cls/");
+    }
 
 }
