@@ -1,6 +1,6 @@
 package org.modsl.core;
 
-public abstract class ModslProcess {
+public abstract class ModslCore {
 
     protected abstract void preAdjust();
     protected abstract void layout();
