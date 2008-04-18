@@ -22,14 +22,14 @@ import org.modsl.cls.model.ClassElement;
 import org.modsl.core.layout.AbstractLayout;
 
 /**
- * Update element sizes according to the fint style and size
+ * Update element sizes according to the font style and size
  * 
  * @author avishnyakov
  *
  */
-public class ElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class ClassElementLayout extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
 
-    public ElementLayout(ClassDiagramConfig config) {
+    public ClassElementLayout(ClassDiagramConfig config) {
         super(config);
     }
 
