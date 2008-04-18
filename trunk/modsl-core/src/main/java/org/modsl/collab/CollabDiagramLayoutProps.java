@@ -32,7 +32,4 @@ public class CollabDiagramLayoutProps extends AbstractLayoutProps {
     public final double frAttractionMultiplier = getDoubleProp("frAttractionMultiplier");
     public final double frRepulsionMultiplier = getDoubleProp("frRepulsionMultiplier");
     
-    public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
-    public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
-
 }

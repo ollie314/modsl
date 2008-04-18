@@ -14,23 +14,27 @@
  * limitations under the License. 
  */
 
-package org.modsl.cls;
+package org.modsl.core.pre_adjust;
 
-import org.modsl.core.config.AbstractLayoutProps;
+import org.modsl.core.config.AbstractTemplateProps;
+import org.modsl.core.model.diagram.Diagram;
 
 /**
- * Class diagram model layout configuration
+ * Layout algorithm interface
  * 
  * @author avishnyakov
- *
  */
-public class ClassDiagramLayoutProps extends AbstractLayoutProps {
+public abstract class AbstractPreAdjust<D extends Diagram<?, ?, ?>, P extends AbstractTemplateProps> {
 
-    public final int frInitMaxRounds = getIntegerProp("frInitMaxRounds");
-    
-    public final int frMaxIterations = getIntegerProp("frMaxIterations");
-    public final double frTempMultiplier = getDoubleProp("frTempMultiplier");
-    public final double frAttractionMultiplier = getDoubleProp("frAttractionMultiplier");
-    public final double frRepulsionMultiplier = getDoubleProp("frRepulsionMultiplier");
+    protected P props;
+
+    public AbstractPreAdjust(P props) {
+        this.props = props;
+    }
+
+    /**
+     * Run layout algorithm, update coordinates of the graph
+     */
+    public abstract void apply(D Diagram);
 
 }
