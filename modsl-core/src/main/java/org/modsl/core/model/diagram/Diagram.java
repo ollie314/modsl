@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.modsl.core.model.Timeline;
+import org.modsl.core.common.Timeline;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.graph.Graph;
 import org.modsl.core.model.graph.Vertex;

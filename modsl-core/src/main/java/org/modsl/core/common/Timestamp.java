@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.model;
+package org.modsl.core.common;
 
 /**
  * Represents names timestamp

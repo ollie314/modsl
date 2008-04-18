@@ -21,7 +21,7 @@ import org.modsl.collab.CollabDiagramTemplateProps;
 import org.modsl.collab.model.CollabConnector;
 import org.modsl.collab.model.CollabDiagram;
 import org.modsl.collab.model.CollabElement;
-import org.modsl.core.metrics.AbstractMetricsAdjustment;
+import org.modsl.core.layout.AbstractMetricsAdjustment;
 
 public class CollabDiagramMetricsAdjustment extends AbstractMetricsAdjustment<CollabDiagram, CollabDiagramTemplateProps> {
 
