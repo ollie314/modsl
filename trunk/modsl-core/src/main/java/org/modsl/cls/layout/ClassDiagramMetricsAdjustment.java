@@ -21,7 +21,7 @@ import org.modsl.cls.ClassDiagramTemplateProps;
 import org.modsl.cls.model.ClassConnector;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.cls.model.ClassElement;
-import org.modsl.core.metrics.AbstractMetricsAdjustment;
+import org.modsl.core.layout.AbstractMetricsAdjustment;
 
 public class ClassDiagramMetricsAdjustment extends AbstractMetricsAdjustment<ClassDiagram, ClassDiagramTemplateProps> {
 

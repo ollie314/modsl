@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.metrics;
+package org.modsl.core.layout;
 
 import org.modsl.core.config.AbstractTemplateProps;
 import org.modsl.core.model.diagram.Diagram;
