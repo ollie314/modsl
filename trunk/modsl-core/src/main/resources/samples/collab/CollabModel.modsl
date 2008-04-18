@@ -1,18 +1,21 @@
-diagram = builder._diagram(value:"Collaboration Model", _width:800, _height:600) {
+diagram = builder._diagram(value:"Collaboration Model", _width:480, _height:320) {
 
 	_object("Class1:Object1") {
-		_calls("Class2:Object2")
+		_call(_to:"Class2:Object2", _message:"doSomething()")
 	}
 	
 	_object("Class2:Object2") {
-		_calls("Class2:Object3")
-		_calls("Class2:Object4")
-		_calls("Class2:Object5")
+		_call(_to:"Class2:Object3", _message:"doSomethingElse()")
+		_call(_to:"Class2:Object4", _message:"doExtra()")
+		_call(_to:"Class2:Object5", _message:"doPlus()")
 	}
 
 	_object("Class2:Object3")
 	_object("Class2:Object4")
-	_object("Class2:Object5")
+	
+	_object("Class2:Object5") {
+		_call(_to:"Class1:Object1", _message:"comeBack()")
+	}
 	
 }
 	

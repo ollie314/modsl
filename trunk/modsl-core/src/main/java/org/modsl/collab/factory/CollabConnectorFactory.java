@@ -34,16 +34,19 @@ public class CollabConnectorFactory extends CollabAbstractFactory {
 
     protected Map<String, Object> typeMap;
 
+    protected int sequence = 1;
+
     public CollabConnectorFactory() {
-        metaKeys = Arrays.asList(new String[] { "_calls" });
+        metaKeys = Arrays.asList(new String[] { "_call" });
     }
 
     public CollabConnector build(String metaKey, String value, Object current, Map<String, Object> map) {
         checkParentClass(metaKey, current, CollabElement.class);
         CollabElement se = (CollabElement) current;
-        CollabConnector c = new CollabConnector(se.getParent());
+        String msg = getNullableStringAttribute(null, "_message", map);
+        CollabConnector c = new CollabConnector(se.getParent(), sequence++ + (msg == null ? "" : (":" + msg)));
         c.setStartElement(se);
-        c.setEndElementName(value);
+        c.setEndElementName(getMandatoryStringAttribute("_to", map));
         return c;
     }
 
