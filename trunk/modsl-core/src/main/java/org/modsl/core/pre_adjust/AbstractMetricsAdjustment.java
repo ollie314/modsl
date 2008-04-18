@@ -24,11 +24,11 @@ import org.modsl.core.model.diagram.Diagram;
  * 
  * @author avishnyakov
  */
-public abstract class AbstractPreAdjust<D extends Diagram<?, ?, ?>, P extends AbstractTemplateProps> {
+public abstract class AbstractMetricsAdjustment<D extends Diagram<?, ?, ?>, P extends AbstractTemplateProps> {
 
     protected P props;
 
-    public AbstractPreAdjust(P props) {
+    public AbstractMetricsAdjustment(P props) {
         this.props = props;
     }
 

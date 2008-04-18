@@ -14,16 +14,16 @@
  * limitations under the License. 
  */
 
-package org.modsl.collab.pre_adjust;
+package org.modsl.collab.metrics;
 
 import org.apache.log4j.Logger;
 import org.modsl.collab.CollabDiagramTemplateProps;
 import org.modsl.collab.model.CollabConnector;
 import org.modsl.collab.model.CollabDiagram;
 import org.modsl.collab.model.CollabElement;
-import org.modsl.core.pre_adjust.AbstractPreAdjust;
+import org.modsl.core.pre_adjust.AbstractMetricsAdjustment;
 
-public class CollabDiagramPreAdjust extends AbstractPreAdjust<CollabDiagram, CollabDiagramTemplateProps> {
+public class CollabDiagramPreAdjust extends AbstractMetricsAdjustment<CollabDiagram, CollabDiagramTemplateProps> {
 
     protected Logger log = Logger.getLogger(getClass());
 
