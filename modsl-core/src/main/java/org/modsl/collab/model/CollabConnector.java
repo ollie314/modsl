@@ -31,8 +31,8 @@ public class CollabConnector extends Connector<CollabDiagram, CollabElement> {
     protected static double arrowAngle = PI / 4d;
     protected static double arrowLength = 20;
 
-    public CollabConnector(CollabDiagram parent) {
-        super(parent, null);
+    public CollabConnector(CollabDiagram parent, String name) {
+        super(parent, name);
     }
 
     /**
@@ -49,6 +49,14 @@ public class CollabConnector extends Connector<CollabDiagram, CollabElement> {
     public XY getArrow2() {
         double alpha = angle() + arrowAngle / 2d;
         return new XY(arrowLength * Math.cos(alpha), arrowLength * Math.sin(alpha));
+    }
+
+    /**
+     * @return position of the connector's midpoint
+     */
+    public XY getMidPoint() {
+        return startElement.getCenterPosition()
+                .plus(endElement.getCenterPosition().minus(startElement.getCenterPosition()).div(2d));
     }
 
 }
