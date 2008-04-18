@@ -14,22 +14,22 @@
  * limitations under the License. 
  */
 
-package org.modsl.cls.layout;
+package org.modsl.collab.layout;
 
 import org.apache.log4j.Logger;
-import org.modsl.cls.ClassDiagramConfig;
-import org.modsl.cls.model.ClassDiagram;
+import org.modsl.collab.CollabDiagramConfig;
+import org.modsl.collab.model.CollabDiagram;
 import org.modsl.core.layout.AbstractLayout;
 
-public class DiagramRescale extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class CollabDiagramRescale extends AbstractLayout<CollabDiagram, CollabDiagramConfig> {
 
 	protected Logger log = Logger.getLogger(getClass());
 
-	public DiagramRescale(ClassDiagramConfig config) {
+	public CollabDiagramRescale(CollabDiagramConfig config) {
 		super(config);
 	}
 
-	public void apply(ClassDiagram diagram) {
+	public void apply(CollabDiagram diagram) {
 		if (diagram.getRequestedSize().isZero()) {
 			diagram.getRequestedSize().x = config.diagramDefaultWidth;
 			diagram.getRequestedSize().y = config.diagramDefaultHeight;

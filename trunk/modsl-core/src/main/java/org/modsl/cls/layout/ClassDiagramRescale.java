@@ -16,29 +16,28 @@
 
 package org.modsl.cls.layout;
 
+import org.apache.log4j.Logger;
 import org.modsl.cls.ClassDiagramConfig;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.layout.AbstractLayout;
 
-/**
- * Layout flow for the class diagram. Aggregates other layout calls.
- * 
- * @author avishnyakov
- *
- */
-public class ClassDiagramLayout extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
+public class ClassDiagramRescale extends AbstractLayout<ClassDiagram, ClassDiagramConfig> {
 
-    public ClassDiagramLayout(ClassDiagramConfig config) {
-        super(config);
-    }
+	protected Logger log = Logger.getLogger(getClass());
 
-    public void apply(ClassDiagram diagram) {
-        new ClassElementLayout(config).apply(diagram);
-        new ClassInitialCirclePosition(config).apply(diagram);
-        // new WeightFlip(config).apply(diagram);
-        new ClassFRLayout(config).apply(diagram);
-        new ClassDiagramRescale(config).apply(diagram);
-        diagram.timestamp("layout");
-    }
+	public ClassDiagramRescale(ClassDiagramConfig config) {
+		super(config);
+	}
 
+	public void apply(ClassDiagram diagram) {
+		if (diagram.getRequestedSize().isZero()) {
+			diagram.getRequestedSize().x = config.diagramDefaultWidth;
+			diagram.getRequestedSize().y = config.diagramDefaultHeight;
+		}
+		diagram.setPaddingHeader((diagram.getName() == null ? 0 : config.diagramHeaderFT.getExtHeight(1))
+				+ config.diagramPadding);
+		diagram.setPaddingFooter(config.diagramFooterFT.getExtHeight(1) + config.diagramPadding);
+		diagram.setPaddingSides(config.diagramPadding);
+		diagram.rescaleToRequestedSize();
+	}
 }

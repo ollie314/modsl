@@ -21,6 +21,7 @@ import groovy.text.GStringTemplateEngine;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -74,8 +75,11 @@ public abstract class AbstractSvgWriter<D extends Diagram, P extends AbstractCon
     private synchronized groovy.text.Template getTemplate(String fullTemplateName) throws Exception {
         groovy.text.Template template = templateCache.get(fullTemplateName);
         if (template == null) {
-            // File f = new File(name);
-            BufferedReader r = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fullTemplateName)));
+            InputStream is = getClass().getResourceAsStream(fullTemplateName);
+            if (is == null) {
+                throw new RuntimeException("Cannot find template " + fullTemplateName);
+            }
+            BufferedReader r = new BufferedReader(new InputStreamReader(is));
             template = engine.createTemplate(r);
             templateCache.put(fullTemplateName, template);
             r.close();

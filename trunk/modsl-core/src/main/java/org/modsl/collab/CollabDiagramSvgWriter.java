@@ -41,13 +41,11 @@ public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, Col
 
     private StringBuffer renderDiagram(StringBuffer sb, CollabDiagram d) {
 
-        d.timestamp("template_engine_init");
-
         invokeTemplate(sb, d, "diagram", "diagram_start");
         invokeTemplate(sb, d, "diagram", "diagram_stylesheet");
 
-        //renderHistory(sb, d.getElements());
-        //renderConnectors(sb, d.getConnectors());
+        renderHistory(sb, d.getElements());
+        renderConnectors(sb, d.getConnectors());
         //renderElements(sb, d.getElements());
 
         if (d.getName() != null) {

@@ -17,12 +17,14 @@
 package org.modsl.collab;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
 
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
+import org.modsl.cls.ClassDiagramSvgWriter;
 import org.modsl.collab.layout.CollabDiagramLayout;
 import org.modsl.collab.model.CollabDiagram;
 
@@ -62,10 +64,9 @@ public abstract class AbstractCollabDiagramTest {
 
             new CollabDiagramLayout(cfg).apply(d);
 
-            /*  ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
-             String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
-             assertTrue(svg.indexOf("</svg>") > 0);
-             */
+            CollabDiagramSvgWriter templ = new CollabDiagramSvgWriter(cfg);
+            String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
+            assertTrue(svg.indexOf("</svg>") > 0);
 
             return d;
 
