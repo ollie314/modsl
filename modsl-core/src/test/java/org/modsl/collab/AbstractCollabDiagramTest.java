@@ -23,6 +23,7 @@ import groovy.util.GroovyScriptEngine;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
+import org.modsl.collab.layout.CollabDiagramLayout;
 import org.modsl.collab.model.CollabDiagram;
 
 /**
@@ -59,12 +60,12 @@ public abstract class AbstractCollabDiagramTest {
 
             CollabDiagramConfig cfg = new CollabDiagramConfig();
 
-            /*  new ClassDiagramLayout(cfg).apply(d);
+            new CollabDiagramLayout(cfg).apply(d);
 
-            ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
-            String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
-            assertTrue(svg.indexOf("</svg>") > 0);
-            */
+            /*  ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
+             String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
+             assertTrue(svg.indexOf("</svg>") > 0);
+             */
 
             return d;
 
