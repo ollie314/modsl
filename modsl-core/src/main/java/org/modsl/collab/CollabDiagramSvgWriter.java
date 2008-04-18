@@ -62,7 +62,7 @@ public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, Col
     }
 
     private void renderHistory(StringBuffer sb, List<CollabElement> elements) {
-        if (config.renderHistory) {
+        if (props.renderHistory) {
             for (CollabElement e : elements) {
                 invokeTemplate(sb, e, "element", "history");
             }
