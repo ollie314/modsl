@@ -37,7 +37,7 @@ public abstract class CollabAbstractFactory extends AbstractFactory {
     static {
         factories.add(new CollabDiagramFactory());
         factories.add(new CollabElementFactory());
-        factories.add(new ClassConnectorFactory());
+        factories.add(new CollabConnectorFactory());
     }
 
     public static AbstractFactory findFactory(String metaKey) {

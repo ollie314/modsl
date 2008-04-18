@@ -16,6 +16,8 @@
 
 package org.modsl.collab;
 
+import static org.junit.Assert.assertNotNull;
+import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
 
 import java.io.IOException;
@@ -31,7 +33,7 @@ import org.modsl.collab.model.CollabDiagram;
  */
 public abstract class AbstractCollabDiagramTest {
 
-    private static final String[] scriptRoots = new String[] { "./target/classes/samples/cls" };
+    private static final String[] scriptRoots = new String[] { "./target/classes/samples/collab" };
     private static GroovyScriptEngine scriptEngine;
 
     static {
@@ -45,32 +47,31 @@ public abstract class AbstractCollabDiagramTest {
     protected Logger log = Logger.getLogger(getClass());
 
     public CollabDiagram processDiagram(String name) {
-        /*
-                try {
 
-                    Binding binding = new Binding();
-                    binding.setVariable("builder", new ClassDiagramBuilder());
-                    scriptEngine.run(name + ".modsl", binding);
+        try {
 
-                    ClassDiagram d = (ClassDiagram) binding.getVariable("diagram");
-                    assertNotNull(d);
+            Binding binding = new Binding();
+            binding.setVariable("builder", new CollabDiagramBuilder());
+            scriptEngine.run(name + ".modsl", binding);
 
-                    ClassDiagramConfig cfg = new ClassDiagramConfig();
-                    new ClassDiagramLayout(cfg).apply(d);
+            CollabDiagram d = (CollabDiagram) binding.getVariable("diagram");
+            assertNotNull(d);
+            /*
+                                ClassDiagramConfig cfg = new ClassDiagramConfig();
+                                new ClassDiagramLayout(cfg).apply(d);
 
-                    ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
-                    String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
-                    assertTrue(svg.indexOf("</svg>") > 0);
+                                ClassDiagramSvgWriter templ = new ClassDiagramSvgWriter(cfg);
+                                String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
+                                assertTrue(svg.indexOf("</svg>") > 0);
 
-                    return d;
+                                return d; */
 
-                } catch (Exception ex) {
+        } catch (Exception ex) {
 
-                    log.error(ex);
-                    return null;
+            log.error(ex);
+            return null;
 
-                }
-        */
+        }
 
         return null;
     }

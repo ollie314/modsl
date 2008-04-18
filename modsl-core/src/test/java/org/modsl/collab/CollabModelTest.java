@@ -25,7 +25,7 @@ public class CollabModelTest extends AbstractCollabDiagramTest {
 
     @Test
     public void coreModel() {
-        CollabDiagram d = processDiagram("CoreModel");
+        CollabDiagram d = processDiagram("CollabModel");
         /*assertTrue(d.getElement("Graph").getSize().x > 50);
         assertTrue(d.getElement("Graph").getSize().y > 20);
         assertTrue(d.getSize().x > 0);
