@@ -17,11 +17,15 @@
 package org.modsl.cls;
 
 import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.modsl.cls.layout.ClassDiagramMetricsAdjustment;
 import org.modsl.cls.layout.ClassFRLayout;
 import org.modsl.cls.layout.ClassInitialCirclePosition;
@@ -61,10 +65,10 @@ public class ClassDiagramProcessor extends ModslProcessor<ClassDiagramLayoutProp
 	}
 
 	@Override
-	protected ClassDiagram parse(String fileName) throws ResourceException, ScriptException {
+	protected ClassDiagram parse(String fileName) throws ResourceException, ScriptException, CompilationFailedException, IOException {
 		Binding binding = new Binding();
 		binding.setVariable("builder", new ClassDiagramBuilder());
-		scriptEngine.run(fileName + ".modsl", binding);
+		new GroovyShell(binding).evaluate(new File(fileName + ".modsl"));
 		return (ClassDiagram) binding.getVariable("diagram");
 	}
 

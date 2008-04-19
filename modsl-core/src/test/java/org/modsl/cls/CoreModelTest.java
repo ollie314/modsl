@@ -32,7 +32,7 @@ public class CoreModelTest {
 
 	@Test
 	public void coreModel() {
-		ClassDiagram d = ModslProcessor.getClassDiagramProcessor().process("CoreModel");
+		ClassDiagram d = ModslProcessor.getClassDiagramProcessor().process("./target/classes/samples/cls/CoreModel");
 		assertTrue(d.getElement("Graph").getSize().x > 50);
 		assertTrue(d.getElement("Graph").getSize().y > 20);
 		assertTrue(d.getSize().x > 0);
