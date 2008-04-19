@@ -28,15 +28,15 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 
 	protected static String path = "/config";
 
-	protected static ClassDiagramProcessor classCore;
-	protected static CollabDiagramProcessor collabCore;
+	protected static ClassDiagramProcessor classDiagramProcessor;
+	protected static CollabDiagramProcessor collabDiagramProcessor;
 
-	public static ClassDiagramProcessor getClassCore() {
-		return classCore;
+	public static ClassDiagramProcessor getClassDiagramProcessor() {
+		return classDiagramProcessor;
 	}
 
-	public static CollabDiagramProcessor getCollabCore() {
-		return collabCore;
+	public static CollabDiagramProcessor getCollabDiagramProcessor() {
+		return collabDiagramProcessor;
 	}
 
 	public static void init() {
@@ -47,8 +47,8 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 			log.error("Failed to initialize Groovy script engine", ex);
 		}
 
-		classCore = new ClassDiagramProcessor(path);
-		collabCore = new CollabDiagramProcessor(path);
+		classDiagramProcessor = new ClassDiagramProcessor(path);
+		collabDiagramProcessor = new CollabDiagramProcessor(path);
 
 	}
 
