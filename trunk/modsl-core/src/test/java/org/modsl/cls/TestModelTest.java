@@ -29,12 +29,12 @@ public class TestModelTest {
 
 	@Test
 	public void testModel() {
-		ModslProcessor.getClassDiagramProcessor().process("TestModel");
+		ModslProcessor.getClassDiagramProcessor().process("./target/classes/samples/cls/TestModel");
 	}
 
 	@Test
 	public void sampleClass() {
-		ModslProcessor.getClassDiagramProcessor().process("SampleClass");
+		ModslProcessor.getClassDiagramProcessor().process("./target/classes/samples/cls/SampleClass");
 	}
 
 }

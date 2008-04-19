@@ -17,11 +17,15 @@
 package org.modsl.collab;
 
 import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.modsl.collab.layout.CollabDiagramMetricsAdjustment;
 import org.modsl.collab.layout.CollabFRLayout;
 import org.modsl.collab.layout.CollabInitialCirclePosition;
@@ -61,10 +65,10 @@ public class CollabDiagramProcessor extends ModslProcessor<CollabDiagramLayoutPr
 	}
 
 	@Override
-	protected CollabDiagram parse(String fileName) throws ResourceException, ScriptException {
+	protected CollabDiagram parse(String fileName) throws ResourceException, ScriptException, CompilationFailedException, IOException {
 		Binding binding = new Binding();
 		binding.setVariable("builder", new CollabDiagramBuilder());
-		scriptEngine.run(fileName + ".modsl", binding);
+		new GroovyShell(binding).evaluate(new File(fileName + ".modsl"));
 		return (CollabDiagram) binding.getVariable("diagram");
 	}
 
