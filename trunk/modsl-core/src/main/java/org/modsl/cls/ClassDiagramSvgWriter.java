@@ -36,8 +36,8 @@ public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagram, Class
         super(props);
     }
 
-    public String render(ClassDiagram diagram) {
-        return renderDiagram(new StringBuffer(), diagram).toString();
+    public void render(ClassDiagram diagram) {
+        diagram.setOutput(renderDiagram(new StringBuffer(), diagram).toString());
     }
 
     private StringBuffer renderDiagram(StringBuffer sb, ClassDiagram d) {

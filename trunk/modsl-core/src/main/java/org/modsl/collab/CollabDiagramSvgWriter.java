@@ -25,60 +25,61 @@ import org.modsl.collab.model.CollabElement;
 import org.modsl.core.svg.AbstractSvgWriter;
 
 /**
- * Renders collaboration diagram model as SVG through a collection of Groovy templates
+ * Renders collaboration diagram model as SVG through a collection of Groovy
+ * templates
  * 
  * @author avishnyakov
  */
 public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, CollabDiagramTemplateProps> {
 
-    public CollabDiagramSvgWriter(CollabDiagramTemplateProps props) {
-        super(props);
-    }
+	public CollabDiagramSvgWriter(CollabDiagramTemplateProps props) {
+		super(props);
+	}
 
-    public String render(CollabDiagram diagram) {
-        return renderDiagram(new StringBuffer(), diagram).toString();
-    }
+	public void render(CollabDiagram diagram) {
+		diagram.setOutput(renderDiagram(new StringBuffer(), diagram).toString());
+	}
 
-    private StringBuffer renderDiagram(StringBuffer sb, CollabDiagram d) {
+	private StringBuffer renderDiagram(StringBuffer sb, CollabDiagram d) {
 
-        invokeTemplate(sb, d, "diagram", "diagram_start");
-        invokeTemplate(sb, d, "diagram", "diagram_stylesheet");
+		invokeTemplate(sb, d, "diagram", "diagram_start");
+		invokeTemplate(sb, d, "diagram", "diagram_stylesheet");
 
-        renderHistory(sb, d.getElements());
-        renderConnectors(sb, d.getConnectors());
-        renderElements(sb, d.getElements());
+		renderHistory(sb, d.getElements());
+		renderConnectors(sb, d.getConnectors());
+		renderElements(sb, d.getElements());
 
-        if (d.getName() != null) {
-            invokeTemplate(sb, d, "diagram", "diagram_header");
-        }
+		if (d.getName() != null) {
+			invokeTemplate(sb, d, "diagram", "diagram_header");
+		}
 
-        // before the end tag completes
-        d.timestamp("svg_rendering");
+		// before the end tag completes
+		d.timestamp("svg_rendering");
 
-        invokeTemplate(sb, d, "diagram", "diagram_end");
+		invokeTemplate(sb, d, "diagram", "diagram_end");
 
-        return sb;
+		return sb;
 
-    }
+	}
 
-    private void renderHistory(StringBuffer sb, List<CollabElement> elements) {
-        if (props.renderHistory) {
-            for (CollabElement e : elements) {
-                invokeTemplate(sb, e, "element", "history");
-            }
-        }
-    }
+	private void renderHistory(StringBuffer sb, List<CollabElement> elements) {
+		if (props.renderHistory) {
+			for (CollabElement e : elements) {
+				invokeTemplate(sb, e, "element", "history");
+			}
+		}
+	}
 
-    private void renderConnectors(StringBuffer sb, Collection<CollabConnector> connectors) {
-        for (CollabConnector c : connectors) {
-            invokeTemplate(sb, c, "connector", "connector");
-        }
-    }
+	private void renderConnectors(StringBuffer sb, Collection<CollabConnector> connectors) {
+		for (CollabConnector c : connectors) {
+			invokeTemplate(sb, c, "connector", "connector");
+		}
+	}
 
-    private void renderElements(StringBuffer sb, Collection<CollabElement> elements) {
-        for (CollabElement e : elements) {
-            invokeTemplate(sb, e, "element", "element");
-        }
-    }
+	private void renderElements(StringBuffer sb, Collection<CollabElement> elements) {
+		for (CollabElement e : elements) {
+			invokeTemplate(sb, e, "element", "element");
+		}
+	}
 
 }

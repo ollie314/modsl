@@ -18,14 +18,18 @@ package org.modsl.cls;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import org.junit.Test;
 import org.modsl.cls.model.ClassDiagram;
 
 public class CoreModelTest {
 
 	@Test
-	public void coreModel() {
-		ClassDiagram d = new ClassDiagramProcessor().process("./target/classes/samples/cls/CoreModel");
+	public void coreModel() throws FileNotFoundException {
+		ClassDiagram d = new ClassDiagramProcessor().process(new File("./target/classes/samples/cls/CoreModel.modsl"),
+				new File("./etc/svg-out/CoreModel.svg"));
 		assertTrue(d.getElement("Graph").getSize().x > 50);
 		assertTrue(d.getElement("Graph").getSize().y > 20);
 		assertTrue(d.getSize().x > 0);

@@ -4,6 +4,10 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 
 import org.apache.log4j.Logger;
 import org.modsl.core.builder.AbstractBuilder;
@@ -53,13 +57,22 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 
 	protected abstract TP getTemplateProps();
 
-	final public D process(String fileName) {
+	final public D process(File in) throws FileNotFoundException {
+		return process(new FileInputStream(in).toString());
+	}
+
+	protected D _process(String script, File file) {
 
 		try {
 
 			Binding binding = new Binding();
 			binding.setVariable("builder", getBuilder());
-			new GroovyShell(binding).evaluate(new File(fileName + ".modsl"));
+			GroovyShell shell = new GroovyShell(binding);
+			if (script != null) {
+				shell.evaluate(script);
+			} else {
+				shell.evaluate(file);
+			}
 			D diagram = (D) binding.getVariable("diagram");
 
 			getMetrics().apply(diagram);
@@ -70,15 +83,36 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 
 			diagram.rescaleToRequestedSize();
 
-			getSvgWriter().renderToFile(diagram, fileName + ".svg");
+			getSvgWriter().render(diagram);
 
 			return diagram;
 
 		} catch (Exception ex) {
-			log.error("Error while processing " + fileName, ex);
+			log.error("Error while processing diagram script " + script, ex);
 		}
 
 		return null;
 
 	}
+
+	final public D process(String script) {
+		return _process(script, null);
+	}
+
+	final public D process(File in, File out) throws FileNotFoundException {
+		D d = _process(null, in);
+		PrintStream p = new PrintStream(new FileOutputStream(out));
+		p.print(d.getOutput());
+		p.close();
+		return d;
+	}
+
+	final public D process(String script, File out) throws FileNotFoundException {
+		D d = _process(script, null);
+		PrintStream p = new PrintStream(new FileOutputStream(out));
+		p.print(d.getOutput());
+		p.close();
+		return d;
+	}
+
 }
