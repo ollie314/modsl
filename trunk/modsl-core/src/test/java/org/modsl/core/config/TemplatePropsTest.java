@@ -8,7 +8,7 @@ public class TemplatePropsTest {
 
 	@Test
 	public void layout() {
-		TP lp = new TP("/config", "test");
+		TP lp = new TP("/test_config", "test");
 		assertEquals(lp.getProp("template1"), "default1");
 		assertEquals(lp.getProp("template2"), "test2");
 		assertEquals(lp.getProp("template3"), "test3");

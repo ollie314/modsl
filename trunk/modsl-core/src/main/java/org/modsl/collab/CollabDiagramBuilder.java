@@ -52,7 +52,6 @@ public class CollabDiagramBuilder extends AbstractBuilder {
 		for (CollabConnector connector : diagram.getConnectors()) {
 			CollabConnectorFactory.finalizeConnector(connector);
 		}
-		diagram.timestamp("parsing");
 	}
 
 }
