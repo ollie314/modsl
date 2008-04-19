@@ -43,7 +43,7 @@ import org.modsl.core.model.graph.Vertex;
  * @param <C>
  *            element class
  */
-public class Diagram<P, E extends Element<?, ?>, C extends Connector<?, ?>> extends AbstractDiagramObject<P> implements Graph {
+public class Diagram<P, E extends Element, C extends Connector> extends AbstractDiagramObject<P> implements Graph {
 
 	/**
 	 * Unordered elements for easy lookup by name
