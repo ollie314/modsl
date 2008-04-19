@@ -70,6 +70,8 @@ public class Diagram<P, E extends Element<?, ?>, C extends Connector<?, ?>> exte
 	protected double paddingSides;
 
 	protected Timeline timeline = new Timeline();
+	
+	protected String output;
 
 	public Diagram(P parent, String name) {
 		super(parent, name);
@@ -297,6 +299,14 @@ public class Diagram<P, E extends Element<?, ?>, C extends Connector<?, ?>> exte
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "~{e:" + orderedElements + ",c:" + connectors + "}";
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
 	}
 
 }

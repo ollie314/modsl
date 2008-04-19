@@ -47,15 +47,8 @@ public abstract class AbstractSvgWriter<D extends Diagram, TP extends AbstractTe
 		this.props = props;
 	}
 
-	public abstract String render(D diagram);
+	public abstract void render(D diagram);
 
-	public String renderToFile(D diagram, String fileName) throws FileNotFoundException {
-		PrintStream p = new PrintStream(new FileOutputStream(fileName));
-		String str = render(diagram);
-		p.print(str);
-		p.close();
-		return str;
-	}
 
 	protected void invokeTemplate(StringBuffer sb, AbstractDiagramObject<?> diagramObject, String diagramObjectName,
 			String templateName) {
