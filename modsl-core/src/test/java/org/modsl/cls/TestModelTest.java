@@ -16,7 +16,6 @@
 
 package org.modsl.cls;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.junit.Test;
@@ -25,14 +24,11 @@ public class TestModelTest {
 
 	@Test
 	public void testModel() throws FileNotFoundException {
-		new ClassDiagramProcessor().process(new File("./target/classes/samples/cls/TestModel.modsl"), new File(
-				"./etc/svg-out/TestModel.svg"));
+		new ClassDiagramProcessor().process("./target/classes/samples/cls/TestModel.modsl", "./etc/svg-out/TestModel.svg");
 	}
 
 	@Test
 	public void sampleClass() throws FileNotFoundException {
-		new ClassDiagramProcessor().process(new File("./target/classes/samples/cls/SampleModel.modsl"), new File(
-				"./etc/svg-out/SampleModel.svg"));
+		new ClassDiagramProcessor().process("./target/classes/samples/cls/SampleModel.modsl", "./etc/svg-out/SampleModel.svg");
 	}
-
 }
