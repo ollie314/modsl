@@ -64,6 +64,7 @@ public abstract class ModslCore<LP extends AbstractLayoutProps, TP extends Abstr
 			D diagram = parse(fileName);
 			metrics(diagram);
 			layout(diagram);
+			diagram.rescaleToRequestedSize();
 			render(diagram);
 			return diagram;
 		} catch (Exception ex) {

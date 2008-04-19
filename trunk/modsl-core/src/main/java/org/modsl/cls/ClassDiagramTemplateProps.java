@@ -42,7 +42,6 @@ public class ClassDiagramTemplateProps extends AbstractTemplateProps {
 
 	public ClassDiagramTemplateProps(String path, String name) {
 		super(path, name);
-		;
 	}
 
 }
