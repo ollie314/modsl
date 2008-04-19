@@ -25,16 +25,6 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 
 	private final static Logger log = Logger.getLogger(ModslProcessor.class);
 
-	private static GroovyScriptEngine scriptEngine;
-
-	static {
-		try {
-			scriptEngine = new GroovyScriptEngine(new String[] { "." });
-		} catch (Exception ex) {
-			log.error("Error while loading script engine", ex);
-		}
-	}
-
 	protected String path = "/config";
 
 	protected LP layoutProps;
@@ -52,10 +42,11 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 		this.templateProps = getTemplateProps();
 	}
 
-	public D process(String fileIn, String fileOut) {
+	public D process(String fileInPath, String fileIn, String fileOut) {
 
 		try {
 
+			GroovyScriptEngine scriptEngine = new GroovyScriptEngine(new String[] { fileInPath });
 			Binding binding = new Binding();
 			binding.setVariable("builder", getBuilder());
 			scriptEngine.run(fileIn, binding);
