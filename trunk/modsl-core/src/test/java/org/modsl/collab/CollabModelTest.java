@@ -18,7 +18,6 @@ package org.modsl.collab;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.junit.Test;
@@ -28,8 +27,8 @@ public class CollabModelTest {
 
 	@Test
 	public void coreModel() throws FileNotFoundException {
-		CollabDiagram d = new CollabDiagramProcessor().process(new File("./target/classes/samples/collab/CollabModel.modsl"),
-				new File("./etc/svg-out/CollabModel.svg"));
+		CollabDiagram d = new CollabDiagramProcessor().process("./target/classes/samples/collab/CollabModel.modsl",
+				"./etc/svg-out/CollabModel.svg");
 		assertNotNull(d.getElement("Class2:Object2"));
 	}
 

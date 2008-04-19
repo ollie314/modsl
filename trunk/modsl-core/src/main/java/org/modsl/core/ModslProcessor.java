@@ -1,11 +1,8 @@
 package org.modsl.core;
 
 import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
+import groovy.util.GroovyScriptEngine;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
@@ -28,6 +25,16 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 
 	private final static Logger log = Logger.getLogger(ModslProcessor.class);
 
+	private static GroovyScriptEngine scriptEngine;
+
+	static {
+		try {
+			scriptEngine = new GroovyScriptEngine(new String[] { "." });
+		} catch (Exception ex) {
+			log.error("Error while loading script engine", ex);
+		}
+	}
+
 	protected String path = "/config";
 
 	protected LP layoutProps;
@@ -45,34 +52,13 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 		this.templateProps = getTemplateProps();
 	}
 
-	protected abstract AbstractBuilder getBuilder();
-
-	protected abstract LP getLayoutProps();
-
-	protected abstract AbstractLayout<D, LP>[] getLayouts();
-
-	protected abstract AbstractMetricsAdjustment<D, TP> getMetrics();
-
-	protected abstract AbstractSvgWriter<D, TP> getSvgWriter();
-
-	protected abstract TP getTemplateProps();
-
-	final public D process(File in) throws FileNotFoundException {
-		return process(new FileInputStream(in).toString());
-	}
-
-	protected D _process(String script, File file) {
+	public D process(String fileIn, String fileOut) {
 
 		try {
 
 			Binding binding = new Binding();
 			binding.setVariable("builder", getBuilder());
-			GroovyShell shell = new GroovyShell(binding);
-			if (script != null) {
-				shell.evaluate(script);
-			} else {
-				shell.evaluate(file);
-			}
+			scriptEngine.run(fileIn, binding);
 			D diagram = (D) binding.getVariable("diagram");
 
 			getMetrics().apply(diagram);
@@ -85,34 +71,30 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 
 			getSvgWriter().render(diagram);
 
+			PrintStream p = new PrintStream(new FileOutputStream(fileOut));
+			p.print(diagram.getOutput());
+			p.close();
+
 			return diagram;
 
 		} catch (Exception ex) {
-			log.error("Error while processing diagram script " + script, ex);
+			log.error("Error while processing diagram script " + fileIn, ex);
 		}
 
 		return null;
 
 	}
 
-	final public D process(String script) {
-		return _process(script, null);
-	}
+	protected abstract AbstractBuilder getBuilder();
 
-	final public D process(File in, File out) throws FileNotFoundException {
-		D d = _process(null, in);
-		PrintStream p = new PrintStream(new FileOutputStream(out));
-		p.print(d.getOutput());
-		p.close();
-		return d;
-	}
+	protected abstract LP getLayoutProps();
 
-	final public D process(String script, File out) throws FileNotFoundException {
-		D d = _process(script, null);
-		PrintStream p = new PrintStream(new FileOutputStream(out));
-		p.print(d.getOutput());
-		p.close();
-		return d;
-	}
+	protected abstract AbstractLayout<D, LP>[] getLayouts();
+
+	protected abstract AbstractMetricsAdjustment<D, TP> getMetrics();
+
+	protected abstract AbstractSvgWriter<D, TP> getSvgWriter();
+
+	protected abstract TP getTemplateProps();
 
 }
