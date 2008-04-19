@@ -26,7 +26,7 @@ import org.modsl.collab.model.CollabDiagram;
 public class CollabModelTest {
 
 	@Test
-	public void coreModel() throws FileNotFoundException {
+	public void collabModel() throws FileNotFoundException {
 		CollabDiagram d = new CollabDiagramProcessor().process("target/classes/samples/collab/", "CollabModel.modsl",
 				"./etc/svg-out/CollabModel.svg");
 		assertNotNull(d.getElement("Class2:Object2"));

@@ -30,7 +30,6 @@ public class CollabDiagramProcessor extends ModslProcessor<CollabDiagramLayoutPr
 
 	public CollabDiagramProcessor() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CollabDiagramProcessor(String path) {
