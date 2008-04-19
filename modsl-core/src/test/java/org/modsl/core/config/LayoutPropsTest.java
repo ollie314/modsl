@@ -8,7 +8,7 @@ public class LayoutPropsTest {
 
 	@Test
 	public void layout() {
-		LP lp = new LP("/config", "test");
+		LP lp = new LP("/test_config", "test");
 		assertEquals(lp.getProp("layout1"), "default1");
 		assertEquals(lp.getProp("layout2"), "test2");
 		assertEquals(lp.getProp("layout3"), "test3");

@@ -39,7 +39,7 @@ import org.modsl.core.svg.AbstractSvgWriter;
  */
 public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends AbstractTemplateProps, D extends Diagram<?, ?, ?>> {
 
-	private final static Logger log = Logger.getLogger(ModslProcessor.class);
+	protected final Logger log = Logger.getLogger(getClass());
 
 	protected String path = "/config";
 
@@ -68,6 +68,8 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 			scriptEngine.run(fileIn, binding);
 			D diagram = (D) binding.getVariable("diagram");
 
+			diagram.timestamp("parsing");
+
 			getMetrics().apply(diagram);
 
 			for (AbstractLayout<D, LP> layout : getLayouts()) {
@@ -75,7 +77,9 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 			}
 
 			diagram.rescaleToRequestedSize();
-
+			
+			diagram.timestamp("layout");
+			
 			getSvgWriter().render(diagram);
 
 			PrintStream p = new PrintStream(new FileOutputStream(fileOut));
