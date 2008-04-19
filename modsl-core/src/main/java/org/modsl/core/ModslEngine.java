@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
-import org.modsl.cls.ClassCore;
+import org.modsl.cls.ClassEngine;
 import org.modsl.collab.CollabCore;
 import org.modsl.core.config.AbstractLayoutProps;
 import org.modsl.core.config.AbstractTemplateProps;
@@ -20,18 +20,18 @@ import org.modsl.core.model.diagram.Diagram;
  * @author avishnyakov
  * 
  */
-public abstract class ModslCore<LP extends AbstractLayoutProps, TP extends AbstractTemplateProps, D extends Diagram<?, ?, ?>> {
+public abstract class ModslEngine<LP extends AbstractLayoutProps, TP extends AbstractTemplateProps, D extends Diagram<?, ?, ?>> {
 
-	private final static Logger log = Logger.getLogger(ModslCore.class);
+	private final static Logger log = Logger.getLogger(ModslEngine.class);
 	protected static final String[] scriptRoots = new String[] { "./target/classes/samples/cls",  "./target/classes/samples/collab"};
 	protected static GroovyScriptEngine scriptEngine;
 
 	protected static String path = "/config";
 
-	protected static ClassCore classCore;
+	protected static ClassEngine classCore;
 	protected static CollabCore collabCore;
 
-	public static ClassCore getClassCore() {
+	public static ClassEngine getClassCore() {
 		return classCore;
 	}
 
@@ -47,7 +47,7 @@ public abstract class ModslCore<LP extends AbstractLayoutProps, TP extends Abstr
 			log.error("Failed to initialize Groovy script engine", ex);
 		}
 
-		classCore = new ClassCore(path);
+		classCore = new ClassEngine(path);
 		collabCore = new CollabCore(path);
 
 	}
