@@ -16,10 +16,25 @@
 
 package org.modsl.cls;
 
-public class TestModelTest extends AbstractClassDiagramTest {
-	/*
-	 * @Test public void testModel() { processDiagram("TestModel"); }
-	 * 
-	 * @Test public void sampleClass() { processDiagram("SampleClass"); }
-	 */
+import org.junit.Before;
+import org.junit.Test;
+import org.modsl.core.ModslCore;
+
+public class TestModelTest {
+
+	@Before
+	public void setUp() {
+		ModslCore.init();
+	}
+
+	@Test
+	public void testModel() {
+		ModslCore.getClassCore().process("TestModel");
+	}
+
+	@Test
+	public void sampleClass() {
+		ModslCore.getClassCore().process("SampleClass");
+	}
+
 }
