@@ -21,10 +21,12 @@ import java.io.IOException;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.junit.Test;
 
 public class ExprTest {
 
-	public void testExpr() throws IOException, RecognitionException {
+	@Test
+	public void expr() throws IOException, RecognitionException {
 		ANTLRStringStream input = new ANTLRStringStream("\nx=1\nx+3\n");
 		ExprLexer lexer = new ExprLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
