@@ -18,15 +18,20 @@ package org.modsl.cls;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.ModslCore;
 
 public class CoreModelTest {
 
+	@Before
+	public void setUp() {
+		ModslCore.init();
+	}
+
 	@Test
 	public void coreModel() {
-		ModslCore.init();
 		ClassDiagram d = ModslCore.getClassCore().process("CoreModel");
 		assertTrue(d.getElement("Graph").getSize().x > 50);
 		assertTrue(d.getElement("Graph").getSize().y > 20);

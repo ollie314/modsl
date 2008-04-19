@@ -82,7 +82,7 @@ public abstract class AbstractProps {
 			for (Map.Entry<Object, Object> me : p.entrySet()) {
 				map.put((String) me.getKey(), (String) me.getValue());
 			}
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			log.debug("Got exception when loading properties from " + name, ex);
 		}
 	}

@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.modsl.cls.ClassCore;
+import org.modsl.collab.CollabCore;
 import org.modsl.core.config.AbstractLayoutProps;
 import org.modsl.core.config.AbstractTemplateProps;
 import org.modsl.core.model.diagram.Diagram;
@@ -22,15 +23,20 @@ import org.modsl.core.model.diagram.Diagram;
 public abstract class ModslCore<LP extends AbstractLayoutProps, TP extends AbstractTemplateProps, D extends Diagram<?, ?, ?>> {
 
 	private final static Logger log = Logger.getLogger(ModslCore.class);
-	protected static final String[] scriptRoots = new String[] { "./target/classes/samples/cls" };
+	protected static final String[] scriptRoots = new String[] { "./target/classes/samples/cls",  "./target/classes/samples/collab"};
 	protected static GroovyScriptEngine scriptEngine;
 
 	protected static String path = "/config";
 
 	protected static ClassCore classCore;
+	protected static CollabCore collabCore;
 
 	public static ClassCore getClassCore() {
 		return classCore;
+	}
+
+	public static CollabCore getCollabCore() {
+		return collabCore;
 	}
 
 	public static void init() {
@@ -42,6 +48,7 @@ public abstract class ModslCore<LP extends AbstractLayoutProps, TP extends Abstr
 		}
 
 		classCore = new ClassCore(path);
+		collabCore = new CollabCore(path);
 
 	}
 
