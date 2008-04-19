@@ -28,7 +28,7 @@ import org.modsl.cls.layout.ClassInitialCirclePosition;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.ModslCore;
 
-public class ClassCore extends ModslCore<ClassDiagramConfig, ClassDiagram> {
+public class ClassCore extends ModslCore<ClassDiagramLayoutProps, ClassDiagramTemplateProps, ClassDiagram> {
 
 	protected ClassDiagramBuilder builder;
 	protected ClassDiagramMetricsAdjustment metrics;
@@ -38,13 +38,14 @@ public class ClassCore extends ModslCore<ClassDiagramConfig, ClassDiagram> {
 
 	public ClassCore(String path) {
 
-		config = new ClassDiagramConfig(path, "cls");
+		layoutProps = new ClassDiagramLayoutProps(path, "cls");
+		templateProps = new ClassDiagramTemplateProps(path, "cls");
 
 		builder = new ClassDiagramBuilder();
-		metrics = new ClassDiagramMetricsAdjustment(config.getTemplateProps());
-		circleLayout = new ClassInitialCirclePosition(config.getLayoutProps());
-		frLayout = new ClassFRLayout(config.getLayoutProps());
-		writer = new ClassDiagramSvgWriter(config.getTemplateProps());
+		metrics = new ClassDiagramMetricsAdjustment(templateProps);
+		circleLayout = new ClassInitialCirclePosition(layoutProps);
+		frLayout = new ClassFRLayout(layoutProps);
+		writer = new ClassDiagramSvgWriter(templateProps);
 
 	}
 

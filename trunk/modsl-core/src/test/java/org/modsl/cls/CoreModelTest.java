@@ -26,6 +26,7 @@ public class CoreModelTest {
 
 	@Test
 	public void coreModel() {
+		ModslCore.init();
 		ClassDiagram d = ModslCore.getClassCore().process("CoreModel");
 		assertTrue(d.getElement("Graph").getSize().x > 50);
 		assertTrue(d.getElement("Graph").getSize().y > 20);

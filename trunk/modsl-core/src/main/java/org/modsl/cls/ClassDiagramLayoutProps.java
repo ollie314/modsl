@@ -22,15 +22,19 @@ import org.modsl.core.config.AbstractLayoutProps;
  * Class diagram model layout configuration
  * 
  * @author avishnyakov
- *
+ * 
  */
 public class ClassDiagramLayoutProps extends AbstractLayoutProps {
 
-    public final int frInitMaxRounds = getIntegerProp("frInitMaxRounds");
-    
-    public final int frMaxIterations = getIntegerProp("frMaxIterations");
-    public final double frTempMultiplier = getDoubleProp("frTempMultiplier");
-    public final double frAttractionMultiplier = getDoubleProp("frAttractionMultiplier");
-    public final double frRepulsionMultiplier = getDoubleProp("frRepulsionMultiplier");
+	public final int frInitMaxRounds = getIntegerProp("frInitMaxRounds");
+	public final int frMaxIterations = getIntegerProp("frMaxIterations");
+
+	public final double frTempMultiplier = getDoubleProp("frTempMultiplier");
+	public final double frAttractionMultiplier = getDoubleProp("frAttractionMultiplier");
+	public final double frRepulsionMultiplier = getDoubleProp("frRepulsionMultiplier");
+
+	public ClassDiagramLayoutProps(String path, String name) {
+		super(path, name);
+	}
 
 }

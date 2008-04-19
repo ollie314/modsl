@@ -23,22 +23,26 @@ import org.modsl.core.config.FontTransform;
  * Collaboration diagram template configuration
  * 
  * @author avishnyakov
- *
+ * 
  */
 public class CollabDiagramTemplateProps extends AbstractTemplateProps {
 
-    public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
-    public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
+	public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
+	public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
 
-    public final boolean renderHistory = getBooleanProp("renderHistory");
-    public final int diagramPadding = getIntegerProp("diagramPadding");
+	public final boolean renderHistory = getBooleanProp("renderHistory");
+	public final int diagramPadding = getIntegerProp("diagramPadding");
 
-    public final String elementRx = getProp("elementRx");
-    public final String diagramFontFamily = getProp("diagramFontFamily");
+	public final String elementRx = getProp("elementRx");
+	public final String diagramFontFamily = getProp("diagramFontFamily");
 
-    public final FontTransform diagramHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramHeaderFontSize"));
-    public final FontTransform diagramFooterFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramFooterFontSize"));
-    public final FontTransform elementHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("elementHeaderFontSize"));
-    public final FontTransform connectorFT = new FontTransform(diagramFontFamily, getIntegerProp("connectorFontSize"));
+	public final FontTransform diagramHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramHeaderFontSize"));
+	public final FontTransform diagramFooterFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramFooterFontSize"));
+	public final FontTransform elementHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("elementHeaderFontSize"));
+	public final FontTransform connectorFT = new FontTransform(diagramFontFamily, getIntegerProp("connectorFontSize"));
+
+	public CollabDiagramTemplateProps(String path, String name) {
+		super(path, name);
+	}
 
 }

@@ -26,18 +26,23 @@ import org.modsl.core.config.FontTransform;
  */
 public class ClassDiagramTemplateProps extends AbstractTemplateProps {
 
-    public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
-    public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
+	public final int diagramDefaultWidth = getIntegerProp("diagramDefaultWidth");
+	public final int diagramDefaultHeight = getIntegerProp("diagramDefaultHeight");
+	public final boolean renderHistory = getBooleanProp("renderHistory");
 
-    public final boolean renderHistory = getBooleanProp("renderHistory");
-    public final int diagramPadding = getIntegerProp("diagramPadding");
-    public final String elementRx = getProp("elementRx");
-    public final String diagramFontFamily = getProp("diagramFontFamily");
-    
-    public final FontTransform diagramHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramHeaderFontSize"));
-    public final FontTransform diagramFooterFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramFooterFontSize"));
-    public final FontTransform elementHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("elementHeaderFontSize"));
-    public final FontTransform elementDetailFT = new FontTransform(diagramFontFamily, getIntegerProp("elementDetailFontSize"));
-    public final FontTransform connectorFT = new FontTransform(diagramFontFamily, getIntegerProp("connectorFontSize"));
+	public final int diagramPadding = getIntegerProp("diagramPadding");
+	public final String elementRx = getProp("elementRx");
+	public final String diagramFontFamily = getProp("diagramFontFamily");
+	public final FontTransform diagramHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramHeaderFontSize"));
+
+	public final FontTransform diagramFooterFT = new FontTransform(diagramFontFamily, getIntegerProp("diagramFooterFontSize"));
+	public final FontTransform elementHeaderFT = new FontTransform(diagramFontFamily, getIntegerProp("elementHeaderFontSize"));
+	public final FontTransform elementDetailFT = new FontTransform(diagramFontFamily, getIntegerProp("elementDetailFontSize"));
+	public final FontTransform connectorFT = new FontTransform(diagramFontFamily, getIntegerProp("connectorFontSize"));
+
+	public ClassDiagramTemplateProps(String path, String name) {
+		super(path, name);
+		;
+	}
 
 }
