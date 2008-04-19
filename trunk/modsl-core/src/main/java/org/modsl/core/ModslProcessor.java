@@ -39,7 +39,17 @@ import org.modsl.core.svg.AbstractSvgWriter;
  */
 public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends AbstractTemplateProps, D extends Diagram<?, ?, ?>> {
 
-	protected final Logger log = Logger.getLogger(getClass());
+	private static final Logger log = Logger.getLogger(ModslProcessor.class);
+
+	private static GroovyScriptEngine scriptEngine;
+
+	static {
+		try {
+			scriptEngine = new GroovyScriptEngine(new String[] { "." });
+		} catch (Exception ex) {
+			log.error("Failed to load scripting engine", ex);
+		}
+	}
 
 	protected String path = "/config";
 
@@ -58,11 +68,11 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 		this.templateProps = getTemplateProps();
 	}
 
-	public D process(String fileInPath, String fileIn, String fileOut) {
+	public D process(String fileIn, String fileOut) {
 
 		try {
 
-			GroovyScriptEngine scriptEngine = new GroovyScriptEngine(new String[] { fileInPath });
+			GroovyScriptEngine scriptEngine = new GroovyScriptEngine(new String[] { "." });
 			Binding binding = new Binding();
 			binding.setVariable("builder", getBuilder());
 			scriptEngine.run(fileIn, binding);
@@ -77,9 +87,9 @@ public abstract class ModslProcessor<LP extends AbstractLayoutProps, TP extends 
 			}
 
 			diagram.rescaleToRequestedSize();
-			
+
 			diagram.timestamp("layout");
-			
+
 			getSvgWriter().render(diagram);
 
 			PrintStream p = new PrintStream(new FileOutputStream(fileOut));
