@@ -9,7 +9,8 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.modsl.cls.ClassCore;
-import org.modsl.core.config.AbstractConfig;
+import org.modsl.core.config.AbstractLayoutProps;
+import org.modsl.core.config.AbstractTemplateProps;
 import org.modsl.core.model.diagram.Diagram;
 
 /**
@@ -18,7 +19,7 @@ import org.modsl.core.model.diagram.Diagram;
  * @author avishnyakov
  * 
  */
-public abstract class ModslCore<C extends AbstractConfig<?, ?>, D extends Diagram<?, ?, ?>> {
+public abstract class ModslCore<LP extends AbstractLayoutProps, TP extends AbstractTemplateProps, D extends Diagram<?, ?, ?>> {
 
 	private final static Logger log = Logger.getLogger(ModslCore.class);
 	protected static final String[] scriptRoots = new String[] { "./target/classes/samples/cls" };
@@ -49,7 +50,8 @@ public abstract class ModslCore<C extends AbstractConfig<?, ?>, D extends Diagra
 		init();
 	}
 
-	protected C config;
+	protected LP layoutProps;
+	protected TP templateProps;
 
 	protected abstract void layout(D diagram);
 

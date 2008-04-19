@@ -18,4 +18,8 @@ package org.modsl.core.config;
 
 public abstract class AbstractTemplateProps extends AbstractProps {
 
+	public AbstractTemplateProps(String path, String name) {
+		super(path, name, "template.properties");
+	}
+
 }

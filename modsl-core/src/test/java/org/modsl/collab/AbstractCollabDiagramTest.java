@@ -17,14 +17,12 @@
 package org.modsl.collab;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
 
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
-import org.modsl.collab.layout.CollabDiagramLayout;
 import org.modsl.collab.model.CollabDiagram;
 
 /**
@@ -35,47 +33,50 @@ import org.modsl.collab.model.CollabDiagram;
  */
 public abstract class AbstractCollabDiagramTest {
 
-    private static final String[] scriptRoots = new String[] { "./target/classes/samples/collab" };
-    private static GroovyScriptEngine scriptEngine;
+	private static final String[] scriptRoots = new String[] { "./target/classes/samples/collab" };
+	private static GroovyScriptEngine scriptEngine;
 
-    static {
-        try {
-            scriptEngine = new GroovyScriptEngine(scriptRoots);
-        } catch (IOException ex) {
-            Logger.getLogger(AbstractCollabDiagramTest.class).error(ex);
-        }
-    }
+	static {
+		try {
+			scriptEngine = new GroovyScriptEngine(scriptRoots);
+		} catch (IOException ex) {
+			Logger.getLogger(AbstractCollabDiagramTest.class).error(ex);
+		}
+	}
 
-    protected Logger log = Logger.getLogger(getClass());
+	protected Logger log = Logger.getLogger(getClass());
 
-    public CollabDiagram processDiagram(String name) {
+	public CollabDiagram processDiagram(String name) {
 
-        try {
+		try {
 
-            Binding binding = new Binding();
-            binding.setVariable("builder", new CollabDiagramBuilder());
-            scriptEngine.run(name + ".modsl", binding);
+			Binding binding = new Binding();
+			binding.setVariable("builder", new CollabDiagramBuilder());
+			scriptEngine.run(name + ".modsl", binding);
 
-            CollabDiagram d = (CollabDiagram) binding.getVariable("diagram");
-            assertNotNull(d);
+			CollabDiagram d = (CollabDiagram) binding.getVariable("diagram");
+			assertNotNull(d);
 
-            CollabDiagramConfig cfg = new CollabDiagramConfig("/config", "cls");
+			// CollabDiagramConfig cfg = new CollabDiagramConfig("/config",
+			// "cls");
 
-            new CollabDiagramLayout(cfg.getLayoutProps()).apply(d);
+			/*
+			 * new CollabDiagramLayout(cfg.getLayoutProps()).apply(d);
+			 * 
+			 * CollabDiagramSvgWriter templ = new
+			 * CollabDiagramSvgWriter(cfg.getTemplateProps());
+			 * 
+			 * String svg = templ.renderToFile(d, "etc/svg-out/" + name +
+			 * ".svg"); assertTrue(svg.indexOf("</svg>") > 0);
+			 */
+			return d;
 
-            CollabDiagramSvgWriter templ = new CollabDiagramSvgWriter(cfg.getTemplateProps());
+		} catch (Exception ex) {
 
-            String svg = templ.renderToFile(d, "etc/svg-out/" + name + ".svg");
-            assertTrue(svg.indexOf("</svg>") > 0);
+			log.error(getClass() + " failed:", ex);
+			return null;
 
-            return d;
+		}
 
-        } catch (Exception ex) {
-
-            log.error(getClass() + " failed:", ex);
-            return null;
-
-        }
-
-    }
+	}
 }

@@ -18,4 +18,8 @@ package org.modsl.core.config;
 
 public abstract class AbstractLayoutProps extends AbstractProps {
 
+	public AbstractLayoutProps(String path, String name) {
+		super(path, name, "layout.properties");
+	}
+
 }
