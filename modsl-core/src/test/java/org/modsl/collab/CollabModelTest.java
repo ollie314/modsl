@@ -32,7 +32,7 @@ public class CollabModelTest {
 
 	@Test
 	public void coreModel() {
-		CollabDiagram d = ModslProcessor.getCollabCore().process("CollabModel");
+		CollabDiagram d = ModslProcessor.getCollabDiagramProcessor().process("CollabModel");
 		assertNotNull(d.getElement("Class2:Object2"));
 	}
 
