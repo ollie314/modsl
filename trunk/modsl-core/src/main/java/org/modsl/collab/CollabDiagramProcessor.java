@@ -16,65 +16,54 @@
 
 package org.modsl.collab;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
-import groovy.util.ResourceException;
-import groovy.util.ScriptException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.modsl.collab.layout.CollabDiagramMetricsAdjustment;
 import org.modsl.collab.layout.CollabFRLayout;
 import org.modsl.collab.layout.CollabInitialCirclePosition;
 import org.modsl.collab.model.CollabDiagram;
 import org.modsl.core.ModslProcessor;
+import org.modsl.core.builder.AbstractBuilder;
+import org.modsl.core.layout.AbstractLayout;
+import org.modsl.core.layout.AbstractMetricsAdjustment;
+import org.modsl.core.svg.AbstractSvgWriter;
 
 public class CollabDiagramProcessor extends ModslProcessor<CollabDiagramLayoutProps, CollabDiagramTemplateProps, CollabDiagram> {
 
-	protected CollabDiagramBuilder builder;
-	protected CollabDiagramMetricsAdjustment metrics;
-	protected CollabInitialCirclePosition circleLayout;
-	protected CollabFRLayout frLayout;
-	protected CollabDiagramSvgWriter writer;
+	public CollabDiagramProcessor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public CollabDiagramProcessor(String path) {
-
-		layoutProps = new CollabDiagramLayoutProps(path, "collab");
-		templateProps = new CollabDiagramTemplateProps(path, "collab");
-
-		builder = new CollabDiagramBuilder();
-		metrics = new CollabDiagramMetricsAdjustment(templateProps);
-		circleLayout = new CollabInitialCirclePosition(layoutProps);
-		frLayout = new CollabFRLayout(layoutProps);
-		writer = new CollabDiagramSvgWriter(templateProps);
-
+		super(path);
 	}
 
 	@Override
-	protected void layout(CollabDiagram diagram) {
-		circleLayout.apply(diagram);
-		frLayout.apply(diagram);
+	protected AbstractBuilder getBuilder() {
+		return new CollabDiagramBuilder();
 	}
 
 	@Override
-	protected void metrics(CollabDiagram diagram) {
-		metrics.apply(diagram);
+	protected CollabDiagramLayoutProps getLayoutProps() {
+		return new CollabDiagramLayoutProps(path, "collab");
 	}
 
 	@Override
-	protected CollabDiagram parse(String fileName) throws ResourceException, ScriptException, CompilationFailedException, IOException {
-		Binding binding = new Binding();
-		binding.setVariable("builder", new CollabDiagramBuilder());
-		new GroovyShell(binding).evaluate(new File(fileName + ".modsl"));
-		return (CollabDiagram) binding.getVariable("diagram");
+	protected AbstractLayout[] getLayouts() {
+		return new AbstractLayout[] { new CollabInitialCirclePosition(layoutProps), new CollabFRLayout(layoutProps) };
 	}
 
 	@Override
-	protected void render(CollabDiagram diagram) throws FileNotFoundException {
-		writer.renderToFile(diagram, "etc/svg-out/" + "temp" + ".svg");
+	protected AbstractMetricsAdjustment<CollabDiagram, CollabDiagramTemplateProps> getMetrics() {
+		return new CollabDiagramMetricsAdjustment(templateProps);
 	}
 
+	@Override
+	protected AbstractSvgWriter<CollabDiagram, CollabDiagramTemplateProps> getSvgWriter() {
+		return new CollabDiagramSvgWriter(templateProps);
+	}
+
+	@Override
+	protected CollabDiagramTemplateProps getTemplateProps() {
+		return new CollabDiagramTemplateProps(path, "collab");
+	}
 }

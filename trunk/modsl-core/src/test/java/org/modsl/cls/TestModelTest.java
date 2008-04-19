@@ -16,25 +16,18 @@
 
 package org.modsl.cls;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.modsl.core.ModslProcessor;
 
 public class TestModelTest {
 
-	@Before
-	public void setUp() {
-		ModslProcessor.init();
-	}
-
 	@Test
 	public void testModel() {
-		ModslProcessor.getClassDiagramProcessor().process("./target/classes/samples/cls/TestModel");
+		new ClassDiagramProcessor().process("./target/classes/samples/cls/TestModel");
 	}
 
 	@Test
 	public void sampleClass() {
-		ModslProcessor.getClassDiagramProcessor().process("./target/classes/samples/cls/SampleClass");
+		new ClassDiagramProcessor().process("./target/classes/samples/cls/SampleClass");
 	}
 
 }
