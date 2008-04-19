@@ -18,23 +18,23 @@ package org.modsl.cls;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.modsl.core.ModslCore;
+import org.modsl.core.ModslEngine;
 
 public class TestModelTest {
 
 	@Before
 	public void setUp() {
-		ModslCore.init();
+		ModslEngine.init();
 	}
 
 	@Test
 	public void testModel() {
-		ModslCore.getClassCore().process("TestModel");
+		ModslEngine.getClassCore().process("TestModel");
 	}
 
 	@Test
 	public void sampleClass() {
-		ModslCore.getClassCore().process("SampleClass");
+		ModslEngine.getClassCore().process("SampleClass");
 	}
 
 }

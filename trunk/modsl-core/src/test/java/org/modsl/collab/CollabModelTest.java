@@ -21,18 +21,18 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.modsl.collab.model.CollabDiagram;
-import org.modsl.core.ModslCore;
+import org.modsl.core.ModslEngine;
 
 public class CollabModelTest {
 
 	@Before
 	public void setUp() {
-		ModslCore.init();
+		ModslEngine.init();
 	}
 
 	@Test
 	public void coreModel() {
-		CollabDiagram d = ModslCore.getCollabCore().process("CollabModel");
+		CollabDiagram d = ModslEngine.getCollabCore().process("CollabModel");
 		assertNotNull(d.getElement("Class2:Object2"));
 	}
 

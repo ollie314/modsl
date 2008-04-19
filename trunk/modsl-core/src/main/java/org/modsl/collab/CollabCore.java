@@ -26,9 +26,9 @@ import org.modsl.collab.layout.CollabDiagramMetricsAdjustment;
 import org.modsl.collab.layout.CollabFRLayout;
 import org.modsl.collab.layout.CollabInitialCirclePosition;
 import org.modsl.collab.model.CollabDiagram;
-import org.modsl.core.ModslCore;
+import org.modsl.core.ModslEngine;
 
-public class CollabCore extends ModslCore<CollabDiagramLayoutProps, CollabDiagramTemplateProps, CollabDiagram> {
+public class CollabCore extends ModslEngine<CollabDiagramLayoutProps, CollabDiagramTemplateProps, CollabDiagram> {
 
 	protected CollabDiagramBuilder builder;
 	protected CollabDiagramMetricsAdjustment metrics;
