@@ -75,6 +75,9 @@ public abstract class AbstractProps {
 	private void loadProps(Map<String, String> map, String name) {
 		try {
 			InputStream is = getClass().getResourceAsStream(name);
+			if (is == null) {
+				return;
+			}
 			BufferedReader r = new BufferedReader(new InputStreamReader(is));
 			Properties p = new Properties();
 			p.load(r);
@@ -82,7 +85,7 @@ public abstract class AbstractProps {
 			for (Map.Entry<Object, Object> me : p.entrySet()) {
 				map.put((String) me.getKey(), (String) me.getValue());
 			}
-		} catch (Exception ex) {
+		} catch (IOException ex) {
 			log.debug("Got exception when loading properties from " + name, ex);
 		}
 	}
