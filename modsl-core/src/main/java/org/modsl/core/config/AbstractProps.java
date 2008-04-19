@@ -59,7 +59,7 @@ public abstract class AbstractProps {
 		this.path = path;
 		this.name = name;
 		loadProps(props, path + "/" + fileName);
-		loadProps(props, path + name + "/" + fileName);
+		loadProps(props, path + "/" + name + "/" + fileName);
 		if (props.size() == 0) {
 			throw new ConfigException("Property set is empty for path=" + path + ", name=" + name + ", file name=" + fileName);
 		}
