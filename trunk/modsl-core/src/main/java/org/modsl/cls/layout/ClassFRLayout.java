@@ -35,98 +35,98 @@ import org.modsl.core.model.graph.Vertex;
  */
 public class ClassFRLayout extends AbstractLayout<Graph, ClassDiagramLayoutProps> {
 
-    private Logger log = Logger.getLogger(this.getClass());
+	private Logger log = Logger.getLogger(this.getClass());
 
-    protected double temp, kForce, kAttraction, kRepulsion;
+	protected double temp, kForce, kAttraction, kRepulsion;
 
-    public ClassFRLayout(ClassDiagramLayoutProps props) {
-        super(props);
-    }
+	public ClassFRLayout(ClassDiagramLayoutProps props) {
+		super(props);
+	}
 
-    public void apply(Graph g) {
+	public void apply(Graph g) {
 
-        g.recalcSize();
-        XY gsize = g.getSize();
-        temp = max((gsize.x + gsize.y) * props.frTempMultiplier, XY.EPSILON);
-        kForce = max(sqrt(g.getArea() / g.getVertexes().size()), XY.EPSILON);
-        kAttraction = props.frAttractionMultiplier * kForce;
-        kRepulsion = props.frRepulsionMultiplier * kForce;
+		g.recalcSize();
+		XY gsize = g.getSize();
+		temp = max((gsize.x + gsize.y) * props.frTempMultiplier, XY.EPSILON);
+		kForce = max(sqrt(g.getArea() / g.getVertexes().size()), XY.EPSILON);
+		kAttraction = props.frAttractionMultiplier * kForce;
+		kRepulsion = props.frRepulsionMultiplier * kForce;
 
-        g.addPositionToHistory();
+		g.addPositionToHistory();
 
-        for (int iterCurrent = 0; iterCurrent < props.frMaxIterations; iterCurrent++) {
-            repulsion(g);
-            attraction(g);
-            moveVertexes(g);
-            reduceTemperature(iterCurrent, props.frMaxIterations);
-            g.addPositionToHistory();
-            //g.recalcSize();
-        }
+		for (int iterCurrent = 0; iterCurrent < props.frMaxIterations; iterCurrent++) {
+			repulsion(g);
+			attraction(g);
+			moveVertexes(g);
+			reduceTemperature(iterCurrent, props.frMaxIterations);
+			g.addPositionToHistory();
+			// g.recalcSize();
+		}
 
-    }
+	}
 
-    private void repulsion(Graph g) {
-        for (Vertex v : g.getVertexes()) {
-            v.getAltPosition().zero();
-            for (Vertex u : g.getVertexes()) {
-                if (v != u) {
-                    XY delta = getDelta(v, u);
-                    double dl = delta.lenSafe();
-                    v.getAltPosition().incBy(delta.div(dl).mult(repulsionForce(dl)));
-                }
-            }
-        }
-    }
+	private void repulsion(Graph g) {
+		for (Vertex v : g.getVertexes()) {
+			v.getAltPosition().zero();
+			for (Vertex u : g.getVertexes()) {
+				if (v != u) {
+					XY delta = getDelta(v, u);
+					double dl = delta.lenSafe();
+					v.getAltPosition().incBy(delta.div(dl).mult(repulsionForce(dl)));
+				}
+			}
+		}
+	}
 
-    private XY getDelta(Vertex v1, Vertex v2) {
-        XY delta = v1.getCenterPosition().minus(v2.getCenterPosition());
-        // String s = delta.toString();
-        if (v1.getSize().y > v1.getSize().x) {
-            delta.decBy((v1.getSize().y - v1.getSize().x) / 2d);
-        }
-        if (v2.getSize().y > v2.getSize().x) {
-            delta.decBy((v2.getSize().y - v2.getSize().x) / 2d);
-        }
-        // TODO bigger element adjustment
-        // delta.decBy(v1.getDiagonal() / 8d);
-        // delta.decBy(v2.getDiagonal() / 8d);
-        if (delta.len() < XY.EPSILON) {
-            delta.randomize(XY.EPSILON);
-        }
-        // log.debug(s + ":" + delta);
-        return delta;
-    }
+	private XY getDelta(Vertex v1, Vertex v2) {
+		XY delta = v1.getCenterPosition().minus(v2.getCenterPosition());
+		// String s = delta.toString();
+		if (v1.getSize().y > v1.getSize().x) {
+			delta.decBy((v1.getSize().y - v1.getSize().x) / 2d);
+		}
+		if (v2.getSize().y > v2.getSize().x) {
+			delta.decBy((v2.getSize().y - v2.getSize().x) / 2d);
+		}
+		// TODO bigger element adjustment
+		// delta.decBy(v1.getDiagonal() / 8d);
+		// delta.decBy(v2.getDiagonal() / 8d);
+		if (delta.len() < XY.EPSILON) {
+			delta.randomize(XY.EPSILON);
+		}
+		// log.debug(s + ":" + delta);
+		return delta;
+	}
 
-    private void attraction(Graph g) {
-        for (Edge e : g.getEdges()) {
-            // XY delta =
-            // e.getStartVertex().getPosition().minus(e.getEndVertex().getPosition());
-            // try to use size adjusted position
-            XY delta = e.getAdjustedStartPosition().minus(e.getAdjustedEndPosition());
-            double dl = delta.lenSafe();
-            e.getStartVertex().getAltPosition().decBy(delta.div(dl).mult(attractionForce(dl)));
-            e.getEndVertex().getAltPosition().incBy(delta.div(dl).mult(attractionForce(dl)));
-        }
-    }
+	private void attraction(Graph g) {
+		for (Edge e : g.getEdges()) {
+			// XY delta =
+			// e.getStartVertex().getPosition().minus(e.getEndVertex().getPosition());
+			// try to use size adjusted position
+			XY delta = e.getAdjustedStartPosition().minus(e.getAdjustedEndPosition());
+			double dl = delta.lenSafe();
+			e.getStartVertex().getAltPosition().decBy(delta.div(dl).mult(attractionForce(dl)));
+			e.getEndVertex().getAltPosition().incBy(delta.div(dl).mult(attractionForce(dl)));
+		}
+	}
 
-    private void moveVertexes(Graph g) {
-        for (Vertex v : g.getVertexes()) {
-            XY delta = v.getAltPosition().minus(v.getPosition());
-            double dl = delta.lenSafe();
-            v.getPosition().incBy(delta.div(dl).mult(min(dl, temp)));
-        }
-    }
+	private void moveVertexes(Graph g) {
+		for (Vertex v : g.getVertexes()) {
+			XY delta = v.getAltPosition().minus(v.getPosition());
+			double dl = delta.lenSafe();
+			v.getPosition().incBy(delta.div(dl).mult(min(dl, temp)));
+		}
+	}
 
-    private void reduceTemperature(int iterCurrent, int iterMax) {
-        temp *= (1d - (double) iterCurrent / iterMax);
-    }
+	private void reduceTemperature(int iterCurrent, int iterMax) {
+		temp *= (1d - (double) iterCurrent / iterMax);
+	}
 
-    protected double repulsionForce(double dist) {
-        return kRepulsion * kRepulsion / dist;
-    }
+	protected double repulsionForce(double dist) {
+		return kRepulsion * kRepulsion / dist;
+	}
 
-    protected double attractionForce(double dist) {
-        return dist * dist / kAttraction;
-    }
+	protected double attractionForce(double dist) {
+		return dist * dist / kAttraction;
+	}
 
 }
