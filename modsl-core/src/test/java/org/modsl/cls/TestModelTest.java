@@ -24,12 +24,11 @@ public class TestModelTest {
 
 	@Test
 	public void testModel() throws FileNotFoundException {
-		new ClassDiagramProcessor().process("./target/classes/samples/cls/", "TestModel.modsl", "./etc/svg-out/TestModel.svg");
+		new ClassDiagramProcessor().process("./target/classes/samples/cls/TestModel.modsl", "./etc/svg-out/TestModel.svg");
 	}
 
 	@Test
 	public void sampleClass() throws FileNotFoundException {
-		new ClassDiagramProcessor().process("./target/classes/samples/cls/", "SampleClass.modsl",
-				"./etc/svg-out/SampleModel.svg");
+		new ClassDiagramProcessor().process("./target/classes/samples/cls/SampleClass.modsl", "./etc/svg-out/SampleModel.svg");
 	}
 }
