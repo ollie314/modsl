@@ -27,7 +27,7 @@ public class CoreModelTest {
 
 	@Test
 	public void coreModel() throws FileNotFoundException {
-		ClassDiagram d = new ClassDiagramProcessor().process("./target/classes/samples/cls/CoreModel.modsl",
+		ClassDiagram d = new ClassDiagramProcessor().process("./target/classes/samples/cls/", "CoreModel.modsl",
 				"./etc/svg-out/CoreModel.svg");
 		assertTrue(d.getElement("Graph").getSize().x > 50);
 		assertTrue(d.getElement("Graph").getSize().y > 20);
