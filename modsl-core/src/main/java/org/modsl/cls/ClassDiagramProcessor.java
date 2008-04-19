@@ -16,65 +16,54 @@
 
 package org.modsl.cls;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
-import groovy.util.ResourceException;
-import groovy.util.ScriptException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.modsl.cls.layout.ClassDiagramMetricsAdjustment;
 import org.modsl.cls.layout.ClassFRLayout;
 import org.modsl.cls.layout.ClassInitialCirclePosition;
 import org.modsl.cls.model.ClassDiagram;
 import org.modsl.core.ModslProcessor;
+import org.modsl.core.builder.AbstractBuilder;
+import org.modsl.core.layout.AbstractLayout;
+import org.modsl.core.layout.AbstractMetricsAdjustment;
+import org.modsl.core.svg.AbstractSvgWriter;
 
 public class ClassDiagramProcessor extends ModslProcessor<ClassDiagramLayoutProps, ClassDiagramTemplateProps, ClassDiagram> {
 
-	protected ClassDiagramBuilder builder;
-	protected ClassDiagramMetricsAdjustment metrics;
-	protected ClassInitialCirclePosition circleLayout;
-	protected ClassFRLayout frLayout;
-	protected ClassDiagramSvgWriter writer;
+	public ClassDiagramProcessor() {
+		super();
+	}
 
 	public ClassDiagramProcessor(String path) {
-
-		layoutProps = new ClassDiagramLayoutProps(path, "cls");
-		templateProps = new ClassDiagramTemplateProps(path, "cls");
-
-		builder = new ClassDiagramBuilder();
-		metrics = new ClassDiagramMetricsAdjustment(templateProps);
-		circleLayout = new ClassInitialCirclePosition(layoutProps);
-		frLayout = new ClassFRLayout(layoutProps);
-		writer = new ClassDiagramSvgWriter(templateProps);
-
+		super(path);
 	}
 
 	@Override
-	protected void layout(ClassDiagram diagram) {
-		circleLayout.apply(diagram);
-		frLayout.apply(diagram);
+	protected AbstractBuilder getBuilder() {
+		return new ClassDiagramBuilder();
 	}
 
 	@Override
-	protected void metrics(ClassDiagram diagram) {
-		metrics.apply(diagram);
+	protected ClassDiagramLayoutProps getLayoutProps() {
+		return new ClassDiagramLayoutProps(path, "cls");
 	}
 
 	@Override
-	protected ClassDiagram parse(String fileName) throws ResourceException, ScriptException, CompilationFailedException, IOException {
-		Binding binding = new Binding();
-		binding.setVariable("builder", new ClassDiagramBuilder());
-		new GroovyShell(binding).evaluate(new File(fileName + ".modsl"));
-		return (ClassDiagram) binding.getVariable("diagram");
+	protected AbstractLayout[] getLayouts() {
+		return new AbstractLayout[] { new ClassInitialCirclePosition(layoutProps), new ClassFRLayout(layoutProps) };
 	}
 
 	@Override
-	protected void render(ClassDiagram diagram) throws FileNotFoundException {
-		writer.renderToFile(diagram, "etc/svg-out/" + "temp" + ".svg");
+	protected AbstractMetricsAdjustment<ClassDiagram, ClassDiagramTemplateProps> getMetrics() {
+		return new ClassDiagramMetricsAdjustment(templateProps);
+	}
+
+	@Override
+	protected AbstractSvgWriter<ClassDiagram, ClassDiagramTemplateProps> getSvgWriter() {
+		return new ClassDiagramSvgWriter(templateProps);
+	}
+
+	@Override
+	protected ClassDiagramTemplateProps getTemplateProps() {
+		return new ClassDiagramTemplateProps(path, "cls");
 	}
 
 }
