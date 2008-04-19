@@ -26,9 +26,9 @@ import org.modsl.cls.layout.ClassDiagramMetricsAdjustment;
 import org.modsl.cls.layout.ClassFRLayout;
 import org.modsl.cls.layout.ClassInitialCirclePosition;
 import org.modsl.cls.model.ClassDiagram;
-import org.modsl.core.ModslEngine;
+import org.modsl.core.ModslProcessor;
 
-public class ClassEngine extends ModslEngine<ClassDiagramLayoutProps, ClassDiagramTemplateProps, ClassDiagram> {
+public class ClassDiagramProcessor extends ModslProcessor<ClassDiagramLayoutProps, ClassDiagramTemplateProps, ClassDiagram> {
 
 	protected ClassDiagramBuilder builder;
 	protected ClassDiagramMetricsAdjustment metrics;
@@ -36,7 +36,7 @@ public class ClassEngine extends ModslEngine<ClassDiagramLayoutProps, ClassDiagr
 	protected ClassFRLayout frLayout;
 	protected ClassDiagramSvgWriter writer;
 
-	public ClassEngine(String path) {
+	public ClassDiagramProcessor(String path) {
 
 		layoutProps = new ClassDiagramLayoutProps(path, "cls");
 		templateProps = new ClassDiagramTemplateProps(path, "cls");

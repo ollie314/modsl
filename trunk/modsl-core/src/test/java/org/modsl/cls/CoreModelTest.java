@@ -21,18 +21,18 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.modsl.cls.model.ClassDiagram;
-import org.modsl.core.ModslEngine;
+import org.modsl.core.ModslProcessor;
 
 public class CoreModelTest {
 
 	@Before
 	public void setUp() {
-		ModslEngine.init();
+		ModslProcessor.init();
 	}
 
 	@Test
 	public void coreModel() {
-		ClassDiagram d = ModslEngine.getClassCore().process("CoreModel");
+		ClassDiagram d = ModslProcessor.getClassCore().process("CoreModel");
 		assertTrue(d.getElement("Graph").getSize().x > 50);
 		assertTrue(d.getElement("Graph").getSize().y > 20);
 		assertTrue(d.getSize().x > 0);
