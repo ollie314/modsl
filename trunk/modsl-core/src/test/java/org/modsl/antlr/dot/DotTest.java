@@ -16,6 +16,7 @@
 
 package org.modsl.antlr.dot;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -40,7 +41,21 @@ public class DotTest {
 
     @Test
     public void empty() throws RecognitionException {
-        assertTrue(parse("").isNil());
+        CommonTree t = parse("");
+        assertTrue(t.isNil());
+        assertEquals(0, t.getChildCount());
+    }
+
+    @Test
+    public void ws() throws RecognitionException {
+        CommonTree t = parse("        \n \t\r\n \n\r");
+        assertEquals(0, t.getChildCount());
+    }
+    
+    @Test
+    public void newline() throws RecognitionException {
+        CommonTree t = parse("\n\r\n\n\r");
+        assertEquals(0, t.getChildCount());
     }
 
 }
