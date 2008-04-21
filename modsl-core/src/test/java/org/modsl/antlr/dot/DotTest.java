@@ -17,7 +17,6 @@
 package org.modsl.antlr.dot;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -31,36 +30,38 @@ public class DotTest {
     protected final Logger log = Logger.getLogger(getClass());
 
     private CommonTree parse(String s) throws RecognitionException {
-        ANTLRStringStream input = new ANTLRStringStream("\n\r\t");
+        ANTLRStringStream input = new ANTLRStringStream(s);
         DotLexer lexer = new DotLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         DotParser parser = new DotParser(tokens);
-        DotParser.emptyRule_return r = parser.emptyRule();
+        DotParser.dotGraph_return r = parser.dotGraph();
         return (CommonTree) r.getTree();
     }
 
-    @Test
-    public void empty() throws RecognitionException {
-        CommonTree t = parse("");
-        assertTrue(t.isNil());
-        assertEquals(0, t.getChildCount());
-    }
+    /*
+        @Test
+        public void EMPTY() throws RecognitionException {
+            CommonTree t = parse("");
+            assertTrue(t.isNil());
+            assertEquals(0, t.getChildCount());
+        }
 
-    @Test
-    public void ws() throws RecognitionException {
-        CommonTree t = parse("        \n \t\r\n \n\r");
-        assertEquals(0, t.getChildCount());
-    }
+        @Test
+        public void WS() throws RecognitionException {
+            CommonTree t = parse("        \n \t\r\n \n\r");
+            assertEquals(0, t.getChildCount());
+        }
+        
+        @Test
+        public void NEWLINE() throws RecognitionException {
+            CommonTree t = parse("\n\r\n\n\r");
+            assertEquals(0, t.getChildCount());
+        }
+    */
     
     @Test
-    public void newline() throws RecognitionException {
-        CommonTree t = parse("\n\r\n\n\r");
-        assertEquals(0, t.getChildCount());
-    }
-
-    @Test
-    public void garbage() throws RecognitionException {
-        CommonTree t = parse("\n\rasd d\n\n\r");
+    public void dotGraph() throws RecognitionException {
+        CommonTree t = parse("graph a");
         assertEquals(0, t.getChildCount());
     }
 
