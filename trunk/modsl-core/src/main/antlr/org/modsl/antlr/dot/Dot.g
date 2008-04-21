@@ -5,6 +5,10 @@ options {
 	output = AST;
 }
 
+tokens {
+	VAR;
+}
+
 @lexer::header {
 package org.modsl.antlr.dot;
 }
@@ -13,15 +17,11 @@ package org.modsl.antlr.dot;
 package org.modsl.antlr.dot;
 }
 
-//dotGraph: 'strict'? ('graph' | 'digraph') ID;// '{' statement* '}';
+dotGraph: 'strict'? ('graph' | 'digraph') ID '{' statement* '}';
 
-dotGraph: ID+;// '{' statement* '}';
+statement: ID WS;
 
-//statement: (ID WS);
-
-//ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | 'a'..'z' |'A'..'Z' )* );
-
-ID: ('a'..'z' |'A'..'Z')+;
+ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | 'a'..'z' |'A'..'Z' )* );
 
 INT : '0'..'9'+ ;
 
