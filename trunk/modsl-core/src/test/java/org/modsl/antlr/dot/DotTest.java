@@ -59,7 +59,7 @@ public class DotTest {
 
     @Test
     public void dotGraph() throws RecognitionException {
-        CommonTree t = parse("graph a");
+        CommonTree t = parse("graph a { stmt1; stmt2; }"); 
         log.debug(t.toStringTree());
         //assertEquals(0, t.getChildCount());
     }
