@@ -27,41 +27,43 @@ import org.junit.Test;
 
 public class DotTest {
 
-    protected final Logger log = Logger.getLogger(getClass());
+	protected final Logger log = Logger.getLogger(getClass());
 
-    private CommonTree parse(String s) throws RecognitionException {
-        ANTLRStringStream input = new ANTLRStringStream(s);
-        DotLexer lexer = new DotLexer(input);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        DotParser parser = new DotParser(tokens);
-        DotParser.dotGraph_return r = parser.dotGraph();
-        return (CommonTree) r.getTree();
-    }
+	private CommonTree parse(String s) throws RecognitionException {
+		ANTLRStringStream input = new ANTLRStringStream(s);
+		DotLexer lexer = new DotLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		DotParser parser = new DotParser(tokens);
+		DotParser.dotGraph_return r = parser.dotGraph();
+		return (CommonTree) r.getTree();
+	}
 
-    @Test
-    public void node() throws RecognitionException {
-        CommonTree t = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
-        assertEquals("g", t.token.getText());
-        assertEquals("stmt1", t.getChild(0).getText());
-        assertEquals("\"stmt2\"", t.getChild(1).getText());
-        assertEquals("12345", t.getChild(2).getText());
-    }
+	@Test
+	public void node() throws RecognitionException {
+		CommonTree t = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+		assertEquals("g", t.token.getText());
+		assertEquals("stmt1", t.getChild(0).getText());
+		assertEquals("\"stmt2\"", t.getChild(1).getText());
+		assertEquals("12345", t.getChild(2).getText());
+	}
 
-    @Test
-    public void attributeList() throws RecognitionException {
-        CommonTree t = parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
-        assertEquals("ATTRIBUTE", t.getChild(0).getChild(0).getText());
-        assertEquals("a", t.getChild(0).getChild(0).getChild(0).getText());
-        assertEquals("1", t.getChild(0).getChild(0).getChild(1).getText());
-        assertEquals("ATTRIBUTE", t.getChild(0).getChild(1).getText());
-        assertEquals("label", t.getChild(0).getChild(1).getChild(0).getText());
-        assertEquals("\"hello\"", t.getChild(0).getChild(1).getChild(1).getText());
-    }
+	@Test
+	public void attributeList() throws RecognitionException {
+		CommonTree t = parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
+		CommonTree n1 = (CommonTree) t.getChild(0);
+		CommonTree attrList = (CommonTree) n1.getChild(0);
+		assertEquals("ATTRIBUTE", attrList.getChild(0).getText());
+		assertEquals("a", attrList.getChild(0).getChild(0).getText());
+		assertEquals("1", attrList.getChild(0).getChild(1).getText());
+		assertEquals("ATTRIBUTE", attrList.getChild(1).getText());
+		assertEquals("label", attrList.getChild(1).getChild(0).getText());
+		assertEquals("\"hello\"", attrList.getChild(1).getChild(1).getText());
+	}
 
-    @Test
-    public void edge() throws RecognitionException {
-        CommonTree t = parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7[a=5]; }");
-        log.debug(t.toStringTree());
-    }
-    
+	@Test
+	public void edge() throws RecognitionException {
+		CommonTree t = parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7[a=5]; }");
+		log.debug(t.toStringTree());
+	}
+
 }
