@@ -17,10 +17,19 @@ package org.modsl.antlr.dot;
 package org.modsl.antlr.dot;
 }
 
-dotGraph: 'strict'? ('graph' | 'digraph') ID '{' statement* '}' -> ^(DOTGRAPH statement*) ;
+dotGraph: 'strict'? dg=('graph' | 'digraph') ID '{' statement* '}' -> ^(DOTGRAPH[$dg, "DotGraph"] statement*) ;
 
-statement: ID ';'!;
+statement: (nodeStatement | edgeStatement | attributeStatement)';'!;
 
+nodeStatement: ID attributeList?;
+
+edgeStatement: ID EDGEOP ID (EDGEOP ID);
+
+attributeStatement: ('graph' | 'node' | 'edge') attributeList;
+
+attributeList: '[' ID '=' ID (',' ID '=' ID)? ']';
+
+EDGEOP: '->' | '--';
 ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | 'a'..'z' |'A'..'Z' )* );
 INT : '0'..'9'+ ;
 NEWLINE:'\r'? '\n';
