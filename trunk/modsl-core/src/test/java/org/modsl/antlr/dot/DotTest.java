@@ -58,4 +58,10 @@ public class DotTest {
         assertEquals(0, t.getChildCount());
     }
 
+    @Test
+    public void garbage() throws RecognitionException {
+        CommonTree t = parse("\n\rasd d\n\n\r");
+        assertEquals(0, t.getChildCount());
+    }
+
 }
