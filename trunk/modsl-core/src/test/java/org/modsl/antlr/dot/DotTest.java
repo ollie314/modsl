@@ -42,22 +42,24 @@ public class DotTest {
 	public void node() throws RecognitionException {
 		CommonTree t = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
 		assertEquals("g", t.token.getText());
-		assertEquals("stmt1", t.getChild(0).getText());
-		assertEquals("\"stmt2\"", t.getChild(1).getText());
-		assertEquals("12345", t.getChild(2).getText());
+		assertEquals("stmt1", t.getChild(0).getChild(0).getText());
+		assertEquals("\"stmt2\"", t.getChild(1).getChild(0).getText());
+		assertEquals("12345", t.getChild(2).getChild(0).getText());
 	}
 
 	@Test
 	public void attributeList() throws RecognitionException {
 		CommonTree t = parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
+		log.debug(t.toStringTree());
 		CommonTree n1 = (CommonTree) t.getChild(0);
-		CommonTree attrList = (CommonTree) n1.getChild(0);
-		assertEquals("ATTRIBUTE", attrList.getChild(0).getText());
-		assertEquals("a", attrList.getChild(0).getChild(0).getText());
-		assertEquals("1", attrList.getChild(0).getChild(1).getText());
-		assertEquals("ATTRIBUTE", attrList.getChild(1).getText());
-		assertEquals("label", attrList.getChild(1).getChild(0).getText());
-		assertEquals("\"hello\"", attrList.getChild(1).getChild(1).getText());
+		//CommonTree attrList = (CommonTree) n1.getChild(0);
+		assertEquals("n1", n1.getChild(0).getText());
+		assertEquals("ATTRIBUTE", n1.getChild(1).getText());
+		assertEquals("a", n1.getChild(1).getChild(0).getText());
+		assertEquals("1", n1.getChild(1).getChild(1).getText());
+		assertEquals("ATTRIBUTE", n1.getChild(2).getText());
+		assertEquals("label", n1.getChild(2).getChild(0).getText());
+		assertEquals("\"hello\"", n1.getChild(2).getChild(1).getText());
 	}
 
 	@Test

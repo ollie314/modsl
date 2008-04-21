@@ -7,9 +7,8 @@ options {
 
 tokens {
 	ATTRIBUTE;
-	ATTRIBUTE_LIST;
 	EDGE;
-	NODE_LIST;
+	NODE;
 }
 
 @lexer::header {
@@ -24,9 +23,9 @@ dotGraph: 'strict'? ('graph' | 'digraph') ID '{' statement* '}' -> ^(ID statemen
 
 statement: (nodeStatement | edgeStatement) ';'!;
 
-nodeStatement: ID attributeList? -> ^(ID ^(ATTRIBUTE_LIST attributeList)?);
+nodeStatement: ID attributeList? -> ^(NODE ID attributeList?);
 
-edgeStatement: ID EDGEOP ID (EDGEOP ID)* attributeList? -> ^(EDGE ^(NODE_LIST ID+) ^(ATTRIBUTE_LIST attributeList)?);
+edgeStatement: ID EDGEOP ID (EDGEOP ID)* attributeList? -> ^(EDGE ID+ attributeList?);
 
 attributeList: '[' attribute (',' attribute)* ']' -> attribute+;
 
