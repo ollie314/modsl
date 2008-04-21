@@ -33,7 +33,7 @@ attributeList: '[' attribute (',' attribute)* ']' -> attribute+;
 attribute: key=ID '=' value=ID -> ^(ATTRIBUTE $key $value);
 
 EDGEOP: '->' | '--';
-ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | 'a'..'z' |'A'..'Z')* | INT);
+ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | '_' | 'a'..'z' |'A'..'Z')* | INT);
 fragment INT : '0'..'9'+ ;
 NEWLINE:'\r'? '\n';
 WS: (' ' |'\t' | '\r' | '\n')+ { skip(); };
