@@ -7,6 +7,9 @@ options {
 
 tokens {
 	ATTRIBUTE;
+	ATTRIBUTE_LIST;
+	EDGE;
+	NODE_LIST;
 }
 
 @lexer::header {
@@ -19,13 +22,11 @@ package org.modsl.antlr.dot;
 
 dotGraph: 'strict'? ('graph' | 'digraph') ID '{' statement* '}' -> ^(ID statement*) ;
 
-statement: (nodeStatement | edgeStatement | attributeStatement) ';'!;
+statement: (nodeStatement | edgeStatement) ';'!;
 
-nodeStatement: ID^ attributeList?;
+nodeStatement: ID attributeList? -> ^(ID ^(ATTRIBUTE_LIST attributeList)?);
 
-edgeStatement: ID EDGEOP ID (EDGEOP ID);
-
-attributeStatement: ('graph' | 'node' | 'edge') attributeList;
+edgeStatement: ID EDGEOP ID (EDGEOP ID)* attributeList? -> ^(EDGE ^(NODE_LIST ID+) ^(ATTRIBUTE_LIST attributeList)?);
 
 attributeList: '[' attribute (',' attribute)* ']' -> attribute+;
 

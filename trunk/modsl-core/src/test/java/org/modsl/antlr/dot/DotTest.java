@@ -39,9 +39,8 @@ public class DotTest {
     }
 
     @Test
-    public void statement() throws RecognitionException {
+    public void node() throws RecognitionException {
         CommonTree t = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
-        log.debug(t.toStringTree());
         assertEquals("g", t.token.getText());
         assertEquals("stmt1", t.getChild(0).getText());
         assertEquals("\"stmt2\"", t.getChild(1).getText());
@@ -51,7 +50,6 @@ public class DotTest {
     @Test
     public void attributeList() throws RecognitionException {
         CommonTree t = parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
-        log.debug(t.toStringTree());
         assertEquals("ATTRIBUTE", t.getChild(0).getChild(0).getText());
         assertEquals("a", t.getChild(0).getChild(0).getChild(0).getText());
         assertEquals("1", t.getChild(0).getChild(0).getChild(1).getText());
@@ -60,4 +58,10 @@ public class DotTest {
         assertEquals("\"hello\"", t.getChild(0).getChild(1).getChild(1).getText());
     }
 
+    @Test
+    public void edge() throws RecognitionException {
+        CommonTree t = parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7[a=5]; }");
+        log.debug(t.toStringTree());
+    }
+    
 }
