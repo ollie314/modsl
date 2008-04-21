@@ -6,7 +6,7 @@ options {
 }
 
 tokens {
-	DOTGRAPH;
+	ATTRIBUTE;
 }
 
 @lexer::header {
@@ -17,21 +17,23 @@ package org.modsl.antlr.dot;
 package org.modsl.antlr.dot;
 }
 
-dotGraph: 'strict'? dg=('graph' | 'digraph') ID '{' statement* '}' -> ^(DOTGRAPH[$dg, "DotGraph"] statement*) ;
+dotGraph: 'strict'? ('graph' | 'digraph') ID '{' statement* '}' -> ^(ID statement*) ;
 
-statement: (nodeStatement | edgeStatement | attributeStatement)';'!;
+statement: (nodeStatement | edgeStatement | attributeStatement) ';'!;
 
-nodeStatement: ID attributeList?;
+nodeStatement: ID^ attributeList?;
 
 edgeStatement: ID EDGEOP ID (EDGEOP ID);
 
 attributeStatement: ('graph' | 'node' | 'edge') attributeList;
 
-attributeList: '[' ID '=' ID (',' ID '=' ID)? ']';
+attributeList: '[' attribute (',' attribute)* ']' -> attribute+;
+
+attribute: key=ID '=' value=ID -> ^(ATTRIBUTE $key $value);
 
 EDGEOP: '->' | '--';
-ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | 'a'..'z' |'A'..'Z' )* );
-INT : '0'..'9'+ ;
+ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | 'a'..'z' |'A'..'Z')* | INT);
+fragment INT : '0'..'9'+ ;
 NEWLINE:'\r'? '\n';
 WS: (' ' |'\t' | '\r' | '\n')+ { skip(); };
 

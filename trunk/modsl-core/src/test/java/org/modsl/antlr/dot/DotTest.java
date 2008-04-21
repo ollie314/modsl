@@ -16,6 +16,8 @@
 
 package org.modsl.antlr.dot;
 
+import static org.junit.Assert.assertEquals;
+
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -36,32 +38,26 @@ public class DotTest {
         return (CommonTree) r.getTree();
     }
 
-    /*
-        @Test
-        public void EMPTY() throws RecognitionException {
-            CommonTree t = parse("");
-            assertTrue(t.isNil());
-            assertEquals(0, t.getChildCount());
-        }
-
-        @Test
-        public void WS() throws RecognitionException {
-            CommonTree t = parse("        \n \t\r\n \n\r");
-            assertEquals(0, t.getChildCount());
-        }
-        
-        @Test
-        public void NEWLINE() throws RecognitionException {
-            CommonTree t = parse("\n\r\n\n\r");
-            assertEquals(0, t.getChildCount());
-        }
-    */
+    @Test
+    public void statement() throws RecognitionException {
+        CommonTree t = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+        log.debug(t.toStringTree());
+        assertEquals("g", t.token.getText());
+        assertEquals("stmt1", t.getChild(0).getText());
+        assertEquals("\"stmt2\"", t.getChild(1).getText());
+        assertEquals("12345", t.getChild(2).getText());
+    }
 
     @Test
-    public void dotGraph() throws RecognitionException {
-        CommonTree t = parse("graph a { stmt1; stmt2; }"); 
+    public void attributeList() throws RecognitionException {
+        CommonTree t = parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
         log.debug(t.toStringTree());
-        //assertEquals(0, t.getChildCount());
+        assertEquals("ATTRIBUTE", t.getChild(0).getChild(0).getText());
+        assertEquals("a", t.getChild(0).getChild(0).getChild(0).getText());
+        assertEquals("1", t.getChild(0).getChild(0).getChild(1).getText());
+        assertEquals("ATTRIBUTE", t.getChild(0).getChild(1).getText());
+        assertEquals("label", t.getChild(0).getChild(1).getChild(0).getText());
+        assertEquals("\"hello\"", t.getChild(0).getChild(1).getChild(1).getText());
     }
 
 }
