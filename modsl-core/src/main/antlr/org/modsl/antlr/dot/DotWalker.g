@@ -1,7 +1,7 @@
 tree grammar DotWalker;
 
 options {
-	tokenVocab = Dot;
+	tokenVocab = DotAST;
 	ASTLabelType = CommonTree;
 }
 
