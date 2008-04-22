@@ -17,13 +17,13 @@ public class DotSTTest {
     protected Logger log = Logger.getLogger(getClass());
 
     protected static final String ROOT = "st_test";
-    protected static final String STGDIRS = ROOT + ":" + ROOT + "/dot";
+    protected static final String STGDIRS = ROOT + ":" + ROOT + "/sub";
 
     protected StringTemplateGroup group;
 
     public DotSTTest() {
         StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(STGDIRS, new STErrorListener()));
-        group = StringTemplateGroup.loadGroup("dot_test");
+        group = StringTemplateGroup.loadGroup("sub");
         group.setRefreshInterval(0);
     }
     
