@@ -6,6 +6,8 @@ graph <name> {
 }
 >>
 
+statement(text) ::= "<text>"
+
 node(name) ::= "node(<name>) "
 
 edge(name) ::= "edge(<name>) "
