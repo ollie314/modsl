@@ -20,12 +20,27 @@ import static org.junit.Assert.assertTrue;
 
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.antlr.stringtemplate.CommonGroupLoader;
+import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.modsl.antlr.dot.DotWalker.dotGraph_return;
+import org.modsl.st.STErrorListener;
 
 public class DotWalkerTest extends AbstractDotTest {
 
     protected final Logger log = Logger.getLogger(getClass());
+
+    protected static final String ROOT = "st";
+    protected static final String STGDIRS = ROOT + ":" + ROOT + "/dot";
+
+    protected StringTemplateGroup group;
+
+    public DotWalkerTest() {
+        StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(STGDIRS, new STErrorListener()));
+        group = StringTemplateGroup.loadGroup("dot");
+        group.setRefreshInterval(0);
+    }
 
     @Test
     public void node2() throws RecognitionException {
@@ -33,7 +48,9 @@ public class DotWalkerTest extends AbstractDotTest {
         CommonTreeNodeStream nodes = new CommonTreeNodeStream(tnt.tree);
         nodes.setTokenStream(tnt.tokens);
         DotWalker walker = new DotWalker(nodes);
-        walker.dotGraph();
+        walker.setTemplateLib(group);
+        dotGraph_return ret = walker.dotGraph();
+        log.debug(ret.toString());
         assertTrue(true);
     }
 
