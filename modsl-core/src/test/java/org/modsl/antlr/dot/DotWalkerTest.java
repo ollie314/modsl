@@ -50,7 +50,7 @@ public class DotWalkerTest extends AbstractDotTest {
         DotWalker walker = new DotWalker(nodes);
         walker.setTemplateLib(group);
         dotGraph_return ret = walker.dotGraph();
-        log.debug(ret.toString());
+        log.debug("\n" + ret.toString());
         assertTrue(true);
     }
 
