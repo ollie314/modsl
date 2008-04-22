@@ -9,17 +9,17 @@ options {
 package org.modsl.antlr.dot;
 }
 
-dotGraph: ^(ID statement*) ;
+dotGraph: ^(ID statement*) { System.out.println("G " + $ID.text); };
 
 statement: (nodeStatement | edgeStatement);
 
-nodeStatement: ^(NODE ID attributeList?);
+nodeStatement: ^(NODE ID attributeList?) { System.out.println("N " + $ID.text); };
 
-edgeStatement: ^(EDGE ID+ attributeList?);
+edgeStatement: ^(EDGE ids+=ID+ attributeList?) { System.out.println("E " + $ids); };
 
 attributeList: attribute+;
 
-attribute: ^(ATTRIBUTE key value);
+attribute: ^(ATTRIBUTE key value) { System.out.println("A " + $key.text + "=" + $value.text); };
 
 key: ID;
 

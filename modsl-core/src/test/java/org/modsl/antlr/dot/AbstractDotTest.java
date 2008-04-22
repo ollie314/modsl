@@ -5,19 +5,26 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 
-public class AbstractDotTest {
+public abstract class AbstractDotTest {
 
     public AbstractDotTest() {
         super();
     }
 
-    protected CommonTree parse(String s) throws RecognitionException {
-    	ANTLRStringStream input = new ANTLRStringStream(s);
-    	DotASTLexer lexer = new DotASTLexer(input);
-    	CommonTokenStream tokens = new CommonTokenStream(lexer);
-    	DotASTParser parser = new DotASTParser(tokens);
-    	DotASTParser.dotGraph_return r = parser.dotGraph();
-    	return (CommonTree) r.getTree();
+    protected TokensNTree parse(String s) throws RecognitionException {
+        TokensNTree tnt = new TokensNTree();
+        ANTLRStringStream input = new ANTLRStringStream(s);
+        DotASTLexer lexer = new DotASTLexer(input);
+        tnt.tokens = new CommonTokenStream(lexer);
+        DotASTParser parser = new DotASTParser(tnt.tokens);
+        DotASTParser.dotGraph_return r = parser.dotGraph();
+        tnt.tree = (CommonTree) r.getTree();
+        return tnt;
+    }
+
+    protected static class TokensNTree {
+        public CommonTokenStream tokens;
+        public CommonTree tree;
     }
 
 }
