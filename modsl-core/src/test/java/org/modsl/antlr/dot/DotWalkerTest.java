@@ -45,6 +45,7 @@ public class DotWalkerTest extends AbstractDotTest {
     @Test
     public void node2() throws RecognitionException {
         TokensNTree tnt = parse("graph g { n0 [a0=5]; n1->n2->n3; }");
+        log.debug("\n" + tnt.tree.toStringTree());
         CommonTreeNodeStream nodes = new CommonTreeNodeStream(tnt.tree);
         nodes.setTokenStream(tnt.tokens);
         DotWalker walker = new DotWalker(nodes);
