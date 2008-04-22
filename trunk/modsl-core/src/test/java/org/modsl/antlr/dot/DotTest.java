@@ -31,10 +31,10 @@ public class DotTest {
 
 	private CommonTree parse(String s) throws RecognitionException {
 		ANTLRStringStream input = new ANTLRStringStream(s);
-		DotLexer lexer = new DotLexer(input);
+		DotASTLexer lexer = new DotASTLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		DotParser parser = new DotParser(tokens);
-		DotParser.dotGraph_return r = parser.dotGraph();
+		DotASTParser parser = new DotASTParser(tokens);
+		DotASTParser.dotGraph_return r = parser.dotGraph();
 		return (CommonTree) r.getTree();
 	}
 
@@ -52,7 +52,7 @@ public class DotTest {
 		CommonTree t = parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
 		log.debug(t.toStringTree());
 		CommonTree n1 = (CommonTree) t.getChild(0);
-		//CommonTree attrList = (CommonTree) n1.getChild(0);
+		// CommonTree attrList = (CommonTree) n1.getChild(0);
 		assertEquals("n1", n1.getChild(0).getText());
 		assertEquals("ATTRIBUTE", n1.getChild(1).getText());
 		assertEquals("a", n1.getChild(1).getChild(0).getText());

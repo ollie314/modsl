@@ -1,4 +1,4 @@
-grammar Dot;
+grammar DotAST;
 
 options {
 	language = Java;
