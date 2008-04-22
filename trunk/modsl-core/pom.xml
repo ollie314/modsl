@@ -73,45 +73,53 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>antlr3-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
 				<executions>
 					<execution>
+						<id>parser</id>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>antlr</goal>
 						</goals>
+						<configuration>
+							<libDirectory>
+								target/generated-sources/antlr/org/modsl/antlr/dot
+							</libDirectory>
+							<includes>
+								<include>**/*AST.g</include>
+							</includes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>walker</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>antlr</goal>
+						</goals>
+						<configuration>
+							<libDirectory>
+								target/generated-sources/antlr/org/modsl/antlr/dot
+							</libDirectory>
+							<includes>
+								<include>**/*Walker.g</include>
+							</includes>
+						</configuration>
 					</execution>
 				</executions>
 				<configuration>
+					<outputDirectory>
+						target/generated-sources/antlr
+					</outputDirectory>
 					<libDirectory>
 						target/generated-sources/antlr/org/modsl/antlr/dot
 					</libDirectory>
-					<includes>
+					<!--
+						<includes>
 						<include>**/*AST.g</include>
-					</includes>
-					<excludes>
+						</includes>
+						<excludes>
 						<exclude>**/*__.g</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>antlr3-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>antlr</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<libDirectory>
-						target/generated-sources/antlr/org/modsl/antlr/dot
-					</libDirectory>
-					<includes>
-						<include>**/*Walker.g</include>
-					</includes>
-					<excludes>
-						<exclude>**/*__.g</exclude>
-					</excludes>
+						</excludes> -->
 				</configuration>
 			</plugin>
 		</plugins>
