@@ -10,9 +10,9 @@ options {
 package org.modsl.antlr.dot;
 }
 
-dotGraph: ^(ID statements+=statement*) -> graph(name={$ID.text}, statements={$statements});
+dotGraph: ^(ID statements+=(nodeStatement | edgeStatement)*) -> graph(name={$ID.text}, statements={$statements});
 
-statement: (nodeStatement | edgeStatement);
+//statement: (nodeStatement | edgeStatement);
 
 nodeStatement: ^(NODE ID attributeList?) -> node(name={$ID.text});
 
