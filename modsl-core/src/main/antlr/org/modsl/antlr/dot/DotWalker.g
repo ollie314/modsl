@@ -3,26 +3,24 @@ tree grammar DotWalker;
 options {
 	tokenVocab = DotAST;
 	ASTLabelType = CommonTree;
+	output = template;
 }
 
 @header {
 package org.modsl.antlr.dot;
 }
 
-dotGraph: ^(ID statement*) { System.out.println("G " + $ID.text); };
+dotGraph: ^(ID statement*) -> graph(name=$ID);
 
 statement: (nodeStatement | edgeStatement);
 
-nodeStatement: ^(NODE ID attributeList?) { System.out.println("N " + $ID.text); };
+nodeStatement: ^(NODE ID attributeList?) node(name=$ID);
 
-edgeStatement: ^(EDGE ids+=ID+ attributeList?) { System.out.println("E " + $ids); };
+edgeStatement: ^(EDGE ids+=ID+ attributeList?) edge($ids);
 
 attributeList: attribute+;
 
-attribute: ^(ATTRIBUTE key value) { System.out.println("A " + $key.text + "=" + $value.text); };
+attribute: ^(ATTRIBUTE key=ID value=ID) attribute($key, $value);
 
-key: ID;
-
-value: ID;
 
 
