@@ -1,13 +1,13 @@
 group modsl;
 
-tement*) -> graph(name=$ID);
+graph(name, statements) ::= <<
+graph <name> {
+	<statements; separator="\n">
+}
+>>; 
 
-statement: (nodeStatement | edgeStatement);
+node(name) ::= "node(<name>) ";
 
-nodeStatement: ^(NODE ID attributeList?) node(name=$ID);
+edge(name) ::= "edge(<name>) ";
 
-edgeStatement: ^(EDGE ids+=ID+ attributeList?) edge($ids);
-
-attributeList: attribute+;
-
-attribute: ^(ATTRIBUTE key=ID value=ID) attribute($key, $value);
+attribute(key, value) ::= "attribute(<key>, <value>) ";
