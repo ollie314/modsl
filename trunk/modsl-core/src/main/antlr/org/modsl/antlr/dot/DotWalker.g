@@ -10,17 +10,17 @@ options {
 package org.modsl.antlr.dot;
 }
 
-dotGraph: ^(ID statements+=statement*) -> graph(name={$ID}, statements={$statements});
+dotGraph: ^(ID statements+=statement*) -> graph(name={$ID.text}, statements={$statements.st});
 
 statement: (nodeStatement | edgeStatement);
 
-nodeStatement: ^(NODE ID attributeList?) -> node(name={$ID});
+nodeStatement: ^(NODE ID attributeList?) -> node(name={$ID.text});
 
-edgeStatement: ^(EDGE ids+=ID+ attributeList?) -> edge(name={$ids});
+edgeStatement: ^(EDGE ids+=ID+ attributeList?) -> edge(name={$ids.text});
 
 attributeList: attribute+;
 
-attribute: ^(ATTRIBUTE key=ID value=ID) -> attribute(key={$key}, value={$value});
+attribute: ^(ATTRIBUTE key=ID value=ID) -> attribute(key={$key.text}, value={$value.text});
 
 
 
