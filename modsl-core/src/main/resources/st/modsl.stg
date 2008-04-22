@@ -4,10 +4,10 @@ graph(name, statements) ::= <<
 graph <name> {
 	<statements; separator="\n">
 }
->>; 
+>>
 
-node(name) ::= "node(<name>) ";
+node(name) ::= "node(<name>) "
 
-edge(name) ::= "edge(<name>) ";
+edge(name) ::= "edge(<name>) "
 
-attribute(key, value) ::= "attribute(<key>, <value>) ";
+attribute(key, value) ::= "attribute(<key>, <value>) "
