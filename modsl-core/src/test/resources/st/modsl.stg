@@ -4,4 +4,4 @@ keyValue(key,value) ::= "<key> <value>"
 
 starry(string) ::= "***<string>***"
 
-regionOuter(string) ::= "###@regionInner(<string>)###"
+regionOuter(string) ::= "###<@regionInner()>###"
