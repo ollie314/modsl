@@ -78,7 +78,8 @@
 						<configuration>
 							<tasks>
 								<!-- A hack to silence the antlr3 "token file not found" nonsense -->
-								<mkdir dir="${project.build.directory}/generated-sources/antlr/org/modsl/antlr/dot"/>
+								<delete dir="src-gen/main/antlr/org/modsl/antlr/dot"/>
+								<mkdir dir="src-gen/main/antlr/org/modsl/antlr/dot"/>
 							</tasks>
 						</configuration>
 						<goals>
@@ -99,7 +100,7 @@
 						</goals>
 						<configuration>
 							<libDirectory>
-								target/generated-sources/antlr/org/modsl/antlr/dot
+						src-gen/main/antlr/org/modsl/antlr/dot
 							</libDirectory>
 							<includes>
 								<include>**/*AST.g</include>
@@ -114,7 +115,7 @@
 						</goals>
 						<configuration>
 							<libDirectory>
-								target/generated-sources/antlr/org/modsl/antlr/dot
+						src-gen/main/antlr/org/modsl/antlr/dot
 							</libDirectory>
 							<includes>
 								<include>**/*Walker.g</include>
@@ -124,10 +125,10 @@
 				</executions>
 				<configuration>
 					<outputDirectory>
-						target/generated-sources/antlr
+						src-gen/main/antlr
 					</outputDirectory>
 					<libDirectory>
-						target/generated-sources/antlr/org/modsl/antlr/dot
+						src-gen/main/antlr/org/modsl/antlr/dot
 					</libDirectory>
 				</configuration>
 			</plugin>
