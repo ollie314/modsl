@@ -19,15 +19,21 @@ package org.modsl.antlr.dot;
 import static org.junit.Assert.assertTrue;
 
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-public class DotWalkerTest extends AbstractDotTest{
+public class DotWalkerTest extends AbstractDotTest {
 
     protected final Logger log = Logger.getLogger(getClass());
 
     @Test
     public void node2() throws RecognitionException {
+        TokensNTree tnt = parse("graph g { n0 [a0=5]; n1->n2->n3; }");
+        CommonTreeNodeStream nodes = new CommonTreeNodeStream(tnt.tree);
+        nodes.setTokenStream(tnt.tokens);
+        DotWalker walker = new DotWalker(nodes);
+        walker.dotGraph();
         assertTrue(true);
     }
 
