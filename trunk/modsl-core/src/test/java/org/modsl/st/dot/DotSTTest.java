@@ -7,28 +7,14 @@ import java.util.Map;
 
 import org.antlr.stringtemplate.CommonGroupLoader;
 import org.antlr.stringtemplate.StringTemplate;
-import org.antlr.stringtemplate.StringTemplateErrorListener;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.modsl.st.STErrorListener;
 
 public class DotSTTest {
 
-    protected static class STErrorListener implements StringTemplateErrorListener {
-
-        @Override
-        public void error(String m, Throwable t) {
-            log.error(m, t);
-        }
-
-        @Override
-        public void warning(String m) {
-            log.warn(m);
-        }
-
-    }
-
-    private static Logger log = Logger.getLogger(DotSTTest.class);
+    protected Logger log = Logger.getLogger(getClass());
 
     protected static final String ROOT = "st";
     protected static final String STGDIRS = ROOT + ":" + ROOT + "/dot";
@@ -38,9 +24,9 @@ public class DotSTTest {
     public DotSTTest() {
         StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(STGDIRS, new STErrorListener()));
         group = StringTemplateGroup.loadGroup("dot");
-        group.setRefreshInterval(3);
+        group.setRefreshInterval(0);
     }
-
+    
     @SuppressWarnings("unchecked")
     @Test
     public void keyValue() {
