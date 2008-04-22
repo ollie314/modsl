@@ -1,0 +1,5 @@
+group dot : modsl;
+
+keyValue(key,value) ::= "<key>.<value>"
+
+regionInner(string) ::= "///<string>///"
