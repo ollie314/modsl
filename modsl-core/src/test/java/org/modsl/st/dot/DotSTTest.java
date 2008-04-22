@@ -26,7 +26,7 @@ public class DotSTTest {
 
     private static Logger log = Logger.getLogger(DotSTTest.class);
 
-    protected static final String ROOT = "/st";
+    protected static final String ROOT = "st";
     protected static final String STGDIRS = ROOT + ":" + ROOT + "/dot";
 
     protected StringTemplateGroup group;
