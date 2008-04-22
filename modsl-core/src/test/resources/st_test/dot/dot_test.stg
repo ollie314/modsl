@@ -1,4 +1,4 @@
-group dot : modsl;
+group dot_test : modsl_test;
 
 keyValue(key,value) ::= "<key>.<value>"
 

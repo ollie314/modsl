@@ -23,7 +23,7 @@ public class DotSTTest {
 
     public DotSTTest() {
         StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(STGDIRS, new STErrorListener()));
-        group = StringTemplateGroup.loadGroup("dot");
+        group = StringTemplateGroup.loadGroup("dot_test");
         group.setRefreshInterval(0);
     }
     
