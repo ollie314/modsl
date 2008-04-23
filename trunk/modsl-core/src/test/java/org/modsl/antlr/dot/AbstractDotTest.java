@@ -11,20 +11,13 @@ public abstract class AbstractDotTest {
         super();
     }
 
-    protected TokensNTree parse(String s) throws RecognitionException {
-        TokensNTree tnt = new TokensNTree();
+    protected void parse(String s) throws RecognitionException {
         ANTLRStringStream input = new ANTLRStringStream(s);
-        DotASTLexer lexer = new DotASTLexer(input);
-        tnt.tokens = new CommonTokenStream(lexer);
-        DotASTParser parser = new DotASTParser(tnt.tokens);
-        DotASTParser.dotGraph_return r = parser.dotGraph();
-        tnt.tree = (CommonTree) r.getTree();
-        return tnt;
+        DotLexer lexer = new DotLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        DotParser parser = new DotParser(tokens);
+        parser.dotGraph();
     }
 
-    protected static class TokensNTree {
-        public CommonTokenStream tokens;
-        public CommonTree tree;
-    }
 
 }

@@ -87,8 +87,8 @@
                         <configuration>
                             <tasks>
                                 <!-- A hack to silence the antlr3 "token file not found" nonsense -->
-                                <delete dir="src-gen/main/antlr/org/modsl/antlr/dot" />
-                                <mkdir dir="src-gen/main/antlr/org/modsl/antlr/dot" />
+                                <delete dir="target/generated-sources/antlr/org/modsl/antlr/dot" />
+                                <mkdir dir="target/generated-sources/antlr/org/modsl/antlr/dot" />
                             </tasks>
                         </configuration>
                         <goals>
@@ -108,29 +108,15 @@
                             <goal>antlr</goal>
                         </goals>
                         <configuration>
-                            <libDirectory>src-gen/main/antlr/org/modsl/antlr/dot</libDirectory>
+                            <libDirectory>target/generated-sources/antlr/org/modsl/antlr/dot</libDirectory>
                             <includes>
-                                <include>**/*AST.g</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>walker</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>antlr</goal>
-                        </goals>
-                        <configuration>
-                            <libDirectory>src-gen/main/antlr/org/modsl/antlr/dot</libDirectory>
-                            <includes>
-                                <include>**/*Walker.g</include>
+                                <include>**/*.g</include>
                             </includes>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>src-gen/main/antlr</outputDirectory>
-                    <libDirectory>src-gen/main/antlr/org/modsl/antlr/dot</libDirectory>
+                    <libDirectory>target/generated-sources/antlr/org/modsl/antlr/dot</libDirectory>
                 </configuration>
             </plugin>
         </plugins>
