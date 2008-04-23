@@ -19,29 +19,27 @@ package org.modsl.core.agt;
 import org.modsl.core.common.AbstractModslException;
 
 /**
- * Abstract graph tree builder errors are supposed to be reported through this class or its subclasses
- * 
+ * Thrown when tree post-processing fails because of unresolved nodde references
  * @author avishnyakov
- *
  */
 public class InvalidNodeNameException extends AbstractModslException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public InvalidNodeNameException() {
-        super();
-    }
+	public InvalidNodeNameException() {
+		super();
+	}
 
-    public InvalidNodeNameException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	public InvalidNodeNameException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-    public InvalidNodeNameException(String message) {
-        super(message);
-    }
+	public InvalidNodeNameException(String message) {
+		super(message);
+	}
 
-    public InvalidNodeNameException(Throwable cause) {
-        super(cause);
-    }
+	public InvalidNodeNameException(Throwable cause) {
+		super(cause);
+	}
 
 }
