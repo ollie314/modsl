@@ -14,7 +14,9 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt;
+package org.modsl.core.agt.dot;
+
+import org.modsl.core.agt.AGTType;
 
 /**
  * Different dot model element meta-types

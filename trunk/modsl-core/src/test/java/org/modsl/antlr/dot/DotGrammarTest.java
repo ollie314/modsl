@@ -23,8 +23,8 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.modsl.core.agt.DotType;
 import org.modsl.core.agt.Node;
+import org.modsl.core.agt.dot.DotType;
 
 public class DotGrammarTest {
 
