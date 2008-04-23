@@ -1,4 +1,4 @@
-package org.modsl.st;
+package org.modsl.st.basic;
 
 import static org.junit.Assert.assertEquals;
 
