@@ -3,7 +3,6 @@ package org.modsl.antlr.dot;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.CommonTree;
 
 public abstract class AbstractDotTest {
 
@@ -18,6 +17,5 @@ public abstract class AbstractDotTest {
         DotParser parser = new DotParser(tokens);
         parser.dotGraph();
     }
-
 
 }
