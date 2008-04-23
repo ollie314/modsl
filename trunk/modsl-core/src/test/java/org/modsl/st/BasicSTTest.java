@@ -1,4 +1,4 @@
-package org.modsl.st.dot;
+package org.modsl.st;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.modsl.st.STErrorListener;
 
-public class DotSTTest {
+public class BasicSTTest {
 
     protected Logger log = Logger.getLogger(getClass());
 
@@ -21,7 +21,7 @@ public class DotSTTest {
 
     protected StringTemplateGroup group;
 
-    public DotSTTest() {
+    public BasicSTTest() {
         StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(STGDIRS, new STErrorListener()));
         group = StringTemplateGroup.loadGroup("sub");
         group.setRefreshInterval(0);

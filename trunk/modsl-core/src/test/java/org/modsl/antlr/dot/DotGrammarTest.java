@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.modsl.core.agt.Node;
 
-public class DotTest extends AbstractDotTest {
+public class DotGrammarTest extends AbstractDotTest {
 
     protected final Logger log = Logger.getLogger(getClass());
 
