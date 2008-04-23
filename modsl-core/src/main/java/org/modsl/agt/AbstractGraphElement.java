@@ -1,25 +1,27 @@
 package org.modsl.agt;
 
+/**
+ * Abstract graph tree element
+ * 
+ * @author avishnyakov
+ *
+ */
 public class AbstractGraphElement {
 
     /**
      * Name of this object
      */
     protected String name;
-    
+
     /**
      * Parent node
      */
     protected Node parent;
-    
+
     /**
      * This element is visible
      */
     protected boolean visible = true;
-
-    public AbstractGraphElement() {
-        super();
-    }
 
     /**
      * @return name

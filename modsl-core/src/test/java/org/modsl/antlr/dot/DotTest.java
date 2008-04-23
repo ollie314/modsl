@@ -16,22 +16,21 @@
 
 package org.modsl.antlr.dot;
 
-import static org.junit.Assert.assertEquals;
-
 import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.CommonTree;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.modsl.agt.Node;
 
 public class DotTest extends AbstractDotTest {
 
-	protected final Logger log = Logger.getLogger(getClass());
+    protected final Logger log = Logger.getLogger(getClass());
 
-	@Test
-	public void basic() throws RecognitionException {
-		parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
-		parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
-		parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7[a=5]; }");
-	}
+    @Test
+    public void basic() throws RecognitionException {
+        Node root = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+        log.debug(root);
+        //parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
+        //parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7[a=5]; }");
+    }
 
 }

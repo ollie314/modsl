@@ -22,11 +22,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Abstract graph tree node
+ * Graph node
  * 
  * @author avishnyakov
  */
-public abstract class Node extends AbstractGraphElement {
+public class Node extends AbstractGraphElement {
 
     /**
      * List of children nodes
@@ -38,6 +38,10 @@ public abstract class Node extends AbstractGraphElement {
      */
     protected Map<String, Node> childrenMap;
 
+    public Node() {
+        super();
+    }
+
     /**
      * Create new node
      * @param parent parent node
@@ -47,13 +51,6 @@ public abstract class Node extends AbstractGraphElement {
         super();
         this.parent = parent;
         this.name = name;
-    }
-
-    /**
-     * @return children node list
-     */
-    public List<Node> getChildren() {
-        return children;
     }
 
     /**
@@ -69,6 +66,38 @@ public abstract class Node extends AbstractGraphElement {
         }
         children.add(child);
         childrenMap.put(child.getName(), child);
+    }
+
+    /**
+     * @return children node list
+     */
+    public List<Node> getChildren() {
+        return children;
+    }
+
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        if (parent == null) {
+            sb.append("(");
+        }
+        sb.append(name);
+        if (children != null) {
+            sb.append(" (");
+            boolean first = true;
+            for (Node n : children) {
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(" ");
+                }
+                sb.append(n.toString());
+            }
+            sb.append(")");
+        }
+        if (parent == null) {
+            sb.append(")");
+        }
+        return sb.toString();
     }
 
 }
