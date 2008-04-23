@@ -26,7 +26,17 @@ public class Edge extends AbstractGraphElement {
 
     protected AbstractGraphElement node1;
     protected AbstractGraphElement node2;
+    protected String node1Name;
     protected String node2Name;
-    
-    
+
+    public Edge(String node1Name, String node2Name) {
+        this.node1Name = node1Name;
+        this.node2Name = node2Name;
+    }
+
+    public String toString() {
+        return name + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
+                + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
+    }
+
 }

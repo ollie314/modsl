@@ -23,6 +23,15 @@ public class AbstractGraphElement {
      */
     protected boolean visible = true;
 
+    public AbstractGraphElement() {
+        super();
+    }
+
+    public AbstractGraphElement(String name) {
+        super();
+        this.name = name;
+    }
+
     /**
      * @return name
      */
