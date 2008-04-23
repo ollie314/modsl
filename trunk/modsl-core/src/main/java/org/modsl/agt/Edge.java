@@ -17,7 +17,7 @@
 package org.modsl.agt;
 
 /**
- * Abstract graph tree edge
+ * Graph edge
  * 
  * @author avishnyakov
  * 

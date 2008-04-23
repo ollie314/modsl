@@ -5,11 +5,16 @@ options {
 }
 
 @lexer::header {
-package org.modsl.antlr.dot;
+	package org.modsl.antlr.dot;
 }
 
 @parser::header {
-package org.modsl.antlr.dot;
+	package org.modsl.antlr.dot;
+	import org.modsl.agt.*;
+}
+
+@parser::members {
+	public Node root = new Node();
 }
 
 dotGraph: 'strict'? ('graph' | 'digraph') ID '{' statement* '}' { System.out.println("dotGraph " + $ID + " "); };
@@ -29,5 +34,3 @@ ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | '_' | 'a'..'z' |'A'..'Z')*
 fragment INT : '0'..'9'+ ;
 NEWLINE:'\r'? '\n';
 WS: (' ' |'\t' | '\r' | '\n')+ { skip(); };
-
-
