@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.antlr.runtime.Token;
 
-public class AGTFactory {
+public class DotFactory {
 
-    public static List<Edge> createEdges(Node parent, List<Token> tokens) {
+    public List<Edge> createEdges(Node parent, List<Token> tokens) {
 
         List<Edge> es = new LinkedList<Edge>();
 
@@ -36,7 +36,7 @@ public class AGTFactory {
         
     }
 
-    private static Node createNodeIfDoesntExist(Node parent, Token token) {
+    private Node createNodeIfDoesntExist(Node parent, Token token) {
         Node n = parent.getNode(token.getText());
         if (n == null) {
             return createNode(token);
@@ -45,11 +45,11 @@ public class AGTFactory {
         }
     }
 
-    public static Node createNode(Token token) {
+    public Node createNode(Token token) {
         return new Node(token.getText());
     }
 
-    public static Node createRootNode() {
+    public Node createRootNode() {
         return new Node();
     }
 
