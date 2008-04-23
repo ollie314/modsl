@@ -17,7 +17,7 @@ options {
 	public Node root = new Node();
 }
 
-dotGraph: 'strict'? ('graph' | 'digraph') ID '{' statement* '}' { System.out.println("dotGraph " + $ID + " "); };
+dotGraph: 'strict'? ('graph' | 'digraph') ID '{' statement* '}' { root.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';
 

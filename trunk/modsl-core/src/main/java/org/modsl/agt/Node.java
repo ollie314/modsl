@@ -31,12 +31,12 @@ public class Node extends AbstractGraphElement {
     /**
      * List of children nodes
      */
-    protected List<Node> children;
+    protected List<Node> children = new LinkedList<Node>();
 
     /**
      * Map of children nodes {name->node}
      */
-    protected Map<String, Node> childrenMap;
+    protected Map<String, Node> childrenMap = new HashMap<String, Node>();
 
     public Node() {
         super();
@@ -58,12 +58,6 @@ public class Node extends AbstractGraphElement {
      * @param child
      */
     public void add(Node child) {
-        if (children == null) {
-            children = new LinkedList<Node>();
-        }
-        if (childrenMap == null) {
-            childrenMap = new HashMap<String, Node>();
-        }
         children.add(child);
         childrenMap.put(child.getName(), child);
     }
@@ -81,7 +75,7 @@ public class Node extends AbstractGraphElement {
             sb.append("(");
         }
         sb.append(name);
-        if (children != null) {
+        if (children.size() > 0) {
             sb.append(" (");
             boolean first = true;
             for (Node n : children) {
