@@ -16,7 +16,7 @@ public class BasicSTTest {
 
     protected Logger log = Logger.getLogger(getClass());
 
-    protected static final String ROOT = "test/basic";
+    protected static final String ROOT = "test/st/basic";
     protected static final String STGDIRS = ROOT + ":" + ROOT + "/sub";
 
     protected StringTemplateGroup group;
