@@ -22,20 +22,22 @@ package org.modsl.core.agt;
  * @author avishnyakov
  * 
  */
-public class Edge extends AbstractGraphElement {
+public class Edge<T extends AGTType> extends AbstractGraphElement<T> {
 
-    protected Node node1;
-    protected Node node2;
+    protected Node<T> node1;
+    protected Node<T> node2;
 
     protected String node1Name;
     protected String node2Name;
 
-    public Edge(Node node1, Node node2) {
+    public Edge(T type, Node<T> node1, Node<T> node2) {
+        super(type);
         this.node1 = node1;
         this.node2 = node2;
     }
 
-    public Edge(String node1Name, String node2Name) {
+    public Edge(T type, String node1Name, String node2Name) {
+        super(type);
         this.node1Name = node1Name;
         this.node2Name = node2Name;
     }
@@ -46,9 +48,9 @@ public class Edge extends AbstractGraphElement {
         node2 = resolveNode(node2, node2Name);
     }
 
-    private Node resolveNode(Node node, String nodeName) {
+    private Node<T> resolveNode(Node<T> node, String nodeName) {
         if (node == null) {
-            Node n = parent.getNode(nodeName);
+            Node<T> n = parent.getNode(nodeName);
             if (n == null) {
                 throw new InvalidNodeNameException(nodeName);
             }
@@ -58,7 +60,7 @@ public class Edge extends AbstractGraphElement {
     }
 
     public String toString() {
-        return name + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
+        return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
     }
 

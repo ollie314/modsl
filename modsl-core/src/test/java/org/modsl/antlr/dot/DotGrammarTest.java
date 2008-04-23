@@ -21,15 +21,16 @@ import static org.junit.Assert.assertEquals;
 import org.antlr.runtime.RecognitionException;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.modsl.core.agt.DotType;
 import org.modsl.core.agt.Node;
 
-public class DotGrammarTest extends AbstractDotTest {
+public class DotGrammarTest extends AbstractBasicTest {
 
     protected final Logger log = Logger.getLogger(getClass());
 
     @Test
     public void root() throws RecognitionException {
-        Node root = parse("graph g {}");
+        Node<DotType> root = parse("graph g {}");
         assertEquals("g", root.getName());
         assertEquals(null, root.getParent());
         assertEquals(0, root.getNodes().size());
@@ -37,19 +38,19 @@ public class DotGrammarTest extends AbstractDotTest {
 
     @Test
     public void nodes() throws RecognitionException {
-        Node root = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+        Node<DotType> root = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
         assertEquals(3, root.getNodes().size());
-        assertEquals("stmt1", root.getNodes().get(0).toString());
+        assertEquals("stmt1", root.getNodes().get(0).getName());
         assertEquals("stmt1", root.getNode("stmt1").getName());
-        assertEquals("\"stmt2\"", root.getNodes().get(1).toString());
+        assertEquals("\"stmt2\"", root.getNodes().get(1).getName());
         assertEquals("\"stmt2\"", root.getNode("\"stmt2\"").getName());
-        assertEquals("12345", root.getNodes().get(2).toString());
+        assertEquals("12345", root.getNodes().get(2).getName());
         assertEquals("12345", root.getNode("12345").getName());
     }
 
     @Test
     public void edges() throws RecognitionException {
-        Node root = parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7; }");
+        Node<DotType> root = parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7; }");
         assertEquals(4, root.getEdges().size());
     }
 

@@ -7,11 +7,11 @@ import org.antlr.runtime.Token;
 
 public class DotFactory {
 
-    public List<Edge> createEdges(Node parent, List<Token> tokens) {
+    public List<Edge<DotType>> createEdges(Node<DotType> parent, List<Token> tokens) {
 
-        List<Edge> es = new LinkedList<Edge>();
+        List<Edge<DotType>> es = new LinkedList<Edge<DotType>>();
 
-        Node n1 = null, n2 = null;
+        Node<DotType> n1 = null, n2 = null;
         Token t1, t2;
 
         for (int i = 0; i < tokens.size() - 1; i++) {
@@ -24,20 +24,20 @@ public class DotFactory {
             }
             n2 = createNodeIfDoesntExist(parent, t2);
 
-            Edge e = new Edge(n1, n2);
+            Edge<DotType> e = new Edge<DotType>(DotType.EDGE, n1, n2);
             parent.add(e);
             es.add(e);
 
             n1 = n2; // << shift
 
         }
-        
+
         return es;
-        
+
     }
 
-    private Node createNodeIfDoesntExist(Node parent, Token token) {
-        Node n = parent.getNode(token.getText());
+    private Node<DotType> createNodeIfDoesntExist(Node<DotType> parent, Token token) {
+        Node<DotType> n = parent.getNode(token.getText());
         if (n == null) {
             return createNode(token);
         } else {
@@ -45,12 +45,12 @@ public class DotFactory {
         }
     }
 
-    public Node createNode(Token token) {
-        return new Node(token.getText());
+    public Node<DotType> createNode(Token token) {
+        return new Node<DotType>(DotType.NODE, token.getText());
     }
 
-    public Node createRootNode() {
-        return new Node();
+    public Node<DotType> createRootNode() {
+        return new Node<DotType>(DotType.GRAPH);
     }
 
 }
