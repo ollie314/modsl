@@ -1,105 +1,136 @@
+/**
+ * Copyright 2008 Andrew Vishnyakov <avishn@gmail.com>
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ */
+
 package org.modsl.core.agt;
 
 import org.apache.log4j.Logger;
 
 /**
- * Abstract graph tree element
- * 
+ * Abstract graph element
  * @author avishnyakov
- *
  */
 public abstract class AbstractGraphElement<T extends AGTType> {
 
-    protected Logger log = Logger.getLogger(getClass());
+	protected Logger log = Logger.getLogger(getClass());
 
-    /**
-     * Name of this object
-     */
-    protected String name;
+	/**
+	 * Name of this object
+	 */
+	protected String name;
 
-    /**
-     * Parent node
-     */
-    protected Node<T> parent;
+	/**
+	 * Parent node
+	 */
+	protected Node<T> parent;
 
-    /**
-     * This element is visible
-     */
-    protected boolean visible = true;
+	/**
+	 * This element is visible
+	 */
+	protected boolean visible = true;
 
-    /**
-     * Type
-     */
-    protected T type;
+	/**
+	 * Type
+	 */
+	protected T type;
 
-    public AbstractGraphElement(T type) {
-        super();
-        this.type = type;
-    }
+	/**
+	 * Create new
+	 * @param type
+	 */
+	public AbstractGraphElement(T type) {
+		super();
+		this.type = type;
+	}
 
-    public AbstractGraphElement(T type, String name) {
-        super();
-        this.type = type;
-        this.name = name;
-    }
+	/**
+	 * Create new
+	 * @param type
+	 * @param name
+	 */
+	public AbstractGraphElement(T type, String name) {
+		super();
+		this.type = type;
+		this.name = name;
+	}
 
-    /**
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * @return parent
-     */
-    public Node<T> getParent() {
-        return parent;
-    }
+	/**
+	 * @return parent
+	 */
+	public Node<T> getParent() {
+		return parent;
+	}
 
-    public T getType() {
-        return type;
-    }
+	/**
+	 * @return meta type
+	 */
+	public T getType() {
+		return type;
+	}
 
-    /**
-     * @return true if visible
-     */
-    public boolean isVisible() {
-        return visible;
-    }
+	/**
+	 * @return true if visible
+	 */
+	public boolean isVisible() {
+		return visible;
+	}
 
-    /**
-     * Guaranteed to be called on all elements of the graph, traversing depth first, nodes before edges
-     * when elements of the graph already created. Allows post-processing to resolve forward references etc.
-     */
-    public abstract void postCreate();
+	/**
+	 * Guaranteed to be called on all elements of the graph, traversing depth
+	 * first, nodes before edges when elements of the graph already created.
+	 * Allows post-processing to resolve forward references etc.
+	 */
+	public abstract void postCreate();
 
-    /**
-     * Set name
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * Set name
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * Set parent
-     * @param parent
-     */
-    public void setParent(Node<T> parent) {
-        this.parent = parent;
-    }
+	/**
+	 * Set parent
+	 * @param parent
+	 */
+	public void setParent(Node<T> parent) {
+		this.parent = parent;
+	}
 
-    public void setType(T type) {
-        this.type = type;
-    }
+	/**
+	 * Set meta type
+	 * @param type
+	 */
+	public void setType(T type) {
+		this.type = type;
+	}
 
-    /**
-     * Set visible flag
-     * @param visible
-     */
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
+	/**
+	 * Set visible flag
+	 * @param visible
+	 */
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 
 }
