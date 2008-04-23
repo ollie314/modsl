@@ -8,8 +8,8 @@ import org.apache.log4j.Logger;
  * @author avishnyakov
  *
  */
-public abstract class AbstractGraphElement {
-    
+public abstract class AbstractGraphElement<T extends AGTType> {
+
     protected Logger log = Logger.getLogger(getClass());
 
     /**
@@ -20,19 +20,26 @@ public abstract class AbstractGraphElement {
     /**
      * Parent node
      */
-    protected Node parent;
+    protected Node<T> parent;
 
     /**
      * This element is visible
      */
     protected boolean visible = true;
-    
-    public AbstractGraphElement() {
-        super();
-    } 
 
-    public AbstractGraphElement(String name) {
+    /**
+     * Type
+     */
+    protected T type;
+
+    public AbstractGraphElement(T type) {
         super();
+        this.type = type;
+    }
+
+    public AbstractGraphElement(T type, String name) {
+        super();
+        this.type = type;
         this.name = name;
     }
 
@@ -46,8 +53,12 @@ public abstract class AbstractGraphElement {
     /**
      * @return parent
      */
-    public Node getParent() {
+    public Node<T> getParent() {
         return parent;
+    }
+
+    public T getType() {
+        return type;
     }
 
     /**
@@ -75,8 +86,12 @@ public abstract class AbstractGraphElement {
      * Set parent
      * @param parent
      */
-    public void setParent(Node parent) {
+    public void setParent(Node<T> parent) {
         this.parent = parent;
+    }
+
+    public void setType(T type) {
+        this.type = type;
     }
 
     /**

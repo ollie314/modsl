@@ -1,0 +1,6 @@
+interface atg_interface;
+
+edge();
+
+node();
+

@@ -16,8 +16,8 @@ options {
 }
 
 @parser::members {
-	public Node root, cnode;
-	protected Deque<Node> nodes = new LinkedList<Node>();
+	public Node<DotType> root, cnode;
+	protected Deque<Node<DotType>> nodes = new LinkedList<Node<DotType>>();
 	protected DotFactory factory = new DotFactory();
 }
 

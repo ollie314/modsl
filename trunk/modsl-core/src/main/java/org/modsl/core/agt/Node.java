@@ -26,63 +26,64 @@ import java.util.Map;
  * 
  * @author avishnyakov
  */
-public class Node extends AbstractGraphElement {
+public class Node<T extends AGTType> extends AbstractGraphElement<T> {
 
     /**
      * List of children nodes
      */
-    protected List<Node> nodes = new LinkedList<Node>();
+    protected List<Node<T>> nodes = new LinkedList<Node<T>>();
 
     /**
      * Map of children nodes {name->node}
      */
-    protected Map<String, Node> nodeMap = new HashMap<String, Node>();
+    protected Map<String, Node<T>> nodeMap = new HashMap<String, Node<T>>();
 
     /**
      * List of children edges
      */
-    protected List<Edge> edges = new LinkedList<Edge>();
+    protected List<Edge<T>> edges = new LinkedList<Edge<T>>();
 
     /**
      * Map of children edges {name->edge}
      */
-    protected Map<String, Edge> edgeMap = new HashMap<String, Edge>();
+    protected Map<String, Edge<T>> edgeMap = new HashMap<String, Edge<T>>();
 
-    public Node() {
-        super();
+    public Node(T type, String name) {
+        super(type, name);
     }
 
-    public Node(String name) {
-        super(name);
+    public Node(T type) {
+        super(type);
     }
 
     /**
      * Add child node
      * @param child
      */
-    public void add(Node child) {
+    public void add(Node<T> child) {
         child.parent = this;
         nodes.add(child);
         nodeMap.put(child.getName(), child);
     }
 
-    public Node getNode(String key) {
+    public Node<T> getNode(String key) {
         return nodeMap.get(key);
     }
 
     /**
      * @return children node list
      */
-    public List<Node> getNodes() {
+    public List<Node<T>> getNodes() {
         return nodes;
     }
 
     public String toString() {
         StringBuffer sb = new StringBuffer(name);
+        sb.append(":").append(type);
         if (nodes.size() > 0) {
             sb.append(" {");
             boolean first = true;
-            for (Node n : nodes) {
+            for (Node<T> n : nodes) {
                 if (first) {
                     first = false;
                 } else {
@@ -95,7 +96,7 @@ public class Node extends AbstractGraphElement {
         if (edges.size() > 0) {
             sb.append(" [");
             boolean first = true;
-            for (Edge e : edges) {
+            for (Edge<T> e : edges) {
                 if (first) {
                     first = false;
                 } else {
@@ -112,29 +113,29 @@ public class Node extends AbstractGraphElement {
      * Add child edge
      * @param child
      */
-    public void add(Edge child) {
+    public void add(Edge<T> child) {
         child.parent = this;
         edges.add(child);
         edgeMap.put(child.getName(), child);
     }
 
-    public Edge getEdge(String key) {
+    public Edge<T> getEdge(String key) {
         return edgeMap.get(key);
     }
 
     /**
      * @return children edge list
      */
-    public List<Edge> getEdges() {
+    public List<Edge<T>> getEdges() {
         return edges;
     }
 
     @Override
     public void postCreate() {
-        for (Node n : nodes) {
+        for (Node<T> n : nodes) {
             n.postCreate();
         }
-        for (Edge e : edges) {
+        for (Edge<T> e : edges) {
             e.postCreate();
         }
     }
