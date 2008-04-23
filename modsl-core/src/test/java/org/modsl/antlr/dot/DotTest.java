@@ -28,47 +28,10 @@ public class DotTest extends AbstractDotTest {
 	protected final Logger log = Logger.getLogger(getClass());
 
 	@Test
-	public void node() throws RecognitionException {
-		CommonTree t = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }").tree;
-		assertEquals("g", t.token.getText());
-		assertEquals("stmt1", t.getChild(0).getChild(0).getText());
-		assertEquals("\"stmt2\"", t.getChild(1).getChild(0).getText());
-		assertEquals("12345", t.getChild(2).getChild(0).getText());
-	}
-
-	@Test
-	public void attributeList() throws RecognitionException {
-		CommonTree t = parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }").tree;
-		// log.debug(t.toStringTree());
-		CommonTree n1 = (CommonTree) t.getChild(0);
-		assertEquals("n1", n1.getChild(0).getText());
-		assertEquals("ATTRIBUTE", n1.getChild(1).getText());
-		assertEquals("a", n1.getChild(1).getChild(0).getText());
-		assertEquals("1", n1.getChild(1).getChild(1).getText());
-		assertEquals("ATTRIBUTE", n1.getChild(2).getText());
-		assertEquals("label", n1.getChild(2).getChild(0).getText());
-		assertEquals("\"hello\"", n1.getChild(2).getChild(1).getText());
-	}
-
-	@Test
-	public void edge() throws RecognitionException {
-		CommonTree t = parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7[a=5]; }").tree;
-		// log.debug(t.toStringTree());
-        assertEquals("NODE", t.getChild(0).getText());
-        assertEquals("n0", t.getChild(0).getChild(0).getText());
-        assertEquals("EDGE", t.getChild(1).getText());
-        assertEquals("n1", t.getChild(1).getChild(0).getText());
-        assertEquals("n2", t.getChild(1).getChild(1).getText());
-        assertEquals("EDGE", t.getChild(2).getText());
-        assertEquals("n3", t.getChild(2).getChild(0).getText());
-        assertEquals("n4", t.getChild(2).getChild(1).getText());
-        assertEquals("n5", t.getChild(2).getChild(2).getText());
-        assertEquals("EDGE", t.getChild(3).getText());
-        assertEquals("n6", t.getChild(3).getChild(0).getText());
-        assertEquals("n7", t.getChild(3).getChild(1).getText());
-        assertEquals("ATTRIBUTE", t.getChild(3).getChild(2).getText());
-        assertEquals("a", t.getChild(3).getChild(2).getChild(0).getText());
-        assertEquals("5", t.getChild(3).getChild(2).getChild(1).getText());
+	public void basic() throws RecognitionException {
+		parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+		parse("graph g { n1 [a=1,label=\"hello\"]; stmt2; }");
+		parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7[a=5]; }");
 	}
 
 }
