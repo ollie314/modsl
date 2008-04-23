@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.agt;
+package org.modsl.core.agt;
 
 /**
  * Graph edge
@@ -24,24 +24,42 @@ package org.modsl.agt;
  */
 public class Edge extends AbstractGraphElement {
 
-    protected AbstractGraphElement node1;
-    protected AbstractGraphElement node2;
+    protected Node node1;
+    protected Node node2;
+
     protected String node1Name;
     protected String node2Name;
+
+    public Edge(Node node1, Node node2) {
+        this.node1 = node1;
+        this.node2 = node2;
+    }
 
     public Edge(String node1Name, String node2Name) {
         this.node1Name = node1Name;
         this.node2Name = node2Name;
     }
 
+    @Override
+    public void postCreate() {
+        node1 = resolveNode(node1, node1Name);
+        node2 = resolveNode(node2, node2Name);
+    }
+
+    private Node resolveNode(Node node, String nodeName) {
+        if (node == null) {
+            Node n = parent.getNode(nodeName);
+            if (n == null) {
+                throw new InvalidNodeNameException(nodeName);
+            }
+            return n;
+        }
+        return node;
+    }
+
     public String toString() {
         return name + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
-    }
-
-    @Override
-    public void postCreate() {
-        log.debug("Postcreate " + getName());
     }
 
 }

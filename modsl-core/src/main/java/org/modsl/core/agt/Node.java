@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.agt;
+package org.modsl.core.agt;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -104,7 +104,7 @@ public class Node extends AbstractGraphElement {
                 sb.append(e.toString());
             }
             sb.append("]");
-        }        
+        }
         return sb.toString();
     }
 
@@ -131,10 +131,12 @@ public class Node extends AbstractGraphElement {
 
     @Override
     public void postCreate() {
-        for (Node n: nodes) {
+        for (Node n : nodes) {
             n.postCreate();
         }
-        log.debug("Postcreate " + getName());
+        for (Edge e : edges) {
+            e.postCreate();
+        }
     }
 
 }

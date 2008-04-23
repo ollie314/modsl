@@ -21,13 +21,13 @@ import static org.junit.Assert.assertEquals;
 import org.antlr.runtime.RecognitionException;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.modsl.agt.Node;
+import org.modsl.core.agt.Node;
 
 public class DotTest extends AbstractDotTest {
 
     protected final Logger log = Logger.getLogger(getClass());
 
-    //@Test
+    @Test
     public void root() throws RecognitionException {
         Node root = parse("graph g {}");
         assertEquals("g", root.getName());
@@ -47,7 +47,7 @@ public class DotTest extends AbstractDotTest {
         assertEquals("12345", root.getNode("12345").getName());
     }
 
-    //@Test
+    @Test
     public void edges() throws RecognitionException {
         Node root = parse("graph g { n0; n1->n2; n3->n4->n5; n6->n7; }");
         assertEquals(4, root.getEdges().size());

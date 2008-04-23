@@ -10,7 +10,7 @@ options {
 
 @parser::header {
 	package org.modsl.antlr.dot;
-	import org.modsl.agt.*;
+	import org.modsl.core.agt.*;
 	import java.util.Deque;
 	import java.util.LinkedList;
 }
