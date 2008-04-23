@@ -129,4 +129,12 @@ public class Node extends AbstractGraphElement {
         return edges;
     }
 
+    @Override
+    public void postCreate() {
+        for (Node n: nodes) {
+            n.postCreate();
+        }
+        log.debug("Postcreate " + getName());
+    }
+
 }

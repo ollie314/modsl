@@ -39,4 +39,9 @@ public class Edge extends AbstractGraphElement {
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
     }
 
+    @Override
+    public void postCreate() {
+        log.debug("Postcreate " + getName());
+    }
+
 }

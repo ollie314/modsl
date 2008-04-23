@@ -22,6 +22,7 @@ options {
 
 dotGraph 
 	@init{ root = AGTFactory.createRootNode(); cnode = root; }
+	@after { root.postCreate(); }
 	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';

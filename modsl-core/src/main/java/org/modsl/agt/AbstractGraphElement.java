@@ -1,12 +1,16 @@
 package org.modsl.agt;
 
+import org.apache.log4j.Logger;
+
 /**
  * Abstract graph tree element
  * 
  * @author avishnyakov
  *
  */
-public class AbstractGraphElement {
+public abstract class AbstractGraphElement {
+    
+    protected Logger log = Logger.getLogger(getClass());
 
     /**
      * Name of this object
@@ -22,10 +26,10 @@ public class AbstractGraphElement {
      * This element is visible
      */
     protected boolean visible = true;
-
+    
     public AbstractGraphElement() {
         super();
-    }
+    } 
 
     public AbstractGraphElement(String name) {
         super();
@@ -52,6 +56,12 @@ public class AbstractGraphElement {
     public boolean isVisible() {
         return visible;
     }
+
+    /**
+     * Guaranteed to be called on all elements of the graph, traversing depth first, nodes before edges
+     * when elements of the graph already created. Allows post-processing to resolve forward references etc.
+     */
+    public abstract void postCreate();
 
     /**
      * Set name
