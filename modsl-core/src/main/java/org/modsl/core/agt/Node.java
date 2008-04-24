@@ -28,134 +28,136 @@ import java.util.Map;
  */
 public class Node<T extends AGTType> extends AbstractGraphElement<T> {
 
-	/**
-	 * List of children nodes
-	 */
-	protected List<Node<T>> nodes = new LinkedList<Node<T>>();
+    /**
+     * List of children nodes
+     */
+    protected List<Node<T>> nodes = new LinkedList<Node<T>>();
 
-	/**
-	 * Map of children nodes {name->node}
-	 */
-	protected Map<String, Node<T>> nodeMap = new HashMap<String, Node<T>>();
+    /**
+     * Map of children nodes {name->node}
+     */
+    protected Map<String, Node<T>> nodeMap = new HashMap<String, Node<T>>();
 
-	/**
-	 * List of children edges
-	 */
-	protected List<Edge<T>> edges = new LinkedList<Edge<T>>();
+    /**
+     * List of children edges
+     */
+    protected List<Edge<T>> edges = new LinkedList<Edge<T>>();
 
-	/**
-	 * Map of children edges {name->edge}
-	 */
-	protected Map<String, Edge<T>> edgeMap = new HashMap<String, Edge<T>>();
+    /**
+     * Map of children edges {name->edge}
+     */
+    protected Map<String, Edge<T>> edgeMap = new HashMap<String, Edge<T>>();
 
-	/**
-	 * Create new
-	 * @param type type
-	 */
-	public Node(T type) {
-		super(type);
-	}
+    /**
+     * Create new
+     * @param type type
+     */
+    public Node(T type) {
+        super(type);
+    }
 
-	/**
-	 * Create new
-	 * @param type type
-	 * @param name name
-	 */
-	public Node(T type, String name) {
-		super(type, name);
-	}
+    /**
+     * Create new
+     * @param type type
+     * @param name name
+     */
+    public Node(T type, String name) {
+        super(type, name);
+    }
 
-	/**
-	 * Add child edge
-	 * @param child
-	 */
-	public void add(Edge<T> child) {
-		child.parent = this;
-		edges.add(child);
-		edgeMap.put(child.getName(), child);
-	}
+    /**
+     * Add child edge
+     * @param child
+     */
+    public void add(Edge<T> child) {
+        child.parent = this;
+        edges.add(child);
+        edgeMap.put(child.getName(), child);
+    }
 
-	/**
-	 * Add child node
-	 * @param child
-	 */
-	public void add(Node<T> child) {
-		child.parent = this;
-		nodes.add(child);
-		nodeMap.put(child.getName(), child);
-	}
+    /**
+     * Add child node
+     * @param child
+     */
+    public void add(Node<T> child) {
+        child.parent = this;
+        nodes.add(child);
+        nodeMap.put(child.getName(), child);
+    }
 
-	/**
-	 * @param key
-	 * @return edge by it's name
-	 */
-	public Edge<T> getEdge(String key) {
-		return edgeMap.get(key);
-	}
+    /**
+     * @param key
+     * @return edge by it's name
+     */
+    public Edge<T> getEdge(String key) {
+        return edgeMap.get(key);
+    }
 
-	/**
-	 * @return children edge list
-	 */
-	public List<Edge<T>> getEdges() {
-		return edges;
-	}
+    /**
+     * @return children edge list
+     */
+    public List<Edge<T>> getEdges() {
+        return edges;
+    }
 
-	/**
-	 * @param key
-	 * @return node by it's name
-	 */
-	public Node<T> getNode(String key) {
-		return nodeMap.get(key);
-	}
+    /**
+     * @param key
+     * @return node by it's name
+     */
+    public Node<T> getNode(String key) {
+        return nodeMap.get(key);
+    }
 
-	/**
-	 * @return children node list
-	 */
-	public List<Node<T>> getNodes() {
-		return nodes;
-	}
+    /**
+     * @return children node list
+     */
+    public List<Node<T>> getNodes() {
+        return nodes;
+    }
 
-	@Override
-	public void postCreate() {
-		for (Node<T> n : nodes) {
-			n.postCreate();
-		}
-		for (Edge<T> e : edges) {
-			e.postCreate();
-		}
-	}
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer(name);
+        sb.append(":").append(type);
+        /*
+        if (nodes.size() > 0) {
+            sb.append(" {");
+            boolean first = true;
+            for (Node<T> n : nodes) {
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(" ");
+                }
+                sb.append(n.toString());
+            }
+            sb.append("}");
+        }
+        if (edges.size() > 0) {
+            sb.append(" [");
+            boolean first = true;
+            for (Edge<T> e : edges) {
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(" ");
+                }
+                sb.append(e.toString());
+            }
+            sb.append("]");
+        } */
+        return sb.toString();
+    }
 
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer(name);
-		sb.append(":").append(type);
-		if (nodes.size() > 0) {
-			sb.append(" {");
-			boolean first = true;
-			for (Node<T> n : nodes) {
-				if (first) {
-					first = false;
-				} else {
-					sb.append(" ");
-				}
-				sb.append(n.toString());
-			}
-			sb.append("}");
-		}
-		if (edges.size() > 0) {
-			sb.append(" [");
-			boolean first = true;
-			for (Edge<T> e : edges) {
-				if (first) {
-					first = false;
-				} else {
-					sb.append(" ");
-				}
-				sb.append(e.toString());
-			}
-			sb.append("]");
-		}
-		return sb.toString();
-	}
+    @Override
+    public void accept(AGTVisitor<T> visitor) {
+        visitor.visit(this);
+        for (Edge<T> e : edges) {
+            e.accept(visitor);
+        }
+        for (Node<T> n : nodes) {
+            n.accept(visitor);
+        }
+    }
 
 }

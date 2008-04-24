@@ -70,8 +70,10 @@ public class DotFactory {
 	 * @param token node token
 	 * @return new node
 	 */
-	public Node<DotType> createNode(Token token) {
-		return new Node<DotType>(DotType.NODE, token.getText());
+	public Node<DotType> createNode(Node<DotType> parent, Token token) {
+		Node<DotType> n = new Node<DotType>(DotType.NODE, token.getText());
+		parent.add(n);
+		return n;
 	}
 
 	/**
@@ -84,7 +86,7 @@ public class DotFactory {
 	private Node<DotType> createNodeIfDoesntExist(Node<DotType> parent, Token token) {
 		Node<DotType> n = parent.getNode(token.getText());
 		if (n == null) {
-			return createNode(token);
+			return createNode(parent, token);
 		} else {
 			return n;
 		}

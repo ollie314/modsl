@@ -24,7 +24,7 @@ options {
 
 dotGraph 
 	@init{ root = factory.createRootNode(); cnode = root; }
-	@after { root.postCreate(); }
+	@after { root.accept(new NodeRefVisitor<DotType>()); }
 	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';
@@ -32,7 +32,7 @@ statement: (nodeStatement | edgeStatement) ';';
 nodeStatement
 	@init {	nodes.addFirst(cnode); }
 	@after { cnode = nodes.removeFirst(); }
-	: ID attributeList? { Node n = factory.createNode($ID); cnode.add(n); cnode = n; };
+	: ID attributeList? { Node n = factory.createNode(cnode, $ID); cnode = n; };
 
 edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* attributeList? { factory.createEdges(cnode, $ids); };
 
