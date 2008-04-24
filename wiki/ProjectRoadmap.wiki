@@ -10,6 +10,9 @@
    * diff for online users
    * ability to process DOT language?
    * ability to lay out basic shape diagrams
+   * text annotation
+   * wiki crosslinks
+   * dot language
 
 === Layout ===
    * learning (positioning), clustering
