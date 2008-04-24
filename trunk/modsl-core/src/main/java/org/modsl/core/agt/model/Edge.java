@@ -14,7 +14,9 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt;
+package org.modsl.core.agt.model;
+
+import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
  * Graph edge
@@ -62,8 +64,9 @@ public class Edge<T extends AGTType> extends AbstractGraphElement<T> {
     }
 
     @Override
-    public void accept(AGTVisitor<T> visitor) {
-        visitor.visit(this);
+    public void accept(AbstractVisitor<T> visitor) {
+        visitor.in(this);
+        visitor.out(this);
     }
 
     public Node<T> getNode1() {

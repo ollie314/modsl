@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt;
+package org.modsl.core.agt.model;
 
 /**
  * Marker interface for all element meta types
