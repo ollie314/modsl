@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public class Tmpl {
 
-	protected static void subs(StringBuffer buffer, String original, Map<String, Object> substitutions) {
+	protected static void subs(StringBuilder buffer, String original, Map<String, Object> substitutions) {
 		Pattern p = Pattern.compile("\\$\\{(\\w+)\\}");
 		Matcher m = p.matcher(original);
 		int s = 0;
@@ -48,7 +48,7 @@ public class Tmpl {
 	 * @param original
 	 * @param substitutions
 	 */
-	public static void subs(StringBuffer buffer, String original, String[] substitutions) {
+	public static void subs(StringBuilder buffer, String original, String[] substitutions) {
 		subs(buffer, original, Utils.toMap(substitutions));
 	}
 

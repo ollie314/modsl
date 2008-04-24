@@ -57,7 +57,7 @@ public class QuickSvg {
 	 * @return SVG output of the graph as String
 	 */
 	public String toSvg() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		header(sb);
 		for (Vertex v : (Collection<Vertex>) g.getVertexes()) {
 			toSvg(sb, v.getPosHistory());
@@ -72,7 +72,7 @@ public class QuickSvg {
 		return sb.toString();
 	}
 
-	private void toSvg(StringBuffer sb, List<XY> posHistory) {
+	private void toSvg(StringBuilder sb, List<XY> posHistory) {
 		int step = 1;
 		sb.append("\t<path d=\"");
 		for (XY p : posHistory) {
@@ -88,24 +88,24 @@ public class QuickSvg {
 		sb.append("\" fill=\"none\" stroke=\"green\" stroke-width=\"1\"/>\n");
 	}
 
-	private void footer(StringBuffer sb) {
+	private void footer(StringBuilder sb) {
 		sb.append("</svg>");
 	}
 
-	private void header(StringBuffer sb) {
+	private void header(StringBuilder sb) {
 		sb.append("<?xml version=\"1.0\"?>\n");
 		sb.append("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n\n");
 		Tmpl.subs(sb, "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${w}\" height=\"${h}\">\n", new String[] { "w",
 				Tmpl.d2is(g.getSize().x + 21d), "h", Tmpl.d2is(g.getSize().y + 21d) });
 	}
 
-	private void toSvg(StringBuffer sb, Vertex v) {
+	private void toSvg(StringBuilder sb, Vertex v) {
 		Tmpl.subs(sb, "\t<rect x=\"${x}\" y=\"${y}\" width=\"${w}\" height=\"${h}\" rx=\"5\" "
 				+ "style=\"fill:#ccccff; stroke:#000000; stroke-width:1px;\"/>\n", new String[] { "x", Tmpl.d2is(v.getPosition().x),
 				"y", Tmpl.d2is(v.getPosition().y), "w", Tmpl.d2is(v.getSize().x), "h", Tmpl.d2is(v.getSize().y) });
 	}
 
-	private void toSvg(StringBuffer sb, Edge e) {
+	private void toSvg(StringBuilder sb, Edge e) {
 		Tmpl.subs(sb, "\t<line x1=\"${x1}\" y1=\"${y1}\" x2=\"${x2}\" y2=\"${y2}\" "
 				+ "style=\"stroke:#555555; stroke-width:1px;\"/>\n", new String[] { "x1",
 				Tmpl.d2is(e.getStartVertex().getCenterPosition().x), "y1", Tmpl.d2is(e.getStartVertex().getCenterPosition().y), "x2",

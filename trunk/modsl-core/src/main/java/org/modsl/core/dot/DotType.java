@@ -19,7 +19,7 @@ package org.modsl.core.dot;
 import org.modsl.core.agt.model.AGTType;
 
 /**
- * Different dot model element meta-types
+ * Dot model element meta-types
  * @author AVishnyakov
  */
 public enum DotType implements AGTType {
