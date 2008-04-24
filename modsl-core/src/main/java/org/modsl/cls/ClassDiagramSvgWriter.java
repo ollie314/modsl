@@ -37,10 +37,10 @@ public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagram, Class
     }
 
     public void render(ClassDiagram diagram) {
-        diagram.setOutput(renderDiagram(new StringBuffer(), diagram).toString());
+        diagram.setOutput(renderDiagram(new StringBuilder(), diagram).toString());
     }
 
-    private StringBuffer renderDiagram(StringBuffer sb, ClassDiagram d) {
+    private StringBuilder renderDiagram(StringBuilder sb, ClassDiagram d) {
 
         invokeTemplate(sb, d, "diagram", "diagram_start");
         invokeTemplate(sb, d, "diagram", "diagram_stylesheet");
@@ -62,7 +62,7 @@ public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagram, Class
 
     }
 
-    private void renderHistory(StringBuffer sb, List<ClassElement> elements) {
+    private void renderHistory(StringBuilder sb, List<ClassElement> elements) {
         if (props.renderHistory) {
             for (ClassElement e : elements) {
                 invokeTemplate(sb, e, "element", "history");
@@ -70,20 +70,20 @@ public class ClassDiagramSvgWriter extends AbstractSvgWriter<ClassDiagram, Class
         }
     }
 
-    private void renderConnectors(StringBuffer sb, Collection<ClassConnector> connectors) {
+    private void renderConnectors(StringBuilder sb, Collection<ClassConnector> connectors) {
         for (ClassConnector c : connectors) {
             invokeTemplate(sb, c, "connector", "connector");
         }
     }
 
-    private void renderElements(StringBuffer sb, Collection<ClassElement> elements) {
+    private void renderElements(StringBuilder sb, Collection<ClassElement> elements) {
         for (ClassElement e : elements) {
             invokeTemplate(sb, e, "element", "element");
             renderElementDetails(sb, e.getDetails());
         }
     }
 
-    private void renderElementDetails(StringBuffer sb, List<ClassElementDetail> details) {
+    private void renderElementDetails(StringBuilder sb, List<ClassElementDetail> details) {
         for (ClassElementDetail ed : details) {
             invokeTemplate(sb, ed, "element_detail", "element_detail");
         }

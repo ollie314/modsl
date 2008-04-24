@@ -37,10 +37,10 @@ public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, Col
 	}
 
 	public void render(CollabDiagram diagram) {
-		diagram.setOutput(renderDiagram(new StringBuffer(), diagram).toString());
+		diagram.setOutput(renderDiagram(new StringBuilder(), diagram).toString());
 	}
 
-	private StringBuffer renderDiagram(StringBuffer sb, CollabDiagram d) {
+	private StringBuilder renderDiagram(StringBuilder sb, CollabDiagram d) {
 
 		invokeTemplate(sb, d, "diagram", "diagram_start");
 		invokeTemplate(sb, d, "diagram", "diagram_stylesheet");
@@ -62,7 +62,7 @@ public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, Col
 
 	}
 
-	private void renderHistory(StringBuffer sb, List<CollabElement> elements) {
+	private void renderHistory(StringBuilder sb, List<CollabElement> elements) {
 		if (props.renderHistory) {
 			for (CollabElement e : elements) {
 				invokeTemplate(sb, e, "element", "history");
@@ -70,13 +70,13 @@ public class CollabDiagramSvgWriter extends AbstractSvgWriter<CollabDiagram, Col
 		}
 	}
 
-	private void renderConnectors(StringBuffer sb, Collection<CollabConnector> connectors) {
+	private void renderConnectors(StringBuilder sb, Collection<CollabConnector> connectors) {
 		for (CollabConnector c : connectors) {
 			invokeTemplate(sb, c, "connector", "connector");
 		}
 	}
 
-	private void renderElements(StringBuffer sb, Collection<CollabElement> elements) {
+	private void renderElements(StringBuilder sb, Collection<CollabElement> elements) {
 		for (CollabElement e : elements) {
 			invokeTemplate(sb, e, "element", "element");
 		}

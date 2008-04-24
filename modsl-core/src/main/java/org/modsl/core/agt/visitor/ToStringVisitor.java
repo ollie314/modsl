@@ -22,26 +22,31 @@ import org.modsl.core.agt.model.Node;
 
 public class ToStringVisitor<T extends AGTType> extends AbstractVisitor<T> {
 
-    protected StringBuffer sb = new StringBuffer();
+    protected final static String IND_STRING = "  ";
+
+    protected StringBuilder sb = new StringBuilder();
+    protected String indentation = "";
 
     @Override
     public void in(Node<T> node) {
-        sb.append(node.toString()).append(" ");
+        sb.append("\n").append(indentation).append(node.toString());
         if (node.getNodes().size() > 0) {
-            sb.append("{");
+            sb.append(" {");
         }
+        indentation += IND_STRING;
     }
 
     @Override
     public void out(Node<T> node) {
+        indentation = indentation.substring(0, indentation.length() - IND_STRING.length());
         if (node.getNodes().size() > 0) {
-            sb.append("}");
+            sb.append("\n").append(indentation).append("}");
         }
     }
 
     @Override
     public void in(Edge<T> edge) {
-        sb.append(edge.toString()).append(" ");
+        sb.append("\n").append(indentation).append(edge.toString());
     }
 
     @Override

@@ -50,7 +50,7 @@ public abstract class AbstractSvgWriter<D extends Diagram, TP extends AbstractTe
 	public abstract void render(D diagram);
 
 
-	protected void invokeTemplate(StringBuffer sb, AbstractDiagramObject<?> diagramObject, String diagramObjectName,
+	protected void invokeTemplate(StringBuilder sb, AbstractDiagramObject<?> diagramObject, String diagramObjectName,
 			String templateName) {
 		if (diagramObject.isVisible()) {
 			Map<String, Object> bindings = bind(diagramObjectName, diagramObject);

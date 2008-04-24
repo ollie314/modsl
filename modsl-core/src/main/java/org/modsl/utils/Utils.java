@@ -18,6 +18,8 @@ package org.modsl.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Miscellaneous utils.
@@ -25,28 +27,43 @@ import java.util.Map;
  */
 public class Utils {
 
-	/**
-	 * Checks if a given object is an instance of the given class or is an instance of it's subclass
-	 * @param object
-	 * @param cls
-	 * @return true if an object can be cast to the given class
-	 */
-	public static boolean isA(Object object, Class<?> cls) {
-		return cls.isAssignableFrom(object.getClass());
-	}
+    /**
+     * Checks if a given object is an instance of the given class or is an instance of it's subclass
+     * @param object
+     * @param cls
+     * @return true if an object can be cast to the given class
+     */
+    public static boolean isA(Object object, Class<?> cls) {
+        return cls.isAssignableFrom(object.getClass());
+    }
 
-	/**
-	 * Converts array of values into a map. Even element being a key to the 
-	 * subsequent odd element. { "a", "b", "c", "d" } will be converted to ["a":"b", "c":"d"]
-	 * @param arr array to covert
-	 * @return map
-	 */
-	public static Map<String, Object> toMap(Object[] arr) {
-		Map<String, Object> res = new HashMap<String, Object>();
-		for (int i = 0; i < arr.length; i += 2) {
-			res.put((String) arr[i], arr[i + 1]);
-		}
-		return res;
-	}
+    /**
+     * Converts array of values into a map. Even element being a key to the 
+     * subsequent odd element. { "a", "b", "c", "d" } will be converted to ["a":"b", "c":"d"]
+     * @param arr array to covert
+     * @return map
+     */
+    public static Map<String, Object> toMap(Object[] arr) {
+        Map<String, Object> res = new HashMap<String, Object>();
+        for (int i = 0; i < arr.length; i += 2) {
+            res.put((String) arr[i], arr[i + 1]);
+        }
+        return res;
+    }
+
+    /**
+     * Find # of occurences of the given pattern in the given string
+     * @param string
+     * @param pattern
+     * @return number of occurences
+     */
+    public static int matchCount(String string, String pattern) {
+        Matcher m = Pattern.compile(pattern).matcher(string);
+        int count = 0;
+        while (m.find()) {
+            count++;
+        }
+        return count;
+    }
 
 }

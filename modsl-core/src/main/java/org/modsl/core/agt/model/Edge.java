@@ -57,6 +57,18 @@ public class Edge<T extends AGTType> extends AbstractGraphElement<T> {
         this.node2 = node2;
     }
 
+    /**
+     * Create new
+     * @param type type
+     * @param name name
+     * @param node1 start node
+     * @param node2 end node
+     */
+    public Edge(T type, String name, Node<T> node1, Node<T> node2) {
+        this(type, node1, node2);
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
