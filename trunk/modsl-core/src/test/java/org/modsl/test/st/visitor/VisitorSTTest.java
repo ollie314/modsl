@@ -44,7 +44,7 @@ public class VisitorSTTest {
         root.accept(stv);
         String result = stv.toString();
         
-        log.debug(result);
+        //log.debug(result);
         
         assertEquals(1, Utils.matchCount(result, "<graph"));
         assertEquals(1, Utils.matchCount(result, "graph_name"));
