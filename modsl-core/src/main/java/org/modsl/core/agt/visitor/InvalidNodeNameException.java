@@ -14,14 +14,32 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.dot;
+package org.modsl.core.agt.visitor;
 
-import org.modsl.core.agt.AGTType;
+import org.modsl.core.common.AbstractModslException;
 
 /**
- * Different dot model element meta-types
- * @author AVishnyakov
+ * Thrown when tree post-processing fails because of unresolved nodde references
+ * @author avishnyakov
  */
-public enum DotType implements AGTType {
-	GRAPH, NODE, EDGE;
+public class InvalidNodeNameException extends AbstractModslException {
+
+	private static final long serialVersionUID = 1L;
+
+	public InvalidNodeNameException() {
+		super();
+	}
+
+	public InvalidNodeNameException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public InvalidNodeNameException(String message) {
+		super(message);
+	}
+
+	public InvalidNodeNameException(Throwable cause) {
+		super(cause);
+	}
+
 }

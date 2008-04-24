@@ -14,14 +14,14 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.dot;
+package org.modsl.core.dot;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.antlr.runtime.Token;
-import org.modsl.core.agt.Edge;
-import org.modsl.core.agt.Node;
+import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Node;
 
 /**
  * Responsible for supporting the grammar when new abstract graph tree elements

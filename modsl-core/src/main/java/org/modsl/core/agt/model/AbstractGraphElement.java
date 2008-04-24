@@ -14,9 +14,10 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt;
+package org.modsl.core.agt.model;
 
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
  * Abstract graph element
@@ -98,7 +99,7 @@ public abstract class AbstractGraphElement<T extends AGTType> {
      * Guaranteed to be called on all elements of the graph, traversing depth
      * first, edges before nodes when elements of the graph already created.
      */
-    public abstract void accept(AGTVisitor<T> visitor);
+    public abstract void accept(AbstractVisitor<T> visitor);
 
     /**
      * Set name

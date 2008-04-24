@@ -14,12 +14,14 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt;
+package org.modsl.core.agt.model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
  * Graph node
@@ -117,47 +119,19 @@ public class Node<T extends AGTType> extends AbstractGraphElement<T> {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer(name);
-        sb.append(":").append(type);
-        /*
-        if (nodes.size() > 0) {
-            sb.append(" {");
-            boolean first = true;
-            for (Node<T> n : nodes) {
-                if (first) {
-                    first = false;
-                } else {
-                    sb.append(" ");
-                }
-                sb.append(n.toString());
-            }
-            sb.append("}");
-        }
-        if (edges.size() > 0) {
-            sb.append(" [");
-            boolean first = true;
-            for (Edge<T> e : edges) {
-                if (first) {
-                    first = false;
-                } else {
-                    sb.append(" ");
-                }
-                sb.append(e.toString());
-            }
-            sb.append("]");
-        } */
-        return sb.toString();
+        return name + ":" + type;
     }
 
     @Override
-    public void accept(AGTVisitor<T> visitor) {
-        visitor.visit(this);
+    public void accept(AbstractVisitor<T> visitor) {
+        visitor.in(this);
         for (Edge<T> e : edges) {
             e.accept(visitor);
         }
         for (Node<T> n : nodes) {
             n.accept(visitor);
         }
+        visitor.out(this);
     }
 
 }
