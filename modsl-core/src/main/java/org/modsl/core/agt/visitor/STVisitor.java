@@ -61,9 +61,7 @@ public class STVisitor<T extends AGTType> extends AbstractVisitor<T> {
      * @param suff _in or _out
      */
     private void callTemplate(Edge<T> edge, String suff) {
-        StringTemplate st = group.getInstanceOf(edge.getType() + suff);
-        st.setAttribute("edge", edge);
-        sb.append(st.toString());
+        sb.append(callTemplate(edge.getType() + suff, "edge", edge));
     }
 
     /**
@@ -72,9 +70,28 @@ public class STVisitor<T extends AGTType> extends AbstractVisitor<T> {
      * @param suff _in or _out
      */
     private void callTemplate(Node<T> node, String suff) {
-        StringTemplate st = group.getInstanceOf(node.getType() + suff);
-        st.setAttribute("node", node);
-        sb.append(st.toString());
+        sb.append(callTemplate(node.getType() + suff, "node", node));
+    }
+
+    /** 
+     * Call template, ignore "template not found" error
+     * @param name template name
+     * @param key attribute key
+     * @param value attribute value
+     * @return resulting string
+     */
+    private String callTemplate(String name, String key, Object value) {
+        try {
+            StringTemplate st = group.getInstanceOf(name);
+            if (st != null) {
+                st.setAttribute(key, value);
+                return st.toString();
+            } else {
+                return "";
+            }
+        } catch (IllegalArgumentException ex) {
+            return "";
+        }
     }
 
     @Override
