@@ -195,6 +195,9 @@ public class FontTransform {
         return getBaseline() + 2;
     }
 
+    /**
+     * @return arrow length for this font size
+     */
     public double getArrowLength() {
         return getHeight();
     }
