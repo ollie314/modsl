@@ -1,0 +1,13 @@
+group visitor_demo;
+
+GRAPH_in(node) ::= "<graph name=\"$node.name$\">"
+
+NODE_in(node) ::= "<node name=\"$node.name$\">"
+
+NODE_out(node) ::= "</node>"
+
+EDGE_in(edge) ::= "<edge name=\"$node.name$\">"
+
+EDGE_out(edge) ::= "</edge>"
+
+GRAPH_out(node) ::= "\</graph\>"
