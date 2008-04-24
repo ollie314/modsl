@@ -20,6 +20,13 @@ import org.modsl.core.agt.model.AGTType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
+/**
+ * Resolves node names to node reference on all edges
+ * 
+ * @author avishnyakov
+ *
+ * @param <T> meta type class
+ */
 public class NodeRefVisitor<T extends AGTType> extends AbstractVisitor<T> {
 
     @Override

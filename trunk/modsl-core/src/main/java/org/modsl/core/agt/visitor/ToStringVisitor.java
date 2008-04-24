@@ -20,11 +20,28 @@ import org.modsl.core.agt.model.AGTType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
+/**
+ * Pretty printer for abstract graph trees
+ * 
+ * @author avishnyakov
+ *
+ * @param <T> meta type class
+ */
 public class ToStringVisitor<T extends AGTType> extends AbstractVisitor<T> {
 
-    protected final static String IND_STRING = "  ";
+    /**
+     * Indentation unit
+     */
+    protected final static String IND_UNIT = "  ";
 
+    /**
+     * Collects output
+     */
     protected StringBuilder sb = new StringBuilder();
+    
+    /**
+     * Current indentation
+     */
     protected String indentation = "";
 
     @Override
@@ -33,12 +50,12 @@ public class ToStringVisitor<T extends AGTType> extends AbstractVisitor<T> {
         if (node.getNodes().size() > 0) {
             sb.append(" {");
         }
-        indentation += IND_STRING;
+        indentation += IND_UNIT;
     }
 
     @Override
     public void out(Node<T> node) {
-        indentation = indentation.substring(0, indentation.length() - IND_STRING.length());
+        indentation = indentation.substring(0, indentation.length() - IND_UNIT.length());
         if (node.getNodes().size() > 0) {
             sb.append("\n").append(indentation).append("}");
         }
@@ -54,6 +71,11 @@ public class ToStringVisitor<T extends AGTType> extends AbstractVisitor<T> {
         return sb.toString();
     }
 
+    /**
+     * Render given AGT as a string
+     * @param tree's root
+     * @return string
+     */
     public String toString(Node<T> root) {
         root.accept(this);
         return toString();

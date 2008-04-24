@@ -70,39 +70,59 @@ public class Edge<T extends AGTType> extends AbstractGraphElement<T> {
     }
 
     @Override
-    public String toString() {
-        return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
-                + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
-    }
-
-    @Override
     public void accept(AbstractVisitor<T> visitor) {
         visitor.in(this);
         visitor.out(this);
     }
 
+    /**
+     * @return start node
+     */
     public Node<T> getNode1() {
         return node1;
     }
 
-    public void setNode1(Node<T> node1) {
-        this.node1 = node1;
-    }
-
-    public Node<T> getNode2() {
-        return node2;
-    }
-
-    public void setNode2(Node<T> node2) {
-        this.node2 = node2;
-    }
-
+    /**
+     * @return start node name
+     */
     public String getNode1Name() {
         return node1Name;
     }
 
+    /**
+     * @return end node
+     */
+    public Node<T> getNode2() {
+        return node2;
+    }
+
+    /**
+     * @return end node name
+     */
     public String getNode2Name() {
         return node2Name;
+    }
+
+    /**
+     * Set start node
+     * @param node1 
+     */
+    public void setNode1(Node<T> node1) {
+        this.node1 = node1;
+    }
+
+    /**
+     * Set end node
+     * @param node2
+     */
+    public void setNode2(Node<T> node2) {
+        this.node2 = node2;
+    }
+
+    @Override
+    public String toString() {
+        return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
+                + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
     }
 
 }

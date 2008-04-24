@@ -26,6 +26,13 @@ import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 import org.modsl.st.STErrorListener;
 
+/**
+ * Renders abstract graph tree as a string using given string template 
+ * 
+ * @author avishnyakov
+ *
+ * @param <T>
+ */
 public class STVisitor<T extends AGTType> extends AbstractVisitor<T> {
 
     private static final String SUFF_IN = "_in";
@@ -36,18 +43,34 @@ public class STVisitor<T extends AGTType> extends AbstractVisitor<T> {
 
     protected StringBuilder sb = new StringBuilder();
 
+    /**
+     * Create new
+     * @param stgPath string template group path (multiple dirs separated by colon)
+     * @param stgName string template group name (specific to given graph type)
+     * @param refresh template refresh timeout, seconds
+     */
     public STVisitor(String stgPath, String stgName, int refresh) {
         StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(stgPath, new STErrorListener()));
         group = StringTemplateGroup.loadGroup(stgName, DefaultTemplateLexer.class, null);
         group.setRefreshInterval(refresh);
     }
 
+    /**
+     * Call template "edgeType"_suff (edgeType_in or edgeType_out) on the given edge
+     * @param edge
+     * @param suff _in or _out
+     */
     private void callTemplate(Edge<T> edge, String suff) {
         StringTemplate st = group.getInstanceOf(edge.getType() + suff);
         st.setAttribute("edge", edge);
         sb.append(st.toString());
     }
 
+    /**
+     * Call template "nodeType"_suff (nodeType_in or nodeType_out) on the given node
+     * @param node
+     * @param suff _in or _out
+     */
     private void callTemplate(Node<T> node, String suff) {
         StringTemplate st = group.getInstanceOf(node.getType() + suff);
         st.setAttribute("node", node);
@@ -79,6 +102,11 @@ public class STVisitor<T extends AGTType> extends AbstractVisitor<T> {
         return sb.toString();
     }
 
+    /**
+     * Return given AGT as a string
+     * @param root
+     * @return string
+     */
     public String toString(Node<T> root) {
         root.accept(this);
         return toString();

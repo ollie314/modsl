@@ -20,20 +20,44 @@ import org.modsl.core.agt.model.AGTType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
+/**
+ * Visitor interface to traverse the abstarct graph tree. For each type of node implements 
+ * in() and out() events. 
+ * 
+ * @author avishnyakov
+ *
+ * @param <T> element meta type class
+ */
 public abstract class AbstractVisitor<T extends AGTType> {
 
+    /**
+     * Enter edge
+     * @param edge
+     */
     public void in(Edge<T> edge) {
         // NO OP
     }
 
+    /**
+     * Enter node
+     * @param node
+     */
     public void in(Node<T> node) {
         // NO OP
     }
-    
+
+    /**
+     * Exit edge. Not likely to be used for now since edges don't have child elements.
+     * @param edge
+     */
     public void out(Edge<T> edge) {
         // NO OP
     }
 
+    /**
+     * Exit node
+     * @param node
+     */
     public void out(Node<T> node) {
         // NO OP
     }
