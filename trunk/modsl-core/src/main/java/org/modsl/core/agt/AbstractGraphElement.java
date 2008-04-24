@@ -24,113 +24,112 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractGraphElement<T extends AGTType> {
 
-	protected Logger log = Logger.getLogger(getClass());
+    protected Logger log = Logger.getLogger(getClass());
 
-	/**
-	 * Name of this object
-	 */
-	protected String name;
+    /**
+     * Name of this object
+     */
+    protected String name;
 
-	/**
-	 * Parent node
-	 */
-	protected Node<T> parent;
+    /**
+     * Parent node
+     */
+    protected Node<T> parent;
 
-	/**
-	 * This element is visible
-	 */
-	protected boolean visible = true;
+    /**
+     * This element is visible
+     */
+    protected boolean visible = true;
 
-	/**
-	 * Type
-	 */
-	protected T type;
+    /**
+     * Type
+     */
+    protected T type;
 
-	/**
-	 * Create new
-	 * @param type
-	 */
-	public AbstractGraphElement(T type) {
-		super();
-		this.type = type;
-	}
+    /**
+     * Create new
+     * @param type
+     */
+    public AbstractGraphElement(T type) {
+        super();
+        this.type = type;
+    }
 
-	/**
-	 * Create new
-	 * @param type
-	 * @param name
-	 */
-	public AbstractGraphElement(T type, String name) {
-		super();
-		this.type = type;
-		this.name = name;
-	}
+    /**
+     * Create new
+     * @param type
+     * @param name
+     */
+    public AbstractGraphElement(T type, String name) {
+        super();
+        this.type = type;
+        this.name = name;
+    }
 
-	/**
-	 * @return name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @return parent
-	 */
-	public Node<T> getParent() {
-		return parent;
-	}
+    /**
+     * @return parent
+     */
+    public Node<T> getParent() {
+        return parent;
+    }
 
-	/**
-	 * @return meta type
-	 */
-	public T getType() {
-		return type;
-	}
+    /**
+     * @return meta type
+     */
+    public T getType() {
+        return type;
+    }
 
-	/**
-	 * @return true if visible
-	 */
-	public boolean isVisible() {
-		return visible;
-	}
+    /**
+     * @return true if visible
+     */
+    public boolean isVisible() {
+        return visible;
+    }
 
-	/**
-	 * Guaranteed to be called on all elements of the graph, traversing depth
-	 * first, nodes before edges when elements of the graph already created.
-	 * Allows post-processing to resolve forward references etc.
-	 */
-	public abstract void postCreate();
+    /**
+     * Guaranteed to be called on all elements of the graph, traversing depth
+     * first, edges before nodes when elements of the graph already created.
+     */
+    public abstract void accept(AGTVisitor<T> visitor);
 
-	/**
-	 * Set name
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Set name
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * Set parent
-	 * @param parent
-	 */
-	public void setParent(Node<T> parent) {
-		this.parent = parent;
-	}
+    /**
+     * Set parent
+     * @param parent
+     */
+    public void setParent(Node<T> parent) {
+        this.parent = parent;
+    }
 
-	/**
-	 * Set meta type
-	 * @param type
-	 */
-	public void setType(T type) {
-		this.type = type;
-	}
+    /**
+     * Set meta type
+     * @param type
+     */
+    public void setType(T type) {
+        this.type = type;
+    }
 
-	/**
-	 * Set visible flag
-	 * @param visible
-	 */
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
+    /**
+     * Set visible flag
+     * @param visible
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 
 }
