@@ -16,7 +16,7 @@ public class FontMetricsVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
     @Override
     public void in(Edge<T> edge) {
-        // callTemplate(edge, SUFF_IN);
+        // TODO
     }
 
     @Override
@@ -26,7 +26,7 @@ public class FontMetricsVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
     @Override
     public void out(Edge<T> edge) {
-        //  callTemplate(edge, SUFF_OUT);
+        // TODO
     }
 
     @Override

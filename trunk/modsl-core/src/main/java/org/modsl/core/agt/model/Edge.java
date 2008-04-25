@@ -19,7 +19,8 @@ package org.modsl.core.agt.model;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
- * Graph edge
+ * Graph edge. 
+ * 
  * @param T type enum
  * @author avishnyakov
  */
@@ -31,7 +32,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
     protected Node<T> node1;
 
     /**
-     * End nodde
+     * End node
      */
     protected Node<T> node2;
 
