@@ -28,7 +28,7 @@ public enum DotType implements MetaType {
 
     GRAPH, NODE, EDGE;
 
-    public FontTransform fontTransform;
+    protected FontTransform fontTransform;
 
     public FontTransform getFontTransform() {
         return fontTransform;
@@ -39,14 +39,9 @@ public enum DotType implements MetaType {
     }
 
     @Override
-    public Layout getLayout() {
+    public Layout[] getLayouts() {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    @Override
-    public void setLayout(Layout layout) {
-        // TODO Auto-generated method stub
     }
 
 }
