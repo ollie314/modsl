@@ -22,7 +22,7 @@ import static java.lang.Math.max;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modsl.core.config.FontTransform;
+import org.modsl.core.cfg.FontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.Element;
 

@@ -21,7 +21,7 @@ import static java.lang.Math.PI;
 import java.util.Arrays;
 import java.util.List;
 
-import org.modsl.core.config.FontTransform;
+import org.modsl.core.cfg.FontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.Connector;
 

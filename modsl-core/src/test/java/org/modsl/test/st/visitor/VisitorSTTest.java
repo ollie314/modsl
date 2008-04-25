@@ -21,10 +21,11 @@ import static org.junit.Assert.assertEquals;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.STVisitor;
+import org.modsl.core.cfg.FontTransform;
 import org.modsl.utils.Utils;
 
 public class VisitorSTTest {
@@ -43,9 +44,9 @@ public class VisitorSTTest {
         STVisitor<VType> stv = new STVisitor<VType>(STGDIRS, "visitor_demo", 0);
         root.accept(stv);
         String result = stv.toString();
-        
+
         //log.debug(result);
-        
+
         assertEquals(1, Utils.matchCount(result, "<graph"));
         assertEquals(1, Utils.matchCount(result, "graph_name"));
         assertEquals(1, Utils.matchCount(result, "</graph>"));
@@ -56,9 +57,8 @@ public class VisitorSTTest {
         assertEquals(2, Utils.matchCount(result, "n.?3"));
         assertEquals(7, Utils.matchCount(result, "</node>"));
         assertEquals(4, Utils.matchCount(result, "</edge>"));
-        
-    }
 
+    }
 
     private Node<VType> buildTree() {
 
@@ -94,6 +94,9 @@ public class VisitorSTTest {
 
     public enum VType implements MetaType {
         GRAPH, NODE, EDGE;
+        public FontTransform getFontTransform() {
+            return null;
+        }
     }
 
 }

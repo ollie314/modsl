@@ -16,10 +16,14 @@
 
 package org.modsl.core.agt.model;
 
+import org.modsl.core.cfg.FontTransform;
+
 /**
  * Marker interface for all element meta types
  * @author AVishnyakov
  */
 public interface MetaType {
+
+    public FontTransform getFontTransform();
 
 }

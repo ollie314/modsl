@@ -17,11 +17,24 @@
 package org.modsl.core.dot;
 
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.cfg.FontTransform;
 
 /**
  * Dot model element meta-types
  * @author AVishnyakov
  */
 public enum DotType implements MetaType {
+    
 	GRAPH, NODE, EDGE;
+	
+	public FontTransform fontTransform;
+
+    public FontTransform getFontTransform() {
+        return fontTransform;
+    }
+
+    public void setFontTransform(FontTransform fontTransform) {
+        this.fontTransform = fontTransform;
+    }
+	
 }

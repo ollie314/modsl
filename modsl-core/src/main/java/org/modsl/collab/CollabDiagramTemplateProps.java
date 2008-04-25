@@ -16,8 +16,8 @@
 
 package org.modsl.collab;
 
+import org.modsl.core.cfg.FontTransform;
 import org.modsl.core.config.AbstractTemplateProps;
-import org.modsl.core.config.FontTransform;
 
 /**
  * Collaboration diagram template configuration
