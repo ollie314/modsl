@@ -25,5 +25,7 @@ import org.modsl.core.cfg.FontTransform;
 public interface MetaType {
 
     public FontTransform getFontTransform();
+    
+    public void setFontTransform(FontTransform ft);
 
 }

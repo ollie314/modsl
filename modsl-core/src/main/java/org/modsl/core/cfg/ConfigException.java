@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.config;
+package org.modsl.core.cfg;
 
 import org.modsl.core.common.AbstractModslException;
 

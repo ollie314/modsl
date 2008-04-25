@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+package org.modsl.core.config;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
-import org.modsl.core.config.ConfigException;
+import org.modsl.core.cfg.ConfigException;
 
 /**
  * Base class for all property sets

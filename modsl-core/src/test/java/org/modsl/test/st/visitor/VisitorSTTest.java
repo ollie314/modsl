@@ -93,10 +93,19 @@ public class VisitorSTTest {
     }
 
     public enum VType implements MetaType {
+        
         GRAPH, NODE, EDGE;
+        
+        public FontTransform fontTransform;
+
         public FontTransform getFontTransform() {
-            return null;
+            return fontTransform;
         }
+
+        public void setFontTransform(FontTransform fontTransform) {
+            this.fontTransform = fontTransform;
+        }
+        
     }
 
 }

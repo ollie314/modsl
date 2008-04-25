@@ -26,14 +26,14 @@
 <%	if (connector.startMultiplicity != null) {
 		startMText = (int)(config.connectorFT.getStringWidth(connector.startMultiplicity)); %>	
 		<rect x="${(int)m1.x}" y="${(int)(m1.y - config.connectorFT.baseline)}" 
-			width="${(int)startMText}" height="${(int)config.connectorFT.fontSize}" class="connector_text_background"/>
+			width="${(int)startMText}" height="${(int)config.connectorFT.size}" class="connector_text_background"/>
 		<text x="${(int)m1.x}" y="${(int)m1.y}" class="connector_text" 
-			font-size="$config.connectorFT.fontSize">$connector.startMultiplicity</text>
+			font-size="$config.connectorFT.size">$connector.startMultiplicity</text>
 <%	} 
 	if (connector.endMultiplicity != null) {
 		endMText = (int)(config.connectorFT.getStringWidth(connector.endMultiplicity)); %>	
 		<rect x="${(int)m2.x}" y="${(int)(m2.y - config.connectorFT.baseline)}" 
-			width="${(int)endMText}" height="${(int)config.connectorFT.fontSize}" class="connector_text_background"/>
+			width="${(int)endMText}" height="${(int)config.connectorFT.size}" class="connector_text_background"/>
 		<text x="${(int)m2.x}" y="${(int)m2.y}" class="connector_text" 
-			font-size="$config.connectorFT.fontSize">$connector.endMultiplicity</text>
+			font-size="$config.connectorFT.size">$connector.endMultiplicity</text>
 <%	} %>
