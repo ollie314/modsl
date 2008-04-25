@@ -30,17 +30,22 @@ import org.apache.log4j.Logger;
  * Base class for all property loaders
  * @author avishnyakov
  */
-public abstract class AbstractPropLoader {
+public class PropLoader {
 
     protected final Logger log = Logger.getLogger(getClass());
     protected Map<String, String> props = new HashMap<String, String>();
 
     protected String path, name;
 
-    public AbstractPropLoader(String path, String name) {
+    /**
+     * Create new
+     * @param path
+     * @param name
+     */
+    public PropLoader(String path, String name, boolean optional) {
         this.path = path;
         this.name = name;
-        load(path, name);
+        load(path, name, optional);
     }
 
     /**
@@ -48,10 +53,11 @@ public abstract class AbstractPropLoader {
      * @param path root for config set
      * @param name diagram/set name
      * @param name file name
+     * @param optional 
      */
-    private void load(String path, String name) {
+    private void load(String path, String name, boolean optional) {
         loadProps(props, path + "/" + name + ".properties");
-        if (props.size() == 0) {
+        if (!optional && props.size() == 0) {
             throw new ConfigException("Property set is empty for path=" + path + ", name=" + name);
         }
     }

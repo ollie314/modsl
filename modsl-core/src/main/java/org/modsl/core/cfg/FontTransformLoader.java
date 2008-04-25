@@ -19,12 +19,12 @@ package org.modsl.core.cfg;
 import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 
-public class FontTransformLoader extends AbstractPropLoader {
+public class FontTransformLoader extends PropLoader {
 
     protected Class<? extends MetaType> metaTypeClass;
 
     public FontTransformLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
-        super(path, name);
+        super(path, name, true);
         this.metaTypeClass = metaTypeClass;
     }
 
