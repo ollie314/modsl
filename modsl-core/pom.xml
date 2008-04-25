@@ -87,7 +87,8 @@
                         <configuration>
                             <tasks>
                                 <!-- A hack to silence the antlr3 "token file not found" nonsense -->
-                                <delete dir="target/generated-sources/antlr/org/modsl/antlr/dot" />
+                                <delete dir="target/generated-sources/antlr/org/modsl/antlr" />
+                                <mkdir dir="target/generated-sources/antlr/org/modsl/antlr/basic" />
                                 <mkdir dir="target/generated-sources/antlr/org/modsl/antlr/dot" />
                             </tasks>
                         </configuration>
@@ -108,16 +109,12 @@
                             <goal>antlr</goal>
                         </goals>
                         <configuration>
-                            <libDirectory>target/generated-sources/antlr/org/modsl/antlr/dot</libDirectory>
                             <includes>
                                 <include>**/*.g</include>
                             </includes>
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <libDirectory>target/generated-sources/antlr/org/modsl/antlr/dot</libDirectory>
-                </configuration>
             </plugin>
         </plugins>
     </build>

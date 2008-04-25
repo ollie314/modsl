@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.ToStringVisitor;
-import org.modsl.core.dot.DotType;
+import org.modsl.core.lang.dot.DotType;
 
 public class DotGrammarTest {
 
