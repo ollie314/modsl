@@ -1,7 +1,6 @@
 package org.modsl.core.agt.layout;
 
-import java.util.Map;
-
+import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
@@ -12,7 +11,7 @@ import org.modsl.core.agt.model.Pt;
  * @author avishnyakov
  * 
  */
-public class SimpleLabelLayout implements Layout {
+public class SimpleLabelLayout extends AbstractNonConfigurableLayout {
 
     @Override
     public void apply(Node<?> node) {
@@ -20,16 +19,9 @@ public class SimpleLabelLayout implements Layout {
         node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
     }
 
-
     @Override
-    public String getConfigName() {
-        return null;
-    }
-
-
-    @Override
-    public void setConfig(Map<String, String> propMap) {
-        
+    public void apply(Edge<?> edge) {
+        // NO OP
     }
 
 }

@@ -1,5 +1,6 @@
 package org.modsl.core.agt.visitor;
 
+import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
@@ -14,24 +15,26 @@ public class LayoutVisitor<T extends MetaType> extends AbstractVisitor<T> {
         new FontTransformLoader(cfgdir, name, metaTypeClass).load();
     }
 
-    @Override
-    public void in(Edge<T> edge) {
-        // TODO
+    private void apply(Edge<?> edge, Layout[] layouts) {
+        for (Layout l : layouts) {
+            l.apply(edge);
+        }
     }
 
-    @Override
-    public void in(Node<T> node) {
-        // callTemplate(node, SUFF_IN);
+    private void apply(Node<?> node, Layout[] layouts) {
+        for (Layout l : layouts) {
+            l.apply(node);
+        }
     }
 
     @Override
     public void out(Edge<T> edge) {
-        // TODO
+        apply(edge, edge.getType().getLayouts());
     }
 
     @Override
     public void out(Node<T> node) {
-        // callTemplate(node, SUFF_OUT);
+        apply(node, node.getType().getLayouts());
     }
 
 }
