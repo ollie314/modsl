@@ -28,8 +28,8 @@ public interface MetaType {
 
     public void setFontTransform(FontTransform ft);
 
-    public Layout<?> getLayout();
+    public Layout getLayout();
 
-    public void setLayout(Layout<?> layout);
+    public void setLayout(Layout layout);
 
 }
