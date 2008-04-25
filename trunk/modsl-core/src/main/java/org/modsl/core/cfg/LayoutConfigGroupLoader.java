@@ -9,6 +9,7 @@ public class LayoutConfigGroupLoader {
     protected String path;
 
     public LayoutConfigGroupLoader(String path, Class<? extends MetaType> metaTypeClass) {
+        this.path = path;
         this.metaTypeClass = metaTypeClass;
     }
 

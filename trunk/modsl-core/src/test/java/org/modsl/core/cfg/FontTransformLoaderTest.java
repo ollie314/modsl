@@ -18,9 +18,6 @@ package org.modsl.core.cfg;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.modsl.core.agt.layout.Layout;
-import org.modsl.core.agt.model.FontTransform;
-import org.modsl.core.agt.model.MetaType;
 
 public class FontTransformLoaderTest {
 
@@ -28,33 +25,9 @@ public class FontTransformLoaderTest {
 
     @Test
     public void load() {
-        FontTransformLoader ftl = new FontTransformLoader("test/props/ft", "demo", FType.class);
+        FontTransformLoader ftl = new FontTransformLoader("test/props/ft", "demo", TestType.class);
         ftl.load();
         // log.debug(ftl);
-    }
-
-    public static enum FType implements MetaType {
-
-        GRAPH, NODE, EDGE;
-
-        protected FontTransform fontTransform;
-
-        @Override
-        public FontTransform getFontTransform() {
-            return fontTransform;
-        }
-
-        @Override
-        public void setFontTransform(FontTransform fontTransform) {
-            this.fontTransform = fontTransform;
-        }
-
-        @Override
-        public Layout[] getLayouts() {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
     }
 
 }
