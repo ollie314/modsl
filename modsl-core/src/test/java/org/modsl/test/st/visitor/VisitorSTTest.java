@@ -99,22 +99,24 @@ public class VisitorSTTest {
         
         public FontTransform fontTransform;
 
+        @Override
         public FontTransform getFontTransform() {
             return fontTransform;
         }
 
+        @Override
         public void setFontTransform(FontTransform fontTransform) {
             this.fontTransform = fontTransform;
         }
 
         @Override
-        public Layout<?> getLayout() {
+        public Layout getLayout() {
             // TODO Auto-generated method stub
             return null;
         }
 
         @Override
-        public void setLayout(Layout<?> layout) {
+        public void setLayout(Layout layout) {
             // TODO Auto-generated method stub
             
         }
