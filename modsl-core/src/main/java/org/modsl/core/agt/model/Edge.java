@@ -23,7 +23,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * @param T type enum
  * @author avishnyakov
  */
-public class Edge<T extends AGTType> extends AbstractGraphElement<T> {
+public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 
     /**
      * Start node

@@ -16,7 +16,7 @@
 
 package org.modsl.core.agt.visitor;
 
-import org.modsl.core.agt.model.AGTType;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
@@ -28,7 +28,7 @@ import org.modsl.core.agt.model.Node;
  *
  * @param <T> element meta type class
  */
-public abstract class AbstractVisitor<T extends AGTType> {
+public abstract class AbstractVisitor<T extends MetaType> {
 
     /**
      * Enter edge

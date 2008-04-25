@@ -23,7 +23,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * Abstract graph element
  * @author avishnyakov
  */
-public abstract class AbstractGraphElement<T extends AGTType> {
+public abstract class AbstractGraphElement<T extends MetaType> {
 
     protected Logger log = Logger.getLogger(getClass());
 

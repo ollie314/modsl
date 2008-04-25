@@ -16,7 +16,7 @@
 
 package org.modsl.core.agt.visitor;
 
-import org.modsl.core.agt.model.AGTType;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
@@ -27,7 +27,7 @@ import org.modsl.core.agt.model.Node;
  *
  * @param <T> meta type class
  */
-public class ToStringVisitor<T extends AGTType> extends AbstractVisitor<T> {
+public class ToStringVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
     /**
      * Indentation unit
