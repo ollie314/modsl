@@ -14,16 +14,16 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.dot;
+package org.modsl.core.lang.basic;
 
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.FontTransform;
 
 /**
- * Dot model element meta-types
+ * Basic model element meta-types
  * @author AVishnyakov
  */
-public enum DotType implements MetaType {
+public enum BasicType implements MetaType {
     
 	GRAPH, NODE, EDGE;
 	
