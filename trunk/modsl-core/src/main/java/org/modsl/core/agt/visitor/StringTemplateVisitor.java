@@ -33,7 +33,7 @@ import org.modsl.st.STErrorListener;
  *
  * @param <T>
  */
-public class STVisitor<T extends MetaType> extends AbstractVisitor<T> {
+public class StringTemplateVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
     private static final String SUFF_IN = "_in";
     private static final String SUFF_OUT = "_out";
@@ -49,7 +49,7 @@ public class STVisitor<T extends MetaType> extends AbstractVisitor<T> {
      * @param stgName string template group name (specific to given graph type)
      * @param refresh template refresh timeout, seconds
      */
-    public STVisitor(String stgPath, String stgName, int refresh) {
+    public StringTemplateVisitor(String stgPath, String stgName, int refresh) {
         StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(stgPath, new STErrorListener()));
         group = StringTemplateGroup.loadGroup(stgName, DefaultTemplateLexer.class, null);
         group.setRefreshInterval(refresh);

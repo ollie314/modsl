@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.visitor.STVisitor;
+import org.modsl.core.agt.visitor.StringTemplateVisitor;
 import org.modsl.core.cfg.FontTransform;
 import org.modsl.utils.Utils;
 
@@ -41,7 +41,7 @@ public class VisitorSTTest {
     public void graph() {
 
         Node<VType> root = buildTree();
-        STVisitor<VType> stv = new STVisitor<VType>(STGDIRS, "visitor_demo", 0);
+        StringTemplateVisitor<VType> stv = new StringTemplateVisitor<VType>(STGDIRS, "visitor_demo", 0);
         root.accept(stv);
         String result = stv.toString();
 

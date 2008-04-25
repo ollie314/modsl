@@ -3,7 +3,8 @@ package org.modsl.core.lang.basic;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.visitor.STVisitor;
+import org.modsl.core.agt.visitor.FontMetricsVisitor;
+import org.modsl.core.agt.visitor.StringTemplateVisitor;
 
 public class BasicFlowTest extends AbstractBasicTest {
 
@@ -13,11 +14,18 @@ public class BasicFlowTest extends AbstractBasicTest {
 
     @Test
     public void flow() throws RecognitionException {
+
         Node<BasicType> root = parse("graph g { n1->n2; n1->n3->n4->n5; n2->n3; }");
-        STVisitor<BasicType> stv = new STVisitor<BasicType>(ROOTDIR + ":" + CFGDIR, NAME, 0);
+
+        FontMetricsVisitor<BasicType> fmv = new FontMetricsVisitor<BasicType>(CFGDIR, NAME, BasicType.class);
+        root.accept(fmv);
+
+        StringTemplateVisitor<BasicType> stv = new StringTemplateVisitor<BasicType>(ROOTDIR + ":" + CFGDIR, NAME, 0);
         root.accept(stv);
         String result = stv.toString();
+
         log.debug(result);
+
     }
 
 }
