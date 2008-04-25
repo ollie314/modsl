@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.antlr.dot;
+package org.modsl.core.lang.basic;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,26 +23,26 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.modsl.antlr.basic.BasicLexer;
+import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.visitor.ToStringVisitor;
-import org.modsl.core.lang.dot.DotType;
 
-public class DotGrammarTest {
+public class BasicGrammarTest {
 
     protected final Logger log = Logger.getLogger(getClass());
 
-    protected Node<DotType> parse(String s) throws RecognitionException {
+    protected Node<BasicType> parse(String s) throws RecognitionException {
         ANTLRStringStream input = new ANTLRStringStream(s);
-        DotLexer lexer = new DotLexer(input);
+        BasicLexer lexer = new BasicLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        DotParser parser = new DotParser(tokens);
-        parser.dotGraph();
+        BasicParser parser = new BasicParser(tokens);
+        parser.graph();
         return parser.root;
     }
 
    @Test
     public void root() throws RecognitionException {
-        Node<DotType> root = parse("graph g {}");
+        Node<BasicType> root = parse("graph g {}");
         assertEquals("g", root.getName());
         assertEquals(null, root.getParent());
         assertEquals(0, root.getNodes().size());
@@ -50,7 +50,7 @@ public class DotGrammarTest {
 
     @Test
     public void nodes() throws RecognitionException {
-        Node<DotType> root = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+        Node<BasicType> root = parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
         assertEquals(3, root.getNodes().size());
         assertEquals("stmt1", root.getNodes().get(0).getName());
         assertEquals("stmt1", root.getNode("stmt1").getName());
@@ -62,7 +62,7 @@ public class DotGrammarTest {
 
     @Test
     public void edges() throws RecognitionException {
-        Node<DotType> root = parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
+        Node<BasicType> root = parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
         //log.debug(new ToStringVisitor().toString(root));
         assertEquals(8, root.getNodes().size());
         assertEquals(4, root.getEdges().size());
