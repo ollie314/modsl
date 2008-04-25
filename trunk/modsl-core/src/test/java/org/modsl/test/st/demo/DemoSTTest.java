@@ -28,16 +28,16 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.modsl.st.STErrorListener;
 
-public class BasicSTTest {
+public class DemoSTTest {
 
     protected Logger log = Logger.getLogger(getClass());
 
-    protected static final String ROOT = "test/st/basic";
+    protected static final String ROOT = "test/st/demo";
     protected static final String STGDIRS = ROOT + ":" + ROOT + "/sub";
 
     protected StringTemplateGroup group;
 
-    public BasicSTTest() {
+    public DemoSTTest() {
         StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(STGDIRS, new STErrorListener()));
         group = StringTemplateGroup.loadGroup("sub");
         group.setRefreshInterval(0);
