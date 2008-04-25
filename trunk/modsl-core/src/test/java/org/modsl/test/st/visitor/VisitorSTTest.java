@@ -21,11 +21,12 @@ import static org.junit.Assert.assertEquals;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
-import org.modsl.core.cfg.FontTransform;
 import org.modsl.utils.Utils;
 
 public class VisitorSTTest {
@@ -104,6 +105,18 @@ public class VisitorSTTest {
 
         public void setFontTransform(FontTransform fontTransform) {
             this.fontTransform = fontTransform;
+        }
+
+        @Override
+        public Layout<?> getLayout() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void setLayout(Layout<?> layout) {
+            // TODO Auto-generated method stub
+            
         }
         
     }

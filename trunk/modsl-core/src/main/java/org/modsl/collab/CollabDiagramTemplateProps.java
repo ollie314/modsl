@@ -16,7 +16,7 @@
 
 package org.modsl.collab;
 
-import org.modsl.core.cfg.FontTransform;
+import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.config.AbstractTemplateProps;
 
 /**

@@ -16,7 +16,7 @@
 
 package org.modsl.collab.model;
 
-import org.modsl.core.cfg.FontTransform;
+import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.model.diagram.Element;
 import org.modsl.core.model.diagram.ElementDetail;
 

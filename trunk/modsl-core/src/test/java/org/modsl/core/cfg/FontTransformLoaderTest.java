@@ -20,6 +20,8 @@ package org.modsl.core.cfg;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.modsl.core.agt.layout.Layout;
+import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 
 public class FontTransformLoaderTest {
@@ -45,6 +47,18 @@ public class FontTransformLoaderTest {
 
         public void setFontTransform(FontTransform fontTransform) {
             this.fontTransform = fontTransform;
+        }
+
+        @Override
+        public Layout<?> getLayout() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void setLayout(Layout<?> layout) {
+            // TODO Auto-generated method stub
+            
         }
 
     }
