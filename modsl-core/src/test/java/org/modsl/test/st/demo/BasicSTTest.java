@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.test.st.basic;
+package org.modsl.test.st.demo;
 
 import static org.junit.Assert.assertEquals;
 
