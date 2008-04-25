@@ -16,7 +16,7 @@
 
 package org.modsl.cls.model;
 
-import org.modsl.core.config.FontTransform;
+import org.modsl.core.cfg.FontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.ElementDetail;
 

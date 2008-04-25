@@ -16,8 +16,8 @@
 
 package org.modsl.cls;
 
+import org.modsl.core.cfg.FontTransform;
 import org.modsl.core.config.AbstractTemplateProps;
-import org.modsl.core.config.FontTransform;
 
 /**
  * Class diagram model template configuration
