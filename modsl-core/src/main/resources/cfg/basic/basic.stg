@@ -1,7 +1,8 @@
-group visitor_demo;
+group basic : root;
 
 GRAPH_in(node) ::= <<
 
+$root_in()$
 <graph name="$node.name$">
 
 >>
@@ -27,5 +28,7 @@ EDGE_out(edge) ::= <<
 
 GRAPH_out(node) ::= <<
 </graph>
+$root_out()$
+
 
 >>
