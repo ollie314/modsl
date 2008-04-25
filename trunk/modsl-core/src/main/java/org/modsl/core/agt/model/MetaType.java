@@ -20,6 +20,6 @@ package org.modsl.core.agt.model;
  * Marker interface for all element meta types
  * @author AVishnyakov
  */
-public interface AGTType {
+public interface MetaType {
 
 }

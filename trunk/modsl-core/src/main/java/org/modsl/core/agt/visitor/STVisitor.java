@@ -21,7 +21,7 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.DefaultTemplateLexer;
 import org.apache.log4j.Logger;
-import org.modsl.core.agt.model.AGTType;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 import org.modsl.st.STErrorListener;
@@ -33,7 +33,7 @@ import org.modsl.st.STErrorListener;
  *
  * @param <T>
  */
-public class STVisitor<T extends AGTType> extends AbstractVisitor<T> {
+public class STVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
     private static final String SUFF_IN = "_in";
     private static final String SUFF_OUT = "_out";

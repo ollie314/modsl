@@ -16,12 +16,12 @@
 
 package org.modsl.core.dot;
 
-import org.modsl.core.agt.model.AGTType;
+import org.modsl.core.agt.model.MetaType;
 
 /**
  * Dot model element meta-types
  * @author AVishnyakov
  */
-public enum DotType implements AGTType {
+public enum DotType implements MetaType {
 	GRAPH, NODE, EDGE;
 }

@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.modsl.core.agt.model.AGTType;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.STVisitor;
@@ -92,7 +92,7 @@ public class VisitorSTTest {
 
     }
 
-    public enum VType implements AGTType {
+    public enum VType implements MetaType {
         GRAPH, NODE, EDGE;
     }
 

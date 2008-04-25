@@ -28,7 +28,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * @author AVishnyakov
  * @param <T> type enum
  */
-public class Node<T extends AGTType> extends AbstractGraphElement<T> {
+public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 
     /**
      * List of children nodes
