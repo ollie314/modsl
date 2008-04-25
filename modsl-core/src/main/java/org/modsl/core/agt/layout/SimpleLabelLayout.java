@@ -18,4 +18,9 @@ public class SimpleLabelLayout implements Layout {
         node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
     }
 
+    @Override
+    public void setConfig(LayoutConfig config) {
+        // none
+    }
+
 }

@@ -24,12 +24,19 @@ import org.modsl.core.agt.layout.Layout;
  */
 public interface MetaType {
 
+    /**
+     * @return font transform object for this meta type
+     */
     public FontTransform getFontTransform();
 
+    /**
+     * @param ft set font transform object for this meta type
+     */
     public void setFontTransform(FontTransform ft);
 
-    public Layout getLayout();
-
-    public void setLayout(Layout layout);
+    /**
+     * @return array of layouts for this meta type
+     */
+    public Layout[] getLayouts();
 
 }

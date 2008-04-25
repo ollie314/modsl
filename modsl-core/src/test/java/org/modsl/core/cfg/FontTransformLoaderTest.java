@@ -37,7 +37,7 @@ public class FontTransformLoaderTest {
 
         GRAPH, NODE, EDGE;
 
-        public FontTransform fontTransform;
+        protected FontTransform fontTransform;
 
         @Override
         public FontTransform getFontTransform() {
@@ -50,15 +50,9 @@ public class FontTransformLoaderTest {
         }
 
         @Override
-        public Layout getLayout() {
+        public Layout[] getLayouts() {
             // TODO Auto-generated method stub
             return null;
-        }
-
-        @Override
-        public void setLayout(Layout layout) {
-            // TODO Auto-generated method stub
-
         }
 
     }
