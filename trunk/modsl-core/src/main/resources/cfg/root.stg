@@ -1,0 +1,13 @@
+group root;
+
+root_in() ::= <<
+
+<svg>
+
+>>
+
+root_out() ::= <<
+
+<svg>
+
+>>
