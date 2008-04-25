@@ -30,7 +30,7 @@ public class FontTransformLoaderTest {
     public void load() {
         FontTransformLoader ftl = new FontTransformLoader("test/props/ft", "dot", FType.class);
         ftl.load();
-        log.debug(ftl);
+        // log.debug(ftl);
     }
 
     public static enum FType implements MetaType {
