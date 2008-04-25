@@ -16,4 +16,4 @@
 <%	} %>
 
 <text x="${(int)(element.position.x + config.elementHeaderFT.leftPadding)}" 
-    y="$header_baseline" font-size="$config.elementHeaderFT.fontSize" class="element_header">$element.name</text>
+    y="$header_baseline" font-size="$config.elementHeaderFT.size" class="element_header">$element.name</text>

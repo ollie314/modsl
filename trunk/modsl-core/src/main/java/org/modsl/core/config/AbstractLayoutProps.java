@@ -16,7 +16,6 @@
 
 package org.modsl.core.config;
 
-import org.modsl.core.cfg.AbstractProps;
 
 public abstract class AbstractLayoutProps extends AbstractProps {
 
