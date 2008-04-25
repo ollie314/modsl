@@ -19,7 +19,7 @@ package org.modsl.utils;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.modsl.core.cfg.FontTransform;
+import org.modsl.core.agt.model.FontTransform;
 
 public class UtilsTest {
 

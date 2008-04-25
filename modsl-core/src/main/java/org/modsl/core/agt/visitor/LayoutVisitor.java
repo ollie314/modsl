@@ -5,11 +5,11 @@ import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.cfg.FontTransformLoader;
 
-public class FontMetricsVisitor<T extends MetaType> extends AbstractVisitor<T> {
+public class LayoutVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
     protected Class<T> metaTypeClass;
 
-    public FontMetricsVisitor(String cfgdir, String name, Class<T> metaTypeClass) {
+    public LayoutVisitor(String cfgdir, String name, Class<T> metaTypeClass) {
         this.metaTypeClass = metaTypeClass;
         new FontTransformLoader(cfgdir, name, metaTypeClass).load();
     }

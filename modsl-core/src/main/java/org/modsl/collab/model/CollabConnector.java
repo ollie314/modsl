@@ -18,7 +18,7 @@ package org.modsl.collab.model;
 
 import static java.lang.Math.PI;
 
-import org.modsl.core.cfg.FontTransform;
+import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.model.XY;
 import org.modsl.core.model.diagram.Connector;
 
