@@ -33,10 +33,10 @@ public class BasicFlowTest extends AbstractBasicTest {
 
 		Node<BasicMetaType> root = parse("graph g { n1->n2; n1->n3->n4->n5; n2->n3; }");
 
-		BasicLayoutGroupLoader lcgl = new BasicLayoutGroupLoader(CFGDIR, BasicMetaType.class);
+		BasicConfigLoader lcgl = new BasicConfigLoader(CFGDIR, NAME, BasicMetaType.class);
 		lcgl.load();
 
-		LayoutVisitor<BasicMetaType> fmv = new LayoutVisitor<BasicMetaType>(CFGDIR, NAME, BasicMetaType.class);
+		LayoutVisitor<BasicMetaType> fmv = new LayoutVisitor<BasicMetaType>();
 		root.accept(fmv);
 
 		StringTemplateVisitor<BasicMetaType> stv = new StringTemplateVisitor<BasicMetaType>(ROOTDIR + ":" + CFGDIR, NAME, 0);

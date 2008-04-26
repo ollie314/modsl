@@ -18,12 +18,12 @@ package org.modsl.core.lang.basic;
 
 import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.layout.SimpleLabelLayout;
-import org.modsl.core.cfg.LayoutGroupLoader;
+import org.modsl.core.cfg.ConfigLoader;
 
-public class BasicLayoutGroupLoader extends LayoutGroupLoader {
+public class BasicConfigLoader extends ConfigLoader {
 
-	public BasicLayoutGroupLoader(String path, Class<BasicMetaType> metaTypeClass) {
-		super(path, metaTypeClass);
+	public BasicConfigLoader(String path, String name, Class<BasicMetaType> metaTypeClass) {
+		super(path, name, metaTypeClass);
 		BasicMetaType.NODE.getConfig().setLayout(new Layout[] { new SimpleLabelLayout() });
 	}
 }

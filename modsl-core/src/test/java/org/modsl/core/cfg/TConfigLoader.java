@@ -18,10 +18,10 @@ package org.modsl.core.cfg;
 
 import org.modsl.core.agt.layout.Layout;
 
-public class TLayoutGroupLoader extends LayoutGroupLoader {
+public class TConfigLoader extends ConfigLoader {
 
-	public TLayoutGroupLoader(String path, Class<TMetaType> metaTypeClass) {
-		super(path, metaTypeClass);
+	public TConfigLoader(String path, String name, Class<TMetaType> metaTypeClass) {
+		super(path, name, metaTypeClass);
 		TMetaType.NODE.getConfig().setLayout(new Layout[] { new T1Layout(), new T2Layout() });
 		TMetaType.EDGE.getConfig().setLayout(new Layout[] { new T3Layout() });
 	}

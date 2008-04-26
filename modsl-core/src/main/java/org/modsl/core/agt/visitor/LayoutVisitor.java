@@ -24,13 +24,6 @@ import org.modsl.core.cfg.FontTransformLoader;
 
 public class LayoutVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
-    protected Class<T> metaTypeClass;
-
-    public LayoutVisitor(String cfgdir, String name, Class<T> metaTypeClass) {
-        this.metaTypeClass = metaTypeClass;
-        new FontTransformLoader(cfgdir, name, metaTypeClass).load();
-    }
-
     private void apply(Edge<?> edge, Layout[] layouts) {
         for (Layout l : layouts) {
             l.apply(edge);
