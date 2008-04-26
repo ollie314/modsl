@@ -15,7 +15,7 @@ public abstract class LayoutGroupLoader {
 
 	public void load() {
 		for (MetaType mt : metaTypeClass.getEnumConstants()) {
-			for (Layout l : mt.getLayouts()) {
+			for (Layout l : mt.getConfig().getLayouts()) {
 				if (l.getConfigName() != null) {
 					PropLoader pl = new PropLoader(path, l.getConfigName(), true);
 					l.setConfig(pl.getProps());
