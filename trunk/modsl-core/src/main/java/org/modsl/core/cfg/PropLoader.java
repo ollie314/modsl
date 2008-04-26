@@ -20,9 +20,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 
@@ -32,132 +35,142 @@ import org.apache.log4j.Logger;
  */
 public class PropLoader {
 
-    protected final Logger log = Logger.getLogger(getClass());
-    protected Map<String, String> props = new HashMap<String, String>();
+	protected final Logger log = Logger.getLogger(getClass());
+	protected Map<String, String> props = new HashMap<String, String>();
 
-    protected String path, name;
+	protected String name;
+	protected boolean optional;
+	protected List<String> dirs = new ArrayList<String>();
 
-    /**
-     * Create new
-     * @param path
-     * @param name
-     */
-    public PropLoader(String path, String name, boolean optional) {
-        this.path = path;
-        this.name = name;
-        load(path, name, optional);
-    }
+	/**
+	 * Create new
+	 * @param path
+	 * @param name
+	 */
+	public PropLoader(String path, String name, boolean optional) {
+		this.name = name;
+		this.optional = optional;
+		tokenizePath(path);
+	}
 
-    /**
-     * Load property set from given path for specific diagram name
-     * @param path root for config set
-     * @param name diagram/set name
-     * @param name file name
-     * @param optional 
-     */
-    private void load(String path, String name, boolean optional) {
-        loadProps(props, path + "/" + name + ".properties");
-        if (!optional && props.size() == 0) {
-            throw new ConfigException("Property set is empty for path=" + path + ", name=" + name);
-        }
-    }
+	/**
+	 * @param key
+	 * @return booolean property
+	 */
+	protected boolean getBooleanProp(String key) {
+		return Boolean.parseBoolean(getMandatoryProp(key));
+	}
 
-    /**
-     * Load properties
-     * 
-     * @param name file name
-     * @throws IOException
-     */
-    private void loadProps(Map<String, String> map, String name) {
-        try {
-            ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            InputStream is = cl.getResourceAsStream(name);
-            if (is == null) {
-                cl = this.getClass().getClassLoader();
-                is = cl.getResourceAsStream(name);
-            }
-            if (is == null) {
-                return;
-            }
-            BufferedReader r = new BufferedReader(new InputStreamReader(is));
-            Properties p = new Properties();
-            p.load(r);
-            r.close();
-            for (Map.Entry<Object, Object> me : p.entrySet()) {
-                map.put((String) me.getKey(), (String) me.getValue());
-            }
-        } catch (IOException ex) {
-            log.debug("Got exception when loading properties from " + name, ex);
-        }
-    }
+	/**
+	 * @param key
+	 * @return double property
+	 */
+	protected double getDoubleProp(String key) {
+		return Double.parseDouble(getMandatoryProp(key));
+	}
 
-    /**
-     * @param key
-     * @return String property
-     */
-    protected String getProp(String key) {
-        String v = props.get(key);
-        if (v != null) {
-            v.trim();
-        }
-        return v;
-    }
+	/**
+	 * @param key
+	 * @return int property
+	 */
+	protected int getIntegerProp(String key) {
+		return Integer.parseInt(getMandatoryProp(key));
+	}
 
-    /**
-     * @param key
-     * @return String property
-     */
-    protected String getMandatoryProp(String key) {
-        String v = getProp(key);
-        if (v == null) {
-            throw new ConfigException("Configuration property " + key + " not found @ path=" + path + ", name=" + name);
-        }
-        return v;
-    }
+	/**
+	 * @param key
+	 * @return String property
+	 */
+	protected String getMandatoryProp(String key) {
+		String v = getProp(key);
+		if (v == null) {
+			throw new ConfigException("Configuration property " + key + " not found @ path=" + dirs + ", name=" + name);
+		}
+		return v;
+	}
 
-    /**
-     * @param key
-     * @return int property
-     */
-    protected int getIntegerProp(String key) {
-        return Integer.parseInt(getMandatoryProp(key));
-    }
+	/**
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * @param key
-     * @return double property
-     */
-    protected double getDoubleProp(String key) {
-        return Double.parseDouble(getMandatoryProp(key));
-    }
+	/**
+	 * @return path
+	 */
+	public String getPath() {
+		return dirs.toString();
+	}
 
-    /**
-     * @param key
-     * @return booolean property
-     */
-    protected boolean getBooleanProp(String key) {
-        return Boolean.parseBoolean(getMandatoryProp(key));
-    }
+	/**
+	 * @param key
+	 * @return String property
+	 */
+	protected String getProp(String key) {
+		String v = props.get(key);
+		if (v != null) {
+			v.trim();
+		}
+		return v;
+	}
 
-    /**
-     * @return map of all properties
-     */
-    public Map<String, String> getProps() {
-        return props;
-    }
+	/**
+	 * @return map of all properties
+	 */
+	public Map<String, String> getProps() {
+		return props;
+	}
 
-    /**
-     * @return path
-     */
-    public String getPath() {
-        return path;
-    }
+	/**
+	 * Load property set from given path for specific diagram name
+	 */
+	public void load() {
+		for (String dir : dirs) {
+			loadProps(dir + "/" + name + ".properties");
+		}
+		if (!optional && props.size() == 0) {
+			throw new ConfigException("Property set is empty for path=" + dirs + ", name=" + name);
+		}
+	}
 
-    /**
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Load properties
+	 * @param name file name
+	 * @throws IOException
+	 */
+	private void loadProps(String name) {
+		try {
+			ClassLoader cl = Thread.currentThread().getContextClassLoader();
+			InputStream is = cl.getResourceAsStream(name);
+			if (is == null) {
+				cl = this.getClass().getClassLoader();
+				is = cl.getResourceAsStream(name);
+			}
+			if (is == null) {
+				return;
+			}
+			BufferedReader r = new BufferedReader(new InputStreamReader(is));
+			Properties p = new Properties();
+			p.load(r);
+			r.close();
+			for (Map.Entry<Object, Object> me : p.entrySet()) {
+				props.put((String) me.getKey(), (String) me.getValue());
+			}
+		} catch (IOException ex) {
+			log.debug("Got exception when loading properties from " + name, ex);
+		}
+	}
+
+	/**
+	 * Will tokenize colon-delimited path into a list of dirs
+	 * @param path
+	 */
+	private void tokenizePath(String path) {
+		StringTokenizer tokenizer = new StringTokenizer(path, ":", false);
+		while (tokenizer.hasMoreElements()) {
+			dirs.add((String) tokenizer.nextElement());
+		}
+	}
 
 }

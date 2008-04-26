@@ -29,6 +29,7 @@ public class FontTransformLoader extends PropLoader {
     }
 
     public void load() {
+    	super.load();
         String name = "serif";
         String size = "12";
         for (MetaType mt : metaTypeClass.getEnumConstants()) {

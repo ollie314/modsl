@@ -36,6 +36,7 @@ public abstract class ConfigLoader {
 			for (Layout l : mt.getConfig().getLayouts()) {
 				if (l.getConfigName() != null) {
 					PropLoader pl = new PropLoader(path, l.getConfigName(), true);
+					pl.load();
 					l.setLayoutConfig(pl.getProps());
 				}
 			}
