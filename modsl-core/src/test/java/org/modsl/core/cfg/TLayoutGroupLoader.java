@@ -1,13 +1,29 @@
+/**
+ * Copyright 2008 Andrew Vishnyakov <avishn@gmail.com>
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ */
+
 package org.modsl.core.cfg;
 
 import org.modsl.core.agt.layout.Layout;
 
 public class TLayoutGroupLoader extends LayoutGroupLoader {
 
-	public TLayoutGroupLoader(String path, Class<TType> metaTypeClass) {
+	public TLayoutGroupLoader(String path, Class<TMetaType> metaTypeClass) {
 		super(path, metaTypeClass);
-		TType.NODE.getConfig().setLayout(new Layout[] { new T1Layout(), new T2Layout() });
-		TType.EDGE.getConfig().setLayout(new Layout[] { new T3Layout() });
+		TMetaType.NODE.getConfig().setLayout(new Layout[] { new T1Layout(), new T2Layout() });
+		TMetaType.EDGE.getConfig().setLayout(new Layout[] { new T3Layout() });
 	}
 
 }

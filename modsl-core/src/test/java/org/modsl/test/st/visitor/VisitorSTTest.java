@@ -40,8 +40,8 @@ public class VisitorSTTest {
 	@Test
 	public void graph() {
 
-		Node<VType> root = buildTree();
-		StringTemplateVisitor<VType> stv = new StringTemplateVisitor<VType>(STGDIRS, "visitor_demo", 0);
+		Node<VMetaType> root = buildTree();
+		StringTemplateVisitor<VMetaType> stv = new StringTemplateVisitor<VMetaType>(STGDIRS, "visitor_demo", 0);
 		root.accept(stv);
 		String result = stv.toString();
 
@@ -60,39 +60,39 @@ public class VisitorSTTest {
 
 	}
 
-	private Node<VType> buildTree() {
+	private Node<VMetaType> buildTree() {
 
-		Node<VType> root = new Node<VType>(VType.GRAPH, "graph_name");
+		Node<VMetaType> root = new Node<VMetaType>(VMetaType.GRAPH, "graph_name");
 
-		Node<VType> n1 = new Node<VType>(VType.NODE, "n1");
-		Node<VType> n2 = new Node<VType>(VType.NODE, "n2");
-		Node<VType> n3 = new Node<VType>(VType.NODE, "n3_subroot");
-		Node<VType> n4 = new Node<VType>(VType.NODE, "n4");
+		Node<VMetaType> n1 = new Node<VMetaType>(VMetaType.NODE, "n1");
+		Node<VMetaType> n2 = new Node<VMetaType>(VMetaType.NODE, "n2");
+		Node<VMetaType> n3 = new Node<VMetaType>(VMetaType.NODE, "n3_subroot");
+		Node<VMetaType> n4 = new Node<VMetaType>(VMetaType.NODE, "n4");
 
 		root.add(n1);
 		root.add(n2);
 		root.add(n3);
 		root.add(n4);
 
-		root.add(new Edge<VType>(VType.EDGE, "e1.2", n1, n2));
-		root.add(new Edge<VType>(VType.EDGE, "e1.3", n1, n3));
-		root.add(new Edge<VType>(VType.EDGE, "e2.3", n2, n3));
+		root.add(new Edge<VMetaType>(VMetaType.EDGE, "e1.2", n1, n2));
+		root.add(new Edge<VMetaType>(VMetaType.EDGE, "e1.3", n1, n3));
+		root.add(new Edge<VMetaType>(VMetaType.EDGE, "e2.3", n2, n3));
 
-		Node<VType> ns1 = new Node<VType>(VType.NODE, "ns1");
-		Node<VType> ns2 = new Node<VType>(VType.NODE, "ns2");
-		Node<VType> ns3 = new Node<VType>(VType.NODE, "ns3");
+		Node<VMetaType> ns1 = new Node<VMetaType>(VMetaType.NODE, "ns1");
+		Node<VMetaType> ns2 = new Node<VMetaType>(VMetaType.NODE, "ns2");
+		Node<VMetaType> ns3 = new Node<VMetaType>(VMetaType.NODE, "ns3");
 
 		n3.add(ns1);
 		n3.add(ns2);
 		n3.add(ns3);
 
-		n3.add(new Edge<VType>(VType.EDGE, "es1.2", ns1, ns2));
+		n3.add(new Edge<VMetaType>(VMetaType.EDGE, "es1.2", ns1, ns2));
 
 		return root;
 
 	}
 
-	public enum VType implements MetaType {
+	public enum VMetaType implements MetaType {
 
 		GRAPH, NODE, EDGE;
 

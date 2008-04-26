@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
+package org.modsl.core.cfg;
 
-package org.modsl.core.agt.layout;
+import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.agt.model.MetaTypeConfig;
 
-import java.util.Map;
+public enum TMetaType implements MetaType {
 
-public abstract class AbstractNonConfigurableLayout implements Layout {
+	GRAPH, NODE, EDGE;
 
-    @Override
-    public String getConfigName() {
-        return null; // non configurable
-    }
+	protected MetaTypeConfig config = new MetaTypeConfig();
 
-    @Override
-    public void setConfig(Map<String, String> propMap) {
-        // none
-    }
+	@Override
+	public MetaTypeConfig getConfig() {
+		return config;
+	}
 
 }

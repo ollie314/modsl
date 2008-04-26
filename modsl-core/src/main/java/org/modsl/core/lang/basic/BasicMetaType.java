@@ -14,16 +14,16 @@
  * the License.
  */
 
-package org.modsl.core.lang.dot;
+package org.modsl.core.lang.basic;
 
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.MetaTypeConfig;
 
 /**
- * Dot model element meta-types
+ * Basic model element meta-types
  * @author AVishnyakov
  */
-public enum DotType implements MetaType {
+public enum BasicMetaType implements MetaType {
 
 	GRAPH, NODE, EDGE;
 
