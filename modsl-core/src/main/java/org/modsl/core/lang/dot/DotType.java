@@ -16,9 +16,8 @@
 
 package org.modsl.core.lang.dot;
 
-import org.modsl.core.agt.layout.Layout;
-import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.agt.model.MetaTypeConfig;
 
 /**
  * Dot model element meta-types
@@ -26,22 +25,13 @@ import org.modsl.core.agt.model.MetaType;
  */
 public enum DotType implements MetaType {
 
-    GRAPH, NODE, EDGE;
+	GRAPH, NODE, EDGE;
 
-    protected FontTransform fontTransform;
+	protected MetaTypeConfig config = new MetaTypeConfig();
 
-    public FontTransform getFontTransform() {
-        return fontTransform;
-    }
-
-    public void setFontTransform(FontTransform fontTransform) {
-        this.fontTransform = fontTransform;
-    }
-
-    @Override
-    public Layout[] getLayouts() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public MetaTypeConfig getConfig() {
+		return config;
+	}
 
 }

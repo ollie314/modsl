@@ -29,12 +29,12 @@ public class LayoutVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
     @Override
     public void out(Edge<T> edge) {
-        apply(edge, edge.getType().getLayouts());
+        apply(edge, edge.getType().getConfig().getLayouts());
     }
 
     @Override
     public void out(Node<T> node) {
-        apply(node, node.getType().getLayouts());
+        apply(node, node.getType().getConfig().getLayouts());
     }
 
 }

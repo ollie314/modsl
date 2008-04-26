@@ -45,7 +45,7 @@ public class FontTransformLoader extends PropLoader {
                 size = s;
             }
             FontTransform ft = new FontTransform(n, Integer.parseInt(s));
-            mt.setFontTransform(ft);
+            mt.getConfig().setFontTransform(ft);
         }
     }
 
@@ -53,7 +53,7 @@ public class FontTransformLoader extends PropLoader {
         StringBuilder sb = new StringBuilder(name);
         sb.append(" [");
         for (MetaType mt : metaTypeClass.getEnumConstants()) {
-            sb.append(mt.toString()).append(":").append(mt.getFontTransform()).append(" ");
+            sb.append(mt.toString()).append(":").append(mt.getConfig().getFontTransform()).append(" ");
         }
         sb.deleteCharAt(sb.length() - 1);
         sb.append("]");

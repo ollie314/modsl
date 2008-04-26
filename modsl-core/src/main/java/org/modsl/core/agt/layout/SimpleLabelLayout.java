@@ -15,7 +15,7 @@ public class SimpleLabelLayout extends AbstractNonConfigurableLayout {
 
     @Override
     public void apply(Node<?> node) {
-        FontTransform ft = node.getType().getFontTransform();
+        FontTransform ft = node.getType().getConfig().getFontTransform();
         node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
     }
 

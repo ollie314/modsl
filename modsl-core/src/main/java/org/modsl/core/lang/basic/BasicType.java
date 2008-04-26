@@ -18,8 +18,8 @@ package org.modsl.core.lang.basic;
 
 import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.layout.SimpleLabelLayout;
-import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.agt.model.MetaTypeConfig;
 
 /**
  * Basic model element meta-types
@@ -27,32 +27,13 @@ import org.modsl.core.agt.model.MetaType;
  */
 public enum BasicType implements MetaType {
 
-    GRAPH, NODE(new Layout[] { new SimpleLabelLayout() }), EDGE;
+	GRAPH, NODE, EDGE;
 
-    protected FontTransform fontTransform;
-    protected Layout[] layouts;
+	protected MetaTypeConfig config = new MetaTypeConfig();
 
-    private BasicType() {
-        this.layouts = new Layout[] {};
-    }
-
-    private BasicType(Layout[] layouts) {
-        this.layouts = layouts;
-    }
-
-    @Override
-    public FontTransform getFontTransform() {
-        return fontTransform;
-    }
-
-    @Override
-    public void setFontTransform(FontTransform fontTransform) {
-        this.fontTransform = fontTransform;
-    }
-
-    @Override
-    public Layout[] getLayouts() {
-        return layouts;
-    }
+	@Override
+	public MetaTypeConfig getConfig() {
+		return config;
+	}
 
 }

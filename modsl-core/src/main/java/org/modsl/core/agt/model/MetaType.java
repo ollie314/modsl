@@ -16,27 +16,15 @@
 
 package org.modsl.core.agt.model;
 
-import org.modsl.core.agt.layout.Layout;
-
 /**
  * Marker interface for all element meta types
  * @author AVishnyakov
  */
 public interface MetaType {
 
-    /**
-     * @return font transform object for this meta type
-     */
-    public FontTransform getFontTransform();
-
-    /**
-     * @param ft set font transform object for this meta type
-     */
-    public void setFontTransform(FontTransform ft);
-
-    /**
-     * @return array of layouts for this meta type
-     */
-    public Layout[] getLayouts();
+	/**
+	 * @return meta type config
+	 */
+	public MetaTypeConfig getConfig();
 
 }
