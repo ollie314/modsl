@@ -22,22 +22,20 @@ import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
 /**
- * Does simple node size calculation based on this node's text height and width.
- * 
+ * Does simple node size calculation based on node's text height and width.
  * @author avishnyakov
- * 
  */
 public class SimpleLabelLayout extends AbstractNonConfigurableLayout {
 
-    @Override
-    public void apply(Node<?> node) {
-        FontTransform ft = node.getType().getConfig().getFontTransform();
-        node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
-    }
+	@Override
+	public void apply(Node<?> node) {
+		FontTransform ft = node.getType().getConfig().getFontTransform();
+		node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
+	}
 
-    @Override
-    public void apply(Edge<?> edge) {
-        // NO OP
-    }
+	@Override
+	public void apply(Edge<?> edge) {
+		// NO OP
+	}
 
 }
