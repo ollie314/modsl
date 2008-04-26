@@ -22,7 +22,7 @@ public enum TMetaType implements MetaType {
 
 	GRAPH, NODE, EDGE;
 
-	protected MetaTypeConfig config = new MetaTypeConfig();
+	protected MetaTypeConfig config = new MetaTypeConfig(this);
 
 	@Override
 	public MetaTypeConfig getConfig() {
