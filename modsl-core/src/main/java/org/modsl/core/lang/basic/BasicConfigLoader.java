@@ -24,6 +24,11 @@ public class BasicConfigLoader extends ConfigLoader {
 
 	public BasicConfigLoader(String path, String name, Class<BasicMetaType> metaTypeClass) {
 		super(path, name, metaTypeClass);
+	}
+
+	@Override
+	public void initLayouts() {
 		BasicMetaType.NODE.getConfig().setLayout(new Layout[] { new SimpleLabelLayout() });
 	}
+	
 }
