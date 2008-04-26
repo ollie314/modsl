@@ -37,11 +37,11 @@ public class BasicFactory implements ElementFactory {
      * @param tokens edge tokens
      * @return list of edges
      */
-    public List<Edge<BasicType>> createEdges(Node<BasicType> parent, List<Token> tokens) {
+    public List<Edge<BasicMetaType>> createEdges(Node<BasicMetaType> parent, List<Token> tokens) {
 
-        List<Edge<BasicType>> es = new LinkedList<Edge<BasicType>>();
+        List<Edge<BasicMetaType>> es = new LinkedList<Edge<BasicMetaType>>();
 
-        Node<BasicType> n1 = null, n2 = null;
+        Node<BasicMetaType> n1 = null, n2 = null;
         Token t1, t2;
 
         for (int i = 0; i < tokens.size() - 1; i++) {
@@ -54,7 +54,7 @@ public class BasicFactory implements ElementFactory {
             }
             n2 = createNodeIfDoesntExist(parent, t2);
 
-            Edge<BasicType> e = new Edge<BasicType>(BasicType.EDGE, n1, n2);
+            Edge<BasicMetaType> e = new Edge<BasicMetaType>(BasicMetaType.EDGE, n1, n2);
             parent.add(e);
             es.add(e);
 
@@ -71,8 +71,8 @@ public class BasicFactory implements ElementFactory {
      * @param token node token
      * @return new node
      */
-    public Node<BasicType> createNode(Node<BasicType> parent, Token token) {
-        Node<BasicType> n = new Node<BasicType>(BasicType.NODE, token.getText());
+    public Node<BasicMetaType> createNode(Node<BasicMetaType> parent, Token token) {
+        Node<BasicMetaType> n = new Node<BasicMetaType>(BasicMetaType.NODE, token.getText());
         parent.add(n);
         return n;
     }
@@ -84,8 +84,8 @@ public class BasicFactory implements ElementFactory {
      * @param token new node token
      * @return node
      */
-    private Node<BasicType> createNodeIfDoesntExist(Node<BasicType> parent, Token token) {
-        Node<BasicType> n = parent.getNode(token.getText());
+    private Node<BasicMetaType> createNodeIfDoesntExist(Node<BasicMetaType> parent, Token token) {
+        Node<BasicMetaType> n = parent.getNode(token.getText());
         if (n == null) {
             return createNode(parent, token);
         } else {
@@ -97,8 +97,8 @@ public class BasicFactory implements ElementFactory {
      * Create root node
      * @return root node
      */
-    public Node<BasicType> createRootNode() {
-        return new Node<BasicType>(BasicType.GRAPH);
+    public Node<BasicMetaType> createRootNode() {
+        return new Node<BasicMetaType>(BasicMetaType.GRAPH);
     }
 
 }
