@@ -18,14 +18,14 @@ options {
 }
 
 @parser::members {
-	public Node<DotType> root, cnode;
-	protected Deque<Node<DotType>> nodes = new LinkedList<Node<DotType>>();
+	public Node<DotMetaType> root, cnode;
+	protected Deque<Node<DotMetaType>> nodes = new LinkedList<Node<DotMetaType>>();
 	protected DotFactory factory = new DotFactory();
 }
 
 dotGraph 
 	@init{ root = factory.createRootNode(); cnode = root; }
-	@after { root.accept(new NodeRefVisitor<DotType>()); }
+	@after { root.accept(new NodeRefVisitor<DotMetaType>()); }
 	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';
