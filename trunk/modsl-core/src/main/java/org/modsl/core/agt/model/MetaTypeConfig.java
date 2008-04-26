@@ -16,26 +16,18 @@
 
 package org.modsl.core.agt.model;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import org.modsl.core.agt.layout.Layout;
 
 public class MetaTypeConfig {
 
 	protected FontTransform fontTransform;
 	protected Layout[] layouts;
-	protected Map<String, String> styles = new HashMap<String, String>();
-	protected MetaType type;
 
-	public MetaTypeConfig(MetaType type) {
-		this(type, new Layout[] {});
+	public MetaTypeConfig() {
+		this(new Layout[] {});
 	}
 
-	public MetaTypeConfig(MetaType type, Layout[] layouts) {
-		this.type = type;
+	public MetaTypeConfig(Layout[] layouts) {
 		this.layouts = layouts;
 	}
 
@@ -66,33 +58,6 @@ public class MetaTypeConfig {
 	 */
 	public void setLayout(Layout[] layouts) {
 		this.layouts = layouts;
-	}
-
-	/**
-	 * Add new style to the map
-	 * @param key
-	 * @param value
-	 */
-	public void addStyle(String key, String value) {
-		styles.put(key, value);
-	}
-
-	/**
-	 * @return styles
-	 */
-	public Map<String, String> getStyles() {
-		return styles;
-	}
-
-	/**
-	 * @return styles
-	 */
-	public List<String> getStylesAsList() {
-		List<String> lst = new LinkedList<String>();
-		for (Map.Entry<String, String> me : styles.entrySet()) {
-			lst.add("." + type + "_" + me.getKey() + " { " + me.getValue() + " }");
-		}
-		return lst;
 	}
 
 }
