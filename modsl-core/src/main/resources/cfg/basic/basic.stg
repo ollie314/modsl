@@ -2,8 +2,8 @@ group basic : root;
 
 GRAPH_in(node) ::= <<
 
-$root_in()$
-<graph name="$node.name$">
+$root_in(node)$
+<!-- $node.name$ -->
 
 >>
 

@@ -53,7 +53,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     /**
      * This element's size
      */
-    protected Pt size;
+    protected Pt size = new Pt();
 
     /**
      * This element's position (it's left top corner) relative to it's parent
@@ -160,10 +160,17 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         return name + ":" + type;
     }
 
+    /**
+     * @return position (top left corner)
+     */
     public Pt getPos() {
         return pos;
     }
 
+    /**
+     * Set node's position (top left corner) 
+     * @param pos
+     */
     public void setPos(Pt pos) {
         this.pos = pos;
     }
