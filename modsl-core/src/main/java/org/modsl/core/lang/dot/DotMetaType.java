@@ -20,7 +20,7 @@ import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.MetaTypeConfig;
 
 /**
- * Dot model element meta-types
+ * Dot model meta-types
  * @author AVishnyakov
  */
 public enum DotMetaType implements MetaType {

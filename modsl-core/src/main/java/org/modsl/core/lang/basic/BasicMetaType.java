@@ -20,7 +20,7 @@ import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.MetaTypeConfig;
 
 /**
- * Basic model element meta-types
+ * Basic meta-types
  * @author AVishnyakov
  */
 public enum BasicMetaType implements MetaType {
