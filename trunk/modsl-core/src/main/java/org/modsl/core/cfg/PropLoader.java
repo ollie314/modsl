@@ -36,11 +36,12 @@ import org.apache.log4j.Logger;
 public class PropLoader {
 
 	protected final Logger log = Logger.getLogger(getClass());
+
 	protected Map<String, String> props = new HashMap<String, String>();
+	protected List<String> dirs = new ArrayList<String>();
 
 	protected String name;
 	protected boolean optional;
-	protected List<String> dirs = new ArrayList<String>();
 
 	/**
 	 * Create new
