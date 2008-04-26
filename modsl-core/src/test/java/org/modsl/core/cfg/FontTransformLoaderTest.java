@@ -25,7 +25,7 @@ public class FontTransformLoaderTest {
 
     @Test
     public void load() {
-        FontTransformLoader ftl = new FontTransformLoader("test/props/ft", "demo", TestType.class);
+        FontTransformLoader ftl = new FontTransformLoader("test/props/ft", "demo", TType.class);
         ftl.load();
         // log.debug(ftl);
     }

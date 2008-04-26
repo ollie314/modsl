@@ -8,18 +8,17 @@ import org.modsl.antlr.basic.BasicLexer;
 import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.model.Node;
 
-public class AbstractBasicTest {
+public abstract class AbstractBasicTest {
 
-    protected final Logger log = Logger.getLogger(getClass());
+	protected final Logger log = Logger.getLogger(getClass());
 
-
-    protected Node<BasicType> parse(String s) throws RecognitionException {
-        ANTLRStringStream input = new ANTLRStringStream(s);
-        BasicLexer lexer = new BasicLexer(input);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        BasicParser parser = new BasicParser(tokens);
-        parser.graph();
-        return parser.root;
-    }
+	protected Node<BasicType> parse(String s) throws RecognitionException {
+		ANTLRStringStream input = new ANTLRStringStream(s);
+		BasicLexer lexer = new BasicLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		BasicParser parser = new BasicParser(tokens);
+		parser.graph();
+		return parser.root;
+	}
 
 }

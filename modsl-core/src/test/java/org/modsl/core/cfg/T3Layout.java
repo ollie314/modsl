@@ -6,7 +6,7 @@ import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
-public class Test3Layout implements Layout {
+public class T3Layout implements Layout {
     
     protected Map<String, String> propMap;
 

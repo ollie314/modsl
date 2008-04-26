@@ -7,18 +7,18 @@ import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 
-public enum TestType implements MetaType {
+public enum TType implements MetaType {
 
-    GRAPH, NODE(new Layout[] { new Test1Layout(), new Test2Layout() }), EDGE(new Layout[] { new Test3Layout() });
+    GRAPH, NODE(new Layout[] { new T1Layout(), new T2Layout() }), EDGE(new Layout[] { new T3Layout() });
 
     protected FontTransform fontTransform;
     protected Layout[] layouts;
     
-    private TestType() {
+    private TType() {
         this.layouts = new Layout[] {};
     }
 
-    private TestType(Layout[] layouts) {
+    private TType(Layout[] layouts) {
         this.layouts = layouts;
     }
 

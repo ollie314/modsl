@@ -10,14 +10,14 @@ public class LayoutConfigGroupLoaderTest {
 
     @Test
     public void configLoader() {
-        LayoutConfigGroupLoader lcgl = new LayoutConfigGroupLoader(CFGDIR, TestType.class);
+        LayoutConfigGroupLoader lcgl = new LayoutConfigGroupLoader(CFGDIR, TType.class);
         lcgl.load();
-        assertEquals(0, TestType.GRAPH.getLayouts().length);
-        assertEquals(2, TestType.NODE.getLayouts().length);
-        assertEquals(1, ((Test1Layout)TestType.NODE.getLayouts()[0]).propMap.size());
-        assertEquals(2, ((Test2Layout)TestType.NODE.getLayouts()[1]).propMap.size());
-        assertEquals(1, TestType.EDGE.getLayouts().length);
-        assertEquals(3, ((Test3Layout)TestType.EDGE.getLayouts()[0]).propMap.size());
+        assertEquals(0, TType.GRAPH.getLayouts().length);
+        assertEquals(2, TType.NODE.getLayouts().length);
+        assertEquals(1, ((T1Layout)TType.NODE.getLayouts()[0]).propMap.size());
+        assertEquals(2, ((T2Layout)TType.NODE.getLayouts()[1]).propMap.size());
+        assertEquals(1, TType.EDGE.getLayouts().length);
+        assertEquals(3, ((T3Layout)TType.EDGE.getLayouts()[0]).propMap.size());
     }
 
 }

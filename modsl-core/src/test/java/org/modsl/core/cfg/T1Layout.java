@@ -6,13 +6,13 @@ import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
-public class Test2Layout implements Layout {
+public class T1Layout implements Layout {
 
     protected Map<String, String> propMap;
 
     @Override
     public String getConfigName() {
-        return "test2_layout_config";
+        return "test1_layout_config";
     }
 
     @Override
@@ -31,6 +31,5 @@ public class Test2Layout implements Layout {
         // TODO Auto-generated method stub
         
     }
-
 
 }
