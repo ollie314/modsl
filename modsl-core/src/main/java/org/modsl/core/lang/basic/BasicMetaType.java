@@ -27,7 +27,7 @@ public enum BasicMetaType implements MetaType {
 
 	GRAPH, NODE, EDGE;
 
-	protected MetaTypeConfig config = new MetaTypeConfig(this);
+	protected MetaTypeConfig config = new MetaTypeConfig();
 
 	@Override
 	public MetaTypeConfig getConfig() {
