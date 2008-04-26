@@ -31,6 +31,7 @@ public abstract class ConfigLoader {
 	}
 
 	public void load() {
+		initLayouts();
 		for (MetaType mt : metaTypeClass.getEnumConstants()) {
 			for (Layout l : mt.getConfig().getLayouts()) {
 				if (l.getConfigName() != null) {
@@ -41,5 +42,7 @@ public abstract class ConfigLoader {
 	        new FontTransformLoader(path, name, metaTypeClass).load();
 		}
 	}
+	
+	public abstract void initLayouts();
 
 }
