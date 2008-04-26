@@ -25,7 +25,7 @@ public interface Layout {
 
     public String getConfigName();
 
-    public void setConfig(Map<String, String> propMap);
+    public void setLayoutConfig(Map<String, String> propMap);
 
     public void apply(Edge<?> edge);
 

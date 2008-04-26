@@ -20,13 +20,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class LayoutConfigGroupLoaderTest {
+public class ConfigLoaderTest {
 
 	protected static final String CFGDIR = "test/props/ft";
 
 	@Test
 	public void configLoader() {
-		TLayoutGroupLoader tgl = new TLayoutGroupLoader(CFGDIR, TMetaType.class);
+		TConfigLoader tgl = new TConfigLoader(CFGDIR, "dummy", TMetaType.class);
 		tgl.load();
 		assertEquals(0, TMetaType.GRAPH.getConfig().getLayouts().length);
 		assertEquals(2, TMetaType.NODE.getConfig().getLayouts().length);

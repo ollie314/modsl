@@ -26,7 +26,7 @@ public abstract class AbstractNonConfigurableLayout implements Layout {
     }
 
     @Override
-    public void setConfig(Map<String, String> propMap) {
+    public void setLayoutConfig(Map<String, String> propMap) {
         // none
     }
 

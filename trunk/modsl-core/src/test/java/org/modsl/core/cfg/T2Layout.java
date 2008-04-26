@@ -32,7 +32,7 @@ public class T2Layout implements Layout {
     }
 
     @Override
-    public void setConfig(Map<String, String> propMap) {
+    public void setLayoutConfig(Map<String, String> propMap) {
         this.propMap = propMap;
     }
 

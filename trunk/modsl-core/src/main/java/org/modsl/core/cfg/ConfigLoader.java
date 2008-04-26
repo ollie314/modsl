@@ -19,13 +19,14 @@ package org.modsl.core.cfg;
 import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.model.MetaType;
 
-public abstract class LayoutGroupLoader {
+public abstract class ConfigLoader {
 
 	protected Class<? extends MetaType> metaTypeClass;
-	protected String path;
+	protected String path, name;
 
-	public LayoutGroupLoader(String path, Class<? extends MetaType> metaTypeClass) {
+	public ConfigLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
 		this.path = path;
+		this.name = name;
 		this.metaTypeClass = metaTypeClass;
 	}
 
@@ -34,9 +35,10 @@ public abstract class LayoutGroupLoader {
 			for (Layout l : mt.getConfig().getLayouts()) {
 				if (l.getConfigName() != null) {
 					PropLoader pl = new PropLoader(path, l.getConfigName(), true);
-					l.setConfig(pl.getProps());
+					l.setLayoutConfig(pl.getProps());
 				}
 			}
+	        new FontTransformLoader(path, name, metaTypeClass).load();
 		}
 	}
 
