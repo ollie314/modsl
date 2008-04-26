@@ -21,6 +21,7 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.DefaultTemplateLexer;
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.model.AbstractGraphElement;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
@@ -76,15 +77,16 @@ public class StringTemplateVisitor<T extends MetaType> extends AbstractVisitor<T
     /** 
      * Call template, ignore "template not found" error
      * @param name template name
-     * @param key attribute key
-     * @param value attribute value
+     * @param key element key
+     * @param element element value
      * @return resulting string
      */
-    private String callTemplate(String name, String key, Object value) {
+    private String callTemplate(String name, String key, AbstractGraphElement<T> element) {
         try {
             StringTemplate st = group.getInstanceOf(name);
             if (st != null) {
-                st.setAttribute(key, value);
+                st.setAttribute(key, element);
+                st.setAttribute("ft", element.getType().getConfig().getFontTransform());
                 return st.toString();
             } else {
                 return "";

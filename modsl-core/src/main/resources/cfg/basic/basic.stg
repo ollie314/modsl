@@ -1,32 +1,35 @@
 group basic : root;
 
-GRAPH_in(node) ::= <<
+GRAPH_in(node, ft) ::= <<
 
 $root_in(node)$
 <!-- $node.name$ -->
+<style type="text/css"><![CDATA[ 
+	* { font-family: $ft.name$; }
+]]></style>
 
 >>
 
-NODE_in(node) ::= <<
+NODE_in(node, ft) ::= <<
 <node name="$node.name$">
 
 >>
 
-NODE_out(node) ::= <<
+NODE_out(node, ft) ::= <<
 </node>
 
 >>
 
-EDGE_in(edge) ::= <<
+EDGE_in(edge, ft) ::= <<
 <edge name="$edge.name$">
 >>
 
-EDGE_out(edge) ::= <<
+EDGE_out(edge, ft) ::= <<
 </edge>
 
 >>
 
-GRAPH_out(node) ::= <<
+GRAPH_out(node, ft) ::= <<
 </graph>
 $root_out()$
 
