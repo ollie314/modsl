@@ -16,9 +16,12 @@
 
 package org.modsl.core.lang.basic;
 
+import static junit.framework.Assert.assertTrue;
+
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.Pt;
 import org.modsl.core.agt.visitor.LayoutVisitor;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
 
@@ -31,7 +34,7 @@ public class BasicFlowTest extends AbstractBasicTest {
 	@Test
 	public void flow() throws RecognitionException {
 
-		Node<BasicMetaType> root = parse("graph g { n1->n2; n1->n3->n4->n5; n2->n3; }");
+		Node<BasicMetaType> root = parse("graph g { n1->n20; n1->n300->n4000->n50000; n20->n300; }");
 
 		BasicConfigLoader cfgLoader = new BasicConfigLoader(CFGDIR, NAME, BasicMetaType.class);
 		cfgLoader.load();
@@ -39,12 +42,26 @@ public class BasicFlowTest extends AbstractBasicTest {
 		LayoutVisitor<BasicMetaType> lv = new LayoutVisitor<BasicMetaType>();
 		root.accept(lv);
 
+		assertSizes(root);
+
 		StringTemplateVisitor<BasicMetaType> stv = new StringTemplateVisitor<BasicMetaType>(ROOTDIR + ":" + CFGDIR, NAME, 0);
 		root.accept(stv);
 		String result = stv.toString();
 
 		log.debug(result);
 
+	}
+
+	private void assertSizes(Node<BasicMetaType> root) {
+
+		Pt s = root.getNode("n1").getSize();
+		assertTrue(s.x > 20 && s.x < 30);
+		assertTrue(s.y > 16 && s.y < 20);
+
+		s = root.getNode("n50000").getSize();
+		assertTrue(s.x > 50 && s.x < 55);
+		assertTrue(s.y > 16 && s.y < 20);
+		
 	}
 
 }
