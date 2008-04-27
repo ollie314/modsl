@@ -77,6 +77,13 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
     }
 
     /**
+     * @return length of this edge w/o adjustment for overlay
+     */
+	public double getLength() {
+		return node2.getPos().minus(node1.getPos()).len();
+	}
+
+    /**
      * @return start node
      */
     public Node<T> getNode1() {

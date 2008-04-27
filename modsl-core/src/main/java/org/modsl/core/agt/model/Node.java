@@ -30,149 +30,187 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  */
 public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 
-    /**
-     * List of children nodes
-     */
-    protected List<Node<T>> nodes = new LinkedList<Node<T>>();
+	/**
+	 * List of children nodes
+	 */
+	protected List<Node<T>> nodes = new LinkedList<Node<T>>();
 
-    /**
-     * Map of children nodes {name->node}
-     */
-    protected Map<String, Node<T>> nodeMap = new HashMap<String, Node<T>>();
+	/**
+	 * Map of children nodes {name->node}
+	 */
+	protected Map<String, Node<T>> nodeMap = new HashMap<String, Node<T>>();
 
-    /**
-     * List of children edges
-     */
-    protected List<Edge<T>> edges = new LinkedList<Edge<T>>();
+	/**
+	 * List of children edges
+	 */
+	protected List<Edge<T>> edges = new LinkedList<Edge<T>>();
 
-    /**
-     * Map of children edges {name->edge}
-     */
-    protected Map<String, Edge<T>> edgeMap = new HashMap<String, Edge<T>>();
+	/**
+	 * Map of children edges {name->edge}
+	 */
+	protected Map<String, Edge<T>> edgeMap = new HashMap<String, Edge<T>>();
 
-    /**
-     * This element's size
-     */
-    protected Pt size = new Pt();
+	/**
+	 * This element's size
+	 */
+	protected Pt size = new Pt();
 
-    /**
-     * This element's position (it's left top corner) relative to it's parent
-     * node
-     */
-    protected Pt pos = new Pt();
+	/**
+	 * This element's requested size
+	 */
+	protected Pt reqSize = new Pt();
 
-    /**
-     * Create new
-     * @param type type
-     */
-    public Node(T type) {
-        super(type);
-    }
+	/**
+	 * This element's position (it's left top corner) relative to it's parent
+	 * node
+	 */
+	protected Pt pos = new Pt();
 
-    /**
-     * Create new
-     * @param type type
-     * @param name name
-     */
-    public Node(T type, String name) {
-        super(type, name);
-    }
+	/**
+	 * Create new
+	 * @param type type
+	 */
+	public Node(T type) {
+		super(type);
+	}
 
-    @Override
-    public void accept(AbstractVisitor<T> visitor) {
-        visitor.in(this);
-        for (Edge<T> e : edges) {
-            e.accept(visitor);
-        }
-        for (Node<T> n : nodes) {
-            n.accept(visitor);
-        }
-        visitor.out(this);
-    }
+	/**
+	 * Create new
+	 * @param type type
+	 * @param name name
+	 */
+	public Node(T type, String name) {
+		super(type, name);
+	}
 
-    /**
-     * Add child edge
-     * @param child
-     */
-    public void add(Edge<T> child) {
-        child.parent = this;
-        edges.add(child);
-        edgeMap.put(child.getName(), child);
-    }
+	@Override
+	public void accept(AbstractVisitor<T> visitor) {
+		visitor.in(this);
+		for (Edge<T> e : edges) {
+			e.accept(visitor);
+		}
+		for (Node<T> n : nodes) {
+			n.accept(visitor);
+		}
+		visitor.out(this);
+	}
 
-    /**
-     * Add child node
-     * @param child
-     */
-    public void add(Node<T> child) {
-        child.parent = this;
-        nodes.add(child);
-        nodeMap.put(child.getName(), child);
-    }
+	/**
+	 * Add child edge
+	 * @param child
+	 */
+	public void add(Edge<T> child) {
+		child.parent = this;
+		edges.add(child);
+		edgeMap.put(child.getName(), child);
+	}
 
-    /**
-     * @param key
-     * @return edge by it's name
-     */
-    public Edge<T> getEdge(String key) {
-        return edgeMap.get(key);
-    }
+	/**
+	 * Add child node
+	 * @param child
+	 */
+	public void add(Node<T> child) {
+		child.parent = this;
+		nodes.add(child);
+		nodeMap.put(child.getName(), child);
+	}
 
-    /**
-     * @return children edge list
-     */
-    public List<Edge<T>> getEdges() {
-        return edges;
-    }
+	/**
+	 * @param key
+	 * @return edge by it's name
+	 */
+	public Edge<T> getEdge(String key) {
+		return edgeMap.get(key);
+	}
 
-    /**
-     * @param key
-     * @return node by it's name
-     */
-    public Node<T> getNode(String key) {
-        return nodeMap.get(key);
-    }
+	/**
+	 * @return children edge list
+	 */
+	public List<Edge<T>> getEdges() {
+		return edges;
+	}
 
-    /**
-     * @return children node list
-     */
-    public List<Node<T>> getNodes() {
-        return nodes;
-    }
+	/**
+	 * @param index
+	 * @return node by index
+	 */
+	public Node<T> getNode(int index) {
+		return nodes.get(index);
+	}
 
-    /**
-     * @return size
-     */
-    public Pt getSize() {
-        return size;
-    }
+	/**
+	 * @param key
+	 * @return node by it's name
+	 */
+	public Node<T> getNode(String key) {
+		return nodeMap.get(key);
+	}
 
-    /**
-     * Set size
-     * @param size
-     */
-    public void setSize(Pt size) {
-        this.size = size;
-    }
+	/**
+	 * @return children node list
+	 */
+	public List<Node<T>> getNodes() {
+		return nodes;
+	}
 
-    @Override
-    public String toString() {
-        return name + ":" + type;
-    }
+	/**
+	 * @return position (top left corner)
+	 */
+	public Pt getPos() {
+		return pos;
+	}
 
-    /**
-     * @return position (top left corner)
-     */
-    public Pt getPos() {
-        return pos;
-    }
+	/**
+	 * @return size requested by the client
+	 */
+	public Pt getReqSize() {
+		return reqSize;
+	}
 
-    /**
-     * Set node's position (top left corner) 
-     * @param pos
-     */
-    public void setPos(Pt pos) {
-        this.pos = pos;
-    }
+	/**
+	 * @return size
+	 */
+	public Pt getSize() {
+		return size;
+	}
+
+	/**
+	 * @return sum of all edge lengths
+	 */
+	public double getSumEdgeLengths() {
+		double len = 0d;
+		for (Edge<T> e : edges) {
+			len += e.getLength();
+		}
+		return len;
+	}
+
+	/**
+	 * Set node's position (top left corner)
+	 * @param pos
+	 */
+	public void setPos(Pt pos) {
+		this.pos = pos;
+	}
+
+	/**
+	 * @param reqSize size requested by client (if any)
+	 */
+	public void setReqSize(Pt reqSize) {
+		this.reqSize = reqSize;
+	}
+
+	/**
+	 * Set size
+	 * @param size
+	 */
+	public void setSize(Pt size) {
+		this.size = size;
+	}
+
+	@Override
+	public String toString() {
+		return name + ":" + type;
+	}
 
 }
