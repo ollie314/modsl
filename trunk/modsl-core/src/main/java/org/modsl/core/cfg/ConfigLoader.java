@@ -35,7 +35,7 @@ public abstract class ConfigLoader {
 		for (MetaType mt : metaTypeClass.getEnumConstants()) {
 			for (Layout l : mt.getConfig().getLayouts()) {
 				if (l.getConfigName() != null) {
-					PropLoader pl = new PropLoader(path, l.getConfigName(), true);
+					PropLoader pl = new PropLoader(path, l.getConfigName(), false);
 					pl.load();
 					l.setLayoutConfig(pl.getProps());
 				}
