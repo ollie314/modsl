@@ -59,7 +59,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      * This element's position (it's left top corner) relative to it's parent
      * node
      */
-    protected Pt pos;
+    protected Pt pos = new Pt();
 
     /**
      * Create new

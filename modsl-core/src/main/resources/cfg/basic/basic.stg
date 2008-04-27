@@ -6,19 +6,17 @@ $root_in(node)$
 <!-- $node.name$ -->
 <style type="text/css"><![CDATA[ 
 	* { font-family: $ft.name$; }
+	.NODE_text { fill: black; }
 ]]></style>
 
 >>
 
 NODE_in(node, ft) ::= <<
-<node name="$node.name$">
 
+<text x="$node.pos.x$" y="$node.pos.y$" font-size="$ft.size$" class="NODE_text">$node.name$</text>
 >>
 
-NODE_out(node, ft) ::= <<
-</node>
-
->>
+NODE_out(node, ft) ::= ""
 
 EDGE_in(edge, ft) ::= <<
 <edge name="$edge.name$">
