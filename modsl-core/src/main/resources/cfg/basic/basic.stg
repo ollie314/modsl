@@ -18,7 +18,7 @@ NODE_in(node, meta) ::= <<
 
 EDGE_in(edge, meta) ::= <<
 
-<line x1="$edge.node1.ctrPos.x$" y1="$edge.node1.ctrPos.y$" x2="$edge.node2.ctrPos.x$" y2="$edge.node2.ctrPos.y$" class="EDGE_line"/>
+<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="EDGE_line"/>
 >>
 
 GRAPH_out(node, meta) ::= <<
