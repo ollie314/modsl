@@ -14,7 +14,7 @@ $root_in(node)$
 
 NODE_in(node, ft) ::= <<
 
-<text x="$node.pos.x$" y="$node.pos.y$" font-size="$ft.size$" class="NODE_text">$node.name$</text>
+<text x="$node.pos.x$" y="$node.pos.y$" font-size="$ft.size$" class="NODE_text">$node.name$</text><!-- $node.size$ -->
 >>
 
 EDGE_in(edge, ft) ::= <<
