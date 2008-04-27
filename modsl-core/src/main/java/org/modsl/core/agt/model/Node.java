@@ -213,14 +213,13 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 		FontTransform ft = type.getConfig().getFontTransform();
 		return new Pt(pos.x + ft.getLeftPadding(), pos.y + ft.getExtBaseline(0));
 	}
-	
 
 	/**
 	 * @return center position, taking node's size into account
 	 */
-    public Pt getCtrPos() {
-        return pos.plus(size.div(2d));
-    }
+	public Pt getCtrPos() {
+		return pos.plus(size.div(2d));
+	}
 
 	/**
 	 * @return size requested by the client
@@ -292,10 +291,12 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	 */
 	public void rescale(Pt newSize) {
 		normalize();
-		recalcSize();
-		Pt maxPt = getMaxPt();
-		Pt newSizeExt = newSize.minus(maxPt).decBy(new Pt(padSide * 2d, padTop + padBottom));
-		Pt sizeExt = size.minus(maxPt);
+		size = recalcSize();
+		Node<T> maxXNode = maxXNode();
+		Node<T> maxYNode = maxYNode();
+		Pt maxXYSize = new Pt(maxXNode.size.x, maxYNode.size.y);
+		Pt newSizeExt = newSize.minus(maxXYSize).decBy(new Pt(padSide * 2d, padTop + padBottom));
+		Pt sizeExt = size.minus(maxXYSize);
 		Pt topLeft = new Pt(padSide, padTop);
 		for (Node<T> n : nodes) {
 			n.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
