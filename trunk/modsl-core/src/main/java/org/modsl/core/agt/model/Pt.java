@@ -17,8 +17,10 @@
 package org.modsl.core.agt.model;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
 import static java.lang.Math.random;
 import static java.lang.Math.round;
+import static java.lang.Math.sqrt;
 
 /**
  * Represents 2D coordinates
@@ -156,7 +158,7 @@ public class Pt {
 	 * @return
 	 */
 	public double len() {
-		return Math.sqrt(x * x + y * y);
+		return sqrt(x * x + y * y);
 	}
 
 	/**
@@ -166,7 +168,7 @@ public class Pt {
 	 * @return length of XY vector, EPS of length is 0
 	 */
 	public double lenSafe() {
-		return Math.max(len(), EPSILON);
+		return max(len(), EPSILON);
 	}
 
 	/**

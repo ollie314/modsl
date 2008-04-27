@@ -16,6 +16,9 @@
 
 package org.modsl.core.agt.model;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,6 +68,21 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	 * node
 	 */
 	protected Pt pos = new Pt();
+
+	/**
+	 * Top padding
+	 */
+	protected double padTop = 0d;
+
+	/**
+	 * Bottom padding
+	 */
+	protected double padBottom;
+
+	/**
+	 * Left and right padding
+	 */
+	protected double padSide;
 
 	/**
 	 * Create new
@@ -131,6 +149,33 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
+	 * Bottom right corner's (x, y)
+	 * @return max (x, y)
+	 */
+	public Pt getMaxPt() {
+		Pt s = new Pt(0d, 0d);
+		for (Node<T> n : nodes) {
+			s.x = max(s.x, n.pos.x + n.size.x);
+			s.y = max(s.y, n.pos.y + n.size.y);
+		}
+		return s;
+	}
+
+	/**
+	 * Top left corner's (x, y). Can be different from 0, 0 depending on the
+	 * nodes' positions
+	 * @return min (x, y)
+	 */
+	public Pt getMinPt() {
+		Pt s = new Pt(Double.MAX_VALUE, Double.MAX_VALUE);
+		for (Node<T> n : nodes) {
+			s.x = min(s.x, n.pos.x);
+			s.y = min(s.y, n.pos.y);
+		}
+		return s;
+	}
+
+	/**
 	 * @param index
 	 * @return node by index
 	 */
@@ -161,6 +206,23 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
+	 * @return position for single line text (it's bottom left corner), with
+	 * font top and left padding taken into account
+	 */
+	public Pt getTextPos() {
+		FontTransform ft = type.getConfig().getFontTransform();
+		return new Pt(pos.x + ft.getLeftPadding(), pos.y + ft.getExtBaseline(0));
+	}
+	
+
+	/**
+	 * @return center position, taking node's size into account
+	 */
+    public Pt getCtrPos() {
+        return pos.plus(size.div(2d));
+    }
+
+	/**
 	 * @return size requested by the client
 	 */
 	public Pt getReqSize() {
@@ -183,6 +245,62 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 			len += e.getLength();
 		}
 		return len;
+	}
+
+	/**
+	 * @return node with max x (the rightmost one, including it's size)
+	 */
+	public Node<T> maxXNode() {
+		Node<T> res = null;
+		for (Node<T> n : nodes) {
+			res = res == null ? n : (res.pos.x + res.size.x < n.pos.x + n.size.x ? n : res);
+		}
+		return res;
+	}
+
+	/**
+	 * @return node with max y (the lowest one, including it's size)
+	 */
+	public Node<T> maxYNode() {
+		Node<T> res = null;
+		for (Node<T> n : nodes) {
+			res = res == null ? n : (res.pos.y + res.size.y < n.pos.y + n.size.y ? n : res);
+		}
+		return res;
+	}
+
+	/**
+	 * Shift (x, y) on all vertexes to bring min(x, y) to (0, 0)
+	 */
+	public void normalize() {
+		Pt min = getMinPt();
+		for (Node<T> n : nodes) {
+			n.pos.decBy(min);
+		}
+	}
+
+	/**
+	 * @return true size of the non-normalized graph
+	 */
+	public Pt recalcSize() {
+		return getMaxPt().minus(getMinPt());
+	}
+
+	/**
+	 * Rescale diagram to the given size
+	 * @param newSize new size
+	 */
+	public void rescale(Pt newSize) {
+		normalize();
+		recalcSize();
+		Pt maxPt = getMaxPt();
+		Pt newSizeExt = newSize.minus(maxPt).decBy(new Pt(padSide * 2d, padTop + padBottom));
+		Pt sizeExt = size.minus(maxPt);
+		Pt topLeft = new Pt(padSide, padTop);
+		for (Node<T> n : nodes) {
+			n.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
+		}
+		size = new Pt(newSize);
 	}
 
 	/**
