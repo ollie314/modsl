@@ -3,10 +3,11 @@ group basic : root;
 GRAPH_in(node, ft) ::= <<
 
 $root_in(node)$
-<!-- $node.name$ -->
+<!-- $node.name$: basic graph -->
 <style type="text/css"><![CDATA[ 
 	* { font-family: $ft.name$; }
 	.NODE_text { fill: black; }
+	.EDGE_line { stroke: dimgrey; stroke-width: 1px; }
 ]]></style>
 
 >>
@@ -19,13 +20,11 @@ NODE_in(node, ft) ::= <<
 NODE_out(node, ft) ::= ""
 
 EDGE_in(edge, ft) ::= <<
-<edge name="$edge.name$">
+
+<line x1="$edge.node1.pos.x$" y1="$edge.node1.pos.y$" x2="$edge.node2.pos.x$" y2="$edge.node2.pos.y$" class="EDGE_line"/>
 >>
 
-EDGE_out(edge, ft) ::= <<
-</edge>
-
->>
+EDGE_out(edge, ft) ::= ""
 
 GRAPH_out(node, ft) ::= <<
 </graph>
