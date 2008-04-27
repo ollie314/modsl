@@ -39,10 +39,14 @@ public class CircleLayout implements Layout {
 	@SuppressWarnings("unused")
 	private Logger log = Logger.getLogger(getClass());
 
-	protected int maxRounds;
 	protected double angle;
 	protected Node<?> graph;
-	protected int circlePositions;
+	protected int circlePositions, maxRounds;
+
+	@Override
+	public void apply(Edge<?> edge) {
+		// nothing to do here
+	}
 
 	@Override
 	public void apply(Node<?> node) {
@@ -54,6 +58,21 @@ public class CircleLayout implements Layout {
 		initCircle();
 		optimizeEdgeLength();
 
+	}
+
+	@Override
+	public String getConfigName() {
+		return "circle_layout";
+	}
+
+	private double getPosAngle(int p) {
+		return PI / 4d - angle * p;
+	}
+
+	private void initCircle() {
+		for (int i = 0; i < circlePositions; i++) {
+			setCirclePosition(graph.getNode(i), i);
+		}
 	}
 
 	private void optimizeEdgeLength() {
@@ -68,20 +87,15 @@ public class CircleLayout implements Layout {
 		}
 	}
 
-	private void initCircle() {
-		for (int iv = 0; iv < circlePositions; iv++) {
-			setCirclePosition(graph.getNode(iv), iv);
-		}
-	}
-
 	private void setCirclePosition(Node<?> n, int p) {
 		double len = graph.getReqSize().len();
-		n.getPos().x = len / 2d * cos(getPosAngle(p));
-		n.getPos().y = len / 2d * sin(getPosAngle(p));
+		n.getPos().x = graph.getReqSize().x / 2d + len / 2d * cos(getPosAngle(p));
+		n.getPos().y = graph.getReqSize().y / 2d + len / 2d * sin(getPosAngle(p));
 	}
 
-	private double getPosAngle(int p) {
-		return PI / 4d - angle * p;
+	@Override
+	public void setLayoutConfig(Map<String, String> propMap) {
+		maxRounds = Integer.parseInt(propMap.get("maxRounds"));
 	}
 
 	private void swap(int p1, int p2) {
@@ -90,21 +104,6 @@ public class CircleLayout implements Layout {
 		Pt pt1 = n1.getPos();
 		n1.setPos(n2.getPos());
 		n2.setPos(pt1);
-	}
-
-	@Override
-	public void apply(Edge<?> edge) {
-		// nothing to do here
-	}
-
-	@Override
-	public String getConfigName() {
-		return "circle_layout";
-	}
-
-	@Override
-	public void setLayoutConfig(Map<String, String> propMap) {
-		maxRounds = Integer.parseInt(propMap.get("maxRounds"));
 	}
 
 }

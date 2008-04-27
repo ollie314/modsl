@@ -39,6 +39,15 @@ public class MetaTypeConfig {
 	}
 
 	/**
+	 * Alias to be used in templates
+	 * @see MetaTypeConfig#getFontTransform()
+	 * @return font transform
+	 */
+	public FontTransform getFt() {
+		return fontTransform;
+	}
+
+	/**
 	 * @return array of layouts for this meta type
 	 */
 	public Layout[] getLayouts() {
