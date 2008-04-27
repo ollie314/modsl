@@ -53,3 +53,4 @@
    * hierarchical diagram, generalize containment relationship
    * render all svg-out test diagrams to png through Batikfor easy viewing/wiki catalog
    * render history  -> debug command in DSL
+   * check for exceprions when string template is missing
