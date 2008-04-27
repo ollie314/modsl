@@ -35,6 +35,8 @@ public class BasicFlowTest extends AbstractBasicTest {
 	public void flow() throws RecognitionException {
 
 		Node<BasicMetaType> root = parse("graph g { n1->n20; n1->n300->n4000->n50000; n20->n300; }");
+		root.getSize().x = 640;
+		root.getSize().y = 480;
 
 		BasicConfigLoader cfgLoader = new BasicConfigLoader(CFGDIR, NAME, BasicMetaType.class);
 		cfgLoader.load();
@@ -61,7 +63,7 @@ public class BasicFlowTest extends AbstractBasicTest {
 		s = root.getNode("n50000").getSize();
 		assertTrue(s.x > 50 && s.x < 55);
 		assertTrue(s.y > 16 && s.y < 20);
-		
+
 	}
 
 }
