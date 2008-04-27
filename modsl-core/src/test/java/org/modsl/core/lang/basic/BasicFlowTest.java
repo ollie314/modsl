@@ -27,18 +27,17 @@ import org.modsl.core.agt.visitor.StringTemplateVisitor;
 
 public class BasicFlowTest extends AbstractBasicTest {
 
-	protected static final String ROOTDIR = "cfg";
-	protected static final String CFGDIR = ROOTDIR + "/basic";
+	protected static final String PATH = "cfg/basic:cfg";
 	protected static final String NAME = "basic";
 
 	@Test
 	public void flow() throws RecognitionException {
 
 		Node<BasicMetaType> root = parse("graph g { n1->n20; n1->n300->n4000->n50000; n20->n300; }");
-		root.getSize().x = 640;
-		root.getSize().y = 480;
+		root.getReqSize().x = 640;
+		root.getReqSize().y = 480;
 
-		BasicConfigLoader cfgLoader = new BasicConfigLoader(CFGDIR, NAME, BasicMetaType.class);
+		BasicConfigLoader cfgLoader = new BasicConfigLoader(PATH, NAME, BasicMetaType.class);
 		cfgLoader.load();
 
 		LayoutVisitor<BasicMetaType> lv = new LayoutVisitor<BasicMetaType>();
@@ -46,7 +45,7 @@ public class BasicFlowTest extends AbstractBasicTest {
 
 		assertSizes(root);
 
-		StringTemplateVisitor<BasicMetaType> stv = new StringTemplateVisitor<BasicMetaType>(ROOTDIR + ":" + CFGDIR, NAME, 0);
+		StringTemplateVisitor<BasicMetaType> stv = new StringTemplateVisitor<BasicMetaType>(PATH, NAME, 0);
 		root.accept(stv);
 		String result = stv.toString();
 

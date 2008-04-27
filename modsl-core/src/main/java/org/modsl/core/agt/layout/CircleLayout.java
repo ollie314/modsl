@@ -36,6 +36,7 @@ import org.modsl.core.agt.model.Pt;
  */
 public class CircleLayout implements Layout {
 
+	@SuppressWarnings("unused")
 	private Logger log = Logger.getLogger(getClass());
 
 	protected int maxRounds;
