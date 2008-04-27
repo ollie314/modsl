@@ -17,18 +17,12 @@ NODE_in(node, ft) ::= <<
 <text x="$node.pos.x$" y="$node.pos.y$" font-size="$ft.size$" class="NODE_text">$node.name$</text>
 >>
 
-NODE_out(node, ft) ::= ""
-
 EDGE_in(edge, ft) ::= <<
 
 <line x1="$edge.node1.pos.x$" y1="$edge.node1.pos.y$" x2="$edge.node2.pos.x$" y2="$edge.node2.pos.y$" class="EDGE_line"/>
 >>
 
-EDGE_out(edge, ft) ::= ""
-
 GRAPH_out(node, ft) ::= <<
-</graph>
+
 $root_out()$
-
-
 >>
