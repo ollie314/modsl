@@ -59,6 +59,11 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	protected Pt size = new Pt();
 
 	/**
+	 * Alternate position (laceholder for layout algorithms)
+	 */
+	protected Pt altPos = new Pt();
+
+	/**
 	 * This element's requested size
 	 */
 	protected Pt reqSize = new Pt();
@@ -134,6 +139,27 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
+	 * @return alternate position
+	 */
+	public Pt getAltPos() {
+		return altPos;
+	}
+
+	/**
+	 * @return node's area in pixels^2
+	 */
+	public double getArea() {
+		return size.x * size.y;
+	}
+
+	/**
+	 * @return center position, taking node's size into account
+	 */
+	public Pt getCtrPos() {
+		return pos.plus(size.div(2d));
+	}
+
+	/**
 	 * @param key
 	 * @return edge by it's name
 	 */
@@ -206,22 +232,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
-	 * @return position for single line text (it's bottom left corner), with
-	 * font top and left padding taken into account
-	 */
-	public Pt getTextPos() {
-		FontTransform ft = type.getConfig().getFontTransform();
-		return new Pt(pos.x + ft.getLeftPadding(), pos.y + ft.getExtBaseline(0));
-	}
-
-	/**
-	 * @return center position, taking node's size into account
-	 */
-	public Pt getCtrPos() {
-		return pos.plus(size.div(2d));
-	}
-
-	/**
 	 * @return size requested by the client
 	 */
 	public Pt getReqSize() {
@@ -244,6 +254,15 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 			len += e.getLength();
 		}
 		return len;
+	}
+
+	/**
+	 * @return position for single line text (it's bottom left corner), with
+	 * font top and left padding taken into account
+	 */
+	public Pt getTextPos() {
+		FontTransform ft = type.getConfig().getFontTransform();
+		return new Pt(pos.x + ft.getLeftPadding(), pos.y + ft.getExtBaseline(0));
 	}
 
 	/**
@@ -279,10 +298,11 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
-	 * @return true size of the non-normalized graph
+	 * Recalculates and sets size of this (non-normalized) graph to true size of the
+	 * non-normalized graph
 	 */
-	public Pt recalcSize() {
-		return getMaxPt().minus(getMinPt());
+	public void recalcSize() {
+		size = getMaxPt().minus(getMinPt());
 	}
 
 	/**
@@ -291,7 +311,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	 */
 	public void rescale(Pt newSize) {
 		normalize();
-		size = recalcSize();
+		recalcSize();
 		Node<T> maxXNode = maxXNode();
 		Node<T> maxYNode = maxYNode();
 		Pt maxXYSize = new Pt(maxXNode.size.x, maxYNode.size.y);
@@ -302,6 +322,14 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 			n.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
 		}
 		size = new Pt(newSize);
+	}
+
+	/**
+	 * Set alternate position
+	 * @param altPos
+	 */
+	public void setAltPos(Pt altPos) {
+		this.altPos = altPos;
 	}
 
 	/**
@@ -325,6 +353,20 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	 */
 	public void setSize(Pt size) {
 		this.size = size;
+	}
+
+	/**
+	 * @return sin of angle between 0 and diagonal
+	 */
+	public double sin() {
+		return size.y / size.len();
+	}
+
+	/**
+	 * @return tan of angle between 0 and diagonal
+	 */
+	public double tan() {
+		return size.y / size.x;
 	}
 
 	@Override

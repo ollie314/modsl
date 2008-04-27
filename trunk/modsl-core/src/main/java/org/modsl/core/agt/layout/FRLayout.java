@@ -20,67 +20,85 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
-import org.modsl.cls.ClassDiagramLayoutProps;
-import org.modsl.core.layout.AbstractLayout;
+import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.Pt;
 import org.modsl.core.model.XY;
-import org.modsl.core.model.graph.Edge;
-import org.modsl.core.model.graph.Graph;
-import org.modsl.core.model.graph.Vertex;
 
 /**
  * Fruchterman-Rheingold layout algorithm
  * @author avishnyakov
  */
-public class FRLayout { //implements Layout {
-/*
+public class FRLayout implements Layout {
+
+	@SuppressWarnings("unused")
 	private Logger log = Logger.getLogger(this.getClass());
 
 	protected double temp, kForce, kAttraction, kRepulsion;
 
-	public void apply(Graph g) {
+	protected double tempMultiplier, attractionMultiplier, repulsionMultiplier;
+	protected int maxIterations;
 
-		g.recalcSize();
-		XY gsize = g.getSize();
-		temp = max((gsize.x + gsize.y) * props.frTempMultiplier, XY.EPSILON);
-		kForce = max(sqrt(g.getArea() / g.getVertexes().size()), XY.EPSILON);
-		kAttraction = props.frAttractionMultiplier * kForce;
-		kRepulsion = props.frRepulsionMultiplier * kForce;
+	protected Node<?> root;
 
-		g.addPositionToHistory();
+	@Override
+	public void apply(Edge<?> edge) {
+		// no op
+	}
 
-		for (int iterCurrent = 0; iterCurrent < props.frMaxIterations; iterCurrent++) {
-			repulsion(g);
-			attraction(g);
-			moveVertexes(g);
-			reduceTemperature(iterCurrent, props.frMaxIterations);
-			g.addPositionToHistory();
-			// g.recalcSize();
+	@Override
+	public void apply(Node<?> root) {
+
+		this.root = root;
+
+		root.recalcSize();
+		Pt gsize = root.getSize();
+		temp = max((gsize.x + gsize.y) * tempMultiplier, XY.EPSILON);
+		kForce = max(sqrt(root.getArea() / root.getNodes().size()), XY.EPSILON);
+		kAttraction = attractionMultiplier * kForce;
+		kRepulsion = repulsionMultiplier * kForce;
+
+		for (int iterCurrent = 0; iterCurrent < maxIterations; iterCurrent++) {
+			repulsion();
+			attraction();
+			moveVertexes();
+			reduceTemperature(iterCurrent, maxIterations);
 		}
 
 	}
 
-	private void repulsion(Graph g) {
-		for (Vertex v : g.getVertexes()) {
-			v.getAltPosition().zero();
-			for (Vertex u : g.getVertexes()) {
-				if (v != u) {
-					XY delta = getDelta(v, u);
-					double dl = delta.lenSafe();
-					v.getAltPosition().incBy(delta.div(dl).mult(repulsionForce(dl)));
-				}
-			}
+	private void attraction() {
+		for (Edge<?> e : root.getEdges()) {
+			// XY delta =
+			// e.getStartVertex().getPosition().minus(e.getEndVertex().getPosition());
+			// try to use size adjusted position
+			Pt delta = e.getNode1Clip().minus(e.getNode2Clip());
+			double dl = delta.lenSafe();
+			e.getNode1().getAltPos().decBy(delta.div(dl).mult(attractionForce(dl)));
+			e.getNode2().getAltPos().incBy(delta.div(dl).mult(attractionForce(dl)));
 		}
 	}
 
-	private XY getDelta(Vertex v1, Vertex v2) {
-		XY delta = v1.getCenterPosition().minus(v2.getCenterPosition());
+	protected double attractionForce(double dist) {
+		return dist * dist / kAttraction;
+	}
+
+	@Override
+	public String getConfigName() {
+		return "fr_layout";
+	}
+
+	private Pt getDelta(Node<?> n1, Node<?> n2) {
+		Pt delta = n1.getCtrPos().minus(n2.getCtrPos());
 		// String s = delta.toString();
-		if (v1.getSize().y > v1.getSize().x) {
-			delta.decBy((v1.getSize().y - v1.getSize().x) / 2d);
+		if (n1.getSize().y > n1.getSize().x) {
+			delta.decBy((n1.getSize().y - n1.getSize().x) / 2d);
 		}
-		if (v2.getSize().y > v2.getSize().x) {
-			delta.decBy((v2.getSize().y - v2.getSize().x) / 2d);
+		if (n2.getSize().y > n2.getSize().x) {
+			delta.decBy((n2.getSize().y - n2.getSize().x) / 2d);
 		}
 		// TODO bigger element adjustment
 		// delta.decBy(v1.getDiagonal() / 8d);
@@ -92,23 +110,11 @@ public class FRLayout { //implements Layout {
 		return delta;
 	}
 
-	private void attraction(Graph g) {
-		for (Edge e : g.getEdges()) {
-			// XY delta =
-			// e.getStartVertex().getPosition().minus(e.getEndVertex().getPosition());
-			// try to use size adjusted position
-			XY delta = e.getAdjustedStartPosition().minus(e.getAdjustedEndPosition());
+	private void moveVertexes() {
+		for (Node<?> n : root.getNodes()) {
+			Pt delta = n.getAltPos().minus(n.getPos());
 			double dl = delta.lenSafe();
-			e.getStartVertex().getAltPosition().decBy(delta.div(dl).mult(attractionForce(dl)));
-			e.getEndVertex().getAltPosition().incBy(delta.div(dl).mult(attractionForce(dl)));
-		}
-	}
-
-	private void moveVertexes(Graph g) {
-		for (Vertex v : g.getVertexes()) {
-			XY delta = v.getAltPosition().minus(v.getPosition());
-			double dl = delta.lenSafe();
-			v.getPosition().incBy(delta.div(dl).mult(min(dl, temp)));
+			n.getPos().incBy(delta.div(dl).mult(min(dl, temp)));
 		}
 	}
 
@@ -116,12 +122,29 @@ public class FRLayout { //implements Layout {
 		temp *= (1d - (double) iterCurrent / iterMax);
 	}
 
+	private void repulsion() {
+		for (Node<?> na : root.getNodes()) {
+			na.getAltPos().zero();
+			for (Node<?> nb : root.getNodes()) {
+				if (na != nb) {
+					Pt delta = getDelta(na, nb);
+					double dl = delta.lenSafe();
+					na.getAltPos().incBy(delta.div(dl).mult(repulsionForce(dl)));
+				}
+			}
+		}
+	}
+
 	protected double repulsionForce(double dist) {
 		return kRepulsion * kRepulsion / dist;
 	}
 
-	protected double attractionForce(double dist) {
-		return dist * dist / kAttraction;
+	@Override
+	public void setLayoutConfig(Map<String, String> propMap) {
+		maxIterations = Integer.parseInt(propMap.get("maxIterations"));
+		tempMultiplier = Double.parseDouble(propMap.get("tempMultiplier"));
+		attractionMultiplier = Double.parseDouble(propMap.get("attractionMultiplier"));
+		repulsionMultiplier = Double.parseDouble(propMap.get("repulsionMultiplier"));
 	}
-*/
+
 }
