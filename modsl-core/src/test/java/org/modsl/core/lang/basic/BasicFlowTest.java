@@ -21,52 +21,34 @@ import java.io.IOException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.modsl.core.Utils;
-import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.agt.visitor.LayoutVisitor;
-import org.modsl.core.agt.visitor.StringTemplateVisitor;
 
 public class BasicFlowTest extends AbstractBasicTest {
 
-    protected static final String PATH = "cfg/basic:cfg";
-    protected static final String NAME = "basic";
+	@Test
+	public void flow1() throws Exception {
+		process("graph g1 { n1->n2; n1->n3->n4->n5; n2->n3; n5->n8->n9; n9->n4; n8-> n4; }", new Pt(400, 320));
+	}
 
-    protected BasicConfigLoader cfgLoader = new BasicConfigLoader(PATH, NAME, BasicMetaType.class);
-    protected LayoutVisitor<BasicMetaType> layoutVisitor = new LayoutVisitor<BasicMetaType>();
-    protected StringTemplateVisitor<BasicMetaType> stVisitor = new StringTemplateVisitor<BasicMetaType>(PATH, NAME, 0);
+	@Test
+	public void flow2() throws RecognitionException, IOException {
+		process("graph g2 { n1->n2->n3->n4->n5->n6->n7->n8; }", new Pt(400, 320));
+	}
 
-    public BasicFlowTest() {
-        cfgLoader.load();
-    }
+	@Test
+	public void flow3() throws RecognitionException, IOException {
+		process("graph g3 { n1->n2->n3->n4->n5->n6->n7->n8; n5->n1->n3; n2->n4->n6->n8->n5->n2; "
+				+ "n3->n5->n7; n6->n1->n4->n8; n6->n2->n8->n1->n7; n4->n7->n2; n8->n3->n6; n3->n7; }", new Pt(400, 320));
+	}
 
-    @Test
-    public void flow1() throws Exception {
-        process("graph g1 { n1->n2; n1->n3->n4->n5; n2->n3; n5->n8->n9; n9->n4; n8-> n4; }", new Pt(400, 320));
-    }
+	@Test
+	public void flow4() throws RecognitionException, IOException {
+		process("graph g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(400, 320));
+	}
 
-    @Test
-    public void flow2() throws RecognitionException, IOException {
-        process("graph g2 { n1->n2->n3->n4->n5->n6->n7->n8; }", new Pt(400, 320));
-    }
-
-    @Test
-    public void flow3() throws RecognitionException, IOException {
-        process("graph g3 { n1->n2->n3->n4->n5->n6->n7->n8; n5->n1->n3; n2->n4->n6->n8->n5->n2; "
-                + "n3->n5->n7; n6->n1->n4->n8; n6->n2->n8->n1->n7; n4->n7->n2; n8->n3->n6; n3->n7; }", new Pt(400, 320));
-    }
-
-    @Test
-    public void flow4() throws RecognitionException, IOException {
-        process("graph g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(400, 320));
-    }
-
-    private void process(String input, Pt reqSize) throws RecognitionException, IOException {
-        Node<BasicMetaType> root = parse(input);
-        root.setReqSize(reqSize);
-        root.accept(layoutVisitor);
-        root.rescale(root.getReqSize());
-        root.accept(stVisitor);
-        Utils.toFile("etc/svg-out/" + NAME + "_" + root.getName() + ".svg", stVisitor.toString());
-    }
+	private void process(String s, Pt reqSize) throws RecognitionException, IOException {
+		String result = processor.process(s, reqSize);
+		Utils.toFile("etc/svg-out/" + processor.getName() + "_" + processor.getRoot().getName() + ".svg", result);
+	}
 
 }
