@@ -210,6 +210,14 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
+	 * @param index
+	 * @return edge by index
+	 */
+	public Edge<T> getEdge(int index) {
+		return edges.get(index);
+	}
+
+	/**
 	 * @param key
 	 * @return node by it's name
 	 */
@@ -298,8 +306,8 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
-	 * Recalculates and sets size of this (non-normalized) graph to true size of the
-	 * non-normalized graph
+	 * Recalculates and sets size of this (non-normalized) graph to true size of
+	 * the non-normalized graph
 	 */
 	public void recalcSize() {
 		size = getMaxPt().minus(getMinPt());

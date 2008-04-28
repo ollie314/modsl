@@ -16,7 +16,9 @@
 
 package org.modsl.core.agt.model;
 
+import static java.lang.Math.PI;
 import static java.lang.Math.abs;
+import static java.lang.Math.acos;
 import static java.lang.Math.signum;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
@@ -77,6 +79,21 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 	public void accept(AbstractVisitor<T> visitor) {
 		visitor.in(this);
 		visitor.out(this);
+	}
+
+	public double angle() {
+		Pt delta = getDelta();
+		if (delta.y > 0d) {
+			return acos(this.cos());
+		} else if (delta.y < 0d) {
+			return 2 * PI - acos(this.cos());
+		} else {
+			if (delta.x >= 0d) {
+				return 0;
+			} else {
+				return PI;
+			}
+		}
 	}
 
 	public double cos() {
@@ -195,5 +212,4 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
 				+ (node2 == null ? "*" + node2Name : node2.getName()) + ")";
 	}
-
 }
