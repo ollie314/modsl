@@ -82,7 +82,7 @@ public class FRLayout implements Layout {
 	}
 
 	protected double attractionForce(double dist) {
-		return dist * dist / kAttraction; // ^3 ???
+		return dist * dist * dist/ kAttraction; // TODO was ^2... ^3 ???
 	}
 
 	@Override
