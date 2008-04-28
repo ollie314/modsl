@@ -14,12 +14,13 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.visitor;
+package org.modsl.core.agt.visitor.layout;
 
 import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.visitor.AbstractVisitor;
 
 public class LayoutVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
