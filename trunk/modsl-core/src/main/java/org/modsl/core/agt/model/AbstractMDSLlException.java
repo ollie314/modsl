@@ -16,23 +16,23 @@
 
 package org.modsl.core.agt.model;
 
-public class AbstractModslException extends RuntimeException {
+public class AbstractMDSLlException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public AbstractModslException() {
+    public AbstractMDSLlException() {
         super();
     }
 
-    public AbstractModslException(String message) {
+    public AbstractMDSLlException(String message) {
         super(message);
     }
 
-    public AbstractModslException(Throwable cause) {
+    public AbstractMDSLlException(Throwable cause) {
         super(cause);
     }
 
-    public AbstractModslException(String message, Throwable cause) {
+    public AbstractMDSLlException(String message, Throwable cause) {
         super(message, cause);
     }
 
