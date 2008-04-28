@@ -14,35 +14,30 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.model.diagram;
+package org.modsl.OBSOLETE.core.model.diagram;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
 import org.modsl.core.model.XY;
 
 public class DiagramTest extends AbstractModelTest {
 
-	@Test
 	public void recalcSize() {
 		diag.recalcSize();
 		assertEquals(1200d, diag.getSize().x, XY.EPSILON);
 		assertEquals(1200d, diag.getSize().y, XY.EPSILON);
 	}
 
-	@Test
 	public void getMaxXY() {
 		assertEquals(1200d, diag.getMaxXY().x, XY.EPSILON);
 		assertEquals(1200d, diag.getMaxXY().y, XY.EPSILON);
 	}
 
-	@Test
 	public void getMinXY() {
 		assertEquals(0d, diag.getMinXY().x, XY.EPSILON);
 		assertEquals(0d, diag.getMinXY().y, XY.EPSILON);
 	}
 
-	@Test
 	public void rescale() {
 		diag.setPaddingHeader(0d);
 		diag.setPaddingFooter(0d);
@@ -59,7 +54,6 @@ public class DiagramTest extends AbstractModelTest {
 		assertEquals(1000000d, diag.getArea(), 1d);
 	}
 
-	@Test
 	public void getArea() {
 		diag.recalcSize();
 		assertEquals(1440000d, diag.getArea(), XY.EPSILON);

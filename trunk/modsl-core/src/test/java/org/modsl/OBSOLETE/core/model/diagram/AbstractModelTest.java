@@ -14,10 +14,14 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.model.diagram;
+package org.modsl.OBSOLETE.core.model.diagram;
 
 import org.junit.Before;
 import org.modsl.core.model.XY;
+import org.modsl.core.model.diagram.Connector;
+import org.modsl.core.model.diagram.Diagram;
+import org.modsl.core.model.diagram.Element;
+import org.modsl.core.model.diagram.ElementDetail;
 
 public abstract class AbstractModelTest {
 

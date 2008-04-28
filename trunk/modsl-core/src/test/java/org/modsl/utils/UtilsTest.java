@@ -27,7 +27,6 @@ public class UtilsTest {
 	public void getFontMetrics() {
 		FontTransform fts = new FontTransform("Serif", 12);
 		assertTrue(fts.getStringWidth("test") > 0d);
-		// assertEquals(fm.getHeight(), 12);
 	}
 
 }

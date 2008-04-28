@@ -253,7 +253,7 @@ public class Diagram<P, E extends Element, C extends Connector> extends Abstract
 	 * @param newSize
 	 *            new size
 	 */
-	protected void rescale(XY newSize) {
+	public void rescale(XY newSize) {
 		rebase();
 		recalcSize();
 		lastKnownSize = size;
