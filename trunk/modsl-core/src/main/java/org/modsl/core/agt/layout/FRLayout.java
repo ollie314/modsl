@@ -26,7 +26,8 @@ import org.apache.log4j.Logger;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.model.XY;
+
+import OBSOLETE.org.modsl.core.model.XY;
 
 /**
  * Fruchterman-Rheingold layout algorithm

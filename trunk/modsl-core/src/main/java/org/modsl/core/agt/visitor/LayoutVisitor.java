@@ -16,30 +16,33 @@
 
 package org.modsl.core.agt.visitor;
 
-import org.modsl.core.agt.model.AbstractModslException;
+import org.modsl.core.agt.layout.Layout;
+import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.agt.model.Node;
 
-/**
- * Thrown when tree post-processing fails because of unresolved nodde references
- * @author avishnyakov
- */
-public class InvalidNodeNameException extends AbstractModslException {
+public class LayoutVisitor<T extends MetaType> extends AbstractVisitor<T> {
 
-	private static final long serialVersionUID = 1L;
-
-	public InvalidNodeNameException() {
-		super();
+	private void apply(Edge<?> edge, Layout[] layouts) {
+		for (Layout l : layouts) {
+			l.apply(edge);
+		}
 	}
 
-	public InvalidNodeNameException(String message, Throwable cause) {
-		super(message, cause);
+	private void apply(Node<?> node, Layout[] layouts) {
+		for (Layout l : layouts) {
+			l.apply(node);
+		}
 	}
 
-	public InvalidNodeNameException(String message) {
-		super(message);
+	@Override
+	public void out(Edge<T> edge) {
+		apply(edge, edge.getType().getConfig().getLayouts());
 	}
 
-	public InvalidNodeNameException(Throwable cause) {
-		super(cause);
+	@Override
+	public void out(Node<T> node) {
+		apply(node, node.getType().getConfig().getLayouts());
 	}
 
 }

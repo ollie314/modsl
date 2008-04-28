@@ -14,28 +14,28 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+package OBSOLETE.org.modsl.core.layout;
 
-import org.modsl.core.agt.model.AbstractModslException;
 
-public class ConfigException extends AbstractModslException {
+import OBSOLETE.org.modsl.core.config.AbstractTemplateProps;
+import OBSOLETE.org.modsl.core.model.diagram.Diagram;
 
-    private static final long serialVersionUID = 1L;
+/**
+ * Layout algorithm interface
+ * 
+ * @author avishnyakov
+ */
+public abstract class AbstractMetricsAdjustment<D extends Diagram<?, ?, ?>, P extends AbstractTemplateProps> {
 
-    public ConfigException() {
-        super();
+    protected P props;
+
+    public AbstractMetricsAdjustment(P props) {
+        this.props = props;
     }
 
-    public ConfigException(String message) {
-        super(message);
-    }
-
-    public ConfigException(Throwable cause) {
-        super(cause);
-    }
-
-    public ConfigException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    /**
+     * Run layout algorithm, update coordinates of the graph
+     */
+    public abstract void apply(D Diagram);
 
 }

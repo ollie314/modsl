@@ -14,27 +14,25 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+package org.modsl.core.agt.model;
 
-import org.modsl.core.agt.model.AbstractModslException;
-
-public class ConfigException extends AbstractModslException {
+public class AbstractModslException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public ConfigException() {
+    public AbstractModslException() {
         super();
     }
 
-    public ConfigException(String message) {
+    public AbstractModslException(String message) {
         super(message);
     }
 
-    public ConfigException(Throwable cause) {
+    public AbstractModslException(Throwable cause) {
         super(cause);
     }
 
-    public ConfigException(String message, Throwable cause) {
+    public AbstractModslException(String message, Throwable cause) {
         super(message, cause);
     }
 

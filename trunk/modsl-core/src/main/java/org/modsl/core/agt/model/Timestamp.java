@@ -14,28 +14,36 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+package org.modsl.core.agt.model;
 
-import org.modsl.core.agt.model.AbstractModslException;
+/**
+ * Represents names timestamp
+ * 
+ * @author avishnyakov
+ *
+ */
+public class Timestamp {
 
-public class ConfigException extends AbstractModslException {
+    protected String name;
+    protected long timestamp;
 
-    private static final long serialVersionUID = 1L;
-
-    public ConfigException() {
+    public Timestamp(String name, long timestamp) {
         super();
+        this.name = name;
+        this.timestamp = timestamp;
     }
 
-    public ConfigException(String message) {
-        super(message);
+    public String getName() {
+        return name;
     }
 
-    public ConfigException(Throwable cause) {
-        super(cause);
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public ConfigException(String message, Throwable cause) {
-        super(message, cause);
+    @Override
+    public String toString() {
+        return "(" + name + ":" + timestamp + ")";
     }
-
+    
 }

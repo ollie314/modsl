@@ -14,28 +14,19 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+package OBSOLETE.org.modsl.collab.model;
 
-import org.modsl.core.agt.model.AbstractModslException;
+import OBSOLETE.org.modsl.core.model.diagram.Diagram;
 
-public class ConfigException extends AbstractModslException {
+/**
+ * Collaboration diagram implementation
+ * 
+ * @author avishnyakov
+ */
+public class CollabDiagram extends Diagram<Object, CollabElement, CollabConnector> {
 
-    private static final long serialVersionUID = 1L;
-
-    public ConfigException() {
-        super();
-    }
-
-    public ConfigException(String message) {
-        super(message);
-    }
-
-    public ConfigException(Throwable cause) {
-        super(cause);
-    }
-
-    public ConfigException(String message, Throwable cause) {
-        super(message, cause);
+    public CollabDiagram(String name) {
+        super(null, name);
     }
 
 }

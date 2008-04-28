@@ -14,28 +14,19 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+package org.modsl.core.agt.model;
 
-import org.modsl.core.agt.model.AbstractModslException;
+import static org.junit.Assert.assertTrue;
 
-public class ConfigException extends AbstractModslException {
+import org.junit.Test;
+import org.modsl.core.agt.model.FontTransform;
 
-    private static final long serialVersionUID = 1L;
+public class FontTransformTest {
 
-    public ConfigException() {
-        super();
-    }
-
-    public ConfigException(String message) {
-        super(message);
-    }
-
-    public ConfigException(Throwable cause) {
-        super(cause);
-    }
-
-    public ConfigException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	@Test
+	public void fontMetrics() {
+		FontTransform fts = new FontTransform("Serif", 12);
+		assertTrue(fts.getStringWidth("test") > 0d);
+	}
 
 }

@@ -14,28 +14,16 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+/**
+ * 
+ */
+package OBSOLETE.org.modsl.cls.model;
 
-import org.modsl.core.agt.model.AbstractModslException;
-
-public class ConfigException extends AbstractModslException {
-
-    private static final long serialVersionUID = 1L;
-
-    public ConfigException() {
-        super();
-    }
-
-    public ConfigException(String message) {
-        super(message);
-    }
-
-    public ConfigException(Throwable cause) {
-        super(cause);
-    }
-
-    public ConfigException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
+/**
+ * Element scope types
+ * @author avishnyakov
+ *
+ */
+public enum ClassElementDetailScope {
+	INSTANCE, STATIC
 }
