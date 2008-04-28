@@ -345,10 +345,12 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     private void resetPaddings() {
         FontTransform ft = type.getConfig().getFontTransform();
-        leftPadding = ft.getLeftPadding();
-        rightPadding = ft.getRightPadding();
-        topPadding = ft.getTopPadding();
-        bottomPadding = ft.getBottomPadding();
+        if (ft != null) {
+            leftPadding = ft.getLeftPadding();
+            rightPadding = ft.getRightPadding();
+            topPadding = ft.getTopPadding();
+            bottomPadding = ft.getBottomPadding();
+        }
     }
 
     /**

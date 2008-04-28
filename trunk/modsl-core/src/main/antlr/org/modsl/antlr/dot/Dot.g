@@ -23,7 +23,7 @@ options {
 	protected DotFactory factory = new DotFactory();
 }
 
-dotGraph 
+graph 
 	@init{ root = factory.createRootNode(); cnode = root; }
 	@after { root.accept(new NodeRefVisitor<DotMetaType>()); }
 	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
