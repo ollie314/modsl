@@ -27,8 +27,6 @@ import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
-import OBSOLETE.org.modsl.core.model.XY;
-
 /**
  * Fruchterman-Rheingold layout algorithm
  * @author avishnyakov
@@ -57,8 +55,8 @@ public class FRLayout implements Layout {
 
 		root.recalcSize();
 		Pt gsize = root.getSize();
-		temp = max((gsize.x + gsize.y) * tempMultiplier, XY.EPSILON);
-		kForce = max(sqrt(root.getArea() / root.getNodes().size()), XY.EPSILON);
+		temp = max((gsize.x + gsize.y) * tempMultiplier, Pt.EPSILON);
+		kForce = max(sqrt(root.getArea() / root.getNodes().size()), Pt.EPSILON);
 		kAttraction = attractionMultiplier * kForce;
 		kRepulsion = repulsionMultiplier * kForce;
 
@@ -104,8 +102,8 @@ public class FRLayout implements Layout {
 		// TODO bigger element adjustment
 		// delta.decBy(v1.getDiagonal() / 8d);
 		// delta.decBy(v2.getDiagonal() / 8d);
-		if (delta.len() < XY.EPSILON) {
-			delta.randomize(XY.EPSILON);
+		if (delta.len() < Pt.EPSILON) {
+			delta.randomize(Pt.EPSILON);
 		}
 		// log.debug(s + ":" + delta);
 		return delta;

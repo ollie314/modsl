@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import OBSOLETE.org.modsl.core.model.XY;
 
-public class DiagramTest extends AbstractModelTest {
+public abstract class DiagramTest extends AbstractModelTest {
 
 	public void recalcSize() {
 		diag.recalcSize();

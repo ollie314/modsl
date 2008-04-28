@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import OBSOLETE.org.modsl.core.model.XY;
 
-public class ConnectorTest extends AbstractModelTest {
+public abstract class ConnectorTest extends AbstractModelTest {
 
 	public void angle() {
 		assertEquals(PI / 4d, diag.getConnectors().get(0).angle(), XY.EPSILON); // 1-3
