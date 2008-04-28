@@ -77,17 +77,22 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     /**
      * Top padding
      */
-    protected double padTop = 0d;
+    protected double topPadding = 0d;
 
     /**
      * Bottom padding
      */
-    protected double padBottom;
+    protected double bottomPadding;
 
     /**
-     * Left and right padding
+     * Left padding
      */
-    protected double padSide;
+    protected double leftPadding;
+
+    /**
+     * Right padding
+     */
+    protected double rightPadding;
 
     /**
      * Create new
@@ -95,6 +100,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     public Node(T type) {
         super(type);
+        resetPaddings();
     }
 
     /**
@@ -104,6 +110,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     public Node(T type, String name) {
         super(type, name);
+        resetPaddings();
     }
 
     @Override
@@ -160,6 +167,14 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     }
 
     /**
+     * @param index
+     * @return edge by index
+     */
+    public Edge<T> getEdge(int index) {
+        return edges.get(index);
+    }
+
+    /**
      * @param key
      * @return edge by it's name
      */
@@ -207,14 +222,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     public Node<T> getNode(int index) {
         return nodes.get(index);
-    }
-
-    /**
-     * @param index
-     * @return edge by index
-     */
-    public Edge<T> getEdge(int index) {
-        return edges.get(index);
     }
 
     /**
@@ -323,13 +330,25 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         Node<T> maxXNode = maxXNode();
         Node<T> maxYNode = maxYNode();
         Pt maxXYSize = new Pt(maxXNode.size.x, maxYNode.size.y);
-        Pt newSizeExt = newSize.minus(maxXYSize).decBy(new Pt(padSide * 2d + 1, padTop + padBottom + 1));
+        Pt newSizeExt = newSize.minus(maxXYSize).decBy(new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1));
         Pt sizeExt = size.minus(maxXYSize);
-        Pt topLeft = new Pt(padSide, padTop);
+        Pt topLeft = new Pt(leftPadding, topPadding);
         for (Node<T> n : nodes) {
             n.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
         }
         size = new Pt(newSize);
+    }
+
+    /**
+     * Resets paddings to the values dictated by font transform object
+     * (essentially based on the font size)
+     */
+    private void resetPaddings() {
+        FontTransform ft = type.getConfig().getFontTransform();
+        leftPadding = ft.getLeftPadding();
+        rightPadding = ft.getRightPadding();
+        topPadding = ft.getTopPadding();
+        bottomPadding = ft.getBottomPadding();
     }
 
     /**
