@@ -8,12 +8,12 @@ import org.modsl.antlr.basic.BasicLexer;
 import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.cfg.AbstractProcessor;
-import org.modsl.core.cfg.ConfigLoader;
+import org.modsl.core.cfg.AbstractConfigLoader;
 
 public class BasicProcessor extends AbstractProcessor<BasicMetaType, BasicParser> {
 
 	@Override
-	protected ConfigLoader getConfigLoader() {
+	protected AbstractConfigLoader getConfigLoader() {
 		return new BasicConfigLoader(getPath(), getName(), BasicMetaType.class);
 	}
 
