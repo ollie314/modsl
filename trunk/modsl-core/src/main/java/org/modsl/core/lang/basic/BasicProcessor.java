@@ -12,26 +12,36 @@ import org.modsl.core.cfg.AbstractProcessor;
 
 public class BasicProcessor extends AbstractProcessor {
 
-    @Override
-    protected Lexer getLexer(ANTLRStringStream input) {
-        return new BasicLexer(input);
-    }
+	@Override
+	protected Lexer getLexer(ANTLRStringStream input) {
+		return new BasicLexer(input);
+	}
 
-    @Override
-    protected Parser getParser(CommonTokenStream tokens) {
-        return new BasicParser(tokens);
-    }
+	@Override
+	protected Parser getParser(CommonTokenStream tokens) {
+		return new BasicParser(tokens);
+	}
 
-    @Override
-    protected Node<?> getRoot(Parser parser) {
-        BasicParser bp = (BasicParser) parser;
-        return bp.root;
-    }
+	@Override
+	protected Node<?> getRoot(Parser parser) {
+		BasicParser bp = (BasicParser) parser;
+		return bp.root;
+	}
 
-    @Override
-    protected void runParser(Parser parser) throws RecognitionException {
-        BasicParser bp = (BasicParser) parser;
-        bp.graph();
-    }
+	@Override
+	protected void runParser(Parser parser) throws RecognitionException {
+		BasicParser bp = (BasicParser) parser;
+		bp.graph();
+	}
+
+	@Override
+	protected String getName() {
+		return "basic";
+	}
+
+	@Override
+	protected String getPath() {
+		return "cfg/basic:cfg";
+	}
 
 }

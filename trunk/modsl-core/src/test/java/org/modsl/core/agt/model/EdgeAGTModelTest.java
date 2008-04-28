@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class EdgeAGTTest extends AbstractAGTModelTest {
+public class EdgeAGTModelTest extends AbstractAGTModelTest {
 	
 	@Test
 	public void angle() {
