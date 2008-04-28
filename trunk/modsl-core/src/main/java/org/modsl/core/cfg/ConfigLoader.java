@@ -19,17 +19,35 @@ package org.modsl.core.cfg;
 import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.model.MetaType;
 
+/**
+ * Base class for all configuration loaders. Loads DSL configuration from given
+ * path (colon separated). Populates meta type for that DSL with font
+ * transformation info and inits all layout manager classes.
+ * @author AVishnyakov
+ */
 public abstract class ConfigLoader {
 
+	/**
+	 * Parent meta type class to be filled with configuration information
+	 */
 	protected Class<? extends MetaType> metaTypeClass;
 	protected String path, name;
 
+	/**
+	 * Create new
+	 * @param path
+	 * @param name
+	 * @param metaTypeClass
+	 */
 	public ConfigLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
 		this.path = path;
 		this.name = name;
 		this.metaTypeClass = metaTypeClass;
 	}
 
+	/**
+	 * Load configuration from disk
+	 */
 	public void load() {
 		initLayouts();
 		for (MetaType mt : metaTypeClass.getEnumConstants()) {
@@ -40,10 +58,15 @@ public abstract class ConfigLoader {
 					l.setLayoutConfig(pl.getProps());
 				}
 			}
-	        new FontTransformLoader(path, name, metaTypeClass).load();
+			new FontTransformLoader(path, name, metaTypeClass).load();
 		}
 	}
-	
+
+	/**
+	 * Initialize layout classes. Subclasses of this class need to register
+	 * layout manager class arrays with corresponding meta type class instances
+	 * here.
+	 */
 	public abstract void initLayouts();
 
 }

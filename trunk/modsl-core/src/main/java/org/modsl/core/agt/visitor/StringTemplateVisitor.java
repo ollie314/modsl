@@ -28,7 +28,6 @@ import org.modsl.core.agt.model.AbstractGraphElement;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
-import org.modsl.st.STErrorListener;
 
 /**
  * Renders abstract graph tree as a string using given string template
