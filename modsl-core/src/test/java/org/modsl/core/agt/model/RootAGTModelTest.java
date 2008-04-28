@@ -50,7 +50,7 @@ public class RootAGTModelTest extends AbstractAGTModelTest {
 		assertEquals(0d, root.getNode("TopRight").getPos().y, 5d);
 		assertEquals(0d, root.getNode("BottomLeft").getPos().x, 5d);
 		assertEquals(800d, root.getNode("BottomLeft").getPos().y, 7d);
-		assertEquals(400d, root.getNode("BottomMiddle").getPos().x, 1d);
+		assertEquals(400d, root.getNode("BottomMiddle").getPos().x, 5d);
 		assertEquals(880d, root.getNode("BottomMiddle").getPos().y, 7d);
 		assertEquals(1000000d, root.getArea(), 1d);
 	}
