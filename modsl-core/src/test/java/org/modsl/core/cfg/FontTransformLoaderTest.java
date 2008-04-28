@@ -18,6 +18,7 @@ package org.modsl.core.cfg;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.modsl.core.agt.TMetaType;
 
 public class FontTransformLoaderTest {
 

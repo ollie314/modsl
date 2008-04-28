@@ -19,6 +19,7 @@ package org.modsl.core.cfg;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.modsl.core.agt.TMetaType;
 
 public class ConfigLoaderTest {
 

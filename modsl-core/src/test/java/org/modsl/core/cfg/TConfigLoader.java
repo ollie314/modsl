@@ -16,6 +16,7 @@
 
 package org.modsl.core.cfg;
 
+import org.modsl.core.agt.TMetaType;
 import org.modsl.core.agt.layout.Layout;
 
 public class TConfigLoader extends ConfigLoader {
