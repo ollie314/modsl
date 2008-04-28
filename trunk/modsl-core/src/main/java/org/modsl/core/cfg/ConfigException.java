@@ -16,9 +16,9 @@
 
 package org.modsl.core.cfg;
 
-import org.modsl.core.agt.model.AbstractModslException;
+import org.modsl.core.agt.model.AbstractModSLException;
 
-public class ConfigException extends AbstractModslException {
+public class ConfigException extends AbstractModSLException {
 
     private static final long serialVersionUID = 1L;
 
