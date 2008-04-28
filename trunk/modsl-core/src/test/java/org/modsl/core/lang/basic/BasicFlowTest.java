@@ -45,7 +45,7 @@ public class BasicFlowTest extends AbstractBasicTest {
 	public void flow1() throws Exception {
 
 		Node<BasicMetaType> root = parse("graph g1 { n1->n2; n1->n3->n4->n5; n2->n3; }");
-		root.setReqSize(new Pt(640, 480));
+		root.setReqSize(new Pt(400, 320));
 		
 		root.accept(layoutVisitor);
 
@@ -65,7 +65,7 @@ public class BasicFlowTest extends AbstractBasicTest {
 	@Test
 	public void flow2() throws RecognitionException, IOException {
 		Node<BasicMetaType> root = parse("graph g2 { n1->n2->n3->n4->n5; }");
-		root.setReqSize(new Pt(640, 480));
+		root.setReqSize(new Pt(400, 320));
 		root.accept(layoutVisitor);
 		root.rescale(root.getReqSize());
 		root.accept(stVisitor);
