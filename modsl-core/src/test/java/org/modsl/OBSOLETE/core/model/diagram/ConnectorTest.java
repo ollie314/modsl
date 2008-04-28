@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.model.diagram;
+package org.modsl.OBSOLETE.core.model.diagram;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.acos;
@@ -28,7 +28,6 @@ import org.modsl.core.model.XY;
 
 public class ConnectorTest extends AbstractModelTest {
 
-	@Test
 	public void angle() {
 		assertEquals(PI / 4d, diag.getConnectors().get(0).angle(), XY.EPSILON); // 1-3
 		assertEquals(PI * 3d / 4d, diag.getConnectors().get(1).angle(), XY.EPSILON); // 2-4
@@ -39,7 +38,6 @@ public class ConnectorTest extends AbstractModelTest {
 		assertTrue(diag.getConnectors().get(3).angle() < 2d * PI);
 	}
 
-	@Test
 	public void cos() {
 		// values for pi/4 and pi*3/4
 		assertEquals(PI / 4d, acos(diag.getConnectors().get(0).cos()), XY.EPSILON); // 1-3
@@ -49,7 +47,6 @@ public class ConnectorTest extends AbstractModelTest {
 		assertTrue(diag.getConnectors().get(3).cos() > 0); // 4-6
 	}
 
-	@Test
 	public void sin() {
 		// values for pi/4 and pi*3/4
 		assertEquals(PI / 4d, asin(diag.getConnectors().get(0).sin()), XY.EPSILON); // 1-3
@@ -59,7 +56,6 @@ public class ConnectorTest extends AbstractModelTest {
 		assertTrue(diag.getConnectors().get(3).sin() < 0); // 4-6
 	}
 
-	@Test
 	public void tan() {
 		// values for pi/4 and pi*3/4
 		assertEquals(PI / 4d, atan(diag.getConnectors().get(0).tan()), XY.EPSILON); // 1-3

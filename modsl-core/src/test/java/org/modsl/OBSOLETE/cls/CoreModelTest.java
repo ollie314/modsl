@@ -14,22 +14,25 @@
  * limitations under the License. 
  */
 
-package org.modsl.collab;
+package org.modsl.OBSOLETE.cls;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 
 import org.junit.Test;
-import org.modsl.collab.model.CollabDiagram;
+import org.modsl.cls.ClassDiagramProcessor;
+import org.modsl.cls.model.ClassDiagram;
 
-public class CollabModelTest {
+public class CoreModelTest {
 
-	@Test
-	public void collabModel() throws FileNotFoundException {
-		CollabDiagram d = new CollabDiagramProcessor().process("target/classes/samples/collab/CollabModel.modsl",
-				"./etc/svg-out/CollabModel.svg");
-		assertNotNull(d.getElement("Class2:Object2"));
+	public void coreModel() throws FileNotFoundException {
+		ClassDiagram d = new ClassDiagramProcessor().process("./target/classes/samples/cls/CoreModel.modsl",
+				"./etc/svg-out/CoreModel.svg");
+		assertTrue(d.getElement("Graph").getSize().x > 50);
+		assertTrue(d.getElement("Graph").getSize().y > 20);
+		assertTrue(d.getSize().x > 0);
+		assertTrue(d.getSize().y > 0);
 	}
 
 }

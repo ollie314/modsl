@@ -95,7 +95,7 @@ public abstract class AbstractProps {
 	 * @param key
 	 * @return String property
 	 */
-	protected String getProp(String key) {
+	public String getProp(String key) {
 		String v = props.get(key);
 		if (v == null) {
 			throw new ConfigException("Configuration property " + key + " not found @ path=" + path + ", name=" + name);

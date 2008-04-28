@@ -14,21 +14,28 @@
  * limitations under the License. 
  */
 
-package org.modsl.cls;
+package org.modsl.OBSOLETE.core.config;
 
-import java.io.FileNotFoundException;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.modsl.core.config.AbstractTemplateProps;
 
-public class TestModelTest {
+public class TemplatePropsTest {
 
-	@Test
-	public void testModel() throws FileNotFoundException {
-		new ClassDiagramProcessor().process("./target/classes/samples/cls/TestModel.modsl", "./etc/svg-out/TestModel.svg");
+	public void layout() {
+		TP lp = new TP("/test_config", "test");
+		assertEquals(lp.getProp("template1"), "default1");
+		assertEquals(lp.getProp("template2"), "test2");
+		assertEquals(lp.getProp("template3"), "test3");
 	}
 
-	@Test
-	public void sampleClass() throws FileNotFoundException {
-		new ClassDiagramProcessor().process("./target/classes/samples/cls/SampleClass.modsl", "./etc/svg-out/SampleModel.svg");
+	private static class TP extends AbstractTemplateProps {
+
+		public TP(String path, String name) {
+			super(path, name);
+		}
+
 	}
+
 }
