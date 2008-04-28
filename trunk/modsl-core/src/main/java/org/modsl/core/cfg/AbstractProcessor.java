@@ -28,10 +28,16 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
 import org.modsl.core.agt.visitor.LayoutVisitor;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
 
-public abstract class AbstractProcessor<T extends MetaType> {
+public abstract class AbstractProcessor<T extends MetaType, P extends Parser> {
 
-	protected StringTemplateVisitor<T> stringTemplateVisitor;
-	protected LayoutVisitor<T> layoutVisitor;
+	private StringTemplateVisitor<T> stringTemplateVisitor;
+	private LayoutVisitor<T> layoutVisitor;
+	private ConfigLoader configLoader;
+
+	protected Lexer lexer;
+	protected P parser;
+
+	protected abstract ConfigLoader getConfigLoader();
 
 	private AbstractVisitor<T> getLayoutVisitor() {
 		return layoutVisitor;
@@ -41,28 +47,30 @@ public abstract class AbstractProcessor<T extends MetaType> {
 
 	protected abstract String getName();
 
-	protected abstract Parser getParser(CommonTokenStream tokens);
+	protected abstract P getParser(CommonTokenStream tokens);
 
 	protected abstract String getPath();
 
-	protected abstract Node<T> getRoot(Parser parser);
+	protected abstract Node<T> getRoot();
 
 	private AbstractVisitor<T> getStringTemplateVisitor() {
 		return stringTemplateVisitor;
 	}
 
 	public void init() {
+		configLoader = getConfigLoader();
+		configLoader.load();
 		stringTemplateVisitor = new StringTemplateVisitor<T>(getPath(), getName(), 0);
 		layoutVisitor = new LayoutVisitor<T>();
 	}
 
-	protected Node<T> parse(String s) throws RecognitionException {
+	public Node<T> parse(String s) throws RecognitionException {
 		ANTLRStringStream input = new ANTLRStringStream(s);
-		Lexer lexer = getLexer(input);
+		this.lexer = getLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		Parser parser = getParser(tokens);
-		runParser(parser);
-		return getRoot(parser);
+		this.parser = getParser(tokens);
+		runParser();
+		return getRoot();
 	}
 
 	public String process(String s, Pt reqSize) throws RecognitionException {
@@ -74,6 +82,6 @@ public abstract class AbstractProcessor<T extends MetaType> {
 		return getStringTemplateVisitor().toString();
 	}
 
-	protected abstract void runParser(Parser parser) throws RecognitionException;
+	protected abstract void runParser() throws RecognitionException;
 
 }
