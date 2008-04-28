@@ -19,7 +19,7 @@ package org.modsl.core.cfg;
 import org.modsl.core.agt.TMetaType;
 import org.modsl.core.agt.layout.Layout;
 
-public class TConfigLoader extends ConfigLoader {
+public class TConfigLoader extends AbstractConfigLoader {
 
 	public TConfigLoader(String path, String name, Class<TMetaType> metaTypeClass) {
 		super(path, name, metaTypeClass);

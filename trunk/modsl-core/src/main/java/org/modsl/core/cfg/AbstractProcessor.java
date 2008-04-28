@@ -44,7 +44,7 @@ public abstract class AbstractProcessor<T extends MetaType, P extends Parser> {
 
 	private StringTemplateVisitor<T> stringTemplateVisitor;
 	private LayoutVisitor<T> layoutVisitor;
-	private ConfigLoader configLoader;
+	private AbstractConfigLoader configLoader;
 
 	protected Lexer lexer;
 	protected P parser;
@@ -52,7 +52,7 @@ public abstract class AbstractProcessor<T extends MetaType, P extends Parser> {
 	/**
 	 * @return diagram-specific config loader
 	 */
-	protected abstract ConfigLoader getConfigLoader();
+	protected abstract AbstractConfigLoader getConfigLoader();
 
 	/**
 	 * @return layout visitor. It is possible though not likely that subclesses

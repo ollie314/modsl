@@ -20,9 +20,13 @@ import org.modsl.core.agt.layout.CircleLayout;
 import org.modsl.core.agt.layout.FRLayout;
 import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.layout.SimpleLabelLayout;
-import org.modsl.core.cfg.ConfigLoader;
+import org.modsl.core.cfg.AbstractConfigLoader;
 
-public class BasicConfigLoader extends ConfigLoader {
+/**
+ * Basic diagram config loader
+ * @author AVishnyakov
+ */
+public class BasicConfigLoader extends AbstractConfigLoader {
 
 	public BasicConfigLoader(String path, String name, Class<BasicMetaType> metaTypeClass) {
 		super(path, name, metaTypeClass);

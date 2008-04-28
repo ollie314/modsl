@@ -25,7 +25,7 @@ import org.modsl.core.agt.model.MetaType;
  * transformation info and inits all layout manager classes.
  * @author AVishnyakov
  */
-public abstract class ConfigLoader {
+public abstract class AbstractConfigLoader {
 
 	/**
 	 * Parent meta type class to be filled with configuration information
@@ -39,7 +39,7 @@ public abstract class ConfigLoader {
 	 * @param name
 	 * @param metaTypeClass
 	 */
-	public ConfigLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
+	public AbstractConfigLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
 		this.path = path;
 		this.name = name;
 		this.metaTypeClass = metaTypeClass;
