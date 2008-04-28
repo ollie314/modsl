@@ -22,11 +22,11 @@ import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
+import org.modsl.core.Utils;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
+import org.modsl.core.agt.visitor.LayoutVisitor;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
-import org.modsl.core.agt.visitor.layout.LayoutVisitor;
-import org.modsl.utils.Utils;
 
 public class BasicFlowTest extends AbstractBasicTest {
 

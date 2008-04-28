@@ -6,6 +6,7 @@ $root_in(node)$
 <style type="text/css"><![CDATA[ 
 	.GRAPH_text { font-family: $meta.GRAPH.config.ft.name$; font-size: $meta.GRAPH.config.ft.size$px; }
 	.NODE_text { fill: black; font-family: $meta.NODE.config.ft.name$; font-size: $meta.NODE.config.ft.size$px; }
+	.NODE_rect { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
 	.EDGE_line { stroke: dimgrey; stroke-width: 1px; }
 ]]></style>
 
@@ -13,6 +14,7 @@ $root_in(node)$
 
 NODE_in(node, meta) ::= <<
 
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="NODE_rect"/>
 <text x="$node.textPos.x$" y="$node.textPos.y$" class="NODE_text">$node.name$</text><!-- $node.size$ -->
 >>
 

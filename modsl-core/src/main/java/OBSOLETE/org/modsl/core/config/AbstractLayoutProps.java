@@ -14,28 +14,13 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+package OBSOLETE.org.modsl.core.config;
 
-import org.modsl.core.agt.model.AbstractModslException;
 
-public class ConfigException extends AbstractModslException {
+public abstract class AbstractLayoutProps extends AbstractProps {
 
-    private static final long serialVersionUID = 1L;
-
-    public ConfigException() {
-        super();
-    }
-
-    public ConfigException(String message) {
-        super(message);
-    }
-
-    public ConfigException(Throwable cause) {
-        super(cause);
-    }
-
-    public ConfigException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	public AbstractLayoutProps(String path, String name) {
+		super(path, name, "layout.properties");
+	}
 
 }

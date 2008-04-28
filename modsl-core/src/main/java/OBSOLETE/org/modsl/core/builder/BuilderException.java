@@ -14,28 +14,34 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.cfg;
+package OBSOLETE.org.modsl.core.builder;
 
 import org.modsl.core.agt.model.AbstractModslException;
 
-public class ConfigException extends AbstractModslException {
+/**
+ * Builder/parser errors are supposed to be reported through this class or its subclasses
+ * 
+ * @author avishnyakov
+ *
+ */
+public class BuilderException extends AbstractModslException {
 
     private static final long serialVersionUID = 1L;
 
-    public ConfigException() {
+    public BuilderException() {
         super();
     }
 
-    public ConfigException(String message) {
+    public BuilderException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public BuilderException(String message) {
         super(message);
     }
 
-    public ConfigException(Throwable cause) {
+    public BuilderException(Throwable cause) {
         super(cause);
-    }
-
-    public ConfigException(String message, Throwable cause) {
-        super(message, cause);
     }
 
 }
