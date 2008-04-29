@@ -16,7 +16,6 @@
 
 package org.modsl.core.lang.uml.collab;
 
-import org.modsl.core.agt.model.Node;
 import org.modsl.core.lang.uml.AbstractUMLProcessor;
 
 public class UMLProcessor extends AbstractUMLProcessor {
