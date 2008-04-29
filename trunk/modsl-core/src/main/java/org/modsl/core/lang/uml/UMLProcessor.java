@@ -29,8 +29,8 @@ import org.modsl.core.cfg.AbstractProcessor;
 public class UMLProcessor extends AbstractProcessor<UMLMetaType, UMLParser> {
 
 	@Override
-	protected AbstractConfigLoader getConfigLoader() {
-		return new UMLConfigLoader(getPath(), getName(), UMLMetaType.class);
+	protected AbstractConfigLoader getConfigLoader(String path, String name) {
+		return new UMLConfigLoader(path, name, UMLMetaType.class);
 	}
 
 	@Override
