@@ -1,17 +1,17 @@
 /**
  * Copyright 2008 Andrew Vishnyakov <avishn@gmail.com>
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  * 
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package org.modsl.core.cfg;
@@ -36,113 +36,118 @@ import org.modsl.core.agt.visitor.StringTemplateVisitor;
  * @author AVishnyakov
  * 
  * @param <T> meta type class
- * @param
- * <P>
- * parser class
+ * @param <S> parser class
  */
-public abstract class AbstractProcessor<T extends MetaType, P extends Parser> {
+public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
 
-	private StringTemplateVisitor<T> stringTemplateVisitor;
-	private LayoutVisitor<T> layoutVisitor;
-	private AbstractConfigLoader configLoader;
+    private StringTemplateVisitor<T> stringTemplateVisitor;
+    private LayoutVisitor<T> layoutVisitor;
+    private AbstractConfigLoader configLoader;
 
-	protected Lexer lexer;
-	protected P parser;
+    protected Lexer lexer;
+    protected S parser;
 
-	/**
-	 * @return diagram-specific config loader
-	 */
-	protected abstract AbstractConfigLoader getConfigLoader(String path, String name);
+    /**
+     * @return diagram-specific config loader
+     */
+    protected abstract AbstractConfigLoader getConfigLoader(String path, String name);
 
-	/**
-	 * @return layout visitor. It is possible though not likely that subclesses
-	 * will need to override this.
-	 */
-	protected AbstractVisitor<T> getLayoutVisitor() {
-		return layoutVisitor;
-	}
+    /**
+     * @return layout visitor. It is possible though not likely that subclesses
+     * will need to override this.
+     */
+    protected AbstractVisitor<T> getLayoutVisitor() {
+        return layoutVisitor;
+    }
 
-	/**
-	 * @param input
-	 * @return diagram-specific lexer
-	 */
-	protected abstract Lexer getLexer(ANTLRStringStream input);
+    /**
+     * @param input
+     * @return diagram-specific lexer
+     */
+    protected abstract Lexer getLexer(ANTLRStringStream input);
 
-	/**
-	 * @return diagram type name (used to find the config properties)
-	 */
-	protected abstract String getName();
+    /**
+     * @return diagram type name (used to find the config properties)
+     */
+    protected abstract String getName();
 
-	/**
-	 * @param tokens
-	 * @return diagram-specific parser
-	 */
-	protected abstract P getParser(CommonTokenStream tokens);
+    /**
+     * @param tokens
+     * @return diagram-specific parser
+     */
+    protected abstract S getParser(CommonTokenStream tokens);
 
-	/**
-	 * @return config path (colon-separated) (used to find the config
-	 * properties)
-	 */
-	protected abstract String getPath();
+    /**
+     * @return config path (colon-separated) (used to find the config
+     * properties)
+     */
+    protected abstract String getPath();
 
-	/**
-	 * @return extract diagram-specific root node from the parser
-	 */
-	protected abstract Node<T> getRoot();
+    /**
+     * @return extract diagram-specific root node from the parser
+     */
+    protected abstract Node<T> getRoot();
 
-	/**
-	 * @return string template visitor (rendering engine). It is possible though
-	 * not likely that subclasses will need to override this.
-	 */
-	protected AbstractVisitor<T> getStringTemplateVisitor() {
-		return stringTemplateVisitor;
-	}
+    /**
+     * @return string template visitor (rendering engine). It is possible though
+     * not likely that subclasses will need to override this.
+     */
+    protected AbstractVisitor<T> getStringTemplateVisitor() {
+        return stringTemplateVisitor;
+    }
 
-	/**
-	 * Call this method once to initialize the processor
-	 */
-	public void init() {
-		configLoader = getConfigLoader(getPath(), getName());
-		configLoader.load();
-		stringTemplateVisitor = new StringTemplateVisitor<T>(getPath(), getName(), 0);
-		layoutVisitor = new LayoutVisitor<T>();
-	}
+    /**
+     * Call this method once to initialize the processor
+     */
+    public void init() {
+        configLoader = getConfigLoader(getPath(), getName());
+        configLoader.load();
+        stringTemplateVisitor = new StringTemplateVisitor<T>(getPath(), getName(), getRefreshInterval());
+        layoutVisitor = new LayoutVisitor<T>();
+    }
 
-	/**
-	 * Parse input
-	 * @param s input
-	 * @return abstract graph tree's root node
-	 * @throws RecognitionException
-	 */
-	public Node<T> parse(String s) throws RecognitionException {
-		ANTLRStringStream input = new ANTLRStringStream(s);
-		this.lexer = getLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		this.parser = getParser(tokens);
-		runParser();
-		return getRoot();
-	}
+    /**
+     * @return template refresh interval
+     */
+    protected int getRefreshInterval() {
+        return Integer.MAX_VALUE;
+    }
 
-	/**
-	 * Parse input and return rendered string result
-	 * @param s input
-	 * @param reqSize requested diagram size
-	 * @return result
-	 * @throws RecognitionException
-	 */
-	public String process(String s, Pt reqSize) throws RecognitionException {
-		Node<T> root = parse(s);
-		root.setReqSize(reqSize);
-		root.accept(getLayoutVisitor());
-		root.rescale(root.getReqSize());
-		root.accept(getStringTemplateVisitor());
-		return getStringTemplateVisitor().toString();
-	}
+    /**
+     * Parse input
+     * @param s input
+     * @return abstract graph tree's root node
+     * @throws RecognitionException
+     */
+    public Node<T> parse(String s) throws RecognitionException {
+        ANTLRStringStream input = new ANTLRStringStream(s);
+        this.lexer = getLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        this.parser = getParser(tokens);
+        runParser();
+        return getRoot();
+    }
 
-	/**
-	 * Run diagram-specific parser (usually a call to the root parser rule)
-	 * @throws RecognitionException
-	 */
-	protected abstract void runParser() throws RecognitionException;
+    /**
+     * Parse input and return rendered string result
+     * @param s input
+     * @param reqSize requested diagram size
+     * @return result
+     * @throws RecognitionException
+     */
+    public String process(String s, Pt reqSize) throws RecognitionException {
+        Node<T> root = parse(s);
+        root.setReqSize(reqSize);
+        root.accept(getLayoutVisitor());
+        root.rescale(root.getReqSize());
+        root.accept(getStringTemplateVisitor());
+        return getStringTemplateVisitor().toString();
+    }
+
+    /**
+     * Run diagram-specific parser (usually a call to the root parser rule)
+     * @throws RecognitionException
+     */
+    protected abstract void runParser() throws RecognitionException;
 
 }
