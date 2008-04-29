@@ -16,6 +16,8 @@
 
 package org.modsl.core.agt.model;
 
+import org.modsl.core.agt.common.MetaTypeConfig;
+
 /**
  * Marker interface for all element meta types
  * @author AVishnyakov

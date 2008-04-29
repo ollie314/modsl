@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.model;
+package org.modsl.core.agt.common;
 
 import java.awt.Canvas;
 import java.awt.Font;

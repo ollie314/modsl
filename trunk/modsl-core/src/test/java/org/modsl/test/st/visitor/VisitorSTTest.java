@@ -22,9 +22,9 @@ import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.modsl.core.Utils;
+import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;
-import org.modsl.core.agt.model.MetaTypeConfig;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
 

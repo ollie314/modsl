@@ -16,8 +16,8 @@
 
 package org.modsl.core.agt.layout;
 
+import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.FontTransform;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 

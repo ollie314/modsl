@@ -16,7 +16,7 @@
 
 package org.modsl.core.cfg;
 
-import org.modsl.core.agt.model.FontTransform;
+import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 
 public class FontTransformLoader extends PropLoader {

@@ -16,6 +16,17 @@
 
 package org.modsl.core.lang;
 
+import org.modsl.core.agt.model.Node;
+
+/**
+ * Marker interface for all element factories.
+ * @author AVishnyakov
+ */
 public interface ElementFactory {
 
+	/**
+	 * @return root node
+	 */
+	public Node<?> createRootNode();
+	
 }

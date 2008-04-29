@@ -16,8 +16,8 @@
 
 package org.modsl.core.lang.dot;
 
+import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.MetaType;
-import org.modsl.core.agt.model.MetaTypeConfig;
 
 /**
  * Dot model meta-types

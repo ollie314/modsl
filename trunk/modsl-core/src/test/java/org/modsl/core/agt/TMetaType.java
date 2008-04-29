@@ -15,8 +15,8 @@
  */
 package org.modsl.core.agt;
 
+import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.MetaType;
-import org.modsl.core.agt.model.MetaTypeConfig;
 
 public enum TMetaType implements MetaType {
 

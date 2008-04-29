@@ -16,7 +16,7 @@
 
 package org.modsl.core.agt.visitor;
 
-import org.modsl.core.agt.model.AbstractModSLException;
+import org.modsl.core.agt.common.AbstractModSLException;
 
 /**
  * Thrown when tree post-processing fails because of unresolved nodde references
