@@ -88,6 +88,8 @@
 								<mkdir
 									dir="target/generated-sources/antlr/org/modsl/antlr/basic" />
 								<mkdir
+									dir="target/generated-sources/antlr/org/modsl/antlr/uml" />
+								<mkdir
 									dir="target/generated-sources/antlr/org/modsl/antlr/dot" />
 							</tasks>
 						</configuration>
