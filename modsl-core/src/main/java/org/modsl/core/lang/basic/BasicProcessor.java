@@ -23,14 +23,14 @@ import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.basic.BasicLexer;
 import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.cfg.AbstractProcessor;
 import org.modsl.core.cfg.AbstractConfigLoader;
+import org.modsl.core.cfg.AbstractProcessor;
 
 public class BasicProcessor extends AbstractProcessor<BasicMetaType, BasicParser> {
 
 	@Override
-	protected AbstractConfigLoader getConfigLoader() {
-		return new BasicConfigLoader(getPath(), getName(), BasicMetaType.class);
+	protected AbstractConfigLoader getConfigLoader(String path, String name) {
+		return new BasicConfigLoader(path, name, BasicMetaType.class);
 	}
 
 	@Override

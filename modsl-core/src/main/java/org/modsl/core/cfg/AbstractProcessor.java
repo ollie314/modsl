@@ -52,7 +52,7 @@ public abstract class AbstractProcessor<T extends MetaType, P extends Parser> {
 	/**
 	 * @return diagram-specific config loader
 	 */
-	protected abstract AbstractConfigLoader getConfigLoader();
+	protected abstract AbstractConfigLoader getConfigLoader(String path, String name);
 
 	/**
 	 * @return layout visitor. It is possible though not likely that subclesses
@@ -92,7 +92,7 @@ public abstract class AbstractProcessor<T extends MetaType, P extends Parser> {
 
 	/**
 	 * @return string template visitor (rendering engine). It is possible though
-	 * not likely that subclesses will need to override this.
+	 * not likely that subclasses will need to override this.
 	 */
 	private AbstractVisitor<T> getStringTemplateVisitor() {
 		return stringTemplateVisitor;
@@ -102,7 +102,7 @@ public abstract class AbstractProcessor<T extends MetaType, P extends Parser> {
 	 * Call this method once to initialize the processor
 	 */
 	public void init() {
-		configLoader = getConfigLoader();
+		configLoader = getConfigLoader(getPath(), getName());
 		configLoader.load();
 		stringTemplateVisitor = new StringTemplateVisitor<T>(getPath(), getName(), 0);
 		layoutVisitor = new LayoutVisitor<T>();
