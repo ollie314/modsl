@@ -34,8 +34,8 @@ public class UMLConfigLoader extends AbstractConfigLoader {
 
 	@Override
 	public void initLayouts() {
-		UMLMetaType.GRAPH.getConfig().setLayout(new Layout[] { new CircleLayout(), new FRLayout() });
-		UMLMetaType.NODE.getConfig().setLayout(new Layout[] { new SimpleLabelLayout() });
+		UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new Layout[] { new CircleLayout(), new FRLayout() });
+		UMLMetaType.COLLAB_NODE.getConfig().setLayout(new Layout[] { new SimpleLabelLayout() });
 	}
 
 }

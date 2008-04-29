@@ -29,7 +29,7 @@ import org.modsl.core.lang.ElementFactory;
  * need to be instantiated.
  * @author AVishnyakov
  */
-public class UMLFactory implements ElementFactory {
+public class UMLCollabFactory extends AbstractUMLFactory {
 
 	/**
 	 * Create list of edges given list of edge tokens
@@ -54,7 +54,7 @@ public class UMLFactory implements ElementFactory {
 			}
 			n2 = createNodeIfDoesntExist(parent, t2);
 
-			Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.EDGE, n1, n2);
+			Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, n1, n2);
 			parent.add(e);
 			es.add(e);
 
@@ -72,7 +72,7 @@ public class UMLFactory implements ElementFactory {
 	 * @return new node
 	 */
 	public Node<UMLMetaType> createNode(Node<UMLMetaType> parent, Token token) {
-		Node<UMLMetaType> n = new Node<UMLMetaType>(UMLMetaType.NODE, token.getText());
+		Node<UMLMetaType> n = new Node<UMLMetaType>(UMLMetaType.COLLAB_NODE, token.getText());
 		parent.add(n);
 		return n;
 	}
@@ -95,7 +95,7 @@ public class UMLFactory implements ElementFactory {
 
 	@Override
 	public Node<UMLMetaType> createRootNode() {
-		return new Node<UMLMetaType>(UMLMetaType.GRAPH);
+		return new Node<UMLMetaType>(UMLMetaType.COLLAB_ROOT);
 	}
 
 }
