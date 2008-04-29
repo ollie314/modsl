@@ -54,3 +54,4 @@
    * render history  -> debug command in DSL
    * check for exceprions when string template is missing
    * when adding edges, nodes eliminate dups
+   * refresh interval for properties
