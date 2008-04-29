@@ -94,7 +94,7 @@ public abstract class AbstractProcessor<T extends MetaType, P extends Parser> {
 	 * @return string template visitor (rendering engine). It is possible though
 	 * not likely that subclasses will need to override this.
 	 */
-	private AbstractVisitor<T> getStringTemplateVisitor() {
+	protected AbstractVisitor<T> getStringTemplateVisitor() {
 		return stringTemplateVisitor;
 	}
 
