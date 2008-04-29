@@ -14,20 +14,16 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.lang.uml;
+package org.modsl.core.lang.uml.collab;
 
-import org.apache.log4j.Logger;
-import org.modsl.core.lang.uml.collab.UMLProcessor;
+import org.modsl.core.agt.model.Node;
+import org.modsl.core.lang.uml.AbstractUMLProcessor;
 
-public abstract class AbstractUMLTest {
+public class UMLProcessor extends AbstractUMLProcessor {
 
-	protected final Logger log = Logger.getLogger(getClass());
-
-	protected AbstractUMLProcessor processor;
-
-	public AbstractUMLTest() {
-		processor = new UMLProcessor();
-		processor.init();
+	@Override
+	protected String getName() {
+		return "uml_collab";
 	}
 
 }
