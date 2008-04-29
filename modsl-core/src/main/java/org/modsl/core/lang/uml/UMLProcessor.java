@@ -40,7 +40,7 @@ public class UMLProcessor extends AbstractProcessor<UMLMetaType, UMLParser> {
 
 	@Override
 	protected String getName() {
-		return "uml";
+		return "uml_collab";
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UMLProcessor extends AbstractProcessor<UMLMetaType, UMLParser> {
 
 	@Override
 	protected void runParser() throws RecognitionException {
-		parser.graph();
+		parser.collabDiagram();
 	}
 
 }
