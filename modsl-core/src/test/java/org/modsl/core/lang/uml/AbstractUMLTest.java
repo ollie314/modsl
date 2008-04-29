@@ -17,13 +17,12 @@
 package org.modsl.core.lang.uml;
 
 import org.apache.log4j.Logger;
-import org.modsl.core.lang.uml.collab.UMLProcessor;
 
 public abstract class AbstractUMLTest {
 
 	protected final Logger log = Logger.getLogger(getClass());
 
-	protected AbstractUMLProcessor processor;
+	protected UMLProcessor processor;
 
 	public AbstractUMLTest() {
 		processor = new UMLProcessor();
