@@ -16,7 +16,7 @@
 
 package org.modsl.core.cfg;
 
-import org.modsl.core.agt.model.AbstractModSLException;
+import org.modsl.core.agt.common.AbstractModSLException;
 
 public class ConfigException extends AbstractModSLException {
 

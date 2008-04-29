@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.model;
+package org.modsl.core.agt.common;
 
 /**
  * Represents names timestamp

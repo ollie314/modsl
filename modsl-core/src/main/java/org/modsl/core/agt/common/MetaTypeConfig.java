@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.model;
+package org.modsl.core.agt.common;
 
 import org.modsl.core.agt.layout.Layout;
 
