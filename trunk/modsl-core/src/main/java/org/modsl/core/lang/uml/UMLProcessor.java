@@ -40,7 +40,7 @@ public class UMLProcessor extends AbstractProcessor<UMLMetaType, UMLParser> {
 
 	@Override
 	protected String getName() {
-		return "uml_collab";
+		return "uml";
 	}
 
 	@Override
