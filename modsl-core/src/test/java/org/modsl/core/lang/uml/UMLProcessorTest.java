@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.lang.basic;
+package org.modsl.core.lang.uml;
 
 import java.io.IOException;
 
@@ -23,26 +23,26 @@ import org.junit.Test;
 import org.modsl.core.Utils;
 import org.modsl.core.agt.model.Pt;
 
-public class BasicFlowTest extends AbstractBasicTest {
+public class UMLProcessorTest extends AbstractUMLTest {
 
 	@Test
-	public void flow1() throws Exception {
+	public void process1() throws Exception {
 		process("graph g1 { n1->n2; n1->n3->n4->n5; n2->n3; n5->n8->n9; n9->n4; n8-> n4; }", new Pt(400, 320));
 	}
 
 	@Test
-	public void flow2() throws RecognitionException, IOException {
+	public void process2() throws RecognitionException, IOException {
 		process("graph g2 { n1->n2->n3->n4->n5->n6->n7->n8; }", new Pt(400, 320));
 	}
 
 	@Test
-	public void flow3() throws RecognitionException, IOException {
+	public void process3() throws RecognitionException, IOException {
 		process("graph g3 { n1->n2->n3->n4->n5->n6->n7->n8; n5->n1->n3; n2->n4->n6->n8->n5->n2; "
 				+ "n3->n5->n7; n6->n1->n4->n8; n6->n2->n8->n1->n7; n4->n7->n2; n8->n3->n6; n3->n7; }", new Pt(400, 320));
 	}
 
 	@Test
-	public void flow4() throws RecognitionException, IOException {
+	public void process4() throws RecognitionException, IOException {
 		process("graph g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(400, 320));
 	}
 

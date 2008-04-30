@@ -1,0 +1,33 @@
+group basic : root;
+
+//
+// Collaboration diagram templates
+//
+
+COLLAB_ROOT_in(node, meta) ::= <<
+$root_in(node)$
+<!-- $node.name$: basic graph -->
+<style type="text/css"><![CDATA[ 
+	.COLLAB_ROOT_text { font-family: $meta.COLLAB_ROOT.config.ft.name$; font-size: $meta.COLLAB_ROOT.config.ft.size$px; }
+	.COLLAB_NODE_text { fill: black; font-family: $meta.COLLAB_NODE.config.ft.name$; font-size: $meta.COLLAB_NODE.config.ft.size$px; }
+	.COLLAB_NODE_rect { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
+	.COLLAB_EDGE_line { stroke: dimgrey; stroke-width: 1px; }
+]]></style>
+
+>>
+
+COLLAB_NODE_in(node, meta) ::= <<
+
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="COLLAB_NODE_rect"/>
+<text x="$node.textPos.x$" y="$node.textPos.y$" class="COLLAB_NODE_text">$node.name$</text><!-- $node.size$ -->
+>>
+
+COLLAB_EDGE_in(edge, meta) ::= <<
+
+<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="COLLAB_EDGE_line"/>
+>>
+
+COLLAB_ROOT_out(node, meta) ::= <<
+
+$root_out()$
+>>
