@@ -17,12 +17,13 @@
 package org.modsl.core.lang.uml;
 
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
-import org.modsl.core.agt.decor.SimpleNodeDecorator;
 import org.modsl.core.agt.layout.CircleLayout;
 import org.modsl.core.agt.layout.FRLayout;
 import org.modsl.core.agt.layout.Layout;
-import org.modsl.core.agt.layout.SimpleLabelLayout;
 import org.modsl.core.cfg.AbstractConfigLoader;
+import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
+import org.modsl.core.lang.uml.decorator.CollabNodeDecorator;
+import org.modsl.core.lang.uml.layout.CollabNodeLayout;
 
 /**
  * UML diagram config loader
@@ -37,13 +38,13 @@ public class UMLConfigLoader extends AbstractConfigLoader {
 	@Override
 	public void initLayouts() {
 		UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new Layout[] { new CircleLayout(), new FRLayout() });
-		UMLMetaType.COLLAB_NODE.getConfig().setLayout(new Layout[] { new SimpleLabelLayout() });
+		UMLMetaType.COLLAB_NODE.getConfig().setLayout(new Layout[] { new CollabNodeLayout() });
 	}
 
 	@Override
 	public void initDecorators() {
 		UMLMetaType.COLLAB_ROOT.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
-		UMLMetaType.COLLAB_NODE.getConfig().setDecorator(new SimpleNodeDecorator());
+		UMLMetaType.COLLAB_NODE.getConfig().setDecorator(new CollabNodeDecorator());
 		UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
 	}
 

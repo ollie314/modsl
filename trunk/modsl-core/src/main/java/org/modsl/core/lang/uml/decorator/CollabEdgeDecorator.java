@@ -1,10 +1,11 @@
-package org.modsl.core.lang.uml;
+package org.modsl.core.lang.uml.decorator;
 
 import static java.lang.Math.PI;
 
 import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Pt;
+import org.modsl.core.lang.uml.UMLMetaType;
 
 public class CollabEdgeDecorator extends AbstractDecorator<Edge<?>> {
 
