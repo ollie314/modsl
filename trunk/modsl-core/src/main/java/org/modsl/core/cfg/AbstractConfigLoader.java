@@ -50,6 +50,7 @@ public abstract class AbstractConfigLoader {
 	 */
 	public void load() {
 		initLayouts();
+		initDecorators();
 		for (MetaType mt : metaTypeClass.getEnumConstants()) {
 			for (Layout l : mt.getConfig().getLayouts()) {
 				if (l.getConfigName() != null) {
@@ -64,9 +65,14 @@ public abstract class AbstractConfigLoader {
 
 	/**
 	 * Initialize layout classes. Subclasses of this class need to register
-	 * layout manager class arrays with corresponding meta type class instances
-	 * here.
+	 * layout manager class arrays with corresponding meta type class instances.
 	 */
 	public abstract void initLayouts();
+	
+	/**
+	 * Initialize layout classes. Subclasses of this class need to register
+	 * layout manager class arrays with corresponding meta type class instances.
+	 */
+	public abstract void initDecorators();
 
 }

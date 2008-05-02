@@ -24,6 +24,7 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.DefaultTemplateLexer;
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.common.AbstractDecorator;
 import org.modsl.core.agt.model.AbstractGraphElement;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;
@@ -95,6 +96,7 @@ public class StringTemplateVisitor<T extends MetaType> extends AbstractVisitor<T
             if (st != null) {
                 st.setAttribute(key, element);
                 st.setAttribute("meta", getMetaTypeMap(element));
+                st.setAttribute("decor", getDecorator(element));
                 return st.toString();
             } else {
                 return "";
@@ -104,7 +106,17 @@ public class StringTemplateVisitor<T extends MetaType> extends AbstractVisitor<T
         }
     }
 
-    @SuppressWarnings("unchecked")
+    private Object getDecorator(AbstractGraphElement<T> element) {
+        AbstractDecorator ad = element.getType().getConfig().getDecorator();
+        if (ad == null) {
+    		return null;
+        } else {
+        	ad.decorate(element);
+        	return ad;
+        }
+	}
+
+	@SuppressWarnings("unchecked")
     private Object getMetaTypeMap(AbstractGraphElement<T> element) {
         if (metaTypeMap == null) {
             T[] mta = (T[]) element.getType().getClass().getEnumConstants();

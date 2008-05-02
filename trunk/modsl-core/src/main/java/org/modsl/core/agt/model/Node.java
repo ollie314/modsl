@@ -273,15 +273,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     }
 
     /**
-     * @return position for single line text (it's bottom left corner), with
-     * font top and left padding taken into account
-     */
-    public Pt getTextPos() {
-        FontTransform ft = type.getConfig().getFontTransform();
-        return new Pt(pos.x + ft.getLeftPadding(), pos.y + ft.getExtBaseline(0));
-    }
-
-    /**
      * @return node with max x (the rightmost one, including it's size)
      */
     public Node<T> maxXNode() {
