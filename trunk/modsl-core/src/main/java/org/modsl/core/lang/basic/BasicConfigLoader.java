@@ -16,12 +16,12 @@
 
 package org.modsl.core.lang.basic;
 
+import org.modsl.core.agt.common.MetaTypeMapDecorator;
 import org.modsl.core.agt.common.SimpleNodeDecorator;
 import org.modsl.core.agt.layout.CircleLayout;
 import org.modsl.core.agt.layout.FRLayout;
 import org.modsl.core.agt.layout.Layout;
 import org.modsl.core.agt.layout.SimpleLabelLayout;
-import org.modsl.core.agt.model.Node;
 import org.modsl.core.cfg.AbstractConfigLoader;
 
 /**
@@ -42,6 +42,7 @@ public class BasicConfigLoader extends AbstractConfigLoader {
 
 	@Override
 	public void initDecorators() {
+		BasicMetaType.GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(BasicMetaType.class));
 		BasicMetaType.NODE.getConfig().setDecorator(new SimpleNodeDecorator());
 	}
 
