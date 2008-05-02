@@ -30,7 +30,7 @@ public class CollabNodeLayout extends SimpleLabelLayout {
 	public void apply(Node<?> node) {
 		super.apply(node);
 		FontTransform ft = node.getType().getConfig().getFontTransform();
-		node.getSize().y += ft.getTopPadding() + ft.getBottomPadding();
+		node.getSize().y += ft.getBottomPadding();
 	}
 
 }

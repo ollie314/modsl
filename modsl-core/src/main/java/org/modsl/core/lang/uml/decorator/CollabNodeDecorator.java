@@ -21,12 +21,13 @@ import org.modsl.core.agt.model.Pt;
 
 public class CollabNodeDecorator extends SimpleNodeDecorator {
 
-	public Pt getSep1() {
-		return new Pt(parent.getPos().x, parent.getPos().y + getFt().getExtHeight(1));
+	public Pt getUnderline1() {
+		return new Pt(getTextPos().x, parent.getPos().y + getFt().getExtBaseline(0) + 2);
 	}
 
-	public Pt getSep2() {
-		return new Pt(parent.getPos().x + parent.getSize().x, parent.getPos().y + getFt().getExtHeight(1));
+	public Pt getUnderline2() {
+		return new Pt(getTextPos().x + getFt().getStringWidth(parent.getName()), parent.getPos().y + getFt().getExtBaseline(0)
+				+ 2);
 	}
 
 }
