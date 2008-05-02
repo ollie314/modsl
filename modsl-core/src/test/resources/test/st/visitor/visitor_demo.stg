@@ -1,31 +1,31 @@
 group visitor_demo;
 
-GRAPH_in(node,meta) ::= <<
+GRAPH_in(node,decor) ::= <<
 
 <graph name="$node.name$">
 
 >>
 
-NODE_in(node,meta) ::= <<
+NODE_in(node,decor) ::= <<
 <node name="$node.name$">
 
 >>
 
-NODE_out(node,meta) ::= <<
+NODE_out(node,decor) ::= <<
 </node>
 
 >>
 
-EDGE_in(edge,meta) ::= <<
+EDGE_in(edge,decor) ::= <<
 <edge name="$edge.name$">
 >>
 
-EDGE_out(edge,meta) ::= <<
+EDGE_out(edge,decor) ::= <<
 </edge>
 
 >>
 
-GRAPH_out(node,meta) ::= <<
+GRAPH_out(node,decor) ::= <<
 </graph>
 
 >>
