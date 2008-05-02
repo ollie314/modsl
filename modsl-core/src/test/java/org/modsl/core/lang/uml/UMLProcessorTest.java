@@ -20,10 +20,12 @@ import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.modsl.core.Utils;
 import org.modsl.core.agt.model.Pt;
+import org.modsl.core.lang.SVGCollector;
 
 public class UMLProcessorTest extends AbstractUMLTest {
+
+	protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml");
 
 	@Test
 	public void process1() throws Exception {
@@ -48,7 +50,7 @@ public class UMLProcessorTest extends AbstractUMLTest {
 
 	private void process(String s, Pt reqSize) throws RecognitionException, IOException {
 		String result = processor.process(s, reqSize);
-		Utils.toFile("etc/svg-out/" + processor.getName() + "_" + processor.getRoot().getName() + ".svg", result);
+		svgCollector.collect(processor.getRoot().getName(), result, reqSize);
 	}
 
 }

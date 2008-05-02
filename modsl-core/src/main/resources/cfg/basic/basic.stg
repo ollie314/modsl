@@ -15,7 +15,7 @@ $root_in(node)$
 NODE_in(node, decor) ::= <<
 
 <rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="NODE_rect"/>
-<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="NODE_text">$node.name$</text><!-- $node.size$ -->
+<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="NODE_text">$node.name$</text>
 >>
 
 EDGE_in(edge, decor) ::= <<
