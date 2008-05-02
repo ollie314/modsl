@@ -40,7 +40,8 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge<?>> {
 	 */
 	public Pt getArrowLeft() {
 		double alpha = parent.angle() - arrowAngle / 2d;
-		return new Pt(parent.getNode2Clip().x - arrowLength * Math.cos(alpha), parent.getNode2Clip().y - arrowLength * Math.sin(alpha));
+		return new Pt(parent.getNode2Clip().x - arrowLength * Math.cos(alpha), parent.getNode2Clip().y - arrowLength
+				* Math.sin(alpha));
 	}
 
 	/**
@@ -48,7 +49,8 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge<?>> {
 	 */
 	public Pt getArrowRight() {
 		double alpha = parent.angle() + arrowAngle / 2d;
-		return new Pt(parent.getNode2Clip().x - arrowLength * Math.cos(alpha), parent.getNode2Clip().y - arrowLength * Math.sin(alpha));
+		return new Pt(parent.getNode2Clip().x - arrowLength * Math.cos(alpha), parent.getNode2Clip().y - arrowLength
+				* Math.sin(alpha));
 	}
 
 	/**
@@ -56,6 +58,27 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge<?>> {
 	 */
 	public Pt getMidPoint() {
 		return parent.getNode1().getCtrPos().plus(parent.getNode2().getCtrPos().minus(parent.getNode1().getCtrPos()).div(2d));
+	}
+
+	/**
+	 * @return position of the label text
+	 */
+	public Pt getTextPos() {
+		return getMidPoint().decBy(new Pt(getFt().getStringWidth(parent.getName()) / 2d, 0));
+	}
+
+	/**
+	 * @return size of the label text bg
+	 */
+	public Pt getTextBgSize() {
+		return new Pt(getFt().getStringWidth(parent.getName()), getFt().getHeight());
+	}
+
+	/**
+	 * @return pos of the label text bg
+	 */
+	public Pt getTextBgPos() {
+		return getTextPos().decBy(new Pt(0, getFt().getBaseline()));
 	}
 
 }
