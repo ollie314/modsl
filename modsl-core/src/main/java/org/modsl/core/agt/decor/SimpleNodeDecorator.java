@@ -14,16 +14,17 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.common;
+package org.modsl.core.agt.decor;
 
-import org.modsl.core.agt.model.AbstractGraphElement;
+import org.modsl.core.agt.common.FontTransform;
+import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.Pt;
 
-public abstract class AbstractDecorator<E extends AbstractGraphElement<?>> {
-	
-	protected E parent;
+public class SimpleNodeDecorator extends AbstractDecorator<Node<?>> {
 
-	public void decorate(E element) {
-		this.parent = element;
+	public Pt getTextPos() {
+		FontTransform ft = parent.getType().getConfig().getFontTransform();
+		return new Pt(parent.getPos().x + ft.getLeftPadding(), parent.getPos().y + ft.getExtBaseline(0));
 	}
 
 }
