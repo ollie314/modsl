@@ -14,21 +14,23 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.decor;
+package org.modsl.core.lang.uml.layout;
 
 import org.modsl.core.agt.common.FontTransform;
-import org.modsl.core.agt.model.AbstractGraphElement;
+import org.modsl.core.agt.layout.SimpleLabelLayout;
+import org.modsl.core.agt.model.Node;
 
-public abstract class AbstractDecorator<E extends AbstractGraphElement<?>> {
+/**
+ * Does simple node size calculation based on node's text height and width.
+ * @author avishnyakov
+ */
+public class CollabNodeLayout extends SimpleLabelLayout {
 
-	protected E parent;
-
-	public void decorate(E element) {
-		this.parent = element;
-	}
-
-	public FontTransform getFt() {
-		return parent.getType().getConfig().getFt();
+	@Override
+	public void apply(Node<?> node) {
+		super.apply(node);
+		FontTransform ft = node.getType().getConfig().getFontTransform();
+		node.getSize().y += ft.getTopPadding() + ft.getBottomPadding();
 	}
 
 }

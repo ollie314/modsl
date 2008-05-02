@@ -11,6 +11,7 @@ $root_in(node)$
 	.COLLAB_ROOT_text { font-family: $decor.meta.COLLAB_ROOT.config.ft.name$; font-size: $decor.meta.COLLAB_ROOT.config.ft.size$px; }
 	.COLLAB_NODE_text { fill: black; font-family: $decor.meta.COLLAB_NODE.config.ft.name$; font-size: $decor.meta.COLLAB_NODE.config.ft.size$px; }
 	.COLLAB_NODE_rect { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
+	.COLLAB_NODE_line { stroke: midnightblue; stroke-width: 1px; }	
 	.COLLAB_EDGE_line { stroke: dimgrey; stroke-width: 1px; }
 ]]></style>
 
@@ -19,6 +20,7 @@ $root_in(node)$
 COLLAB_NODE_in(node, decor) ::= <<
 
 <rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="COLLAB_NODE_rect"/>
+<line x1="$decor.sep1.x$" y1="$decor.sep1.y$" x2="$decor.sep2.x$" y2="$decor.sep2.y$" class="COLLAB_NODE_line"/>
 <text x="$decor.textPos.x$" y="$decor.textPos.y$" class="COLLAB_NODE_text">$node.name$</text>
 >>
 
