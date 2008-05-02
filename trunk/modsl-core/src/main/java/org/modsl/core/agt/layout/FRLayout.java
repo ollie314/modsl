@@ -71,9 +71,6 @@ public class FRLayout implements Layout {
 
 	private void attraction() {
 		for (Edge<?> e : root.getEdges()) {
-			// XY delta =
-			// e.getStartVertex().getPosition().minus(e.getEndVertex().getPosition());
-			// try to use size adjusted position
 			Pt delta = e.getNode1Clip().minus(e.getNode2Clip());
 			double dl = delta.lenSafe();
 			e.getNode1().getAltPos().decBy(delta.div(dl).mult(attractionForce(dl)));
@@ -82,7 +79,7 @@ public class FRLayout implements Layout {
 	}
 
 	protected double attractionForce(double dist) {
-		return dist * dist * dist/ kAttraction; // TODO was ^2... ^3 ???
+		return dist * dist * dist / kAttraction; // TODO was ^2... ^3 ???
 	}
 
 	@Override
