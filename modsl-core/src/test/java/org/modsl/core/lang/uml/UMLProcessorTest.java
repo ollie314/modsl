@@ -39,6 +39,16 @@ public class UMLProcessorTest extends AbstractUMLTest {
 				new Pt(400, 320));
 	}
 
+	@Test
+	public void process3() throws RecognitionException, IOException {
+		process("collab CollaborationDiagram { :processor->:lexer.tokenStream(); " + ""
+				+ ":processor->:parser.diagram():root; :processor->:layoutVisitor.accept(root); "
+				+ ":processor->:root.rescale(); :processor->:stringTemplateVisitor.accept(root); "
+				+ ":stringTemplateVisitor->:root.getNodes():node; " + ":stringTemplateVisitor->:collabNodeLayout.apply(node); "
+				+ ":stringTemplateVisitor->:circleLayout.apply(root); "
+				+ ":stringTemplateVisitor->:fruchtermanRheingoldLayout.apply(root); }", new Pt(640, 480));
+	}
+
 	private void process(String s, Pt reqSize) throws RecognitionException, IOException {
 		String result = processor.process(s, reqSize);
 		svgCollector.collect(processor.getRoot().getName(), result, reqSize);

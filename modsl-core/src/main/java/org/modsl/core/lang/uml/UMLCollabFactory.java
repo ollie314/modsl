@@ -22,7 +22,6 @@ import java.util.List;
 import org.antlr.runtime.Token;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.lang.ElementFactory;
 
 /**
  * Responsible for supporting the grammar when new abstract graph tree elements
@@ -30,6 +29,8 @@ import org.modsl.core.lang.ElementFactory;
  * @author AVishnyakov
  */
 public class UMLCollabFactory extends AbstractUMLFactory {
+
+	protected int edgeCounter = 1;
 
 	/**
 	 * Create list of edges given list of edge tokens
@@ -54,7 +55,8 @@ public class UMLCollabFactory extends AbstractUMLFactory {
 			}
 			n2 = createNodeIfDoesntExist(parent, t2);
 
-			Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, mtokens.get(i).getText(), n1, n2);
+			Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, (edgeCounter++) + ":"
+					+ mtokens.get(i).getText(), n1, n2);
 			parent.add(e);
 			es.add(e);
 
