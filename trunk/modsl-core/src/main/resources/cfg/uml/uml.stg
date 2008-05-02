@@ -19,7 +19,7 @@ $root_in(node)$
 COLLAB_NODE_in(node, decor) ::= <<
 
 <rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="COLLAB_NODE_rect"/>
-<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="COLLAB_NODE_text">$node.name$</text><!-- $node.size$ -->
+<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="COLLAB_NODE_text">$node.name$</text>
 >>
 
 COLLAB_EDGE_in(edge, decor) ::= <<
