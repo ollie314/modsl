@@ -23,12 +23,14 @@ options {
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 }
 
+diagram : collabDiagram;
+
 collabDiagram 
 	@init{ root = collabFactory.createRootNode(); cnode = root; }
 	@after { root.accept(new NodeRefVisitor<UMLMetaType>()); }
-	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
+	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { root.setName($ID.text); };
 
-statement: (nodeStatement | edgeStatement) ';';
+collabStatement: (nodeStatement | edgeStatement) ';';
 
 nodeStatement
 	@init {	nodes.addFirst(cnode); }
