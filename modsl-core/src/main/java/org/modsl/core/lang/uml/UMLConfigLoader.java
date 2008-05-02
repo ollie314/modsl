@@ -16,6 +16,7 @@
 
 package org.modsl.core.lang.uml;
 
+import org.modsl.core.agt.common.MetaTypeMapDecorator;
 import org.modsl.core.agt.common.SimpleNodeDecorator;
 import org.modsl.core.agt.layout.CircleLayout;
 import org.modsl.core.agt.layout.FRLayout;
@@ -41,6 +42,7 @@ public class UMLConfigLoader extends AbstractConfigLoader {
 
 	@Override
 	public void initDecorators() {
+		UMLMetaType.COLLAB_ROOT.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
 		UMLMetaType.COLLAB_NODE.getConfig().setDecorator(new SimpleNodeDecorator());
 	}
 

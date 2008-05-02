@@ -4,12 +4,12 @@ group basic : root;
 // Collaboration diagram templates
 //
 
-COLLAB_ROOT_in(node, decor, meta) ::= <<
+COLLAB_ROOT_in(node, decor) ::= <<
 $root_in(node)$
 <!-- $node.name$: basic graph -->
 <style type="text/css"><![CDATA[ 
-	.COLLAB_ROOT_text { font-family: $meta.COLLAB_ROOT.config.ft.name$; font-size: $meta.COLLAB_ROOT.config.ft.size$px; }
-	.COLLAB_NODE_text { fill: black; font-family: $meta.COLLAB_NODE.config.ft.name$; font-size: $meta.COLLAB_NODE.config.ft.size$px; }
+	.COLLAB_ROOT_text { font-family: $decor.meta.COLLAB_ROOT.config.ft.name$; font-size: $decor.meta.COLLAB_ROOT.config.ft.size$px; }
+	.COLLAB_NODE_text { fill: black; font-family: $decor.meta.COLLAB_NODE.config.ft.name$; font-size: $decor.meta.COLLAB_NODE.config.ft.size$px; }
 	.COLLAB_NODE_rect { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
 	.COLLAB_EDGE_line { stroke: dimgrey; stroke-width: 1px; }
 ]]></style>
