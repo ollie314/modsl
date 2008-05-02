@@ -1,0 +1,13 @@
+#summary 10 sec intro to the ModSL core API
+
+{{{
+
+import org.modsl.core.lang.uml;
+...
+
+UMLProcessor processor = new UMLProcessor();
+processor.init();
+
+String svg = processor.process("collab text { class1:object1->class2:object2.method2(); }", new Pt(640, 480));
+	
+}}}
