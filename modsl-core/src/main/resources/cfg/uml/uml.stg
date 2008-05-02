@@ -7,32 +7,34 @@ group basic : root;
 COLLAB_ROOT_in(node, decor) ::= <<
 $root_in(node)$
 <!-- $node.name$: basic graph -->
+<defs>
 <style type="text/css"><![CDATA[ 
-	.COLLAB_ROOT_text { font-family: $decor.meta.COLLAB_ROOT.config.ft.name$; font-size: $decor.meta.COLLAB_ROOT.config.ft.size$px; }
-	.COLLAB_NODE_text { fill: black; font-family: $decor.meta.COLLAB_NODE.config.ft.name$; font-size: $decor.meta.COLLAB_NODE.config.ft.size$px; }
-	.COLLAB_NODE_rect { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
-	.COLLAB_NODE_line { stroke: black; stroke-width: 1px; }	
-	.COLLAB_EDGE_line { stroke: dimgrey; stroke-width: 1px; }
-	.COLLAB_EDGE_text { fill: black; font-family: $decor.meta.COLLAB_EDGE.config.ft.name$; font-size: $decor.meta.COLLAB_EDGE.config.ft.size$px; }
-	.COLLAB_EDGE_bg   { fill: white; stroke: white; stroke-width: 1px; opacity: 0.90; }	
+	text.collabroot { font-family: $decor.meta.COLLAB_ROOT.config.ft.name$; font-size: $decor.meta.COLLAB_ROOT.config.ft.size$px; }
+	text.collabnode { fill: black; font-family: $decor.meta.COLLAB_NODE.config.ft.name$; font-size: $decor.meta.COLLAB_NODE.config.ft.size$px; }
+	rect.collabnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
+	line.collabnode { stroke: black; stroke-width: 1px; }	
+	line.collabedge { stroke: dimgrey; stroke-width: 1px; }
+	text.collabedge { fill: black; font-family: $decor.meta.COLLAB_EDGE.config.ft.name$; font-size: $decor.meta.COLLAB_EDGE.config.ft.size$px; }
+	rect.collabedge { fill: white; stroke: white; stroke-width: 1px; opacity: 1; }	
 ]]></style>
+</defs>
 
 >>
 
 COLLAB_NODE_in(node, decor) ::= <<
 
-<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="COLLAB_NODE_rect"/>
-<line x1="$decor.underline1.x$" y1="$decor.underline1.y$" x2="$decor.underline2.x$" y2="$decor.underline2.y$" class="COLLAB_NODE_line"/>
-<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="COLLAB_NODE_text">$node.name$</text>
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="collabnode"/>
+<line x1="$decor.underline1.x$" y1="$decor.underline1.y$" x2="$decor.underline2.x$" y2="$decor.underline2.y$" class="collabnode"/>
+<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="collabnode">$node.name$</text>
 >>
 
 COLLAB_EDGE_in(edge, decor) ::= <<
 
-<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="COLLAB_EDGE_line"/>
-<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="COLLAB_EDGE_line"/>
-<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="COLLAB_EDGE_line"/>
-<rect x="$decor.textBgPos.x$" y="$decor.textBgPos.y$" width="$decor.textBgSize.x$" height="$decor.textBgSize.y$" class="COLLAB_EDGE_bg"/>
-<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="COLLAB_EDGE_text">$edge.name$</text>
+<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="collabedge"/>
+<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="collabedge"/>
+<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="collabedge"/>
+<rect x="$decor.textBgPos.x$" y="$decor.textBgPos.y$" width="$decor.textBgSize.x$" height="$decor.textBgSize.y$" class="collabedge"/>
+<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="collabedge">$edge.name$</text>
 >>
 
 COLLAB_ROOT_out(node, decor) ::= <<

@@ -4,23 +4,23 @@ GRAPH_in(node, decor) ::= <<
 $root_in(node)$
 <!-- $node.name$: basic graph -->
 <style type="text/css"><![CDATA[ 
-	.GRAPH_text { font-family: $decor.meta.GRAPH.config.ft.name$; font-size: $decor.meta.GRAPH.config.ft.size$px; }
-	.NODE_text { fill: black; font-family: $decor.meta.NODE.config.ft.name$; font-size: $decor.meta.NODE.config.ft.size$px; }
-	.NODE_rect { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
-	.EDGE_line { stroke: dimgrey; stroke-width: 1px; }
+	text.graph { font-family: $decor.meta.GRAPH.config.ft.name$; font-size: $decor.meta.GRAPH.config.ft.size$px; }
+	text.node { fill: black; font-family: $decor.meta.NODE.config.ft.name$; font-size: $decor.meta.NODE.config.ft.size$px; }
+	rect.node { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
+	line.edge { stroke: dimgrey; stroke-width: 1px; }
 ]]></style>
 
 >>
 
 NODE_in(node, decor) ::= <<
 
-<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="NODE_rect"/>
-<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="NODE_text">$node.name$</text>
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="node"/>
+<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="node">$node.name$</text>
 >>
 
 EDGE_in(edge, decor) ::= <<
 
-<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="EDGE_line"/>
+<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="edge"/>
 >>
 
 GRAPH_out(node, decor) ::= <<
