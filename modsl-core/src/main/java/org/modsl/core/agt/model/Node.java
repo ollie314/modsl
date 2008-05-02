@@ -50,11 +50,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     protected List<Edge<T>> edges = new LinkedList<Edge<T>>();
 
     /**
-     * Map of children edges {name->edge}
-     */
-    protected Map<String, Edge<T>> edgeMap = new HashMap<String, Edge<T>>();
-
-    /**
      * This element's size
      */
     protected Pt size = new Pt();
@@ -133,7 +128,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     public void add(Edge<T> child) {
         child.parent = this;
         edges.add(child);
-        edgeMap.put(child.getName(), child);
     }
 
     /**
@@ -173,14 +167,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     public Edge<T> getEdge(int index) {
         return edges.get(index);
-    }
-
-    /**
-     * @param key
-     * @return edge by it's name
-     */
-    public Edge<T> getEdge(String key) {
-        return edgeMap.get(key);
     }
 
     /**
