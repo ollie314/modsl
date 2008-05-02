@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
+import org.modsl.core.Utils;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.SVGCollector;
 
@@ -41,12 +42,7 @@ public class UMLProcessorTest extends AbstractUMLTest {
 
 	@Test
 	public void process3() throws RecognitionException, IOException {
-		process("collab CollaborationDiagram { :processor->:lexer.tokenStream(); " + ""
-				+ ":processor->:parser.diagram():root; :processor->:layoutVisitor.accept(root); "
-				+ ":processor->:root.rescale(); :processor->:stringTemplateVisitor.accept(root); "
-				+ ":stringTemplateVisitor->:root.getNodes():node; " + ":stringTemplateVisitor->:collabNodeLayout.apply(node); "
-				+ ":stringTemplateVisitor->:circleLayout.apply(root); "
-				+ ":stringTemplateVisitor->:fruchtermanRheingoldLayout.apply(root); }", new Pt(640, 480));
+		process(Utils.fromFile("samples/uml/collab3.modsl"), new Pt(640, 480));
 	}
 
 	private void process(String s, Pt reqSize) throws RecognitionException, IOException {
