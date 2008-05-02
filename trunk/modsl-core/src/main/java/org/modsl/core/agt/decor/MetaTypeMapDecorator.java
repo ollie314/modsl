@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.common;
+package org.modsl.core.agt.decor;
 
 import java.util.HashMap;
 import java.util.Map;

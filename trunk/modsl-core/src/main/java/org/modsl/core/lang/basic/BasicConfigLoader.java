@@ -16,8 +16,8 @@
 
 package org.modsl.core.lang.basic;
 
-import org.modsl.core.agt.common.MetaTypeMapDecorator;
-import org.modsl.core.agt.common.SimpleNodeDecorator;
+import org.modsl.core.agt.decor.MetaTypeMapDecorator;
+import org.modsl.core.agt.decor.SimpleNodeDecorator;
 import org.modsl.core.agt.layout.CircleLayout;
 import org.modsl.core.agt.layout.FRLayout;
 import org.modsl.core.agt.layout.Layout;

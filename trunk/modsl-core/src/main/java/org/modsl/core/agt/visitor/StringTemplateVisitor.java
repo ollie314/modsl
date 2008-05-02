@@ -21,7 +21,7 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.DefaultTemplateLexer;
 import org.apache.log4j.Logger;
-import org.modsl.core.agt.common.AbstractDecorator;
+import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.AbstractGraphElement;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;

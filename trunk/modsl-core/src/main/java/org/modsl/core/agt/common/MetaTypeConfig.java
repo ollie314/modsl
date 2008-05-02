@@ -16,6 +16,7 @@
 
 package org.modsl.core.agt.common;
 
+import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.layout.Layout;
 
 public class MetaTypeConfig {
