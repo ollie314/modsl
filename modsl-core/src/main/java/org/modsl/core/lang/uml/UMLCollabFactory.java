@@ -34,27 +34,27 @@ public class UMLCollabFactory extends AbstractUMLFactory {
 	/**
 	 * Create list of edges given list of edge tokens
 	 * @param parent parent node the edges belong to
-	 * @param tokens edge tokens
+	 * @param ctokens edge tokens
 	 * @return list of edges
 	 */
-	public List<Edge<UMLMetaType>> createEdges(Node<UMLMetaType> parent, List<Token> tokens) {
+	public List<Edge<UMLMetaType>> createEdges(Node<UMLMetaType> parent, List<Token> ctokens, List<Token> mtokens) {
 
 		List<Edge<UMLMetaType>> es = new LinkedList<Edge<UMLMetaType>>();
 
 		Node<UMLMetaType> n1 = null, n2 = null;
 		Token t1, t2;
 
-		for (int i = 0; i < tokens.size() - 1; i++) {
+		for (int i = 0; i < ctokens.size() - 1; i++) {
 
-			t1 = tokens.get(i);
-			t2 = tokens.get(i + 1);
+			t1 = ctokens.get(i);
+			t2 = ctokens.get(i + 1);
 
 			if (i == 0) {
 				n1 = createNodeIfDoesntExist(parent, t1);
 			}
 			n2 = createNodeIfDoesntExist(parent, t2);
 
-			Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, n1, n2);
+			Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, mtokens.get(i).getText(), n1, n2);
 			parent.add(e);
 			es.add(e);
 

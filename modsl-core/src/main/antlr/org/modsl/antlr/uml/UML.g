@@ -30,10 +30,11 @@ collabDiagram
 	@after { root.accept(new NodeRefVisitor<UMLMetaType>()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { root.setName($ID.text); };
 
-collabStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* ';' { collabFactory.createEdges(cnode, $ids); }; 
+collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=ID (EDGEOP ids+=ID '.' mds+=ID)* ';' 
+	{ collabFactory.createEdges(cnode, $ids, $mds); }; 
 
 EDGEOP: '->';
-ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':')*;
+ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;
 fragment INT : '0'..'9'+ ;
 NEWLINE:'\r'? '\n';
 WS: (' ' |'\t' | '\r' | '\n')+ { skip(); };
