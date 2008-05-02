@@ -209,7 +209,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 
 	@Override
 	public String toString() {
-		return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-"
+		return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "->"
 				+ (node2 == null ? "*" + node2Name : node2.getName()) + ")";
 	}
 }

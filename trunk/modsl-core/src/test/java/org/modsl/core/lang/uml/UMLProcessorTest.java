@@ -29,23 +29,12 @@ public class UMLProcessorTest extends AbstractUMLTest {
 
 	@Test
 	public void process1() throws Exception {
-		process("collab g1 { n1->n2; n1->n3->n4->n5; n2->n3; n5->n8->n9; n9->n4; n8-> n4; }", new Pt(400, 320));
+		process("collab coll1 { c1:o1->c2:o2->c3:o3->c1:o1; }", new Pt(400, 320));
 	}
 
 	@Test
 	public void process2() throws RecognitionException, IOException {
-		process("collab g2 { n1->n2->n3->n4->n5->n6->n7->n8; }", new Pt(400, 320));
-	}
-
-	@Test
-	public void process3() throws RecognitionException, IOException {
-		process("collaboration diagram g3 { n1->n2->n3->n4->n5->n6->n7->n8; n5->n1->n3; n2->n4->n6->n8->n5->n2; "
-				+ "n3->n5->n7; n6->n1->n4->n8; n6->n2->n8->n1->n7; n4->n7->n2; n8->n3->n6; n3->n7; }", new Pt(400, 320));
-	}
-
-	@Test
-	public void process4() throws RecognitionException, IOException {
-		process("collab g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(400, 320));
+		process("collab coll2 { :o1->:o2; :o1->:o3; :o2->:o4; :o2->:o5; :o3->:o6; :o3->:o7; :o6->:o7; :o1->:o6; }", new Pt(400, 320));
 	}
 
 	private void process(String s, Pt reqSize) throws RecognitionException, IOException {
