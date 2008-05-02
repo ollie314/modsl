@@ -16,18 +16,18 @@ $root_in(node)$
 
 >>
 
-COLLAB_NODE_in(node, decor, meta) ::= <<
+COLLAB_NODE_in(node, decor) ::= <<
 
 <rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="COLLAB_NODE_rect"/>
 <text x="$decor.textPos.x$" y="$decor.textPos.y$" class="COLLAB_NODE_text">$node.name$</text><!-- $node.size$ -->
 >>
 
-COLLAB_EDGE_in(edge, decor, meta) ::= <<
+COLLAB_EDGE_in(edge, decor) ::= <<
 
 <line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="COLLAB_EDGE_line"/>
 >>
 
-COLLAB_ROOT_out(node, decor, meta) ::= <<
+COLLAB_ROOT_out(node, decor) ::= <<
 
 $root_out()$
 >>

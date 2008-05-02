@@ -1,6 +1,6 @@
 group basic : root;
 
-GRAPH_in(node, decor, meta) ::= <<
+GRAPH_in(node, decor) ::= <<
 $root_in(node)$
 <!-- $node.name$: basic graph -->
 <style type="text/css"><![CDATA[ 
@@ -12,18 +12,18 @@ $root_in(node)$
 
 >>
 
-NODE_in(node, decor, meta) ::= <<
+NODE_in(node, decor) ::= <<
 
 <rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="NODE_rect"/>
 <text x="$decor.textPos.x$" y="$decor.textPos.y$" class="NODE_text">$node.name$</text><!-- $node.size$ -->
 >>
 
-EDGE_in(edge, decor, meta) ::= <<
+EDGE_in(edge, decor) ::= <<
 
 <line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="EDGE_line"/>
 >>
 
-GRAPH_out(node, decor, meta) ::= <<
+GRAPH_out(node, decor) ::= <<
 
 $root_out()$
 >>
