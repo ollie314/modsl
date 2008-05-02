@@ -10,9 +10,11 @@ $root_in(node)$
 <style type="text/css"><![CDATA[ 
 	.COLLAB_ROOT_text { font-family: $decor.meta.COLLAB_ROOT.config.ft.name$; font-size: $decor.meta.COLLAB_ROOT.config.ft.size$px; }
 	.COLLAB_NODE_text { fill: black; font-family: $decor.meta.COLLAB_NODE.config.ft.name$; font-size: $decor.meta.COLLAB_NODE.config.ft.size$px; }
-	.COLLAB_NODE_rect { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
+	.COLLAB_NODE_rect { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
 	.COLLAB_NODE_line { stroke: black; stroke-width: 1px; }	
 	.COLLAB_EDGE_line { stroke: dimgrey; stroke-width: 1px; }
+	.COLLAB_EDGE_text { fill: black; font-family: $decor.meta.COLLAB_EDGE.config.ft.name$; font-size: $decor.meta.COLLAB_EDGE.config.ft.size$px; }
+	.COLLAB_EDGE_bg   { fill: white; stroke: white; stroke-width: 1px; opacity: 0.90; }	
 ]]></style>
 
 >>
@@ -29,6 +31,8 @@ COLLAB_EDGE_in(edge, decor) ::= <<
 <line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="COLLAB_EDGE_line"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="COLLAB_EDGE_line"/>
 <line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="COLLAB_EDGE_line"/>
+<rect x="$decor.textBgPos.x$" y="$decor.textBgPos.y$" width="$decor.textBgSize.x$" height="$decor.textBgSize.y$" class="COLLAB_EDGE_bg"/>
+<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="COLLAB_EDGE_text">$edge.name$</text>
 >>
 
 COLLAB_ROOT_out(node, decor) ::= <<
