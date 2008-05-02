@@ -1,4 +1,4 @@
-#summary 30 sec intor to the ModSL core API
+#summary 10 sec intro to the ModSL core API
 
 {{{
 
