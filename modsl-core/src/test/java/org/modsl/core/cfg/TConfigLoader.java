@@ -31,4 +31,9 @@ public class TConfigLoader extends AbstractConfigLoader {
 		TMetaType.EDGE.getConfig().setLayout(new Layout[] { new T3Layout() });
 	}
 
+	@Override
+	public void initDecorators() {
+		// none
+	}
+
 }

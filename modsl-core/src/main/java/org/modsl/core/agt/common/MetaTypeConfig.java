@@ -22,6 +22,7 @@ public class MetaTypeConfig {
 
 	protected FontTransform fontTransform;
 	protected Layout[] layouts;
+	protected AbstractDecorator decorator;
 
 	public MetaTypeConfig() {
 		this(new Layout[] {});
@@ -29,6 +30,10 @@ public class MetaTypeConfig {
 
 	public MetaTypeConfig(Layout[] layouts) {
 		this.layouts = layouts;
+	}
+
+	public AbstractDecorator getDecorator() {
+		return decorator;
 	}
 
 	/**
@@ -52,6 +57,10 @@ public class MetaTypeConfig {
 	 */
 	public Layout[] getLayouts() {
 		return layouts;
+	}
+
+	public void setDecorator(AbstractDecorator decorator) {
+		this.decorator = decorator;
 	}
 
 	/**
