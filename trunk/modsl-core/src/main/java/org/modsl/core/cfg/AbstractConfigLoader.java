@@ -16,7 +16,7 @@
 
 package org.modsl.core.cfg;
 
-import org.modsl.core.agt.layout.Layout;
+import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.MetaType;
 
 /**
@@ -52,7 +52,7 @@ public abstract class AbstractConfigLoader {
 		initLayouts();
 		initDecorators();
 		for (MetaType mt : metaTypeClass.getEnumConstants()) {
-			for (Layout l : mt.getConfig().getLayouts()) {
+			for (AbstractLayout l : mt.getConfig().getLayouts()) {
 				if (l.getConfigName() != null) {
 					PropLoader pl = new PropLoader(path, l.getConfigName(), false);
 					pl.load();

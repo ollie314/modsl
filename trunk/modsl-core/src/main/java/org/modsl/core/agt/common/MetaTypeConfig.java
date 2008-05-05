@@ -17,19 +17,19 @@
 package org.modsl.core.agt.common;
 
 import org.modsl.core.agt.decor.AbstractDecorator;
-import org.modsl.core.agt.layout.Layout;
+import org.modsl.core.agt.layout.AbstractLayout;
 
 public class MetaTypeConfig {
 
 	protected FontTransform fontTransform;
-	protected Layout[] layouts;
+	protected AbstractLayout[] layouts;
 	protected AbstractDecorator<?> decorator;
 
 	public MetaTypeConfig() {
-		this(new Layout[] {});
+		this(new AbstractLayout[] {});
 	}
 
-	public MetaTypeConfig(Layout[] layouts) {
+	public MetaTypeConfig(AbstractLayout[] layouts) {
 		this.layouts = layouts;
 	}
 
@@ -56,7 +56,7 @@ public class MetaTypeConfig {
 	/**
 	 * @return array of layouts for this meta type
 	 */
-	public Layout[] getLayouts() {
+	public AbstractLayout[] getLayouts() {
 		return layouts;
 	}
 
@@ -75,7 +75,7 @@ public class MetaTypeConfig {
 	 * Set layout array for this meta type
 	 * @param layouts
 	 */
-	public void setLayout(Layout[] layouts) {
+	public void setLayout(AbstractLayout[] layouts) {
 		this.layouts = layouts;
 	}
 

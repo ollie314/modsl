@@ -21,14 +21,16 @@ import java.util.Map;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
-public interface Layout {
+public abstract class AbstractLayout {
 
-    public String getConfigName();
+    public abstract String getConfigName();
 
-    public void setLayoutConfig(Map<String, String> propMap);
+    public abstract void setLayoutConfig(Map<String, String> propMap);
 
-    public void apply(Edge<?> edge);
+    public void apply(Edge<?> edge) { 
+        // NO OP - not likely a layout would operate on edges 
+    }
 
-    public void apply(Node<?> node);
+    public abstract void apply(Node<?> node);
 
 }

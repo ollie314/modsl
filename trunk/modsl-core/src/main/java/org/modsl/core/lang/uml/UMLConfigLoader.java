@@ -19,7 +19,7 @@ package org.modsl.core.lang.uml;
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.layout.CircleLayout;
 import org.modsl.core.agt.layout.FRLayout;
-import org.modsl.core.agt.layout.Layout;
+import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.cfg.AbstractConfigLoader;
 import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.CollabNodeDecorator;
@@ -37,8 +37,8 @@ public class UMLConfigLoader extends AbstractConfigLoader {
 
 	@Override
 	public void initLayouts() {
-		UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new Layout[] { new CircleLayout(), new FRLayout() });
-		UMLMetaType.COLLAB_NODE.getConfig().setLayout(new Layout[] { new CollabNodeLayout() });
+		UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new AbstractLayout[] { new CircleLayout(), new FRLayout() });
+		UMLMetaType.COLLAB_NODE.getConfig().setLayout(new AbstractLayout[] { new CollabNodeLayout() });
 	}
 
 	@Override

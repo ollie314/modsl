@@ -17,7 +17,7 @@
 package org.modsl.core.cfg;
 
 import org.modsl.core.agt.TMetaType;
-import org.modsl.core.agt.layout.Layout;
+import org.modsl.core.agt.layout.AbstractLayout;
 
 public class TConfigLoader extends AbstractConfigLoader {
 
@@ -27,8 +27,8 @@ public class TConfigLoader extends AbstractConfigLoader {
 
 	@Override
 	public void initLayouts() {
-		TMetaType.NODE.getConfig().setLayout(new Layout[] { new T1Layout(), new T2Layout() });
-		TMetaType.EDGE.getConfig().setLayout(new Layout[] { new T3Layout() });
+		TMetaType.NODE.getConfig().setLayout(new AbstractLayout[] { new T1Layout(), new T2Layout() });
+		TMetaType.EDGE.getConfig().setLayout(new AbstractLayout[] { new T3Layout() });
 	}
 
 	@Override

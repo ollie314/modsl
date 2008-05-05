@@ -16,18 +16,14 @@
 
 package org.modsl.core.agt.layout;
 
-import java.util.Map;
+import org.modsl.core.agt.model.Node;
 
-public abstract class AbstractNonConfigurableLayout extends AbstractLayout {
-
-    @Override
-    public String getConfigName() {
-        return null; // non configurable
-    }
+public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     @Override
-    public void setLayoutConfig(Map<String, String> propMap) {
-        // none
+    public void apply(Node<?> node) {
+        // TODO Auto-generated method stub
+
     }
 
 }
