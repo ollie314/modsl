@@ -448,4 +448,19 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 		return name + ":" + type;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Node) {
+			return name.equals(((Node) obj).name);
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
+
 }
