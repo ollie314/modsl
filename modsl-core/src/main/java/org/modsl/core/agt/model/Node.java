@@ -119,6 +119,17 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         resetPaddings();
     }
 
+    /**
+     * Create new
+     * @param type type
+     * @param name name
+     * @param dummy true if dummy
+     */
+    public Node(T type, String name, boolean dummy) {
+        this(type, name);
+        this.dummy = dummy;
+    }
+
     @Override
     public void accept(AbstractVisitor<T> visitor) {
         visitor.in(this);
@@ -132,15 +143,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     }
 
     /**
-     * Add child edge
-     * @param child
-     */
-    public void addChild(Edge<T> child) {
-        child.parent = this;
-        childEdges.add(child);
-    }
-
-    /**
      * Add child node
      * @param child
      */
@@ -148,6 +150,15 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         child.parent = this;
         nodes.add(child);
         nodeMap.put(child.getName(), child);
+    }
+
+    /**
+     * Add child edge
+     * @param child
+     */
+    public void addChild(Edge<T> child) {
+        child.parent = this;
+        childEdges.add(child);
     }
 
     public void addConnectedEdge(Edge<T> edge) {
@@ -169,13 +180,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     }
 
     /**
-     * @return center position, taking node's size into account
-     */
-    public Pt getCtrPos() {
-        return pos.plus(size.div(2d));
-    }
-
-    /**
      * @param index
      * @return edge by index
      */
@@ -188,6 +192,13 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     public List<Edge<T>> getChildEdges() {
         return childEdges;
+    }
+
+    /**
+     * @return center position, taking node's size into account
+     */
+    public Pt getCtrPos() {
+        return pos.plus(size.div(2d));
     }
 
     public int getInDegree() {
