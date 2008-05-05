@@ -48,6 +48,11 @@ public abstract class AbstractGraphElement<T extends MetaType> {
     protected T type;
 
     /**
+     * To allow algorithms to create temp/invisible/dummy elements
+     */
+    protected boolean dummy = false;
+
+    /**
      * Create new
      * @param type
      */
@@ -94,11 +99,19 @@ public abstract class AbstractGraphElement<T extends MetaType> {
         return type;
     }
 
+    public boolean isDummy() {
+        return dummy;
+    }
+
     /**
      * @return true if visible
      */
     public boolean isVisible() {
         return visible;
+    }
+
+    public void setDummy(boolean dummy) {
+        this.dummy = dummy;
     }
 
     /**

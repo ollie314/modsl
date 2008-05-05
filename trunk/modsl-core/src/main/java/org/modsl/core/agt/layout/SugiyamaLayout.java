@@ -32,21 +32,33 @@ import org.modsl.core.agt.model.Node;
 
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
+    protected int dummyCount = 1;
+
     @Override
     public void apply(Node<?> root) {
         removeCycles(root);
         layer(root);
+        insertDummies(root);
         undoRemoveCycles(root);
     }
 
-    List<Node<?>> sources(Node<?> root) {
-        List<Node<?>> sources = new LinkedList<Node<?>>();
-        for (Node<?> n : root.getNodes()) {
-            if (n.getInDegree() == 0) {
-                sources.add(n);
+    void insertDummies(Node<?> root) {
+        for (Edge<?> currEdge : root.getChildEdges()) {
+            if (currEdge.getNode2().getIndex() - currEdge.getNode1().getIndex() > 1) {
+                Edge<?> edgeToSplit = currEdge;
+                for (int layer = currEdge.getNode1().getIndex() + 1; layer < currEdge.getNode2().getIndex(); layer++) {
+                    edgeToSplit = split(edgeToSplit);
+                }
             }
         }
-        return sources;
+    }
+
+    @SuppressWarnings("unchecked")
+    Edge<?> split(Edge<?> edge) {
+        Node dummyNode = new Node(edge.getNode2().getType(), "dummy" + dummyCount++, true);
+        Edge<?> dummyEdge = new Edge(edge.getType(), "dummy" + dummyCount++, dummyNode, edge.getNode2(), true);
+        edge.setNode2(dummyNode);
+        return dummyEdge;
     }
 
     void layer(Node<?> root) {
@@ -91,6 +103,16 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
             }
         });
         return nodes;
+    }
+
+    List<Node<?>> sources(Node<?> root) {
+        List<Node<?>> sources = new LinkedList<Node<?>>();
+        for (Node<?> n : root.getNodes()) {
+            if (n.getInDegree() == 0) {
+                sources.add(n);
+            }
+        }
+        return sources;
     }
 
     List<Node<?>> topologicalSort(Node<?> root) {
