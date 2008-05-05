@@ -256,4 +256,40 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "->"
 				+ (node2 == null ? "*" + node2Name : node2.getName()) + ")";
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Edge) {
+			Edge e = (Edge) obj;
+			boolean same = true;
+			if (node1 == null) {
+				if (e.node1 == null) {
+					same = same && node1Name.equals(e.node1Name);
+				} else {
+					same = false;
+				}
+			} else {
+				same = same && node1.equals(e.node1);
+			}
+			if (node2 == null) {
+				if (e.node2 == null) {
+					same = same && node2Name.equals(e.node2Name);
+				} else {
+					same = false;
+				}
+			} else {
+				same = same && node2.equals(e.node2);
+			}
+			return same;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return (node1 == null ? 0 : node1.hashCode()) + (node2 == null ? 0 : node2.hashCode());
+	}
+
 }
