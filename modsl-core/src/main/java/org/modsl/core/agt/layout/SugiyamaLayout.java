@@ -16,6 +16,8 @@
 
 package org.modsl.core.agt.layout;
 
+import static java.lang.Math.max;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,7 +39,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         undoRemoveCycles(root);
     }
 
-    List<Node<?>> getSources(Node<?> root) {
+    List<Node<?>> sources(Node<?> root) {
         List<Node<?>> sources = new LinkedList<Node<?>>();
         for (Node<?> n : root.getNodes()) {
             if (n.getInDegree() == 0) {
@@ -49,11 +51,16 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     void layer(Node<?> root) {
         List<Node<?>> sorted = topologicalSort(root);
-        for (Node<?> n : root.getNodes()) {
+        for (Node<?> n : sorted) {
             n.setIndex(1);
         }
-        for (Node<?> n : root.getNodes()) {
-            n.setIndex(1);
+        int h = 0;
+        for (Node<?> n1 : sorted) {
+            for (Edge<?> out : n1.getOutEdges()) {
+                Node<?> n2 = out.getNode2();
+                n2.setIndex(max(n1.getIndex() + 1, n2.getIndex()));
+                h = max(h, n2.getIndex());
+            }
         }
 
     }
@@ -87,7 +94,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     }
 
     List<Node<?>> topologicalSort(Node<?> root) {
-        List<Node<?>> q = getSources(root);
+        List<Node<?>> q = sources(root);
         List<Node<?>> l = new LinkedList<Node<?>>();
         while (q.size() > 0) {
             Node<?> n = q.remove(0);

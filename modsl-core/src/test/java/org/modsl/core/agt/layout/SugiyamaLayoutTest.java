@@ -68,7 +68,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 
     @Test
     public void sources() {
-        assertEquals(1, layout.getSources(root).size());
+        assertEquals(1, layout.sources(root).size());
     }
 
     @Test
@@ -84,4 +84,18 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
         assertEquals(n6, sorted.get(5));
         assertEquals(n5, sorted.get(6));
     }
+
+    @Test
+    public void layer() {
+        layout.removeCycles(root);
+        layout.layer(root);
+        assertEquals(1, n1.getIndex());
+        assertEquals(1, n2.getIndex());
+        assertEquals(2, n3.getIndex());
+        assertEquals(2, n4.getIndex());
+        assertEquals(3, n6.getIndex());
+        assertEquals(3, n7.getIndex());
+        assertEquals(4, n5.getIndex());
+    }
+    
 }
