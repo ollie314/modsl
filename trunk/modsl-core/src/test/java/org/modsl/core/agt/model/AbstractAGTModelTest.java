@@ -21,7 +21,7 @@ import org.modsl.core.agt.TMetaType;
 
 public abstract class AbstractAGTModelTest {
 
-    Node<TMetaType> root;
+    protected Node<TMetaType> root;
 
     @Before
     public void setUp() throws Exception {

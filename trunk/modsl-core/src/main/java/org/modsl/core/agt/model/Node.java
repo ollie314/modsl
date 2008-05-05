@@ -50,6 +50,16 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     protected List<Edge<T>> edges = new LinkedList<Edge<T>>();
 
     /**
+     * List of inbound edges
+     */
+    protected List<Edge<T>> inEdges = new LinkedList<Edge<T>>();
+
+    /**
+     * List of outbound edges
+     */
+    protected List<Edge<T>> outEdges = new LinkedList<Edge<T>>();
+
+    /**
      * This element's size
      */
     protected Pt size = new Pt();
@@ -140,6 +150,14 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         nodeMap.put(child.getName(), child);
     }
 
+    public void addInEdge(Edge<T> edge) {
+        inEdges.add(edge);
+    }
+
+    public void addOutEdge(Edge<T> edge) {
+        outEdges.add(edge);
+    }
+
     /**
      * @return alternate position
      */
@@ -174,6 +192,14 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     public List<Edge<T>> getEdges() {
         return edges;
+    }
+
+    public int getInDegree() {
+        return inEdges.size();
+    }
+
+    public List<Edge<T>> getInEdges() {
+        return inEdges;
     }
 
     /**
@@ -224,6 +250,14 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     public List<Node<T>> getNodes() {
         return nodes;
+    }
+
+    public int getOutDegree() {
+        return outEdges.size();
+    }
+
+    public List<Edge<T>> getOutEdges() {
+        return outEdges;
     }
 
     /**
