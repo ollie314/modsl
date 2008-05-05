@@ -452,7 +452,11 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Node) {
-			return name.equals(((Node) obj).name);
+			if (this == obj) {
+				return true;
+			} else {
+				return name.equals(((Node) obj).name);
+			}
 		} else {
 			return false;
 		}
