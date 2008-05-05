@@ -19,8 +19,11 @@ package org.modsl.core.agt.layout;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
@@ -29,10 +32,31 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     public void apply(Node<?> root) {
         removeCycles(root);
 
+        undoRemoveCycles(root);
+    }
+
+    void undoRemoveCycles(Node<?> root) {
+        for (Edge<?> e : root.getEdges()) {
+            e.setReverted(false);
+        }
     }
 
     void removeCycles(Node<?> root) {
         List<Node<?>> nodes = sortByOutDegree(root);
+        Set<Edge<?>> removed = new HashSet<Edge<?>>(root.getEdges().size());
+        for (Node<?> n : nodes) {
+            for (Edge<?> in : n.getInEdges()) {
+                if (!removed.contains(in)) {
+                    in.setReverted(true);
+                    removed.add(in);
+                }
+            }
+            for (Edge<?> out : n.getOutEdges()) {
+                if (!removed.contains(out)) {
+                    removed.add(out);
+                }
+            }
+        }
     }
 
     List<Node<?>> sortByOutDegree(Node<?> root) {
