@@ -41,6 +41,19 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
     }
 
     @Test
+    public void layer() {
+        layout.removeCycles(root);
+        layout.layer(root);
+        assertEquals(1, n1.getIndex());
+        assertEquals(1, n2.getIndex());
+        assertEquals(2, n3.getIndex());
+        assertEquals(2, n4.getIndex());
+        assertEquals(3, n6.getIndex());
+        assertEquals(3, n7.getIndex());
+        assertEquals(4, n5.getIndex());
+    }
+
+    @Test
     public void removeCycles() {
         layout.removeCycles(root);
         assertFalse(e1_3.isReverted());
@@ -54,22 +67,23 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
     }
 
     @Test
-    public void undoRemoveCycles() {
-        layout.removeCycles(root);
-        layout.undoRemoveCycles(root);
-        assertFalse(e1_3.isReverted());
-        assertFalse(e1_5.isReverted());
-        assertFalse(e2_5.isReverted());
-        assertFalse(e2_4.isReverted());
-        assertFalse(e3_7.isReverted());
-        assertFalse(e4_6.isReverted());
-        assertFalse(e6_2.isReverted());
-        assertFalse(e7_5.isReverted());
+    public void sources() {
+        assertEquals(1, layout.sources(root).size());
     }
 
     @Test
-    public void sources() {
-        assertEquals(1, layout.sources(root).size());
+    public void split() {
+        int sn = root.getNodes().size();
+        int se = root.getChildEdges().size();
+        layout.split(e1_3, root);
+        assertEquals(sn + 1, root.getNodes().size());
+        assertEquals(se + 1, root.getChildEdges().size());
+        Node<?> dn = root.getNode(sn);
+        assertEquals(e1_3, dn.getInEdges().get(0));
+        Edge<?> de = root.getChildEdge(se);
+        assertEquals(de, dn.getOutEdges().get(0));
+        assertEquals(dn, de.getNode1());
+        assertEquals(n3, de.getNode2());
     }
 
     @Test
@@ -87,28 +101,17 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
     }
 
     @Test
-    public void layer() {
+    public void undoRemoveCycles() {
         layout.removeCycles(root);
-        layout.layer(root);
-        assertEquals(1, n1.getIndex());
-        assertEquals(1, n2.getIndex());
-        assertEquals(2, n3.getIndex());
-        assertEquals(2, n4.getIndex());
-        assertEquals(3, n6.getIndex());
-        assertEquals(3, n7.getIndex());
-        assertEquals(4, n5.getIndex());
-    }
-
-    @Test
-    public void split() {
-        int sn = root.getNodes().size();
-        int se = root.getChildEdges().size();
-        layout.split(e1_3, root);
-        assertEquals(sn + 1, root.getNodes().size());
-        assertEquals(se + 1, root.getChildEdges().size());
-        Node<?> dn = root.getNode(sn);
-        Edge<?> de = root.getChildEdge(se);
-        assertEquals(n3, de.getNode2());
+        layout.undoRemoveCycles(root);
+        assertFalse(e1_3.isReverted());
+        assertFalse(e1_5.isReverted());
+        assertFalse(e2_5.isReverted());
+        assertFalse(e2_4.isReverted());
+        assertFalse(e3_7.isReverted());
+        assertFalse(e4_6.isReverted());
+        assertFalse(e6_2.isReverted());
+        assertFalse(e7_5.isReverted());
     }
     
 }
