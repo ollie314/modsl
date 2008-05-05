@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
-import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
@@ -34,79 +33,74 @@ import org.modsl.core.agt.model.Pt;
  * later
  * @author avishnyakov
  */
-public class CircleLayout implements Layout {
+public class CircleLayout extends AbstractLayout {
 
-	@SuppressWarnings("unused")
-	private Logger log = Logger.getLogger(getClass());
+    @SuppressWarnings("unused")
+    private Logger log = Logger.getLogger(getClass());
 
-	protected double angle;
-	protected Node<?> graph;
-	protected int circlePositions, maxRounds;
-	protected Random random;
+    protected double angle;
+    protected Node<?> graph;
+    protected int circlePositions, maxRounds;
+    protected Random random;
 
-	@Override
-	public void apply(Edge<?> edge) {
-		// nothing to do here
-	}
+    @Override
+    public void apply(Node<?> node) {
 
-	@Override
-	public void apply(Node<?> node) {
+        this.graph = node;
+        this.circlePositions = graph.getNodes().size();
+        this.angle = 2d * PI / circlePositions;
 
-		this.graph = node;
-		this.circlePositions = graph.getNodes().size();
-		this.angle = 2d * PI / circlePositions;
+        this.random = new Random(node.getName().hashCode());
 
-		this.random = new Random(node.getName().hashCode());
+        initCircle();
+        optimizeEdgeLength();
 
-		initCircle();
-		optimizeEdgeLength();
+    }
 
-	}
+    @Override
+    public String getConfigName() {
+        return "circle_layout";
+    }
 
-	@Override
-	public String getConfigName() {
-		return "circle_layout";
-	}
+    private double getPosAngle(int p) {
+        return PI / 4d - angle * p;
+    }
 
-	private double getPosAngle(int p) {
-		return PI / 4d - angle * p;
-	}
+    private void initCircle() {
+        for (int i = 0; i < circlePositions; i++) {
+            setCirclePosition(graph.getNode(i), i);
+        }
+    }
 
-	private void initCircle() {
-		for (int i = 0; i < circlePositions; i++) {
-			setCirclePosition(graph.getNode(i), i);
-		}
-	}
+    private void optimizeEdgeLength() {
+        for (int i = 0; i < maxRounds * circlePositions; i++) {
+            double curLen = graph.getSumEdgeLengths();
+            int p1 = (int) floor(random.nextDouble() * circlePositions);
+            int p2 = (int) floor(random.nextDouble() * circlePositions);
+            swap(p1, p2);
+            if (graph.getSumEdgeLengths() > curLen) {
+                swap(p1, p2);
+            }
+        }
+    }
 
-	private void optimizeEdgeLength() {
-		for (int i = 0; i < maxRounds * circlePositions; i++) {
-			double curLen = graph.getSumEdgeLengths();
-			int p1 = (int) floor(random.nextDouble() * circlePositions);
-			int p2 = (int) floor(random.nextDouble() * circlePositions);
-			swap(p1, p2);
-			if (graph.getSumEdgeLengths() > curLen) {
-				swap(p1, p2);
-			}
-		}
-	}
+    private void setCirclePosition(Node<?> n, int p) {
+        double len = graph.getReqSize().len();
+        n.getPos().x = graph.getReqSize().x / 2d + len / 2d * cos(getPosAngle(p));
+        n.getPos().y = graph.getReqSize().y / 2d + len / 2d * sin(getPosAngle(p));
+    }
 
-	private void setCirclePosition(Node<?> n, int p) {
-		double len = graph.getReqSize().len();
-		n.getPos().x = graph.getReqSize().x / 2d + len / 2d * cos(getPosAngle(p));
-		n.getPos().y = graph.getReqSize().y / 2d + len / 2d * sin(getPosAngle(p));
-	}
+    @Override
+    public void setLayoutConfig(Map<String, String> propMap) {
+        maxRounds = Integer.parseInt(propMap.get("maxRounds"));
+    }
 
-	@Override
-	public void setLayoutConfig(Map<String, String> propMap) {
-		maxRounds = Integer.parseInt(propMap.get("maxRounds"));
-	}
-
-	private void swap(int p1, int p2) {
-		Node<?> n1 = graph.getNode(p1);
-		Node<?> n2 = graph.getNode(p2);
-		Pt pt1 = n1.getPos();
-		n1.setPos(n2.getPos());
-		n2.setPos(pt1);
-	}
+    private void swap(int p1, int p2) {
+        Node<?> n1 = graph.getNode(p1);
+        Node<?> n2 = graph.getNode(p2);
+        Pt pt1 = n1.getPos();
+        n1.setPos(n2.getPos());
+        n2.setPos(pt1);
+    }
 
 }

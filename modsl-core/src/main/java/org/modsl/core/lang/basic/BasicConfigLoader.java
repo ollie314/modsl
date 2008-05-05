@@ -20,7 +20,7 @@ import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.decor.SimpleNodeDecorator;
 import org.modsl.core.agt.layout.CircleLayout;
 import org.modsl.core.agt.layout.FRLayout;
-import org.modsl.core.agt.layout.Layout;
+import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.layout.SimpleLabelLayout;
 import org.modsl.core.cfg.AbstractConfigLoader;
 
@@ -36,8 +36,8 @@ public class BasicConfigLoader extends AbstractConfigLoader {
 
 	@Override
 	public void initLayouts() {
-		BasicMetaType.GRAPH.getConfig().setLayout(new Layout[] { new CircleLayout(), new FRLayout() });
-		BasicMetaType.NODE.getConfig().setLayout(new Layout[] { new SimpleLabelLayout() });
+		BasicMetaType.GRAPH.getConfig().setLayout(new AbstractLayout[] { new CircleLayout(), new FRLayout() });
+		BasicMetaType.NODE.getConfig().setLayout(new AbstractLayout[] { new SimpleLabelLayout() });
 	}
 
 	@Override
