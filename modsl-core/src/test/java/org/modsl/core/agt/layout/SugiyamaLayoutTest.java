@@ -65,4 +65,23 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
         assertFalse(e6_2.isReverted());
         assertFalse(e7_5.isReverted());
     }
+
+    @Test
+    public void sources() {
+        assertEquals(1, layout.getSources(root).size());
+    }
+
+    @Test
+    public void topologicalSort() {
+        layout.removeCycles(root);
+        List<Node<?>> sorted = layout.topologicalSort(root);
+        assertEquals(root.getNodes().size(), sorted.size());
+        assertEquals(n1, sorted.get(0));
+        assertEquals(n2, sorted.get(1));
+        assertEquals(n3, sorted.get(2));
+        assertEquals(n4, sorted.get(3));
+        assertEquals(n7, sorted.get(4));
+        assertEquals(n6, sorted.get(5));
+        assertEquals(n5, sorted.get(6));
+    }
 }

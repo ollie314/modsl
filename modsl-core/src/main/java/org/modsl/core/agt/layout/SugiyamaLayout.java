@@ -20,9 +20,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.modsl.core.agt.common.ModSLException;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
@@ -31,21 +33,36 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     @Override
     public void apply(Node<?> root) {
         removeCycles(root);
-
+        layer(root);
         undoRemoveCycles(root);
     }
 
-    void undoRemoveCycles(Node<?> root) {
-        for (Edge<?> e : root.getEdges()) {
-            e.setReverted(false);
+    List<Node<?>> getSources(Node<?> root) {
+        List<Node<?>> sources = new LinkedList<Node<?>>();
+        for (Node<?> n : root.getNodes()) {
+            if (n.getInDegree() == 0) {
+                sources.add(n);
+            }
         }
+        return sources;
+    }
+
+    void layer(Node<?> root) {
+        List<Node<?>> sorted = topologicalSort(root);
+        for (Node<?> n : root.getNodes()) {
+            n.setIndex(1);
+        }
+        for (Node<?> n : root.getNodes()) {
+            n.setIndex(1);
+        }
+
     }
 
     void removeCycles(Node<?> root) {
         List<Node<?>> nodes = sortByOutDegree(root);
-        Set<Edge<?>> removed = new HashSet<Edge<?>>(root.getEdges().size());
+        Set<Edge<?>> removed = new HashSet<Edge<?>>(root.getChildEdges().size());
         for (Node<?> n : nodes) {
-            for (Edge<?> in : n.getInEdges()) {
+            for (Edge<?> in : new ArrayList<Edge<?>>(n.getInEdges())) {
                 if (!removed.contains(in)) {
                     in.setReverted(true);
                     removed.add(in);
@@ -67,6 +84,37 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
             }
         });
         return nodes;
+    }
+
+    List<Node<?>> topologicalSort(Node<?> root) {
+        List<Node<?>> q = getSources(root);
+        List<Node<?>> l = new LinkedList<Node<?>>();
+        while (q.size() > 0) {
+            Node<?> n = q.remove(0);
+            l.add(n);
+            for (Edge<?> e : n.getOutEdges()) {
+                Node<?> m = e.getNode2();
+                boolean allEdgesRemoved = true;
+                for (Edge<?> e2 : m.getInEdges()) {
+                    if (!l.contains(e2.getNode1())) {
+                        allEdgesRemoved = false;
+                    }
+                }
+                if (allEdgesRemoved) {
+                    q.add(m);
+                }
+            }
+        }
+        if (root.getNodes().size() != l.size()) {
+            throw new ModSLException("Topological sort failed for " + root + " in Sugiyama layout");
+        }
+        return l;
+    }
+
+    void undoRemoveCycles(Node<?> root) {
+        for (Edge<?> e : root.getChildEdges()) {
+            e.setReverted(false);
+        }
     }
 
 }

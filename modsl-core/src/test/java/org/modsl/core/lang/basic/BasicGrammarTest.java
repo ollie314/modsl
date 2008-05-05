@@ -49,7 +49,7 @@ public class BasicGrammarTest extends AbstractBasicTest {
 		Node<BasicMetaType> root = processor.parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
 		// log.debug(new ToStringVisitor().toString(root));
 		assertEquals(8, root.getNodes().size());
-		assertEquals(4, root.getEdges().size());
+		assertEquals(4, root.getChildEdges().size());
 	}
 
 }

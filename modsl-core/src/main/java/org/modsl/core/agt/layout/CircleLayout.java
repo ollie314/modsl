@@ -74,11 +74,11 @@ public class CircleLayout extends AbstractLayout {
 
     private void optimizeEdgeLength() {
         for (int i = 0; i < maxRounds * circlePositions; i++) {
-            double curLen = graph.getSumEdgeLengths();
+            double curLen = graph.getSumChildEdgeLengths();
             int p1 = (int) floor(random.nextDouble() * circlePositions);
             int p2 = (int) floor(random.nextDouble() * circlePositions);
             swap(p1, p2);
-            if (graph.getSumEdgeLengths() > curLen) {
+            if (graph.getSumChildEdgeLengths() > curLen) {
                 swap(p1, p2);
             }
         }
