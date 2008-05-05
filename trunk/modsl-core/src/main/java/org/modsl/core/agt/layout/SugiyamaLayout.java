@@ -47,17 +47,19 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
             if (currEdge.getNode2().getIndex() - currEdge.getNode1().getIndex() > 1) {
                 Edge<?> edgeToSplit = currEdge;
                 for (int layer = currEdge.getNode1().getIndex() + 1; layer < currEdge.getNode2().getIndex(); layer++) {
-                    edgeToSplit = split(edgeToSplit);
+                    edgeToSplit = split(edgeToSplit, root);
                 }
             }
         }
     }
 
     @SuppressWarnings("unchecked")
-    Edge<?> split(Edge<?> edge) {
-        Node dummyNode = new Node(edge.getNode2().getType(), "dummy" + dummyCount++, true);
-        Edge<?> dummyEdge = new Edge(edge.getType(), "dummy" + dummyCount++, dummyNode, edge.getNode2(), true);
+    Edge<?> split(Edge<?> edge, Node<?> root) {
+        Node dummyNode = new Node(edge.getNode2().getType(), "dummyNode" + dummyCount++, true);
+        root.add(dummyNode);
+        Edge dummyEdge = new Edge(edge.getType(), "dummyEdge" + dummyCount++, dummyNode, edge.getNode2(), true);
         edge.setNode2(dummyNode);
+        root.addChild(dummyEdge);
         return dummyEdge;
     }
 

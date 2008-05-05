@@ -16,10 +16,13 @@
 
 package org.modsl.core.agt.model;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.modsl.core.agt.TMetaType;
 
 public abstract class AbstractAGTModelTest {
+
+    protected Logger log = Logger.getLogger(getClass());
 
     protected Node<TMetaType> root = new Node<TMetaType>(TMetaType.GRAPH);
     protected Node<TMetaType> n1 = new Node<TMetaType>(TMetaType.NODE, "n1");
