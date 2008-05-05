@@ -262,26 +262,30 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 	public boolean equals(Object obj) {
 		if (obj instanceof Edge) {
 			Edge e = (Edge) obj;
-			boolean same = true;
-			if (node1 == null) {
-				if (e.node1 == null) {
-					same = same && node1Name.equals(e.node1Name);
-				} else {
-					same = false;
-				}
+			if (this == e) {
+				return true;
 			} else {
-				same = same && node1.equals(e.node1);
-			}
-			if (node2 == null) {
-				if (e.node2 == null) {
-					same = same && node2Name.equals(e.node2Name);
+				boolean same = true;
+				if (node1 == null) {
+					if (e.node1 == null) {
+						same = same && node1Name.equals(e.node1Name);
+					} else {
+						same = false;
+					}
 				} else {
-					same = false;
+					same = same && node1.equals(e.node1);
 				}
-			} else {
-				same = same && node2.equals(e.node2);
+				if (node2 == null) {
+					if (e.node2 == null) {
+						same = same && node2Name.equals(e.node2Name);
+					} else {
+						same = false;
+					}
+				} else {
+					same = same && node2.equals(e.node2);
+				}
+				return same;
 			}
-			return same;
 		} else {
 			return false;
 		}

@@ -114,4 +114,9 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
         assertFalse(e7_5.isReverted());
     }
     
+    @Test 
+    public void insertDummies() {
+    	
+    }
+    
 }
