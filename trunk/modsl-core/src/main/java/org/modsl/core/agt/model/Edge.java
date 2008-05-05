@@ -55,7 +55,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
      * Are start and end nodes swapped? Needed for the layout algorithms.
      */
     protected boolean reverted = false;
-
+    
     /**
      * Create new
      * @param type type
@@ -65,9 +65,9 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
     public Edge(T type, Node<T> node1, Node<T> node2) {
         super(type);
         this.node1 = node1;
-        this.node1.addOutEdge(this);
+        this.node1.addConnectedEdge(this);
         this.node2 = node2;
-        this.node2.addInEdge(this);
+        this.node2.addConnectedEdge(this);
     }
 
     /**

@@ -22,17 +22,17 @@ import org.modsl.core.agt.TMetaType;
 public abstract class AbstractAGTModelTest {
 
     protected Node<TMetaType> root = new Node<TMetaType>(TMetaType.GRAPH);
-    protected Node<TMetaType> n1 = new Node<TMetaType>(TMetaType.NODE, "TopLeft");
-    protected Node<TMetaType> n2 = new Node<TMetaType>(TMetaType.NODE, "TopRight");
-    protected Node<TMetaType> n3 = new Node<TMetaType>(TMetaType.NODE, "BottomRight");
-    protected Node<TMetaType> n4 = new Node<TMetaType>(TMetaType.NODE, "BottomLeft");
-    protected Node<TMetaType> n5 = new Node<TMetaType>(TMetaType.NODE, "BottomMiddle");
-    protected Node<TMetaType> n6 = new Node<TMetaType>(TMetaType.NODE, "MiddleLeft");
-    protected Node<TMetaType> n7 = new Node<TMetaType>(TMetaType.NODE, "MiddleRight");
+    protected Node<TMetaType> n1 = new Node<TMetaType>(TMetaType.NODE, "n1");
+    protected Node<TMetaType> n2 = new Node<TMetaType>(TMetaType.NODE, "n2");
+    protected Node<TMetaType> n3 = new Node<TMetaType>(TMetaType.NODE, "n3");
+    protected Node<TMetaType> n4 = new Node<TMetaType>(TMetaType.NODE, "n4");
+    protected Node<TMetaType> n5 = new Node<TMetaType>(TMetaType.NODE, "n5");
+    protected Node<TMetaType> n6 = new Node<TMetaType>(TMetaType.NODE, "n6");
+    protected Node<TMetaType> n7 = new Node<TMetaType>(TMetaType.NODE, "n7");
     protected Edge<TMetaType> e1_3 = new Edge<TMetaType>(TMetaType.EDGE, "e1_3", n1, n3);
     protected Edge<TMetaType> e2_4 = new Edge<TMetaType>(TMetaType.EDGE, "e2_4", n2, n4);
     protected Edge<TMetaType> e3_7 = new Edge<TMetaType>(TMetaType.EDGE, "e3_7", n3, n7);
-    protected Edge<TMetaType> e4_6 = new Edge<TMetaType>(TMetaType.EDGE, "e4_6", n4, n7);
+    protected Edge<TMetaType> e4_6 = new Edge<TMetaType>(TMetaType.EDGE, "e4_6", n4, n6);
     protected Edge<TMetaType> e1_5 = new Edge<TMetaType>(TMetaType.EDGE, "e1_5", n1, n5);
     protected Edge<TMetaType> e2_5 = new Edge<TMetaType>(TMetaType.EDGE, "e2_5", n2, n5);
     protected Edge<TMetaType> e6_2 = new Edge<TMetaType>(TMetaType.EDGE, "e6_2", n6, n2); // cycle
@@ -69,14 +69,14 @@ public abstract class AbstractAGTModelTest {
         n7.setPos(new Pt(975d, 500d));
         n7.setSize(new Pt(10d, 10d));
 
-        root.add(e1_3);
-        root.add(e2_4);
-        root.add(e3_7);
-        root.add(e4_6);
-        root.add(e1_5);
-        root.add(e2_5);
-        root.add(e6_2);
-        root.add(e7_5);
+        root.addChild(e1_3);
+        root.addChild(e2_4);
+        root.addChild(e3_7);
+        root.addChild(e4_6);
+        root.addChild(e1_5);
+        root.addChild(e2_5);
+        root.addChild(e6_2);
+        root.addChild(e7_5);
 
     }
 

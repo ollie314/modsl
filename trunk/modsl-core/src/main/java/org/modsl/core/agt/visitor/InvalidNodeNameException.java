@@ -16,13 +16,13 @@
 
 package org.modsl.core.agt.visitor;
 
-import org.modsl.core.agt.common.AbstractModSLException;
+import org.modsl.core.agt.common.ModSLException;
 
 /**
  * Thrown when tree post-processing fails because of unresolved nodde references
  * @author avishnyakov
  */
-public class InvalidNodeNameException extends AbstractModSLException {
+public class InvalidNodeNameException extends ModSLException {
 
 	private static final long serialVersionUID = 1L;
 

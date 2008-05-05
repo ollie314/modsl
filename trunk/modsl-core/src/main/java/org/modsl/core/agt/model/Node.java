@@ -47,17 +47,12 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     /**
      * List of children edges
      */
-    protected List<Edge<T>> edges = new LinkedList<Edge<T>>();
+    protected List<Edge<T>> childEdges = new LinkedList<Edge<T>>();
 
     /**
-     * List of inbound edges
+     * List of connected edges
      */
-    protected List<Edge<T>> inEdges = new LinkedList<Edge<T>>();
-
-    /**
-     * List of outbound edges
-     */
-    protected List<Edge<T>> outEdges = new LinkedList<Edge<T>>();
+    protected List<Edge<T>> connectedEdges = new LinkedList<Edge<T>>();
 
     /**
      * This element's size
@@ -101,6 +96,11 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     protected double rightPadding;
 
     /**
+     * Temp index holder (layout algorithms)
+     */
+    protected int index;
+
+    /**
      * Create new
      * @param type type
      */
@@ -122,7 +122,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     @Override
     public void accept(AbstractVisitor<T> visitor) {
         visitor.in(this);
-        for (Edge<T> e : edges) {
+        for (Edge<T> e : childEdges) {
             e.accept(visitor);
         }
         for (Node<T> n : nodes) {
@@ -135,9 +135,9 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      * Add child edge
      * @param child
      */
-    public void add(Edge<T> child) {
+    public void addChild(Edge<T> child) {
         child.parent = this;
-        edges.add(child);
+        childEdges.add(child);
     }
 
     /**
@@ -150,12 +150,8 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         nodeMap.put(child.getName(), child);
     }
 
-    public void addInEdge(Edge<T> edge) {
-        inEdges.add(edge);
-    }
-
-    public void addOutEdge(Edge<T> edge) {
-        outEdges.add(edge);
+    public void addConnectedEdge(Edge<T> edge) {
+        connectedEdges.add(edge);
     }
 
     /**
@@ -183,23 +179,33 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      * @param index
      * @return edge by index
      */
-    public Edge<T> getEdge(int index) {
-        return edges.get(index);
+    public Edge<T> getChildEdge(int index) {
+        return childEdges.get(index);
     }
 
     /**
      * @return children edge list
      */
-    public List<Edge<T>> getEdges() {
-        return edges;
+    public List<Edge<T>> getChildEdges() {
+        return childEdges;
     }
 
     public int getInDegree() {
-        return inEdges.size();
+        return getInEdges().size();
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public List<Edge<T>> getInEdges() {
-        return inEdges;
+        List<Edge<T>> ins = new LinkedList<Edge<T>>();
+        for (Edge<T> e : connectedEdges) {
+            if (e.getNode2().equals(this)) {
+                ins.add(e);
+            }
+        }
+        return ins;
     }
 
     /**
@@ -253,11 +259,17 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     }
 
     public int getOutDegree() {
-        return outEdges.size();
+        return getOutEdges().size();
     }
 
     public List<Edge<T>> getOutEdges() {
-        return outEdges;
+        List<Edge<T>> ins = new LinkedList<Edge<T>>();
+        for (Edge<T> e : connectedEdges) {
+            if (e.getNode1().equals(this)) {
+                ins.add(e);
+            }
+        }
+        return ins;
     }
 
     /**
@@ -284,9 +296,9 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     /**
      * @return sum of all edge lengths
      */
-    public double getSumEdgeLengths() {
+    public double getSumChildEdgeLengths() {
         double len = 0d;
-        for (Edge<T> e : edges) {
+        for (Edge<T> e : childEdges) {
             len += e.getLength();
         }
         return len;
@@ -371,6 +383,10 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      */
     public void setAltPos(Pt altPos) {
         this.altPos = altPos;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     /**

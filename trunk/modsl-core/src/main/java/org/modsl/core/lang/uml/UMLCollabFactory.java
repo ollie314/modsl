@@ -57,7 +57,7 @@ public class UMLCollabFactory extends AbstractUMLFactory {
 
 			Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, (edgeCounter++) + ":"
 					+ mtokens.get(i).getText(), n1, n2);
-			parent.add(e);
+			parent.addChild(e);
 			es.add(e);
 
 			n1 = n2; // << shift

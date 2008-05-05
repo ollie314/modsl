@@ -74,9 +74,9 @@ public class VisitorSTTest {
 		root.add(n3);
 		root.add(n4);
 
-		root.add(new Edge<VMetaType>(VMetaType.EDGE, "e1.2", n1, n2));
-		root.add(new Edge<VMetaType>(VMetaType.EDGE, "e1.3", n1, n3));
-		root.add(new Edge<VMetaType>(VMetaType.EDGE, "e2.3", n2, n3));
+		root.addChild(new Edge<VMetaType>(VMetaType.EDGE, "e1.2", n1, n2));
+		root.addChild(new Edge<VMetaType>(VMetaType.EDGE, "e1.3", n1, n3));
+		root.addChild(new Edge<VMetaType>(VMetaType.EDGE, "e2.3", n2, n3));
 
 		Node<VMetaType> ns1 = new Node<VMetaType>(VMetaType.NODE, "ns1");
 		Node<VMetaType> ns2 = new Node<VMetaType>(VMetaType.NODE, "ns2");
@@ -86,7 +86,7 @@ public class VisitorSTTest {
 		n3.add(ns2);
 		n3.add(ns3);
 
-		n3.add(new Edge<VMetaType>(VMetaType.EDGE, "es1.2", ns1, ns2));
+		n3.addChild(new Edge<VMetaType>(VMetaType.EDGE, "es1.2", ns1, ns2));
 
 		return root;
 

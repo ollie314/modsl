@@ -55,7 +55,7 @@ public class BasicFactory implements ElementFactory {
 			n2 = createNodeIfDoesntExist(parent, t2);
 
 			Edge<BasicMetaType> e = new Edge<BasicMetaType>(BasicMetaType.EDGE, n1, n2);
-			parent.add(e);
+			parent.addChild(e);
 			es.add(e);
 
 			n1 = n2; // << shift

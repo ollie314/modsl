@@ -55,7 +55,7 @@ public class DotFactory implements ElementFactory {
             n2 = createNodeIfDoesntExist(parent, t2);
 
             Edge<DotMetaType> e = new Edge<DotMetaType>(DotMetaType.EDGE, n1, n2);
-            parent.add(e);
+            parent.addChild(e);
             es.add(e);
 
             n1 = n2; // << shift
