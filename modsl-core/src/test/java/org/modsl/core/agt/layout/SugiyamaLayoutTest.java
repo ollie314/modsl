@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.modsl.core.agt.model.AbstractAGTModelTest;
+import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
 public class SugiyamaLayoutTest extends AbstractAGTModelTest {
@@ -96,6 +97,18 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
         assertEquals(3, n6.getIndex());
         assertEquals(3, n7.getIndex());
         assertEquals(4, n5.getIndex());
+    }
+
+    @Test
+    public void split() {
+        int sn = root.getNodes().size();
+        int se = root.getChildEdges().size();
+        layout.split(e1_3, root);
+        assertEquals(sn + 1, root.getNodes().size());
+        assertEquals(se + 1, root.getChildEdges().size());
+        Node<?> dn = root.getNode(sn);
+        Edge<?> de = root.getChildEdge(se);
+        assertEquals(n3, de.getNode2());
     }
     
 }
