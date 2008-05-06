@@ -1,17 +1,17 @@
 /**
  * Copyright 2008 Andrew Vishnyakov <avishn@gmail.com>
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  * 
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 /**
@@ -113,11 +113,11 @@ public class SugiyamaLayerStack {
     void reduceCrossings() {
         for (int round = 0; round < 100; round++) {
             if (round % 2 == 0) {
-                for (int l = 0; l < layers.size()-1; l++) {
+                for (int l = 0; l < layers.size() - 1; l++) {
                     reduceCrossings2L(l, l + 1);
                 }
             } else {
-                for (int l = layers.size()-1; l > 0; l--) {
+                for (int l = layers.size() - 1; l > 0; l--) {
                     reduceCrossings2L(l, l - 1);
                 }
             }
@@ -125,18 +125,18 @@ public class SugiyamaLayerStack {
     }
 
     void reduceCrossings2L(int staticLayer, int layerToShuffle) {
-        final List<Node<?>> shufflel = layers.get(layerToShuffle);
-        for (Node<?> n : shufflel) {
+        final List<Node<?>> shuffle = layers.get(layerToShuffle);
+        for (Node<?> n : shuffle) {
             List<Node<?>> neighbors = getConnectedTo(n, staticLayer);
             int bc = barycenter(neighbors);
             n.setIndex(bc);
         }
-        Collections.sort(shufflel, new Comparator<Node<?>>() {
+        Collections.sort(shuffle, new Comparator<Node<?>>() {
             public int compare(Node<?> n1, Node<?> n2) {
                 return n1.getIndex() - n2.getIndex();
             }
         });
-        setOrderedIndexes(shufflel);
+        setOrderedIndexes(shuffle);
     }
 
     void setOrderedIndexes(List<Node<?>> ln) {

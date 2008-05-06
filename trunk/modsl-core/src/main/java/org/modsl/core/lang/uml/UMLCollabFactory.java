@@ -30,74 +30,77 @@ import org.modsl.core.agt.model.Node;
  */
 public class UMLCollabFactory extends AbstractUMLFactory {
 
-	protected int edgeCounter = 1;
+    protected int edgeCounter = 1;
+    protected int nodeCounter = 1;
 
-	/**
-	 * Create list of edges given list of edge tokens
-	 * @param parent parent node the edges belong to
-	 * @param ctokens edge tokens
-	 * @return list of edges
-	 */
-	public List<Edge<UMLMetaType>> createEdges(Node<UMLMetaType> parent, List<Token> ctokens, List<Token> mtokens) {
+    /**
+     * Create list of edges given list of edge tokens
+     * @param parent parent node the edges belong to
+     * @param ctokens edge tokens
+     * @return list of edges
+     */
+    public List<Edge<UMLMetaType>> createEdges(Node<UMLMetaType> parent, List<Token> ctokens, List<Token> mtokens) {
 
-		List<Edge<UMLMetaType>> es = new LinkedList<Edge<UMLMetaType>>();
+        List<Edge<UMLMetaType>> es = new LinkedList<Edge<UMLMetaType>>();
 
-		Node<UMLMetaType> n1 = null, n2 = null;
-		Token t1, t2;
+        Node<UMLMetaType> n1 = null, n2 = null;
+        Token t1, t2;
 
-		for (int i = 0; i < ctokens.size() - 1; i++) {
+        for (int i = 0; i < ctokens.size() - 1; i++) {
 
-			t1 = ctokens.get(i);
-			t2 = ctokens.get(i + 1);
+            t1 = ctokens.get(i);
+            t2 = ctokens.get(i + 1);
 
-			if (i == 0) {
-				n1 = createNodeIfDoesntExist(parent, t1);
-			}
-			n2 = createNodeIfDoesntExist(parent, t2);
+            if (i == 0) {
+                n1 = createNodeIfDoesntExist(parent, t1);
+            }
+            n2 = createNodeIfDoesntExist(parent, t2);
 
-			Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, (edgeCounter++) + ":"
-					+ mtokens.get(i).getText(), n1, n2);
-			parent.addChild(e);
-			es.add(e);
+            Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, (edgeCounter++) + ":" + mtokens.get(i).getText(),
+                    n1, n2);
+            parent.addChild(e);
+            es.add(e);
 
-			n1 = n2; // << shift
+            n1 = n2; // << shift
 
-		}
+        }
 
-		return es;
+        return es;
 
-	}
+    }
 
-	/**
-	 * Create node from token
-	 * @param token node token
-	 * @return new node
-	 */
-	public Node<UMLMetaType> createNode(Node<UMLMetaType> parent, Token token) {
-		Node<UMLMetaType> n = new Node<UMLMetaType>(UMLMetaType.COLLAB_NODE, token.getText());
-		parent.add(n);
-		return n;
-	}
+    /**
+     * Create node from token
+     * @param parent parent
+     * @param token node token
+     * @return new node
+     */
+    private Node<UMLMetaType> createNode(Node<UMLMetaType> parent, Token token) {
+        Node<UMLMetaType> n = new Node<UMLMetaType>(UMLMetaType.COLLAB_NODE, token.getText());
+        n.setIndex(nodeCounter++);
+        parent.add(n);
+        return n;
+    }
 
-	/**
-	 * Will create node by given name if the node with such name doesn't exist
-	 * yet
-	 * @param parent parent node
-	 * @param token new node token
-	 * @return node
-	 */
-	private Node<UMLMetaType> createNodeIfDoesntExist(Node<UMLMetaType> parent, Token token) {
-		Node<UMLMetaType> n = parent.getNode(token.getText());
-		if (n == null) {
-			return createNode(parent, token);
-		} else {
-			return n;
-		}
-	}
+    /**
+     * Will create node by given name if the node with such name doesn't exist
+     * yet
+     * @param parent parent node
+     * @param token new node token
+     * @return node
+     */
+    private Node<UMLMetaType> createNodeIfDoesntExist(Node<UMLMetaType> parent, Token token) {
+        Node<UMLMetaType> n = parent.getNode(token.getText());
+        if (n == null) {
+            return createNode(parent, token);
+        } else {
+            return n;
+        }
+    }
 
-	@Override
-	public Node<UMLMetaType> createRootNode() {
-		return new Node<UMLMetaType>(UMLMetaType.COLLAB_ROOT);
-	}
+    @Override
+    public Node<UMLMetaType> createRootNode() {
+        return new Node<UMLMetaType>(UMLMetaType.COLLAB_ROOT);
+    }
 
 }
