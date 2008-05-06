@@ -95,10 +95,15 @@ public class SugiyamaLayerStack {
         double currOffset = 0d;
         for (int l = 0; l < layers.size(); l++) {
             List<Node<?>> ln = layers.get(l);
+            double maxh = maxHeight(ln);
             for (Node<?> n : ln) {
-                n.getPos().y = currOffset;
+                if (n.isDummy()) {
+                    n.getPos().y = currOffset + maxHeight(ln) / 2d;
+                } else {
+                    n.getPos().y = currOffset;
+                }
             }
-            currOffset += maxHeight(ln) + SugiyamaLayout.Y_SEPARATION;
+            currOffset += maxh + SugiyamaLayout.Y_SEPARATION;
         }
     }
 
