@@ -45,6 +45,41 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         initLayerIndexes(h);
         reduceCrossings(h);
         undoRemoveCycles();
+        layerHeights(h);
+        xPositions(h);
+        // TODO suppress dummies
+    }
+
+    void xPositions(int h) {
+        for (int l = 1; l <= h; l++) {
+            double currOffset = 0d;
+            double vSeparation = 10d;
+            List<Node<?>> ln = getLayerNodes(l);
+            for (Node<?> n : ln) {
+                n.getPos().x = currOffset;
+                currOffset += n.getSize().x + vSeparation;
+            }
+        }
+    }
+
+    void layerHeights(int h) {
+        double currOffset = 0d;
+        double hSeparation = 10d;
+        for (int l = 1; l <= h; l++) {
+            List<Node<?>> ln = getLayerNodes(l);
+            for (Node<?> n : ln) {
+                n.getPos().y = currOffset;
+            }
+            currOffset += maxHeight(ln) + hSeparation;
+        }
+    }
+
+    double maxHeight(List<Node<?>> ln) {
+        double mh = 0d;
+        for (Node<?> n : ln) {
+            mh = max(mh, n.getSize().y);
+        }
+        return mh;
     }
 
     double barycenter(List<Node<?>> ln) {
@@ -193,6 +228,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         dummyNode.setLayer(edge.getNode1().getLayer() + 1);
         root.add(dummyNode);
         Edge dummyEdge = new Edge(edge.getType(), "dummyEdge" + dummyCount++, edge.getNode1(), dummyNode, true);
+        dummyEdge.setRevertedInternal(edge.isReverted());
         edge.setNode1(dummyNode);
         root.addChild(dummyEdge);
         return edge;

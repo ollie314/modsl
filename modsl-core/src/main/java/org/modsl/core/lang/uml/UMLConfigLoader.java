@@ -1,25 +1,24 @@
 /**
  * Copyright 2008 Andrew Vishnyakov <avishn@gmail.com>
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  * 
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package org.modsl.core.lang.uml;
 
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
-import org.modsl.core.agt.layout.CircleLayout;
-import org.modsl.core.agt.layout.FRLayout;
 import org.modsl.core.agt.layout.AbstractLayout;
+import org.modsl.core.agt.layout.SugiyamaLayout;
 import org.modsl.core.cfg.AbstractConfigLoader;
 import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.CollabNodeDecorator;
@@ -31,21 +30,22 @@ import org.modsl.core.lang.uml.layout.CollabNodeLayout;
  */
 public class UMLConfigLoader extends AbstractConfigLoader {
 
-	public UMLConfigLoader(String path, String name, Class<UMLMetaType> metaTypeClass) {
-		super(path, name, metaTypeClass);
-	}
+    public UMLConfigLoader(String path, String name, Class<UMLMetaType> metaTypeClass) {
+        super(path, name, metaTypeClass);
+    }
 
-	@Override
-	public void initLayouts() {
-		UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new AbstractLayout[] { new CircleLayout(), new FRLayout() });
-		UMLMetaType.COLLAB_NODE.getConfig().setLayout(new AbstractLayout[] { new CollabNodeLayout() });
-	}
+    @Override
+    public void initLayouts() {
+        // UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new AbstractLayout[] { new CircleLayout(), new FRLayout() });
+        UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new AbstractLayout[] { new SugiyamaLayout() });
+        UMLMetaType.COLLAB_NODE.getConfig().setLayout(new AbstractLayout[] { new CollabNodeLayout() });
+    }
 
-	@Override
-	public void initDecorators() {
-		UMLMetaType.COLLAB_ROOT.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
-		UMLMetaType.COLLAB_NODE.getConfig().setDecorator(new CollabNodeDecorator());
-		UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
-	}
+    @Override
+    public void initDecorators() {
+        UMLMetaType.COLLAB_ROOT.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
+        UMLMetaType.COLLAB_NODE.getConfig().setDecorator(new CollabNodeDecorator());
+        UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
+    }
 
 }
