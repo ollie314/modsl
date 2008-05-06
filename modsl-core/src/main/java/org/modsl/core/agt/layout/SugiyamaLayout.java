@@ -42,8 +42,18 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         removeCycles();
         int h = layer();
         insertDummies();
+        initLayerIndexes(h);
         reduceCrossings(h);
         undoRemoveCycles();
+    }
+
+    void initLayerIndexes(int h) {
+        for (int l = 1; l <= h; l++) {
+            List<Node<?>> ln = getLayerNodes(l);
+            for (int i = 1; i <= ln.size(); i++) {
+                ln.get(i).setIndex(i);
+            }
+        }
     }
 
     void insertDummies() {
@@ -88,11 +98,25 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         }
     }
 
-    void reduceCrossings2L(int l1, int l2) {
-        List<?> l1n = layerNodes(l1);
+    void reduceCrossings2L(int staticLayer, int layerToShuffle) {
+        List<Node<?>> sl = getLayerNodes(staticLayer);
+        List<Node<?>> lts = getLayerNodes(layerToShuffle);
+        for (Node<?> n : lts) {
+            List<Node<?>> neighbors = getConnectedTo(n, sl);
+        }
     }
 
-    List<Node<?>> layerNodes(int layer) {
+    List<Node<?>> getConnectedTo(Node<?> n1, List<Node<?>> sl) {
+        List<Node<?>> ln = new LinkedList<Node<?>>();
+        for (Node<?> n2 : sl) {
+            if (n1.isConnectedTo(n2)) {
+                ln.add(n2);
+            }
+        }
+        return ln;
+    }
+
+    List<Node<?>> getLayerNodes(int layer) {
         List<Node<?>> ln = new LinkedList<Node<?>>();
         for (Node<?> n : root.getNodes()) {
             if (n.getLayer() == layer) {

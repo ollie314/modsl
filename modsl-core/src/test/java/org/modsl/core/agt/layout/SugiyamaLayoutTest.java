@@ -149,23 +149,35 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
     }
 
     @Test
-    public void layerNodes() {
+    public void getLayerNodes() {
         layout.removeCycles();
         layout.layer();
         layout.insertDummies();
-        assertEquals(2, layout.layerNodes(1).size());
-        assertTrue(layout.layerNodes(1).contains(n1));
-        assertTrue(layout.layerNodes(1).contains(n2));
-        assertEquals(5, layout.layerNodes(2).size());
-        assertTrue(layout.layerNodes(2).contains(n3));
-        assertTrue(layout.layerNodes(2).contains(n4));
-        assertTrue(layout.layerNodes(2).contains(root.getNode("dummyNode1")));
-        assertTrue(layout.layerNodes(2).contains(root.getNode("dummyNode5")));
-        assertTrue(layout.layerNodes(2).contains(root.getNode("dummyNode9")));
-        assertEquals(4, layout.layerNodes(3).size());
-        assertTrue(layout.layerNodes(3).contains(root.getNode("dummyNode3")));
-        assertTrue(layout.layerNodes(3).contains(root.getNode("dummyNode7")));
-        assertEquals(1, layout.layerNodes(4).size());
+        assertEquals(2, layout.getLayerNodes(1).size());
+        assertTrue(layout.getLayerNodes(1).contains(n1));
+        assertTrue(layout.getLayerNodes(1).contains(n2));
+        assertEquals(5, layout.getLayerNodes(2).size());
+        assertTrue(layout.getLayerNodes(2).contains(n3));
+        assertTrue(layout.getLayerNodes(2).contains(n4));
+        assertTrue(layout.getLayerNodes(2).contains(root.getNode("dummyNode1")));
+        assertTrue(layout.getLayerNodes(2).contains(root.getNode("dummyNode5")));
+        assertTrue(layout.getLayerNodes(2).contains(root.getNode("dummyNode9")));
+        assertEquals(4, layout.getLayerNodes(3).size());
+        assertTrue(layout.getLayerNodes(3).contains(root.getNode("dummyNode3")));
+        assertTrue(layout.getLayerNodes(3).contains(root.getNode("dummyNode7")));
+        assertEquals(1, layout.getLayerNodes(4).size());
+    }
+    
+    @Test
+    public void getConnectedTo() {
+        layout.removeCycles();
+        layout.layer();
+        layout.insertDummies();
+        List<Node<?>> cn = layout.getConnectedTo(n2, layout.getLayerNodes(2));
+        assertEquals(3, cn.size());
+        assertTrue(cn.contains(n4));
+        assertTrue(cn.contains(root.getNode("dummyNode5")));
+        assertTrue(cn.contains(root.getNode("dummyNode9")));
     }
 
 }
