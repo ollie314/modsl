@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.layout;
+package org.modsl.core.agt.layout.fr;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -23,6 +23,7 @@ import static java.lang.Math.sqrt;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;

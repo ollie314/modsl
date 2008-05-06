@@ -14,10 +14,9 @@
  * the License.
  */
 
-package org.modsl.core.agt.layout;
+package org.modsl.core.agt.layout.sugiyama;
 
 import static java.lang.Math.max;
-import static java.lang.Math.round;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.modsl.core.agt.common.ModSLException;
+import org.modsl.core.agt.layout.AbstractNonConfigurableLayout;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
@@ -36,107 +36,36 @@ import org.modsl.core.lang.uml.UMLMetaType;
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     protected static final double X_SEPARATION = 20d;
+
     protected static final double Y_SEPARATION = 50d;
-
     protected static MetaType DUMMY_EDGE = UMLMetaType.DUMMY_EDGE;
-    protected static MetaType DUMMY_NODE = UMLMetaType.DUMMY_NODE;
 
+    protected static MetaType DUMMY_NODE = UMLMetaType.DUMMY_NODE;
     protected int dummyCount = 1;
+
     protected Node<?> root;
+    protected SugiyamaLayerStack stack;
 
     @Override
     public void apply(Node<?> r) {
         this.root = r;
         removeCycles();
-        int h = layer();
+        layer();
         insertDummies();
-        initLayerIndexes(h);
-        reduceCrossings(h);
+        stack.initIndexes();
+        stack.reduceCrossings();
         undoRemoveCycles();
-        layerHeights(h);
-        xPositions(h);
-        resizeGraph();
+        stack.layerHeights();
+        stack.xPositions();
+        root.rescale();
         // TODO suppress dummies
-    }
-
-    void resizeGraph() {
-        root.recalcSize();
-        root.normalize();
-    }
-
-    void xPositions(int h) {
-        for (int l = 1; l <= h; l++) {
-            double currOffset = 0d;
-            List<Node<?>> ln = getLayerNodes(l);
-            for (Node<?> n : ln) {
-                n.getPos().x = currOffset;
-                currOffset += n.getSize().x + X_SEPARATION;
-            }
-        }
-    }
-
-    void layerHeights(int h) {
-        double currOffset = 0d;
-        for (int l = 1; l <= h; l++) {
-            List<Node<?>> ln = getLayerNodes(l);
-            for (Node<?> n : ln) {
-                n.getPos().y = currOffset;
-            }
-            currOffset += maxHeight(ln) + Y_SEPARATION;
-        }
-    }
-
-    double maxHeight(List<Node<?>> ln) {
-        double mh = 0d;
-        for (Node<?> n : ln) {
-            mh = max(mh, n.getSize().y);
-        }
-        return mh;
-    }
-
-    int barycenter(List<Node<?>> ln) {
-        if (ln.size() == 0) {
-            return 0;
-        } else {
-            double bc = 0;
-            for (Node<?> n : ln) {
-                bc += n.getIndex();
-            }
-            return (int) round(bc / ln.size());
-        }
-    }
-
-    List<Node<?>> getConnectedTo(Node<?> n1, List<Node<?>> sl) {
-        List<Node<?>> ln = new LinkedList<Node<?>>();
-        for (Node<?> n2 : sl) {
-            if (n1.isConnectedTo(n2)) {
-                ln.add(n2);
-            }
-        }
-        return ln;
-    }
-
-    List<Node<?>> getLayerNodes(int layer) {
-        List<Node<?>> ln = new LinkedList<Node<?>>();
-        for (Node<?> n : root.getNodes()) {
-            if (n.getLayer() == layer) {
-                ln.add(n);
-            }
-        }
-        return ln;
-    }
-
-    void initLayerIndexes(int h) {
-        for (int l = 1; l <= h; l++) {
-            setOrderedIndexes(getLayerNodes(l));
-        }
     }
 
     void insertDummies() {
         for (Edge<?> currEdge : new ArrayList<Edge<?>>(root.getChildEdges())) {
-            if (currEdge.getNode2().getLayer() - currEdge.getNode1().getLayer() > 1) {
-                int fromLayer = currEdge.getNode1().getLayer();
-                int toLayer = currEdge.getNode2().getLayer();
+            int fromLayer = stack.getLayer(currEdge.getNode1());
+            int toLayer = stack.getLayer(currEdge.getNode2());
+            if (toLayer - fromLayer > 1) {
                 for (int layer = fromLayer + 1; layer < toLayer; layer++) {
                     split(currEdge);
                 }
@@ -144,50 +73,23 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         }
     }
 
-    int layer() {
+    void layer() {
         List<Node<?>> sorted = topologicalSort();
         for (Node<?> n : sorted) {
-            n.setLayer(1);
+            n.setIndex(0);
         }
         int h = 0;
         for (Node<?> n1 : sorted) {
             for (Edge<?> out : n1.getOutEdges()) {
                 Node<?> n2 = out.getNode2();
-                n2.setLayer(max(n1.getLayer() + 1, n2.getLayer()));
-                h = max(h, n2.getLayer());
+                n2.setIndex(max(n1.getIndex() + 1, n2.getIndex()));
+                h = max(h, n2.getIndex() + 1);
             }
         }
-        return h;
-    }
-
-    void reduceCrossings(int h) {
-        for (int round = 0; round < 100; round++) {
-            if (round % 2 == 0) {
-                for (int l = 1; l < h; l++) {
-                    reduceCrossings2L(l, l + 1);
-                }
-            } else {
-                for (int l = h; l > 1; l--) {
-                    reduceCrossings2L(l, l - 1);
-                }
-            }
+        stack = new SugiyamaLayerStack(h, sorted.size());
+        for (Node<?> n1 : sorted) {
+            stack.add(n1, n1.getIndex());
         }
-    }
-
-    void reduceCrossings2L(int staticLayer, int layerToShuffle) {
-        List<Node<?>> sl = getLayerNodes(staticLayer);
-        final List<Node<?>> lts = getLayerNodes(layerToShuffle);
-        for (Node<?> n : lts) {
-            List<Node<?>> neighbors = getConnectedTo(n, sl);
-            int bc = barycenter(neighbors);
-            n.setIndex(bc);
-        }
-        Collections.sort(lts, new Comparator<Node<?>>() {
-            public int compare(Node<?> n1, Node<?> n2) {
-                return (int) ((n1.getIndex() - n2.getIndex()) * lts.size());
-            }
-        });
-        setOrderedIndexes(lts);
     }
 
     void removeCycles() {
@@ -205,12 +107,6 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
                     removed.add(out);
                 }
             }
-        }
-    }
-
-    void setOrderedIndexes(List<Node<?>> ln) {
-        for (int i = 0; i < ln.size(); i++) {
-            ln.get(i).setIndex(i + 1);
         }
     }
 
@@ -235,15 +131,14 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     }
 
     @SuppressWarnings("unchecked")
-    Edge<?> split(Edge<?> edge) {
+    void split(Edge<?> edge) {
         Node dummyNode = new Node(DUMMY_NODE, "dummyNode" + dummyCount++, true);
-        dummyNode.setLayer(edge.getNode1().getLayer() + 1);
+        stack.add(dummyNode, stack.getLayer(edge.getNode1()) + 1);
         root.add(dummyNode);
         Edge dummyEdge = new Edge(DUMMY_EDGE, "dummyEdge" + dummyCount++, edge.getNode1(), dummyNode, true);
         dummyEdge.setRevertedInternal(edge.isReverted());
         edge.setNode1(dummyNode);
         root.addChild(dummyEdge);
-        return edge;
     }
 
     List<Node<?>> topologicalSort() {

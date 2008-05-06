@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.layout;
+package org.modsl.core.agt.layout.fr;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 

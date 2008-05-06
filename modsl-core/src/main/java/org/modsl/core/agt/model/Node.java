@@ -98,11 +98,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     protected double rightPadding;
 
     /**
-     * Temp layer number holder (layered layout algorithms)
-     */
-    protected int layer;
-
-    /**
      * Temp index holder (layout algorithms)
      */
     protected int index;
@@ -247,10 +242,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
             }
         }
         return ins;
-    }
-
-    public int getLayer() {
-        return layer;
     }
 
     /**
@@ -400,7 +391,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
      * the non-normalized graph
      */
     public void recalcSize() {
-        size = getMaxPt().minus(getMinPt());
+        size = getMaxPt().decBy(getMinPt());
     }
 
     public boolean removeConnectedEdge(Edge<T> edge) {
@@ -417,13 +408,26 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         Node<T> maxXNode = maxXNode();
         Node<T> maxYNode = maxYNode();
         Pt maxXYSize = new Pt(maxXNode.size.x, maxYNode.size.y);
-        Pt newSizeExt = newSize.minus(maxXYSize).decBy(new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1));
+        Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
         Pt sizeExt = size.minus(maxXYSize);
         Pt topLeft = new Pt(leftPadding, topPadding);
         for (Node<T> n : nodes) {
             n.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
         }
         size = new Pt(newSize);
+    }
+
+    /**
+     * Rescale/normalize diagram to it's current content, add paddings
+     * @param newSize new size
+     */
+    public void rescale() {
+        recalcSize();
+        rescale(size.plus(getExtraPadding()));
+    }
+
+    private Pt getExtraPadding() {
+        return new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1);
     }
 
     /**
@@ -450,10 +454,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 
     public void setIndex(int index) {
         this.index = index;
-    }
-
-    public void setLayer(int l) {
-        this.layer = l;
     }
 
     /**
@@ -495,7 +495,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 
     @Override
     public String toString() {
-        return name + "(" + index + "," + layer + "):" + type;
+        return name + "(" + index + "):" + type;
     }
 
 }

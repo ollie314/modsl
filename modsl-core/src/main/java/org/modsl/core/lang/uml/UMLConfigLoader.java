@@ -18,7 +18,7 @@ package org.modsl.core.lang.uml;
 
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.layout.AbstractLayout;
-import org.modsl.core.agt.layout.SugiyamaLayout;
+import org.modsl.core.agt.layout.sugiyama.SugiyamaLayout;
 import org.modsl.core.cfg.AbstractConfigLoader;
 import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.CollabNodeDecorator;
