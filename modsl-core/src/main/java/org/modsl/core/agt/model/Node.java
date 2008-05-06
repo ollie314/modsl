@@ -167,6 +167,20 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 		return connectedEdges.add(edge);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Node) {
+			if (this == obj) {
+				return true;
+			} else {
+				return name.equals(((Node) obj).name);
+			}
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * @return alternate position
 	 */
@@ -317,6 +331,11 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 		return len;
 	}
 
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
+
 	/**
 	 * @return node with max x (the rightmost one, including it's size)
 	 */
@@ -448,23 +467,13 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 		return name + ":" + type;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Node) {
-			if (this == obj) {
-				return true;
-			} else {
-				return name.equals(((Node) obj).name);
+	public Edge<T> getConnnectedEdgeTo(Node<T> n2) {
+		for (Edge<T> e : connectedEdges) {
+			if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
+				return e;
 			}
-		} else {
-			return false;
 		}
-	}
-
-	@Override
-	public int hashCode() {
-		return name.hashCode();
+		return null;
 	}
 
 }

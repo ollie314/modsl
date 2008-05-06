@@ -18,6 +18,7 @@ package org.modsl.core.agt.layout;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import org.junit.Test;
 import org.modsl.core.agt.model.AbstractAGTModelTest;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.visitor.ToStringVisitor;
 
 public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 
@@ -114,12 +116,35 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		assertFalse(e7_5.isReverted());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void insertDummies() {
+		int sn = root.getNodes().size();
+		int se = root.getChildEdges().size();
 		layout.removeCycles(root);
 		layout.layer(root);
 		layout.insertDummies(root);
-		
+		assertEquals(sn + 5, root.getNodes().size());
+		assertEquals(se + 5, root.getChildEdges().size());
+		assertNotNull(n1.getConnnectedEdgeTo(root.getNode("dummyNode1")));
+		assertNotNull(root.getNode("dummyNode1").getConnnectedEdgeTo(root.getNode("dummyNode3")));
+		assertNotNull(root.getNode("dummyNode3").getConnnectedEdgeTo(n5));
+		assertNotNull(n2.getConnnectedEdgeTo(root.getNode("dummyNode5")));
+		assertNotNull(root.getNode("dummyNode5").getConnnectedEdgeTo(root.getNode("dummyNode7")));
+		assertNotNull(root.getNode("dummyNode7").getConnnectedEdgeTo(n5));
+		assertNotNull(n2.getConnnectedEdgeTo(root.getNode("dummyNode9")));
+		assertNotNull(root.getNode("dummyNode9").getConnnectedEdgeTo(n6));
 	}
 
 }
+
+/*
+ * null:GRAPH { e1_3:EDGE(n1->n3) e2_4:EDGE(n2->n4) e3_7:EDGE(n3->n7)
+ * e4_6:EDGE(n4->n6) e1_5:EDGE(n1->dummyNode1) e2_5:EDGE(n2->dummyNode5)
+ * e6_2:EDGE(n2->dummyNode9) e7_5:EDGE(n7->n5)
+ * dummyEdge2:EDGE(dummyNode1->dummyNode3) dummyEdge4:EDGE(dummyNode3->n5)
+ * dummyEdge6:EDGE(dummyNode5->dummyNode7) dummyEdge8:EDGE(dummyNode7->n5)
+ * dummyEdge10:EDGE(dummyNode9->n6) n1:NODE n2:NODE n3:NODE n4:NODE n5:NODE
+ * n6:NODE n7:NODE dummyNode1:NODE dummyNode3:NODE dummyNode5:NODE
+ * dummyNode7:NODE dummyNode9:NODE }
+ */
