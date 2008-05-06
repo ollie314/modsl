@@ -17,6 +17,7 @@
 package org.modsl.core.agt.layout;
 
 import static java.lang.Math.max;
+import static java.lang.Math.round;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -93,7 +94,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         return mh;
     }
 
-    double barycenter(List<Node<?>> ln) {
+    int barycenter(List<Node<?>> ln) {
         if (ln.size() == 0) {
             return 0;
         } else {
@@ -101,7 +102,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
             for (Node<?> n : ln) {
                 bc += n.getIndex();
             }
-            return bc / ln.size();
+            return (int) round(bc / ln.size());
         }
     }
 
@@ -178,12 +179,12 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         final List<Node<?>> lts = getLayerNodes(layerToShuffle);
         for (Node<?> n : lts) {
             List<Node<?>> neighbors = getConnectedTo(n, sl);
-            double bc = barycenter(neighbors);
-            n.setAltIndex(bc);
+            int bc = barycenter(neighbors);
+            n.setIndex(bc);
         }
         Collections.sort(lts, new Comparator<Node<?>>() {
             public int compare(Node<?> n1, Node<?> n2) {
-                return (int) ((n1.getAltIndex() - n2.getAltIndex()) * lts.size());
+                return (int) ((n1.getIndex() - n2.getIndex()) * lts.size());
             }
         });
         setOrderedIndexes(lts);

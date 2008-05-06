@@ -184,16 +184,28 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 
     @Test
     public void reduceCrossings2L() {
+
         layout.removeCycles();
         int h = layout.layer();
         layout.insertDummies();
         layout.initLayerIndexes(h);
+        
         layout.reduceCrossings2L(1, 2);
         assertTrue(n3.getIndex() < 3);
         assertTrue(root.getNode("dummyNode1").getIndex() < 3);
         assertTrue(n4.getIndex() > 2);
         assertTrue(root.getNode("dummyNode5").getIndex() > 2);
         assertTrue(root.getNode("dummyNode9").getIndex() > 2);
+        
+        log.debug(layout.getLayerNodes(2));
+        log.debug(layout.getLayerNodes(3));
+        layout.reduceCrossings2L(2, 3);
+        log.debug(layout.getLayerNodes(3));
+        
+        layout.reduceCrossings2L(3, 2);
+        layout.reduceCrossings2L(2, 1);
+        layout.reduceCrossings2L(1, 2);
+        log.debug(layout.getLayerNodes(2));
     }
 
     @Test

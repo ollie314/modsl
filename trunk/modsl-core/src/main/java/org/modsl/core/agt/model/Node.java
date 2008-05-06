@@ -108,11 +108,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     protected int index;
 
     /**
-     * Temp al tindex holder (layout algorithms)
-     */
-    protected double altIndex;
-    
-    /**
      * Create new
      * @param type type
      */
@@ -501,14 +496,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     @Override
     public String toString() {
         return name + "(" + index + "," + layer + "):" + type;
-    }
-
-    public double getAltIndex() {
-        return altIndex;
-    }
-
-    public void setAltIndex(double altIndex) {
-        this.altIndex = altIndex;
     }
 
 }
