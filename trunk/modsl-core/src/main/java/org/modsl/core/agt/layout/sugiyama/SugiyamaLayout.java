@@ -36,10 +36,9 @@ import org.modsl.core.lang.uml.UMLMetaType;
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     protected static final double X_SEPARATION = 20d;
-
     protected static final double Y_SEPARATION = 50d;
-    protected static MetaType DUMMY_EDGE = UMLMetaType.DUMMY_EDGE;
 
+    protected static MetaType DUMMY_EDGE = UMLMetaType.DUMMY_EDGE;
     protected static MetaType DUMMY_NODE = UMLMetaType.DUMMY_NODE;
     protected int dummyCount = 1;
 

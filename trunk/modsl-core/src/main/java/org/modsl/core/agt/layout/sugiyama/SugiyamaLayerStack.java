@@ -156,7 +156,7 @@ public class SugiyamaLayerStack {
         }
     }
 
-    public List<Node<?>> getNodes(int i) {
+    List<Node<?>> getNodes(int i) {
         return layers.get(i);
     }
 
