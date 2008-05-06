@@ -1,84 +1,92 @@
 /**
  * Copyright 2008 Andrew Vishnyakov <avishn@gmail.com>
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  * 
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package org.modsl.core.lang.uml.decorator;
 
 import static java.lang.Math.PI;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.uml.UMLMetaType;
 
 public class CollabEdgeDecorator extends AbstractDecorator<Edge<?>> {
 
-	protected double arrowAngle = PI / 5d;
+    protected double arrowAngle = PI / 5d;
 
-	protected double arrowLength;
+    protected double arrowLength;
 
-	@Override
-	public void decorate(Edge<?> parent) {
-		super.decorate(parent);
-		arrowLength = UMLMetaType.COLLAB_EDGE.getConfig().getFontTransform().getArrowLength();
-	}
+    @Override
+    public void decorate(Edge<?> parent) {
+        super.decorate(parent);
+        arrowLength = UMLMetaType.COLLAB_EDGE.getConfig().getFontTransform().getArrowLength();
+    }
 
-	/**
-	 * @return position of the left arrow's side
-	 */
-	public Pt getArrowLeft() {
-		double alpha = parent.angle() - arrowAngle / 2d;
-		return new Pt(parent.getNode2Clip().x - arrowLength * Math.cos(alpha), parent.getNode2Clip().y - arrowLength
-				* Math.sin(alpha));
-	}
+    /**
+     * @return position of the left arrow's side
+     */
+    public Pt getArrowLeft() {
+        double alpha = parent.angle() - arrowAngle / 2d;
+        return new Pt(parent.getNode2Clip().x - arrowLength * Math.cos(alpha), parent.getNode2Clip().y - arrowLength
+                * Math.sin(alpha));
+    }
 
-	/**
-	 * @return position of the right arrow's side
-	 */
-	public Pt getArrowRight() {
-		double alpha = parent.angle() + arrowAngle / 2d;
-		return new Pt(parent.getNode2Clip().x - arrowLength * Math.cos(alpha), parent.getNode2Clip().y - arrowLength
-				* Math.sin(alpha));
-	}
+    /**
+     * @return position of the right arrow's side
+     */
+    public Pt getArrowRight() {
+        double alpha = parent.angle() + arrowAngle / 2d;
+        return new Pt(parent.getNode2Clip().x - arrowLength * Math.cos(alpha), parent.getNode2Clip().y - arrowLength
+                * Math.sin(alpha));
+    }
 
-	/**
-	 * @return position of the connector's midpoint
-	 */
-	public Pt getMidPoint() {
-		return parent.getNode1().getCtrPos().plus(parent.getNode2().getCtrPos().minus(parent.getNode1().getCtrPos()).div(2d));
-	}
+    /**
+     * @return position of the connector's midpoint
+     */
+    public Pt getMidPoint() {
+        //		return parent.getNode1().getCtrPos().plus(parent.getNode2().getCtrPos().minus(parent.getNode1().getCtrPos()).div(2d));
+        Node<?> n1 = parent.getNode1();
+        Node<?> n2 = parent.getNode2();
+        double ratio = 1d * n1.getOutDegree() / (n1.getOutDegree() + n2.getInDegree());
+        ratio = max(3d / 5d, min(ratio, 1d / 3d)); // TODO 
+        return n1.getCtrPos().plus(n2.getCtrPos().minus(n1.getCtrPos()).mulBy(ratio));
+    }
 
-	/**
-	 * @return position of the label text
-	 */
-	public Pt getTextPos() {
-		return getMidPoint().decBy(new Pt(getFt().getStringWidth(parent.getName()) / 2d, 0));
-	}
+    /**
+     * @return position of the label text
+     */
+    public Pt getTextPos() {
+        return getMidPoint().decBy(new Pt(getFt().getStringWidth(parent.getName()) / 2d, 0));
+    }
 
-	/**
-	 * @return size of the label text bg
-	 */
-	public Pt getTextBgSize() {
-		return new Pt(getFt().getStringWidth(parent.getName()), getFt().getHeight());
-	}
+    /**
+     * @return size of the label text bg
+     */
+    public Pt getTextBgSize() {
+        return new Pt(getFt().getStringWidth(parent.getName()), getFt().getHeight());
+    }
 
-	/**
-	 * @return pos of the label text bg
-	 */
-	public Pt getTextBgPos() {
-		return getTextPos().decBy(new Pt(0, getFt().getBaseline()));
-	}
+    /**
+     * @return pos of the label text bg
+     */
+    public Pt getTextBgPos() {
+        return getTextPos().decBy(new Pt(0, getFt().getBaseline()));
+    }
 
 }
