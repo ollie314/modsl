@@ -203,7 +203,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
         layout.insertDummies();
         layout.initLayerIndexes(h);
         layout.reduceCrossings(h);
-        log.debug(new ToStringVisitor().toString(root));
+        //log.debug(new ToStringVisitor().toString(root));
     }
 
 }
