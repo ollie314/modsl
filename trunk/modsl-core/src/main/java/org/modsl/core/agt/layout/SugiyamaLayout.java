@@ -43,10 +43,10 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 	}
 
 	void insertDummies(Node<?> root) {
-		for (Edge<?> currEdge : root.getChildEdges()) {
+		for (Edge<?> currEdge : new ArrayList<Edge<?>>(root.getChildEdges())) {
 			if (currEdge.getNode2().getIndex() - currEdge.getNode1().getIndex() > 1) {
 				Edge<?> edgeToSplit = currEdge;
-				for (int layer = currEdge.getNode1().getIndex() + 1; layer < currEdge.getNode2().getIndex(); layer++) {
+				for (int layer = currEdge.getNode1().getIndex(); layer < currEdge.getNode2().getIndex(); layer++) {
 					edgeToSplit = split(edgeToSplit, root);
 				}
 			}
