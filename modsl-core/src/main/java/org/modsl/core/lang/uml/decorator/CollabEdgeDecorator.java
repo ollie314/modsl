@@ -64,7 +64,7 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge<?>> {
         Node<?> n1 = parent.getNode1();
         Node<?> n2 = parent.getNode2();
         double ratio = 1d * n1.getOutDegree() / (n1.getOutDegree() + n2.getInDegree());
-        ratio = max(3d / 5d, min(ratio, 1d / 3d)); // TODO 
+        ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO 
         return n1.getCtrPos().plus(n2.getCtrPos().minus(n1.getCtrPos()).mulBy(ratio));
     }
 
