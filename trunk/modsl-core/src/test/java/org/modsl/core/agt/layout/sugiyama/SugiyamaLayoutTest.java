@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.layout;
+package org.modsl.core.agt.layout.sugiyama;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -51,20 +51,6 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
     }
 
     @Test
-    public void layer() {
-        layout.removeCycles();
-        int h = layout.layer();
-        assertEquals(4, h);
-        assertEquals(1, n1.getLayer());
-        assertEquals(1, n2.getLayer());
-        assertEquals(2, n3.getLayer());
-        assertEquals(2, n4.getLayer());
-        assertEquals(3, n6.getLayer());
-        assertEquals(3, n7.getLayer());
-        assertEquals(4, n5.getLayer());
-    }
-
-    @Test
     public void removeCycles() {
         layout.removeCycles();
         assertFalse(e1_3.isReverted());
@@ -83,10 +69,39 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
     }
 
     @Test
+    public void topologicalSort() {
+        layout.removeCycles();
+        List<Node<?>> sorted = layout.topologicalSort();
+        assertEquals(root.getNodes().size(), sorted.size());
+        assertEquals(n1, sorted.get(0));
+        assertEquals(n2, sorted.get(1));
+        assertEquals(n3, sorted.get(2));
+        assertEquals(n4, sorted.get(3));
+        assertEquals(n7, sorted.get(4));
+        assertEquals(n6, sorted.get(5));
+        assertEquals(n5, sorted.get(6));
+    }
+
+    @Test
+    public void layer() {
+        layout.removeCycles();
+        layout.layer();
+        assertEquals(4, layout.stack.size());
+        assertEquals(0, layout.stack.getLayer(n1));
+        assertEquals(0, layout.stack.getLayer(n2));
+        assertEquals(1, layout.stack.getLayer(n3));
+        assertEquals(1, layout.stack.getLayer(n4));
+        assertEquals(3, layout.stack.getLayer(n5));
+        assertEquals(2, layout.stack.getLayer(n6));
+        assertEquals(2, layout.stack.getLayer(n7));
+    }
+
+    @Test
     public void split() {
         int sn = root.getNodes().size();
         int se = root.getChildEdges().size();
         // n1 --e1_5--> n5
+        layout.stack = new SugiyamaLayerStack(5, root.getNodes().size());
         layout.split(e1_5);
         assertEquals(sn + 1, root.getNodes().size());
         assertEquals(se + 1, root.getChildEdges().size());
@@ -102,20 +117,6 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
     }
 
     @Test
-    public void topologicalSort() {
-        layout.removeCycles();
-        List<Node<?>> sorted = layout.topologicalSort();
-        assertEquals(root.getNodes().size(), sorted.size());
-        assertEquals(n1, sorted.get(0));
-        assertEquals(n2, sorted.get(1));
-        assertEquals(n3, sorted.get(2));
-        assertEquals(n4, sorted.get(3));
-        assertEquals(n7, sorted.get(4));
-        assertEquals(n6, sorted.get(5));
-        assertEquals(n5, sorted.get(6));
-    }
-
-    @Test
     public void undoRemoveCycles() {
         layout.removeCycles();
         layout.undoRemoveCycles();
@@ -127,6 +128,26 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
         assertFalse(e4_6.isReverted());
         assertFalse(e6_2.isReverted());
         assertFalse(e7_5.isReverted());
+    }
+
+    @Test
+    public void getLayerNodes() {
+        layout.removeCycles();
+        layout.layer();
+        layout.insertDummies();
+        assertEquals(2, layout.stack.getNodes(0).size());
+        assertTrue(layout.stack.getNodes(0).contains(n1));
+        assertTrue(layout.stack.getNodes(0).contains(n2));
+        assertEquals(5, layout.stack.getNodes(1).size());
+        assertTrue(layout.stack.getNodes(1).contains(n3));
+        assertTrue(layout.stack.getNodes(1).contains(n4));
+        assertTrue(layout.stack.getNodes(1).contains(root.getNode("dummyNode1")));
+        assertTrue(layout.stack.getNodes(1).contains(root.getNode("dummyNode5")));
+        assertTrue(layout.stack.getNodes(1).contains(root.getNode("dummyNode9")));
+        assertEquals(4, layout.stack.getNodes(2).size());
+        assertTrue(layout.stack.getNodes(2).contains(root.getNode("dummyNode3")));
+        assertTrue(layout.stack.getNodes(2).contains(root.getNode("dummyNode7")));
+        assertEquals(1, layout.stack.getNodes(3).size());
     }
 
     @Test
@@ -150,74 +171,33 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
     }
 
     @Test
-    public void getLayerNodes() {
-        layout.removeCycles();
-        layout.layer();
-        layout.insertDummies();
-        assertEquals(2, layout.getLayerNodes(1).size());
-        assertTrue(layout.getLayerNodes(1).contains(n1));
-        assertTrue(layout.getLayerNodes(1).contains(n2));
-        assertEquals(5, layout.getLayerNodes(2).size());
-        assertTrue(layout.getLayerNodes(2).contains(n3));
-        assertTrue(layout.getLayerNodes(2).contains(n4));
-        assertTrue(layout.getLayerNodes(2).contains(root.getNode("dummyNode1")));
-        assertTrue(layout.getLayerNodes(2).contains(root.getNode("dummyNode5")));
-        assertTrue(layout.getLayerNodes(2).contains(root.getNode("dummyNode9")));
-        assertEquals(4, layout.getLayerNodes(3).size());
-        assertTrue(layout.getLayerNodes(3).contains(root.getNode("dummyNode3")));
-        assertTrue(layout.getLayerNodes(3).contains(root.getNode("dummyNode7")));
-        assertEquals(1, layout.getLayerNodes(4).size());
-    }
-
-    @Test
-    public void getConnectedTo() {
-        layout.removeCycles();
-        int h = layout.layer();
-        layout.insertDummies();
-        layout.initLayerIndexes(h);
-        List<Node<?>> cn = layout.getConnectedTo(n2, layout.getLayerNodes(2));
-        assertEquals(3, cn.size());
-        assertTrue(cn.contains(n4));
-        assertTrue(cn.contains(root.getNode("dummyNode5")));
-        assertTrue(cn.contains(root.getNode("dummyNode9")));
-    }
-
-    @Test
     public void reduceCrossings2L() {
 
         layout.removeCycles();
-        int h = layout.layer();
+        layout.layer();
         layout.insertDummies();
-        layout.initLayerIndexes(h);
-        
-        layout.reduceCrossings2L(1, 2);
+        layout.stack.initIndexes();
+
+        log.debug(new ToStringVisitor().toString(root));
+        layout.stack.reduceCrossings2L(0, 1);
+        log.debug(layout.stack.toString());
+
         assertTrue(n3.getIndex() < 3);
-        assertTrue(root.getNode("dummyNode1").getIndex() < 3);
-        assertTrue(n4.getIndex() > 2);
-        assertTrue(root.getNode("dummyNode5").getIndex() > 2);
-        assertTrue(root.getNode("dummyNode9").getIndex() > 2);
-        
-        log.debug(layout.getLayerNodes(2));
-        log.debug(layout.getLayerNodes(3));
-        layout.reduceCrossings2L(2, 3);
-        log.debug(layout.getLayerNodes(3));
-        
-        layout.reduceCrossings2L(3, 2);
-        layout.reduceCrossings2L(2, 1);
-        layout.reduceCrossings2L(1, 2);
-        log.debug(layout.getLayerNodes(2));
-    }
+        assertTrue(root.getNode("dummyNode1").getIndex() < 2);
+        assertTrue(n4.getIndex() > 1);
+        assertTrue(root.getNode("dummyNode5").getIndex() > 1);
+        assertTrue(root.getNode("dummyNode9").getIndex() > 1);
 
-    @Test
-    public void reduceCrossings() {
-        layout.removeCycles();
-        int h = layout.layer();
-        layout.insertDummies();
-        layout.initLayerIndexes(h);
-        layout.reduceCrossings(h);
-        //log.debug(new ToStringVisitor().toString(root));
     }
-
+        @Test
+        public void reduceCrossings() {
+            layout.removeCycles();
+            layout.layer();
+            layout.insertDummies();
+            layout.stack.initIndexes();
+            layout.stack.reduceCrossings();
+            //log.debug(new ToStringVisitor().toString(root));
+        }
 }
 
 /*
