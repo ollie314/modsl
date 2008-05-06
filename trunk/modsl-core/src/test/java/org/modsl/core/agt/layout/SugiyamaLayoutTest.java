@@ -116,7 +116,6 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		assertFalse(e7_5.isReverted());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void insertDummies() {
 		int sn = root.getNodes().size();
