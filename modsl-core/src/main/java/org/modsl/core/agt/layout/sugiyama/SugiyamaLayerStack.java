@@ -151,10 +151,19 @@ public class SugiyamaLayerStack {
     }
 
     void xPositions() {
+        double maxx = 0;
+        double x[] = new double[layers.size()];
         for (int l = 0; l < layers.size(); l++) {
             double currOffset = 0d;
-            List<Node<?>> ln = layers.get(l);
-            for (Node<?> n : ln) {
+            for (Node<?> n : layers.get(l)) {
+                currOffset += n.getSize().x + SugiyamaLayout.X_SEPARATION;
+            }
+            x[l] = currOffset - SugiyamaLayout.X_SEPARATION;
+            maxx = max(maxx, x[l]);
+        }
+        for (int l = 0; l < layers.size(); l++) {
+            double currOffset = (maxx - x[l]) / 2d;
+            for (Node<?> n : layers.get(l)) {
                 n.getPos().x = currOffset;
                 currOffset += n.getSize().x + SugiyamaLayout.X_SEPARATION;
             }
