@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.modsl.core.agt.model.AbstractAGTModelTest;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.visitor.ToStringVisitor;
 
 public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 
@@ -167,17 +168,42 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
         assertTrue(layout.getLayerNodes(3).contains(root.getNode("dummyNode7")));
         assertEquals(1, layout.getLayerNodes(4).size());
     }
-    
+
     @Test
     public void getConnectedTo() {
         layout.removeCycles();
-        layout.layer();
+        int h = layout.layer();
         layout.insertDummies();
+        layout.initLayerIndexes(h);
         List<Node<?>> cn = layout.getConnectedTo(n2, layout.getLayerNodes(2));
         assertEquals(3, cn.size());
         assertTrue(cn.contains(n4));
         assertTrue(cn.contains(root.getNode("dummyNode5")));
         assertTrue(cn.contains(root.getNode("dummyNode9")));
+    }
+
+    @Test
+    public void reduceCrossings2L() {
+        layout.removeCycles();
+        int h = layout.layer();
+        layout.insertDummies();
+        layout.initLayerIndexes(h);
+        layout.reduceCrossings2L(1, 2);
+        assertTrue(n3.getIndex() < 3);
+        assertTrue(root.getNode("dummyNode1").getIndex() < 3);
+        assertTrue(n4.getIndex() > 2);
+        assertTrue(root.getNode("dummyNode5").getIndex() > 2);
+        assertTrue(root.getNode("dummyNode9").getIndex() > 2);
+    }
+
+    @Test
+    public void reduceCrossings() {
+        layout.removeCycles();
+        int h = layout.layer();
+        layout.insertDummies();
+        layout.initLayerIndexes(h);
+        layout.reduceCrossings(h);
+        log.debug(new ToStringVisitor().toString(root));
     }
 
 }
@@ -212,5 +238,35 @@ null:GRAPH {
     dummyNode7:NODE
     dummyNode9:NODE
   }
+  
+  crossings
+  
+null(0,0):GRAPH {
+  e1_3:EDGE(n1->n3)
+  e2_4:EDGE(n2->n4)
+  e3_7:EDGE(n3->n7)
+  e4_6:EDGE(n4->n6)
+  e1_5:EDGE(dummyNode3->n5)
+  e2_5:EDGE(dummyNode7->n5)
+  e6_2:EDGE(dummyNode9->n6)
+  e7_5:EDGE(n7->n5)
+  dummyEdge2:EDGE(n1->dummyNode1)
+  dummyEdge4:EDGE(dummyNode1->dummyNode3)
+  dummyEdge6:EDGE(n2->dummyNode5)
+  dummyEdge8:EDGE(dummyNode5->dummyNode7)
+  dummyEdge10:EDGE(n2->dummyNode9)
+  n1(2,1):NODE
+  n2(1,1):NODE
+  n3(4,2):NODE
+  n4(1,2):NODE
+  n5(1,4):NODE
+  n6(1,3):NODE
+  n7(3,3):NODE
+  dummyNode1(5,2):NODE
+  dummyNode3(4,3):NODE
+  dummyNode5(2,2):NODE
+  dummyNode7(2,3):NODE
+  dummyNode9(3,2):NODE
+}
 
 */
