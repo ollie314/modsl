@@ -48,11 +48,15 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     }
 
     double barycenter(List<Node<?>> ln) {
-        double bc = 0;
-        for (Node<?> n : ln) {
-            bc += n.getIndex();
+        if (ln.size() == 0) {
+            return 0;
+        } else {
+            double bc = 0;
+            for (Node<?> n : ln) {
+                bc += n.getIndex();
+            }
+            return bc / ln.size();
         }
-        return bc / ln.size();
     }
 
     List<Node<?>> getConnectedTo(Node<?> n1, List<Node<?>> sl) {
@@ -110,9 +114,9 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     }
 
     void reduceCrossings(int h) {
-        for (int round = 0; round < 10; round++) {
+        for (int round = 0; round < 100; round++) {
             if (round % 2 == 0) {
-                for (int l = 1; l < h - 1; l++) {
+                for (int l = 1; l < h; l++) {
                     reduceCrossings2L(l, l + 1);
                 }
             } else {
@@ -128,7 +132,8 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         final List<Node<?>> lts = getLayerNodes(layerToShuffle);
         for (Node<?> n : lts) {
             List<Node<?>> neighbors = getConnectedTo(n, sl);
-            n.setAltIndex(barycenter(neighbors));
+            double bc = barycenter(neighbors);
+            n.setAltIndex(bc);
         }
         Collections.sort(lts, new Comparator<Node<?>>() {
             public int compare(Node<?> n1, Node<?> n2) {
