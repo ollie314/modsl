@@ -108,6 +108,11 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
     protected int index;
 
     /**
+     * Temp al tindex holder (layout algorithms)
+     */
+    protected double altIndex;
+    
+    /**
      * Create new
      * @param type type
      */
@@ -215,6 +220,15 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         return childEdges;
     }
 
+    public Edge<T> getConnnectedEdgeTo(Node<T> n2) {
+        for (Edge<T> e : connectedEdges) {
+            if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     /**
      * @return center position, taking node's size into account
      */
@@ -226,8 +240,8 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         return getInEdges().size();
     }
 
-    public int getLayer() {
-        return layer;
+    public int getIndex() {
+        return index;
     }
 
     public List<Edge<T>> getInEdges() {
@@ -238,6 +252,10 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
             }
         }
         return ins;
+    }
+
+    public int getLayer() {
+        return layer;
     }
 
     /**
@@ -341,6 +359,15 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         return name.hashCode();
     }
 
+    public boolean isConnectedTo(Node<?> n2) {
+        for (Edge<T> e : connectedEdges) {
+            if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @return node with max x (the rightmost one, including it's size)
      */
@@ -426,6 +453,10 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
         this.altPos = altPos;
     }
 
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
     public void setLayer(int l) {
         this.layer = l;
     }
@@ -469,33 +500,15 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 
     @Override
     public String toString() {
-        return name + ":" + type;
+        return name + "(" + index + "," + layer + "):" + type;
     }
 
-    public Edge<T> getConnnectedEdgeTo(Node<T> n2) {
-        for (Edge<T> e : connectedEdges) {
-            if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
-                return e;
-            }
-        }
-        return null;
+    public double getAltIndex() {
+        return altIndex;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public boolean isConnectedTo(Node<?> n2) {
-        for (Edge<T> e : connectedEdges) {
-            if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
-                return true;
-            }
-        }
-        return false;
+    public void setAltIndex(double altIndex) {
+        this.altIndex = altIndex;
     }
 
 }
