@@ -58,7 +58,6 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         stack.layerHeights();
         stack.xPositions();
         root.rescale();
-        // TODO suppress dummies
     }
 
     void insertDummies() {
