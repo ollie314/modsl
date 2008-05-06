@@ -13,7 +13,7 @@ $root_in(node)$
 	text.collabnode { fill: black; font-family: $decor.meta.COLLAB_NODE.config.ft.name$; font-size: $decor.meta.COLLAB_NODE.config.ft.size$px; }
 	rect.collabnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
 	line.collabnode { stroke: black; stroke-width: 1px; }	
-	line.collabedge { stroke: dimgrey; stroke-width: 1px; }
+	line.collabedge, line.dummyedge { stroke: dimgrey; stroke-width: 1px; }
 	text.collabedge { fill: black; font-family: $decor.meta.COLLAB_EDGE.config.ft.name$; font-size: $decor.meta.COLLAB_EDGE.config.ft.size$px; }
 	rect.collabedge { fill: white; stroke: white; stroke-width: 1px; opacity: 1; }	
 ]]></style>
@@ -40,4 +40,9 @@ COLLAB_EDGE_in(edge, decor) ::= <<
 COLLAB_ROOT_out(node, decor) ::= <<
 
 $root_out()$
+>>
+
+DUMMY_EDGE_in(edge, decor) ::= <<
+
+<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="dummyedge"/>
 >>

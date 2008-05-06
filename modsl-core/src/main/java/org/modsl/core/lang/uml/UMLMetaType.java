@@ -25,7 +25,7 @@ import org.modsl.core.agt.model.MetaType;
  */
 public enum UMLMetaType implements MetaType {
 
-	COLLAB_ROOT, COLLAB_NODE, COLLAB_EDGE;
+	COLLAB_ROOT, COLLAB_NODE, COLLAB_EDGE, DUMMY_NODE, DUMMY_EDGE;
 
 	protected MetaTypeConfig config = new MetaTypeConfig();
 

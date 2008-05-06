@@ -28,12 +28,19 @@ import java.util.Set;
 
 import org.modsl.core.agt.common.ModSLException;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.lang.uml.UMLMetaType;
 
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
-    protected int dummyCount = 1;
+    protected static final double X_SEPARATION = 20d;
+    protected static final double Y_SEPARATION = 50d;
 
+    protected static MetaType DUMMY_EDGE = UMLMetaType.DUMMY_EDGE;
+    protected static MetaType DUMMY_NODE = UMLMetaType.DUMMY_NODE;
+
+    protected int dummyCount = 1;
     protected Node<?> root;
 
     @Override
@@ -47,30 +54,34 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         undoRemoveCycles();
         layerHeights(h);
         xPositions(h);
+        resizeGraph();
         // TODO suppress dummies
+    }
+
+    void resizeGraph() {
+        root.recalcSize();
+        root.normalize();
     }
 
     void xPositions(int h) {
         for (int l = 1; l <= h; l++) {
             double currOffset = 0d;
-            double vSeparation = 10d;
             List<Node<?>> ln = getLayerNodes(l);
             for (Node<?> n : ln) {
                 n.getPos().x = currOffset;
-                currOffset += n.getSize().x + vSeparation;
+                currOffset += n.getSize().x + X_SEPARATION;
             }
         }
     }
 
     void layerHeights(int h) {
         double currOffset = 0d;
-        double hSeparation = 10d;
         for (int l = 1; l <= h; l++) {
             List<Node<?>> ln = getLayerNodes(l);
             for (Node<?> n : ln) {
                 n.getPos().y = currOffset;
             }
-            currOffset += maxHeight(ln) + hSeparation;
+            currOffset += maxHeight(ln) + Y_SEPARATION;
         }
     }
 
@@ -224,10 +235,10 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     @SuppressWarnings("unchecked")
     Edge<?> split(Edge<?> edge) {
-        Node dummyNode = new Node(edge.getNode2().getType(), "dummyNode" + dummyCount++, true);
+        Node dummyNode = new Node(DUMMY_NODE, "dummyNode" + dummyCount++, true);
         dummyNode.setLayer(edge.getNode1().getLayer() + 1);
         root.add(dummyNode);
-        Edge dummyEdge = new Edge(edge.getType(), "dummyEdge" + dummyCount++, edge.getNode1(), dummyNode, true);
+        Edge dummyEdge = new Edge(DUMMY_EDGE, "dummyEdge" + dummyCount++, edge.getNode1(), dummyNode, true);
         dummyEdge.setRevertedInternal(edge.isReverted());
         edge.setNode1(dummyNode);
         root.addChild(dummyEdge);

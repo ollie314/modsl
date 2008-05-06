@@ -129,7 +129,7 @@ public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
     }
 
     /**
-     * Parse input and return rendered string result
+     * Parse input and return rendered string result with rescaling to reqested size
      * @param s input
      * @param reqSize requested diagram size
      * @return result
@@ -140,6 +140,19 @@ public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
         root.setReqSize(reqSize);
         root.accept(getLayoutVisitor());
         root.rescale(root.getReqSize());
+        root.accept(getStringTemplateVisitor());
+        return getStringTemplateVisitor().toString();
+    }
+    
+    /**
+     * Parse input and return rendered string result without rescaling
+     * @param s input
+     * @return result
+     * @throws RecognitionException
+     */
+    public String process(String s) throws RecognitionException {
+        Node<T> root = parse(s);
+        root.accept(getLayoutVisitor());
         root.accept(getStringTemplateVisitor());
         return getStringTemplateVisitor().toString();
     }
