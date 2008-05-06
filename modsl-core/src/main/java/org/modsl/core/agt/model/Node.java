@@ -98,9 +98,14 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	protected double rightPadding;
 
 	/**
-	 * Temp index holder (layout algorithms)
+	 * Temp layer number holder (layered layout algorithms)
 	 */
-	protected int index;
+	protected int layer;
+
+    /**
+     * Temp index holder (layout algorithms)
+     */
+    protected int index;
 
 	/**
 	 * Create new
@@ -210,6 +215,15 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 		return childEdges;
 	}
 
+	public Edge<T> getConnnectedEdgeTo(Node<T> n2) {
+		for (Edge<T> e : connectedEdges) {
+			if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
+				return e;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * @return center position, taking node's size into account
 	 */
@@ -222,8 +236,8 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	public int getIndex() {
-		return index;
-	}
+        return index;
+    }
 
 	public List<Edge<T>> getInEdges() {
 		List<Edge<T>> ins = new LinkedList<Edge<T>>();
@@ -233,6 +247,10 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 			}
 		}
 		return ins;
+	}
+
+	public int getLayer() {
+		return layer;
 	}
 
 	/**
@@ -422,7 +440,11 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	public void setIndex(int index) {
-		this.index = index;
+        this.index = index;
+    }
+
+	public void setLayer(int l) {
+		this.layer = l;
 	}
 
 	/**
@@ -455,25 +477,16 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> {
 		return size.y / size.len();
 	}
 
-	/**
+    /**
 	 * @return tan of angle between 0 and diagonal
 	 */
 	public double tan() {
 		return size.y / size.x;
 	}
 
-	@Override
+    @Override
 	public String toString() {
 		return name + ":" + type;
-	}
-
-	public Edge<T> getConnnectedEdgeTo(Node<T> n2) {
-		for (Edge<T> e : connectedEdges) {
-			if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
-				return e;
-			}
-		}
-		return null;
 	}
 
 }
