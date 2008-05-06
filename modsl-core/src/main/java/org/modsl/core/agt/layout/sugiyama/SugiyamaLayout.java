@@ -34,8 +34,10 @@ import org.modsl.core.agt.model.Node;
 import org.modsl.core.lang.uml.UMLMetaType;
 
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
-
-    protected static final double X_SEPARATION = 30d;
+    
+    // TODO dynamic separation based on label size?
+    // TODO bends
+    protected static final double X_SEPARATION = 60d;
     protected static final double Y_SEPARATION = 60d;
 
     protected static MetaType DUMMY_EDGE = UMLMetaType.DUMMY_EDGE;
