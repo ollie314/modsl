@@ -178,9 +178,9 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
         layout.insertDummies();
         layout.stack.initIndexes();
 
-        log.debug(new ToStringVisitor().toString(root));
+        //log.debug(new ToStringVisitor().toString(root));
         layout.stack.reduceCrossings2L(0, 1);
-        log.debug(layout.stack.toString());
+        //log.debug(layout.stack.toString());
 
         assertTrue(n3.getIndex() < 3);
         assertTrue(root.getNode("dummyNode1").getIndex() < 2);
