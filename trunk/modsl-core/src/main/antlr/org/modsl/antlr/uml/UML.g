@@ -36,5 +36,5 @@ collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=ID (EDGEOP ids+=ID '.' mds+=ID)
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;
 fragment INT : '0'..'9'+ ;
-NEWLINE:'\r'? '\n';
-WS: (' ' |'\t' | '\r' | '\n')+ { skip(); };
+WS: (' ' | '\t' | NEWLINE)+ { skip(); };
+fragment NEWLINE:'\r'? '\n';
