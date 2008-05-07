@@ -2,9 +2,9 @@ package org.modsl.core.agt.model;
 
 public class Bend implements Point {
 
-	protected int index;
-	protected Pt pos;
-	protected Pt size = new Pt(0d, 0d);
+	protected int index = -1;
+	protected Pt pos = new Pt();
+	protected Pt size = new Pt();
 	protected Edge<?> parent;
 
 	@Override
@@ -57,7 +57,7 @@ public class Bend implements Point {
 	public void setParent(Edge<?> parent) {
 		this.parent = parent;
 	}
-	
+
 	// TODO equals, hashcode
 
 }
