@@ -109,6 +109,11 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		visitor.out(this);
 	}
 
+	public void add(Bend bend) {
+		bends.add(bend);
+		bend.setParent(this);
+	}
+
 	public double angle() {
 		Pt delta = getDelta();
 		if (delta.y > 0d) {
@@ -129,11 +134,66 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		return delta.x / getDelta().len();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Edge) {
+			Edge e = (Edge) obj;
+			if (this == e) {
+				return true;
+			} else {
+				boolean same = true;
+				if (node1 == null) {
+					if (e.node1 == null) {
+						same = same && node1Name.equals(e.node1Name);
+					} else {
+						same = false;
+					}
+				} else {
+					same = same && node1.equals(e.node1);
+				}
+				if (node2 == null) {
+					if (e.node2 == null) {
+						same = same && node2Name.equals(e.node2Name);
+					} else {
+						same = false;
+					}
+				} else {
+					same = same && node2.equals(e.node2);
+				}
+				return same;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public Bend getBend(int index) {
+		return bends.get(index);
+	}
+
+	public List<Bend> getBends() {
+		return bends;
+	}
+
 	/**
 	 * @return (delta(x), delta(y)) between nodes' center positions
 	 */
 	public Pt getDelta() {
 		return node2.getCtrPos().minus(node1.getCtrPos());
+	}
+
+	public int getDistance(Point p1, Point p2) {
+		int p1i = -2, p2i = -2;
+		p1i = p1.equals(node1) ? -1 : p1i;
+		p2i = p2.equals(node1) ? -1 : p2i;
+		int t = bends.indexOf(p1);
+		p1i = t > -1 ? t : p1i;
+		t = bends.indexOf(p2);
+		p2i = t > -1 ? t : p2i;
+		p1i = p1.equals(node2) ? bends.size() : p1i;
+		p2i = p2.equals(node2) ? bends.size() : p2i;
+		return p1i > -2 && p2i > -2 ? abs(p2i - p1i) : Integer.MAX_VALUE;
 	}
 
 	/**
@@ -209,6 +269,11 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		return ap;
 	}
 
+	@Override
+	public int hashCode() {
+		return (node1 == null ? 0 : node1.hashCode()) + (node2 == null ? 0 : node2.hashCode());
+	}
+
 	public boolean isReverted() {
 		return reverted;
 	}
@@ -267,67 +332,6 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 	public String toString() {
 		return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "->"
 				+ (node2 == null ? "*" + node2Name : node2.getName()) + ")";
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Edge) {
-			Edge e = (Edge) obj;
-			if (this == e) {
-				return true;
-			} else {
-				boolean same = true;
-				if (node1 == null) {
-					if (e.node1 == null) {
-						same = same && node1Name.equals(e.node1Name);
-					} else {
-						same = false;
-					}
-				} else {
-					same = same && node1.equals(e.node1);
-				}
-				if (node2 == null) {
-					if (e.node2 == null) {
-						same = same && node2Name.equals(e.node2Name);
-					} else {
-						same = false;
-					}
-				} else {
-					same = same && node2.equals(e.node2);
-				}
-				return same;
-			}
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		return (node1 == null ? 0 : node1.hashCode()) + (node2 == null ? 0 : node2.hashCode());
-	}
-
-	public int getDistance(Point p1, Point p2) {
-		int p1i = -2, p2i = -2;
-		p1i = p1.equals(node1) ? -1 : p1i;
-		p2i = p2.equals(node1) ? -1 : p2i;
-		int t = bends.indexOf(p1);
-		p1i = t > -1 ? t : p1i;
-		t = bends.indexOf(p2);
-		p2i = t > -1 ? t : p2i;
-		p1i = p1.equals(node2) ? bends.size() : p1i;
-		p2i = p2.equals(node2) ? bends.size() : p2i;
-		return p1i > -2 && p2i > -2 ? abs(p2i - p1i) : Integer.MAX_VALUE;
-	}
-
-	public void add(Bend bend) {
-		bends.add(bend);
-		bend.setParent(this);
-	}
-
-	public Bend getBend(int index) {
-		return bends.get(index);
 	}
 
 }
