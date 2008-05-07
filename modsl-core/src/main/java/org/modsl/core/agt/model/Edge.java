@@ -321,4 +321,8 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		return p1i > -2 && p2i > -2 ? abs(p2i - p1i) : Integer.MAX_VALUE;
 	}
 
+	public void add(Bend bend) {
+		bends.add(bend);
+	}
+
 }

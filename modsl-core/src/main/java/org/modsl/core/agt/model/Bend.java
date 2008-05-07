@@ -49,5 +49,7 @@ public class Bend implements Point {
 		}
 		return false;
 	}
+	
+	// TODO equals, hashcode
 
 }
