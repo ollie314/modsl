@@ -2,10 +2,10 @@ collaboration ModSL3 {
 	:processor->:lexer.tokenStream(); 
 	:processor->:parser.diagram():root; 
 	:processor->:layoutVisitor.accept(root); 
+	:layoutVisitor->:root.getNodes():node; 
+	:layoutVisitor->:collabNodeLayout.apply(node); 
+	:layoutVisitor->:circleLayout.apply(root); 
+	:layoutVisitor->:fruchtermanRheingoldLayout.apply(root); 
 	:processor->:root.rescale(); 
 	:processor->:stringTemplateVisitor.accept(root);
-	:stringTemplateVisitor->:root.getNodes():node; 
-	:stringTemplateVisitor->:collabNodeLayout.apply(node); 
-	:stringTemplateVisitor->:circleLayout.apply(root); 
-	:stringTemplateVisitor->:fruchtermanRheingoldLayout.apply(root); 
 }
