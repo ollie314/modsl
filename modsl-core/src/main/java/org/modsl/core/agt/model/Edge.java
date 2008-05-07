@@ -308,4 +308,17 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		return (node1 == null ? 0 : node1.hashCode()) + (node2 == null ? 0 : node2.hashCode());
 	}
 
+	public int getDistance(Point p1, Point p2) {
+		int p1i = -2, p2i = -2;
+		p1i = p1.equals(node1) ? -1 : p1i;
+		p2i = p2.equals(node1) ? -1 : p2i;
+		int t = bends.indexOf(p1);
+		p1i = t > -1 ? t : p1i;
+		t = bends.indexOf(p2);
+		p2i = t > -1 ? t : p2i;
+		p1i = p1.equals(node2) ? bends.size() : p1i;
+		p2i = p2.equals(node2) ? bends.size() : p2i;
+		return p1i > -2 && p2i > -2 ? abs(p2i - p1i) : Integer.MAX_VALUE;
+	}
+
 }

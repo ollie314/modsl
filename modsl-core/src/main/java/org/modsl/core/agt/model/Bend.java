@@ -5,6 +5,7 @@ public class Bend implements Point {
 	protected int index;
 	protected Pt pos;
 	protected Pt size = new Pt(0d, 0d);
+	protected Edge<?> parent;
 
 	@Override
 	public int getIndex() {
@@ -34,6 +35,19 @@ public class Bend implements Point {
 	@Override
 	public void setSize(Pt size) {
 		this.size = size;
+	}
+
+	@Override
+	public boolean isVirtual() {
+		return true;
+	}
+
+	@Override
+	public boolean isConnectedTo(Point p2) {
+		if (parent.getDistance(this, p2) == 1) {
+			return true;
+		}
+		return false;
 	}
 
 }

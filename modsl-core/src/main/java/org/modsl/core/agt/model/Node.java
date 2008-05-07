@@ -341,9 +341,10 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> implements
 		return name.hashCode();
 	}
 
-	public boolean isConnectedTo(Node<?> n2) {
+	@Override
+	public boolean isConnectedTo(Point n2) {
 		for (Edge<T> e : connectedEdges) {
-			if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
+			if (e.getDistance(this, n2) == 1) {
 				return true;
 			}
 		}
@@ -486,6 +487,11 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> implements
 	@Override
 	public String toString() {
 		return name + "(" + index + "):" + type;
+	}
+
+	@Override
+	public boolean isVirtual() {
+		return false;
 	}
 
 }
