@@ -58,6 +58,11 @@ public class Bend implements Point {
 		this.parent = parent;
 	}
 
+	@Override
+	public Pt getCtrPos() {
+		return pos;
+	}
+
 	// TODO equals, hashcode
 
 }

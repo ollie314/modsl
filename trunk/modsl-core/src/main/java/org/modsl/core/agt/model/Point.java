@@ -8,6 +8,11 @@ public interface Point {
 	public Pt getPos();
 
 	/**
+	 * @return center position (will be different from pos if size > 0)
+	 */
+	public Pt getCtrPos();
+	
+	/**
 	 * Set position (top left corner)
 	 * @param pos
 	 */

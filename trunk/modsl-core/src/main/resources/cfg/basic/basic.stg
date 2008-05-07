@@ -20,7 +20,7 @@ NODE_in(node, decor) ::= <<
 
 EDGE_in(edge, decor) ::= <<
 
-<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="edge"/>
+<line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="edge"/>
 >>
 
 GRAPH_out(node, decor) ::= <<
