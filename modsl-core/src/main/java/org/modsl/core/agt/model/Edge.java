@@ -21,6 +21,9 @@ import static java.lang.Math.abs;
 import static java.lang.Math.acos;
 import static java.lang.Math.signum;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
@@ -31,273 +34,278 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  */
 public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 
-    /**
-     * Start node
-     */
-    protected Node<T> node1;
+	/**
+	 * Start node
+	 */
+	protected Node<T> node1;
 
-    /**
-     * End node
-     */
-    protected Node<T> node2;
+	/**
+	 * End node
+	 */
+	protected Node<T> node2;
 
-    /**
-     * Start node name (will be resolved to node1 reference when post-processing
-     */
-    protected String node1Name;
+	/**
+	 * Start node name (will be resolved to node1 reference when post-processing
+	 */
+	protected String node1Name;
 
-    /**
-     * End node name (will be resolved to node2 reference when post-processing
-     */
-    protected String node2Name;
+	/**
+	 * End node name (will be resolved to node2 reference when post-processing
+	 */
+	protected String node2Name;
 
-    /**
-     * Are start and end nodes swapped? Needed for the layout algorithms.
-     */
-    protected boolean reverted = false;
+	/**
+	 * Are start and end nodes swapped? Needed for the layout algorithms.
+	 */
+	protected boolean reverted = false;
 
-    /**
-     * Create new
-     * @param type type
-     * @param node1 start node
-     * @param node2 end node
-     */
-    public Edge(T type, Node<T> node1, Node<T> node2) {
-        super(type);
-        this.node1 = node1;
-        this.node1.addConnectedEdge(this);
-        this.node2 = node2;
-        this.node2.addConnectedEdge(this);
-    }
+	/**
+	 * Bends
+	 */
+	protected List<Bend> bends = new LinkedList<Bend>();
 
-    /**
-     * Create new
-     * @param type type
-     * @param name name
-     * @param node1 start node
-     * @param node2 end node
-     */
-    public Edge(T type, String name, Node<T> node1, Node<T> node2) {
-        this(type, node1, node2);
-        this.name = name;
-    }
+	/**
+	 * Create new
+	 * @param type type
+	 * @param node1 start node
+	 * @param node2 end node
+	 */
+	public Edge(T type, Node<T> node1, Node<T> node2) {
+		super(type);
+		this.node1 = node1;
+		this.node1.addConnectedEdge(this);
+		this.node2 = node2;
+		this.node2.addConnectedEdge(this);
+	}
 
-    /**
-     * Create new
-     * @param type type
-     * @param name name
-     * @param node1 start node
-     * @param node2 end node
-     * @param dummy
-     */
-    public Edge(T type, String name, Node<T> node1, Node<T> node2, boolean dummy) {
-        this(type, name, node1, node2);
-        this.dummy = dummy;
-    }
+	/**
+	 * Create new
+	 * @param type type
+	 * @param name name
+	 * @param node1 start node
+	 * @param node2 end node
+	 */
+	public Edge(T type, String name, Node<T> node1, Node<T> node2) {
+		this(type, node1, node2);
+		this.name = name;
+	}
 
-    @Override
-    public void accept(AbstractVisitor<T> visitor) {
-        visitor.in(this);
-        visitor.out(this);
-    }
+	/**
+	 * Create new
+	 * @param type type
+	 * @param name name
+	 * @param node1 start node
+	 * @param node2 end node
+	 * @param dummy
+	 */
+	public Edge(T type, String name, Node<T> node1, Node<T> node2, boolean dummy) {
+		this(type, name, node1, node2);
+		this.dummy = dummy;
+	}
 
-    public double angle() {
-        Pt delta = getDelta();
-        if (delta.y > 0d) {
-            return acos(this.cos());
-        } else if (delta.y < 0d) {
-            return 2 * PI - acos(this.cos());
-        } else {
-            if (delta.x >= 0d) {
-                return 0;
-            } else {
-                return PI;
-            }
-        }
-    }
+	@Override
+	public void accept(AbstractVisitor<T> visitor) {
+		visitor.in(this);
+		visitor.out(this);
+	}
 
-    public double cos() {
-        Pt delta = getDelta();
-        return delta.x / getDelta().len();
-    }
+	public double angle() {
+		Pt delta = getDelta();
+		if (delta.y > 0d) {
+			return acos(this.cos());
+		} else if (delta.y < 0d) {
+			return 2 * PI - acos(this.cos());
+		} else {
+			if (delta.x >= 0d) {
+				return 0;
+			} else {
+				return PI;
+			}
+		}
+	}
 
-    /**
-     * @return (delta(x), delta(y)) between nodes' center positions
-     */
-    public Pt getDelta() {
-        return node2.getCtrPos().minus(node1.getCtrPos());
-    }
+	public double cos() {
+		Pt delta = getDelta();
+		return delta.x / getDelta().len();
+	}
 
-    /**
-     * @return length of this edge w/o adjustment for overlay
-     */
-    public double getLength() {
-        return node2.getPos().minus(node1.getPos()).len();
-    }
+	/**
+	 * @return (delta(x), delta(y)) between nodes' center positions
+	 */
+	public Pt getDelta() {
+		return node2.getCtrPos().minus(node1.getCtrPos());
+	}
 
-    /**
-     * @return start node
-     */
-    public Node<T> getNode1() {
-        return node1;
-    }
+	/**
+	 * @return length of this edge w/o adjustment for overlay
+	 */
+	public double getLength() {
+		return node2.getPos().minus(node1.getPos()).len();
+	}
 
-    /**
-     * @return startpoint position at node 1
-     */
-    public Pt getNode1Clip() {
-        return getNodeClip(node1, true);
-    }
+	/**
+	 * @return start node
+	 */
+	public Node<T> getNode1() {
+		return node1;
+	}
 
-    /**
-     * @return start node name
-     */
-    public String getNode1Name() {
-        return node1Name;
-    }
+	/**
+	 * @return startpoint position at node 1
+	 */
+	public Pt getNode1Clip() {
+		return getNodeClip(node1, true);
+	}
 
-    /**
-     * @return end node
-     */
-    public Node<T> getNode2() {
-        return node2;
-    }
+	/**
+	 * @return start node name
+	 */
+	public String getNode1Name() {
+		return node1Name;
+	}
 
-    /**
-     * @return endpoint position at node 2
-     */
-    public Pt getNode2Clip() {
-        return getNodeClip(node2, false);
-    }
+	/**
+	 * @return end node
+	 */
+	public Node<T> getNode2() {
+		return node2;
+	}
 
-    /**
-     * @return end node name
-     */
-    public String getNode2Name() {
-        return node2Name;
-    }
+	/**
+	 * @return endpoint position at node 2
+	 */
+	public Pt getNode2Clip() {
+		return getNodeClip(node2, false);
+	}
 
-    /**
-     * Convenience method to calculate adjusted position of the connector's
-     * endpoint at the given node, considering that element's dimensions
-     * @param n node
-     * @param start when connector is directional, set to true if it starts at
-     * <code>n</code>
-     * @return position adjusted to node's size
-     */
-    protected Pt getNodeClip(Node<T> n, boolean start) {
-        Pt ap = new Pt();
-        Pt cp = n.getCtrPos();
-        Pt s = n.getSize();
-        double sign = start ? 1d : -1d;
-        if (abs(n.tan()) > abs(tan())) {
-            // i.e. line is crossing e2's side
-            ap.x = cp.x + sign * s.x * signum(cos()) / 2d;
-            ap.y = cp.y + sign * s.x * tan() * signum(cos()) / 2d;
-        } else {
-            ap.x = cp.x + sign * s.y / tan() * signum(sin()) / 2d;
-            ap.y = cp.y + sign * s.y * signum(sin()) / 2d;
-        }
-        return ap;
-    }
+	/**
+	 * @return end node name
+	 */
+	public String getNode2Name() {
+		return node2Name;
+	}
 
-    public boolean isReverted() {
-        return reverted;
-    }
+	/**
+	 * Convenience method to calculate adjusted position of the connector's
+	 * endpoint at the given node, considering that element's dimensions
+	 * @param n node
+	 * @param start when connector is directional, set to true if it starts at
+	 * <code>n</code>
+	 * @return position adjusted to node's size
+	 */
+	protected Pt getNodeClip(Node<T> n, boolean start) {
+		Pt ap = new Pt();
+		Pt cp = n.getCtrPos();
+		Pt s = n.getSize();
+		double sign = start ? 1d : -1d;
+		if (abs(n.tan()) > abs(tan())) {
+			// i.e. line is crossing e2's side
+			ap.x = cp.x + sign * s.x * signum(cos()) / 2d;
+			ap.y = cp.y + sign * s.x * tan() * signum(cos()) / 2d;
+		} else {
+			ap.x = cp.x + sign * s.y / tan() * signum(sin()) / 2d;
+			ap.y = cp.y + sign * s.y * signum(sin()) / 2d;
+		}
+		return ap;
+	}
 
-    /**
-     * Set start node
-     * @param n1 start node
-     */
-    public void setNode1(Node<T> n1) {
-        if (node1 != null && !node1.equals(n1)) {
-            node1.removeConnectedEdge(this);
-            node1 = n1;
-            node1.addConnectedEdge(this);
-        }
-    }
+	public boolean isReverted() {
+		return reverted;
+	}
 
-    /**
-     * Set end node
-     * @param n2 end node
-     */
-    public void setNode2(Node<T> n2) {
-        if (node2 != null && !node2.equals(n2)) {
-            node2.removeConnectedEdge(this);
-            node2 = n2;
-            node2.addConnectedEdge(this);
-        }
-    }
+	/**
+	 * Set start node
+	 * @param n1 start node
+	 */
+	public void setNode1(Node<T> n1) {
+		if (node1 != null && !node1.equals(n1)) {
+			node1.removeConnectedEdge(this);
+			node1 = n1;
+			node1.addConnectedEdge(this);
+		}
+	}
 
-    public void setReverted(boolean r) {
-        if (reverted != r) {
-            Node<T> tn = node1;
-            node1 = node2;
-            node2 = tn;
-            String tnn = node1Name;
-            node1Name = node2Name;
-            node2Name = tnn;
-            setRevertedInternal(r);
-        }
-    }
+	/**
+	 * Set end node
+	 * @param n2 end node
+	 */
+	public void setNode2(Node<T> n2) {
+		if (node2 != null && !node2.equals(n2)) {
+			node2.removeConnectedEdge(this);
+			node2 = n2;
+			node2.addConnectedEdge(this);
+		}
+	}
 
-    public void setRevertedInternal(boolean r) {
-        reverted = r;
-    }
+	public void setReverted(boolean r) {
+		if (reverted != r) {
+			Node<T> tn = node1;
+			node1 = node2;
+			node2 = tn;
+			String tnn = node1Name;
+			node1Name = node2Name;
+			node2Name = tnn;
+			setRevertedInternal(r);
+		}
+	}
 
-    public double sin() {
-        Pt delta = getDelta();
-        return delta.y / getDelta().len();
-    }
+	public void setRevertedInternal(boolean r) {
+		reverted = r;
+	}
 
-    public double tan() {
-        Pt delta = getDelta();
-        return delta.y / delta.x;
-    }
+	public double sin() {
+		Pt delta = getDelta();
+		return delta.y / getDelta().len();
+	}
 
-    @Override
-    public String toString() {
-        return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "->"
-                + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
-    }
+	public double tan() {
+		Pt delta = getDelta();
+		return delta.y / delta.x;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Edge) {
-            Edge e = (Edge) obj;
-            if (this == e) {
-                return true;
-            } else {
-                boolean same = true;
-                if (node1 == null) {
-                    if (e.node1 == null) {
-                        same = same && node1Name.equals(e.node1Name);
-                    } else {
-                        same = false;
-                    }
-                } else {
-                    same = same && node1.equals(e.node1);
-                }
-                if (node2 == null) {
-                    if (e.node2 == null) {
-                        same = same && node2Name.equals(e.node2Name);
-                    } else {
-                        same = false;
-                    }
-                } else {
-                    same = same && node2.equals(e.node2);
-                }
-                return same;
-            }
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public String toString() {
+		return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "->"
+				+ (node2 == null ? "*" + node2Name : node2.getName()) + ")";
+	}
 
-    @Override
-    public int hashCode() {
-        return (node1 == null ? 0 : node1.hashCode()) + (node2 == null ? 0 : node2.hashCode());
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Edge) {
+			Edge e = (Edge) obj;
+			if (this == e) {
+				return true;
+			} else {
+				boolean same = true;
+				if (node1 == null) {
+					if (e.node1 == null) {
+						same = same && node1Name.equals(e.node1Name);
+					} else {
+						same = false;
+					}
+				} else {
+					same = same && node1.equals(e.node1);
+				}
+				if (node2 == null) {
+					if (e.node2 == null) {
+						same = same && node2Name.equals(e.node2Name);
+					} else {
+						same = false;
+					}
+				} else {
+					same = same && node2.equals(e.node2);
+				}
+				return same;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return (node1 == null ? 0 : node1.hashCode()) + (node2 == null ? 0 : node2.hashCode());
+	}
 
 }
