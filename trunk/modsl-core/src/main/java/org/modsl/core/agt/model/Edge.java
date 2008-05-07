@@ -323,6 +323,11 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 
 	public void add(Bend bend) {
 		bends.add(bend);
+		bend.setParent(this);
+	}
+
+	public Bend getBend(int index) {
+		return bends.get(index);
 	}
 
 }
