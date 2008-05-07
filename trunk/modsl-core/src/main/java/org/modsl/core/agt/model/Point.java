@@ -27,5 +27,9 @@ public interface Point {
 	public int getIndex();
 
 	public void setIndex(int index);
+	
+	public boolean isVirtual();
+	
+	public boolean isConnectedTo(Point point);
 
 }
