@@ -13,7 +13,7 @@ $root_in(node)$
 	text.collabnode { fill: black; font-family: $decor.meta.COLLAB_NODE.config.ft.name$; font-size: $decor.meta.COLLAB_NODE.config.ft.size$px; }
 	rect.collabnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
 	line.collabnode { stroke: black; stroke-width: 1px; }	
-	line.collabedge, line.dummyedge { stroke: dimgrey; stroke-width: 1px; }
+	line.collabedge, path.collabedge { fill:none; stroke: dimgrey; stroke-width: 1px; }
 	text.collabedge { fill: black; font-family: $decor.meta.COLLAB_EDGE.config.ft.name$; font-size: $decor.meta.COLLAB_EDGE.config.ft.size$px; }
 	rect.collabedge { fill: white; stroke: white; stroke-width: 1px; opacity: 1; }	
 ]]></style>
@@ -30,7 +30,7 @@ COLLAB_NODE_in(node, decor) ::= <<
 
 COLLAB_EDGE_in(edge, decor) ::= <<
 
-<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="collabedge"/>
+<path d="M $edge.node1Clip.x$ $edge.node1Clip.y$ L $edge.bends:{b|$b.pos.x$ $b.pos.y$ }$$edge.node2Clip.x$ $edge.node2Clip.y$" class="collabedge"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="collabedge"/>
 <line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="collabedge"/>
 <rect x="$decor.textBgPos.x$" y="$decor.textBgPos.y$" width="$decor.textBgSize.x$" height="$decor.textBgSize.y$" class="collabedge"/>
