@@ -30,27 +30,26 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Point;
 
 public class SugiyamaLayerStack {
 
 	private List<List<Point>> layers;
-	private Map<Node<?>, Integer> nodeMap;
+	private Map<Point, Integer> nodeMap;
 
 	SugiyamaLayerStack(int h, int nodeSize) {
 		layers = new ArrayList<List<Point>>(h);
 		for (int i = 0; i < h; i++) {
 			layers.add(new ArrayList<Point>(nodeSize / h + 1));
 		}
-		nodeMap = new HashMap<Node<?>, Integer>(nodeSize);
+		nodeMap = new HashMap<Point, Integer>(nodeSize);
 	}
 
 	protected int size() {
 		return layers.size();
 	}
 
-	void add(Node<?> n1, int layerIndex) {
+	void add(Point n1, int layerIndex) {
 		layers.get(layerIndex).add(n1);
 		nodeMap.put(n1, layerIndex);
 	}
@@ -152,24 +151,24 @@ public class SugiyamaLayerStack {
 	}
 
 	void xPositions() {
-        double maxx = 0;
-        double x[] = new double[layers.size()];
-        for (int l = 0; l < layers.size(); l++) {
-            double currOffset = 0d;
-            for (Point n : layers.get(l)) {
-                currOffset += n.getSize().x + SugiyamaLayout.X_SEPARATION;
-            }
-            x[l] = currOffset - SugiyamaLayout.X_SEPARATION;
-            maxx = max(maxx, x[l]);
-        }
-        for (int l = 0; l < layers.size(); l++) {
-            double currOffset = (maxx - x[l]) / 2d;
-            for (Point n : layers.get(l)) {
-                n.getPos().x = currOffset;
-                currOffset += n.getSize().x + SugiyamaLayout.X_SEPARATION;
-            }
-        }
-    }
+		double maxx = 0;
+		double x[] = new double[layers.size()];
+		for (int l = 0; l < layers.size(); l++) {
+			double currOffset = 0d;
+			for (Point n : layers.get(l)) {
+				currOffset += n.getSize().x + SugiyamaLayout.X_SEPARATION;
+			}
+			x[l] = currOffset - SugiyamaLayout.X_SEPARATION;
+			maxx = max(maxx, x[l]);
+		}
+		for (int l = 0; l < layers.size(); l++) {
+			double currOffset = (maxx - x[l]) / 2d;
+			for (Point n : layers.get(l)) {
+				n.getPos().x = currOffset;
+				currOffset += n.getSize().x + SugiyamaLayout.X_SEPARATION;
+			}
+		}
+	}
 
 	List<Point> getPoints(int i) {
 		return layers.get(i);
