@@ -100,7 +100,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> implements
 	/**
 	 * Temp index holder (layout algorithms)
 	 */
-	protected int index;
+	protected int index = -1;
 
 	/**
 	 * Create new
