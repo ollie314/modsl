@@ -140,12 +140,12 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		assertEquals(5, layout.stack.getPoints(1).size());
 		assertTrue(layout.stack.getPoints(1).contains(n3));
 		assertTrue(layout.stack.getPoints(1).contains(n4));
-		assertTrue(layout.stack.getPoints(1).contains(root.getNode("dummyNode1")));
-		assertTrue(layout.stack.getPoints(1).contains(root.getNode("dummyNode5")));
-		assertTrue(layout.stack.getPoints(1).contains(root.getNode("dummyNode9")));
+		assertTrue(layout.stack.getPoints(1).contains(e1_5.getBend(0)));
+		assertTrue(layout.stack.getPoints(1).contains(e2_5.getBend(0)));
+		assertTrue(layout.stack.getPoints(1).contains(e6_2.getBend(0)));
 		assertEquals(4, layout.stack.getPoints(2).size());
-		assertTrue(layout.stack.getPoints(2).contains(root.getNode("dummyNode3")));
-		assertTrue(layout.stack.getPoints(2).contains(root.getNode("dummyNode7")));
+		assertTrue(layout.stack.getPoints(2).contains(e1_5.getBend(1)));
+		assertTrue(layout.stack.getPoints(2).contains(e2_5.getBend(1)));
 		assertEquals(1, layout.stack.getPoints(3).size());
 	}
 
@@ -157,16 +157,16 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		layout.layer();
 		layout.insertDummies();
 		// log.debug(new ToStringVisitor().toString(root));
-		assertEquals(sn + 5, root.getNodes().size());
-		assertEquals(se + 5, root.getChildEdges().size());
-		assertNotNull(n1.getConnnectedEdgeTo(root.getNode("dummyNode1")));
-		assertNotNull(root.getNode("dummyNode1").getConnnectedEdgeTo(root.getNode("dummyNode3")));
-		assertNotNull(root.getNode("dummyNode3").getConnnectedEdgeTo(n5));
-		assertNotNull(n2.getConnnectedEdgeTo(root.getNode("dummyNode5")));
-		assertNotNull(root.getNode("dummyNode5").getConnnectedEdgeTo(root.getNode("dummyNode7")));
-		assertNotNull(root.getNode("dummyNode7").getConnnectedEdgeTo(n5));
-		assertNotNull(n2.getConnnectedEdgeTo(root.getNode("dummyNode9")));
-		assertNotNull(root.getNode("dummyNode9").getConnnectedEdgeTo(n6));
+		assertEquals(sn, root.getNodes().size());
+		assertEquals(se, root.getChildEdges().size());
+		assertTrue(n1.isConnectedTo(e1_5.getBend(0)));
+		assertTrue(e1_5.getBend(0).isConnectedTo(e1_5.getBend(1)));
+		assertTrue(e1_5.getBend(1).isConnectedTo(n5));
+		assertTrue(n2.isConnectedTo(e2_5.getBend(0)));
+		assertTrue(e2_5.getBend(0).isConnectedTo(e2_5.getBend(1)));
+		assertTrue(e2_5.getBend(1).isConnectedTo(n5));
+		assertTrue(n6.isConnectedTo(e6_2.getBend(0)));
+		assertTrue(e6_2.getBend(0).isConnectedTo(n2));
 	}
 
 	@Test
@@ -182,10 +182,10 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		// log.debug(layout.stack.toString());
 
 		assertTrue(n3.getIndex() < 3);
-		assertTrue(root.getNode("dummyNode1").getIndex() < 2);
+		assertTrue(e1_5.getBend(0).getIndex() < 2);
 		assertTrue(n4.getIndex() > 1);
-		assertTrue(root.getNode("dummyNode5").getIndex() > 1);
-		assertTrue(root.getNode("dummyNode9").getIndex() > 1);
+		assertTrue(e2_5.getBend(0).getIndex() > 1);
+		assertTrue(e6_2.getBend(0).getIndex() > 1);
 
 	}
 

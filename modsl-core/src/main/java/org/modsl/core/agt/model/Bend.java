@@ -49,6 +49,14 @@ public class Bend implements Point {
 		}
 		return false;
 	}
+
+	public Edge<?> getParent() {
+		return parent;
+	}
+
+	public void setParent(Edge<?> parent) {
+		this.parent = parent;
+	}
 	
 	// TODO equals, hashcode
 
