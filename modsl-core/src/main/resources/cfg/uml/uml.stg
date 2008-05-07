@@ -30,9 +30,9 @@ COLLAB_NODE_in(node, decor) ::= <<
 
 COLLAB_EDGE_in(edge, decor) ::= <<
 
-<path d="M $edge.node1Clip.x$ $edge.node1Clip.y$ L $edge.bends:{b|$b.pos.x$ $b.pos.y$ }$$edge.node2Clip.x$ $edge.node2Clip.y$" class="collabedge"/>
-<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="collabedge"/>
-<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="collabedge"/>
+<path d="M $edge.node1Port.x$ $edge.node1Port.y$ L $edge.bends:{b|$b.pos.x$ $b.pos.y$ }$$edge.node2Port.x$ $edge.node2Port.y$" class="collabedge"/>
+<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collabedge"/>
+<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collabedge"/>
 <rect x="$decor.textBgPos.x$" y="$decor.textBgPos.y$" width="$decor.textBgSize.x$" height="$decor.textBgSize.y$" class="collabedge"/>
 <text x="$decor.textPos.x$" y="$decor.textPos.y$" class="collabedge">$edge.name$</text>
 >>
@@ -44,5 +44,5 @@ $root_out()$
 
 DUMMY_EDGE_in(edge, decor) ::= <<
 
-<line x1="$edge.node1Clip.x$" y1="$edge.node1Clip.y$" x2="$edge.node2Clip.x$" y2="$edge.node2Clip.y$" class="dummyedge"/>
+<line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="dummyedge"/>
 >>

@@ -114,12 +114,12 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		bend.setParent(this);
 	}
 
-	public double angle() {
-		Pt delta = getDelta();
+	public double angle2() {
+		Pt delta = getDelta2();
 		if (delta.y > 0d) {
-			return acos(this.cos());
+			return acos(this.cos2());
 		} else if (delta.y < 0d) {
-			return 2 * PI - acos(this.cos());
+			return 2 * PI - acos(this.cos2());
 		} else {
 			if (delta.x >= 0d) {
 				return 0;
@@ -129,9 +129,14 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		}
 	}
 
-	public double cos() {
-		Pt delta = getDelta();
-		return delta.x / getDelta().len();
+	public double cos1() {
+		Pt delta = getDelta1();
+		return delta.x / delta.len();
+	}
+
+	public double cos2() {
+		Pt delta = getDelta2();
+		return delta.x / delta.len();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -177,10 +182,18 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
-	 * @return (delta(x), delta(y)) between nodes' center positions
+	 * @return (delta(x), delta(y)) between node1's center pos and thee first
+	 * bend
 	 */
-	public Pt getDelta() {
-		return node2.getCtrPos().minus(node1.getCtrPos());
+	public Pt getDelta1() {
+		return getFirstBend().getCtrPos().minus(node1.getCtrPos());
+	}
+
+	/**
+	 * @return (delta(x), delta(y)) between last bend and the node2's center pos
+	 */
+	public Pt getDelta2() {
+		return node2.getCtrPos().minus(getLastBend().getCtrPos());
 	}
 
 	public int getDistance(Point p1, Point p2) {
@@ -194,6 +207,22 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		p1i = p1.equals(node2) ? bends.size() : p1i;
 		p2i = p2.equals(node2) ? bends.size() : p2i;
 		return p1i > -2 && p2i > -2 ? abs(p2i - p1i) : Integer.MAX_VALUE;
+	}
+
+	public Point getFirstBend() {
+		if (bends.isEmpty()) {
+			return node2;
+		} else {
+			return bends.get(0);
+		}
+	}
+
+	public Point getLastBend() {
+		if (bends.isEmpty()) {
+			return node1;
+		} else {
+			return bends.get(bends.size() - 1);
+		}
 	}
 
 	/**
@@ -211,17 +240,17 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
-	 * @return startpoint position at node 1
-	 */
-	public Pt getNode1Clip() {
-		return getNodeClip(node1, true);
-	}
-
-	/**
 	 * @return start node name
 	 */
 	public String getNode1Name() {
 		return node1Name;
+	}
+
+	/**
+	 * @return startpoint position at node 1
+	 */
+	public Pt getNode1Port() {
+		return getNodePort(node1, 1d, sin1(), cos1(), tan1());
 	}
 
 	/**
@@ -232,13 +261,6 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
-	 * @return endpoint position at node 2
-	 */
-	public Pt getNode2Clip() {
-		return getNodeClip(node2, false);
-	}
-
-	/**
 	 * @return end node name
 	 */
 	public String getNode2Name() {
@@ -246,25 +268,28 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 	}
 
 	/**
+	 * @return endpoint position at node 2
+	 */
+	public Pt getNode2Port() {
+		return getNodePort(node2, -1d, sin2(), cos2(), tan2());
+	}
+
+	/**
 	 * Convenience method to calculate adjusted position of the connector's
 	 * endpoint at the given node, considering that element's dimensions
-	 * @param n node
-	 * @param start when connector is directional, set to true if it starts at
-	 * <code>n</code>
 	 * @return position adjusted to node's size
 	 */
-	protected Pt getNodeClip(Node<T> n, boolean start) {
+	protected Pt getNodePort(Node<T> n, double sign, double sin, double cos, double tan) {
 		Pt ap = new Pt();
 		Pt cp = n.getCtrPos();
 		Pt s = n.getSize();
-		double sign = start ? 1d : -1d;
-		if (abs(n.tan()) > abs(tan())) {
+		if (abs(n.tan()) > abs(tan)) {
 			// i.e. line is crossing e2's side
-			ap.x = cp.x + sign * s.x * signum(cos()) / 2d;
-			ap.y = cp.y + sign * s.x * tan() * signum(cos()) / 2d;
+			ap.x = cp.x + sign * s.x * signum(cos) / 2d;
+			ap.y = cp.y + sign * s.x * tan * signum(cos) / 2d;
 		} else {
-			ap.x = cp.x + sign * s.y / tan() * signum(sin()) / 2d;
-			ap.y = cp.y + sign * s.y * signum(sin()) / 2d;
+			ap.x = cp.x + sign * s.y / tan * signum(sin) / 2d;
+			ap.y = cp.y + sign * s.y * signum(sin) / 2d;
 		}
 		return ap;
 	}
@@ -318,13 +343,23 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 		reverted = r;
 	}
 
-	public double sin() {
-		Pt delta = getDelta();
-		return delta.y / getDelta().len();
+	public double sin1() {
+		Pt delta = getDelta1();
+		return delta.y / delta.len();
 	}
 
-	public double tan() {
-		Pt delta = getDelta();
+	public double sin2() {
+		Pt delta = getDelta2();
+		return delta.y / delta.len();
+	}
+
+	public double tan1() {
+		Pt delta = getDelta1();
+		return delta.y / delta.x;
+	}
+
+	public double tan2() {
+		Pt delta = getDelta2();
 		return delta.y / delta.x;
 	}
 

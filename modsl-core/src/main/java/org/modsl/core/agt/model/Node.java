@@ -219,9 +219,7 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> implements
 		return null;
 	}
 
-	/**
-	 * @return center position, taking node's size into account
-	 */
+	@Override
 	public Pt getCtrPos() {
 		return pos.plus(size.div(2d));
 	}
