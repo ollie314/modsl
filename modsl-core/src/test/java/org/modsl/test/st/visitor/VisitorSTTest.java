@@ -28,6 +28,7 @@ import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
+import org.modsl.core.agt.visitor.ToStringVisitor;
 
 public class VisitorSTTest {
 
@@ -42,10 +43,12 @@ public class VisitorSTTest {
     public void graph() {
 
         Graph root = buildTree();
+        log.debug(new ToStringVisitor().toString(root));
         StringTemplateVisitor stv = new StringTemplateVisitor(STGDIRS, "visitor_demo", 0);
         root.accept(stv);
         String result = stv.toString();
 
+        
         // log.debug(result);
 
         assertEquals(1, Utils.matchCount(result, "<graph"));
@@ -67,7 +70,7 @@ public class VisitorSTTest {
 
         Node n1 = new Node(VMetaType.NODE, "n1");
         Node n2 = new Node(VMetaType.NODE, "n2");
-        Graph n3 = new Graph(VMetaType.NODE, "n3_subroot");
+        //Graph n3 = new Graph(VMetaType.NODE, "n3_subroot");
         Node n4 = new Node(VMetaType.NODE, "n4");
 
         root.add(n1);
@@ -83,11 +86,11 @@ public class VisitorSTTest {
         Node ns2 = new Node(VMetaType.NODE, "ns2");
         Node ns3 = new Node(VMetaType.NODE, "ns3");
 
-        n3.add(ns1);
-        n3.add(ns2);
-        n3.add(ns3);
+        //n3.add(ns1);
+        //n3.add(ns2);
+        //n3.add(ns3);
 
-        n3.add(new Edge(VMetaType.EDGE, "es1.2", ns1, ns2));
+        //n3.add(new Edge(VMetaType.EDGE, "es1.2", ns1, ns2));
 
         return root;
 

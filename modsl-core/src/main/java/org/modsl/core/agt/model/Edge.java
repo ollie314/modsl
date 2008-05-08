@@ -65,6 +65,11 @@ public class Edge extends AbstractElement {
     protected List<Bend> bends = new LinkedList<Bend>();
 
     /**
+     * Labels
+     */
+    protected List<Label> labels = new LinkedList<Label>();
+    
+    /**
      * Create new
      * @param type type
      * @param node1 start node
@@ -93,6 +98,12 @@ public class Edge extends AbstractElement {
     @Override
     public void accept(AbstractVisitor visitor) {
         visitor.in(this);
+        for (Bend b : bends) {
+            b.accept(visitor);
+        }
+        for (Label l : labels) {
+            l.accept(visitor);
+        }
         visitor.out(this);
     }
 

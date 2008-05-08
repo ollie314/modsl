@@ -46,19 +46,25 @@ public class ToStringVisitor extends AbstractVisitor {
 
     @Override
     public void in(Graph node) {
-        sb.append("\n").append(indentation).append(node.toString());
-        if (node.getNodes().size() > 0) {
-            sb.append(" {");
-        }
+        sb.append("\n").append(indentation).append(node.toString()).append(" {");
         indentation += IND_UNIT;
     }
 
     @Override
     public void out(Graph node) {
         indentation = indentation.substring(0, indentation.length() - IND_UNIT.length());
-        if (node.getNodes().size() > 0) {
-            sb.append("\n").append(indentation).append("}");
-        }
+        sb.append("\n").append(indentation).append("}");
+    }
+    
+    @Override
+    public void in(Node node) {
+        sb.append("\n").append(indentation).append(node.toString());
+        indentation += IND_UNIT;
+    }
+
+    @Override
+    public void out(Node node) {
+        indentation = indentation.substring(0, indentation.length() - IND_UNIT.length());
     }
 
     @Override
@@ -76,7 +82,7 @@ public class ToStringVisitor extends AbstractVisitor {
      * @param tree's root
      * @return string
      */
-    public String toString(Node root) {
+    public String toString(Graph root) {
         root.accept(this);
         return toString();
     }
