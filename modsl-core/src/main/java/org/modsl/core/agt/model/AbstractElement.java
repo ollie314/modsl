@@ -23,7 +23,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * Abstract graph element
  * @author avishnyakov
  */
-public abstract class AbstractGraphElement {
+public abstract class AbstractElement {
 
     protected Logger log = Logger.getLogger(getClass());
 
@@ -35,7 +35,7 @@ public abstract class AbstractGraphElement {
     /**
      * Parent node
      */
-    protected AbstractGraphElement parent;
+    protected AbstractElement parent;
 
     /**
      * This element is visible
@@ -47,11 +47,13 @@ public abstract class AbstractGraphElement {
      */
     protected MetaType type;
 
+    protected int index = -1;
+
     /**
      * Create new
      * @param type
      */
-    public AbstractGraphElement(MetaType type) {
+    public AbstractElement(MetaType type) {
         super();
         this.type = type;
     }
@@ -61,7 +63,7 @@ public abstract class AbstractGraphElement {
      * @param type
      * @param name
      */
-    public AbstractGraphElement(MetaType type, String name) {
+    public AbstractElement(MetaType type, String name) {
         super();
         this.type = type;
         this.name = name;
@@ -83,7 +85,7 @@ public abstract class AbstractGraphElement {
     /**
      * @return parent
      */
-    public AbstractGraphElement getParent() {
+    public AbstractElement getParent() {
         return parent;
     }
 
@@ -113,7 +115,7 @@ public abstract class AbstractGraphElement {
      * Set parent
      * @param parent
      */
-    public void setParent(AbstractGraphElement parent) {
+    public void setParent(AbstractElement parent) {
         this.parent = parent;
     }
 
@@ -131,6 +133,16 @@ public abstract class AbstractGraphElement {
      */
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public abstract boolean isVirtual();
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
 }

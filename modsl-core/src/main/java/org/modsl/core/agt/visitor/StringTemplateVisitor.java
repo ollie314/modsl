@@ -22,7 +22,7 @@ import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.DefaultTemplateLexer;
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.decor.AbstractDecorator;
-import org.modsl.core.agt.model.AbstractGraphElement;
+import org.modsl.core.agt.model.AbstractElement;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
@@ -85,7 +85,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
      * @param element element value
      * @return resulting string
      */
-    private String callTemplate(String name, String key, AbstractGraphElement element) {
+    private String callTemplate(String name, String key, AbstractElement element) {
         try {
             StringTemplate st = group.getInstanceOf(name);
             if (st != null) {
@@ -101,7 +101,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @SuppressWarnings("unchecked")
-    private Object getDecorator(AbstractGraphElement element) {
+    private Object getDecorator(AbstractElement element) {
         AbstractDecorator ad = element.getType().getConfig().getDecorator();
         if (ad == null) {
             return null;

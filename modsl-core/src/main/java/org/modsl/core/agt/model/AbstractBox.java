@@ -1,9 +1,9 @@
 package org.modsl.core.agt.model;
 
-public abstract class AbstractBox extends AbstractGraphElement {
+public abstract class AbstractBox extends AbstractElement {
 
-    protected int index = -1;
     protected Pt pos = new Pt();
+    protected Pt altPos = new Pt();
     protected Pt size = new Pt();
 
     public AbstractBox(MetaType type) {
@@ -15,10 +15,6 @@ public abstract class AbstractBox extends AbstractGraphElement {
      */
     public Pt getCtrPos() {
         return pos;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     /**
@@ -33,14 +29,6 @@ public abstract class AbstractBox extends AbstractGraphElement {
      */
     public Pt getSize() {
         return size;
-    }
-
-    public abstract boolean isConnectedTo(Point point);
-
-    public abstract boolean isVirtual();
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     /**

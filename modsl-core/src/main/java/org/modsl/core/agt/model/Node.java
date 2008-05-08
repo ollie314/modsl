@@ -34,7 +34,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * @author AVishnyakov
  * @param <T> type enum
  */
-public class Node extends AbstractGraphElement implements Point {
+public class Node extends AbstractElement implements Point {
 
     /**
      * List of children nodes
@@ -96,11 +96,6 @@ public class Node extends AbstractGraphElement implements Point {
      * Right padding
      */
     protected double rightPadding;
-
-    /**
-     * Temp index holder (layout algorithms)
-     */
-    protected int index = -1;
 
     /**
      * Create new
@@ -215,10 +210,6 @@ public class Node extends AbstractGraphElement implements Point {
 
     public int getInDegree() {
         return getInEdges().size();
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public List<Edge> getInEdges() {
@@ -434,10 +425,6 @@ public class Node extends AbstractGraphElement implements Point {
      */
     public void setAltPos(Pt altPos) {
         this.altPos = altPos;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     @Override
