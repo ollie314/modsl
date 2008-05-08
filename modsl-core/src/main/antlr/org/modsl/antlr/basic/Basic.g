@@ -18,14 +18,14 @@ options {
 }
 
 @parser::members {
-	public Node<BasicMetaType> root, cnode;
-	protected Deque<Node<BasicMetaType>> nodes = new LinkedList<Node<BasicMetaType>>();
+	public Node root, cnode;
+	protected Deque<Node> nodes = new LinkedList<Node>();
 	protected BasicFactory factory = new BasicFactory();
 }
 
 graph 
 	@init{ root = factory.createRootNode(); cnode = root; }
-	@after { root.accept(new NodeRefVisitor<BasicMetaType>()); }
+	@after { root.accept(new NodeRefVisitor()); }
 	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';

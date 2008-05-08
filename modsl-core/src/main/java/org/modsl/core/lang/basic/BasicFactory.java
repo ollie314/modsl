@@ -31,71 +31,71 @@ import org.modsl.core.lang.ElementFactory;
  */
 public class BasicFactory implements ElementFactory {
 
-	/**
-	 * Create list of edges given list of edge tokens
-	 * @param parent parent node the edges belong to
-	 * @param tokens edge tokens
-	 * @return list of edges
-	 */
-	public List<Edge<BasicMetaType>> createEdges(Node<BasicMetaType> parent, List<Token> tokens) {
+    /**
+     * Create list of edges given list of edge tokens
+     * @param parent parent node the edges belong to
+     * @param tokens edge tokens
+     * @return list of edges
+     */
+    public List<Edge> createEdges(Node parent, List<Token> tokens) {
 
-		List<Edge<BasicMetaType>> es = new LinkedList<Edge<BasicMetaType>>();
+        List<Edge> es = new LinkedList<Edge>();
 
-		Node<BasicMetaType> n1 = null, n2 = null;
-		Token t1, t2;
+        Node n1 = null, n2 = null;
+        Token t1, t2;
 
-		for (int i = 0; i < tokens.size() - 1; i++) {
+        for (int i = 0; i < tokens.size() - 1; i++) {
 
-			t1 = tokens.get(i);
-			t2 = tokens.get(i + 1);
+            t1 = tokens.get(i);
+            t2 = tokens.get(i + 1);
 
-			if (i == 0) {
-				n1 = createNodeIfDoesntExist(parent, t1);
-			}
-			n2 = createNodeIfDoesntExist(parent, t2);
+            if (i == 0) {
+                n1 = createNodeIfDoesntExist(parent, t1);
+            }
+            n2 = createNodeIfDoesntExist(parent, t2);
 
-			Edge<BasicMetaType> e = new Edge<BasicMetaType>(BasicMetaType.EDGE, n1, n2);
-			parent.addChild(e);
-			es.add(e);
+            Edge e = new Edge(BasicMetaType.EDGE, n1, n2);
+            parent.addChild(e);
+            es.add(e);
 
-			n1 = n2; // << shift
+            n1 = n2; // << shift
 
-		}
+        }
 
-		return es;
+        return es;
 
-	}
+    }
 
-	/**
-	 * Create node from token
-	 * @param token node token
-	 * @return new node
-	 */
-	public Node<BasicMetaType> createNode(Node<BasicMetaType> parent, Token token) {
-		Node<BasicMetaType> n = new Node<BasicMetaType>(BasicMetaType.NODE, token.getText());
-		parent.add(n);
-		return n;
-	}
+    /**
+     * Create node from token
+     * @param token node token
+     * @return new node
+     */
+    public Node createNode(Node parent, Token token) {
+        Node n = new Node(BasicMetaType.NODE, token.getText());
+        parent.add(n);
+        return n;
+    }
 
-	/**
-	 * Will create node by given name if the node with such name doesn't exist
-	 * yet
-	 * @param parent parent node
-	 * @param token new node token
-	 * @return node
-	 */
-	private Node<BasicMetaType> createNodeIfDoesntExist(Node<BasicMetaType> parent, Token token) {
-		Node<BasicMetaType> n = parent.getNode(token.getText());
-		if (n == null) {
-			return createNode(parent, token);
-		} else {
-			return n;
-		}
-	}
+    /**
+     * Will create node by given name if the node with such name doesn't exist
+     * yet
+     * @param parent parent node
+     * @param token new node token
+     * @return node
+     */
+    private Node createNodeIfDoesntExist(Node parent, Token token) {
+        Node n = parent.getNode(token.getText());
+        if (n == null) {
+            return createNode(parent, token);
+        } else {
+            return n;
+        }
+    }
 
-	@Override
-	public Node<BasicMetaType> createRootNode() {
-		return new Node<BasicMetaType>(BasicMetaType.GRAPH);
-	}
+    @Override
+    public Node createRootNode() {
+        return new Node(BasicMetaType.GRAPH);
+    }
 
 }

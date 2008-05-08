@@ -20,7 +20,7 @@ import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
-public class SimpleNodeDecorator extends AbstractDecorator<Node<?>> {
+public class SimpleNodeDecorator extends AbstractDecorator<Node> {
 
 	public Pt getTextPos() {
 		FontTransform ft = parent.getType().getConfig().getFontTransform();

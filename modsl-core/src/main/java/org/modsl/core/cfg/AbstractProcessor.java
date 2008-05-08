@@ -21,7 +21,6 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Lexer;
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.RecognitionException;
-import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.agt.visitor.AbstractVisitor;
@@ -38,10 +37,10 @@ import org.modsl.core.agt.visitor.StringTemplateVisitor;
  * @param <T> meta type class
  * @param <S> parser class
  */
-public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
+public abstract class AbstractProcessor<S extends Parser> {
 
-    private StringTemplateVisitor<T> stringTemplateVisitor;
-    private LayoutVisitor<T> layoutVisitor;
+    private StringTemplateVisitor stringTemplateVisitor;
+    private LayoutVisitor layoutVisitor;
     private AbstractConfigLoader configLoader;
 
     protected Lexer lexer;
@@ -56,7 +55,7 @@ public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
      * @return layout visitor. It is possible though not likely that subclesses
      * will need to override this.
      */
-    protected AbstractVisitor<T> getLayoutVisitor() {
+    protected AbstractVisitor getLayoutVisitor() {
         return layoutVisitor;
     }
 
@@ -86,13 +85,13 @@ public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
     /**
      * @return extract diagram-specific root node from the parser
      */
-    protected abstract Node<T> getRoot();
+    protected abstract Node getRoot();
 
     /**
      * @return string template visitor (rendering engine). It is possible though
      * not likely that subclasses will need to override this.
      */
-    protected AbstractVisitor<T> getStringTemplateVisitor() {
+    protected AbstractVisitor getStringTemplateVisitor() {
         return stringTemplateVisitor;
     }
 
@@ -102,8 +101,8 @@ public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
     public void init() {
         configLoader = getConfigLoader(getPath(), getName());
         configLoader.load();
-        stringTemplateVisitor = new StringTemplateVisitor<T>(getPath(), getName(), getRefreshInterval());
-        layoutVisitor = new LayoutVisitor<T>();
+        stringTemplateVisitor = new StringTemplateVisitor(getPath(), getName(), getRefreshInterval());
+        layoutVisitor = new LayoutVisitor();
     }
 
     /**
@@ -119,7 +118,7 @@ public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
      * @return abstract graph tree's root node
      * @throws RecognitionException
      */
-    public Node<T> parse(String s) throws RecognitionException {
+    public Node parse(String s) throws RecognitionException {
         ANTLRStringStream input = new ANTLRStringStream(s);
         this.lexer = getLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -129,21 +128,22 @@ public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
     }
 
     /**
-     * Parse input and return rendered string result with rescaling to reqested size
+     * Parse input and return rendered string result with rescaling to reqested
+     * size
      * @param s input
      * @param reqSize requested diagram size
      * @return result
      * @throws RecognitionException
      */
     public String process(String s, Pt reqSize) throws RecognitionException {
-        Node<T> root = parse(s);
+        Node root = parse(s);
         root.setReqSize(reqSize);
         root.accept(getLayoutVisitor());
         root.rescale(root.getReqSize());
         root.accept(getStringTemplateVisitor());
         return getStringTemplateVisitor().toString();
     }
-    
+
     /**
      * Parse input and return rendered string result without rescaling
      * @param s input
@@ -151,7 +151,7 @@ public abstract class AbstractProcessor<T extends MetaType, S extends Parser> {
      * @throws RecognitionException
      */
     public String process(String s) throws RecognitionException {
-        Node<T> root = parse(s);
+        Node root = parse(s);
         root.accept(getLayoutVisitor());
         root.accept(getStringTemplateVisitor());
         return getStringTemplateVisitor().toString();

@@ -27,6 +27,6 @@ public interface ElementFactory {
 	/**
 	 * @return root node
 	 */
-	public Node<?> createRootNode();
+	public Node createRootNode();
 	
 }

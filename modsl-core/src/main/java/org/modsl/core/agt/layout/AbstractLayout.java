@@ -30,10 +30,10 @@ public abstract class AbstractLayout {
 
     public abstract void setLayoutConfig(Map<String, String> propMap);
 
-    public void apply(Edge<?> edge) {
+    public void apply(Edge edge) {
         // NO OP - not likely a layout would operate on edges 
     }
 
-    public abstract void apply(Node<?> node);
+    public abstract void apply(Node node);
 
 }

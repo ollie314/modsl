@@ -32,17 +32,17 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * @param T type enum
  * @author avishnyakov
  */
-public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
+public class Edge extends AbstractGraphElement {
 
     /**
      * Start node
      */
-    protected Node<T> node1;
+    protected Node node1;
 
     /**
      * End node
      */
-    protected Node<T> node2;
+    protected Node node2;
 
     /**
      * Start node name (will be resolved to node1 reference when post-processing
@@ -70,7 +70,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
      * @param node1 start node
      * @param node2 end node
      */
-    public Edge(T type, Node<T> node1, Node<T> node2) {
+    public Edge(MetaType type, Node node1, Node node2) {
         super(type);
         this.node1 = node1;
         this.node1.addConnectedEdge(this);
@@ -85,13 +85,13 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
      * @param node1 start node
      * @param node2 end node
      */
-    public Edge(T type, String name, Node<T> node1, Node<T> node2) {
+    public Edge(MetaType type, String name, Node node1, Node node2) {
         this(type, node1, node2);
         this.name = name;
     }
 
     @Override
-    public void accept(AbstractVisitor<T> visitor) {
+    public void accept(AbstractVisitor visitor) {
         visitor.in(this);
         visitor.out(this);
     }
@@ -222,7 +222,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
     /**
      * @return start node
      */
-    public Node<T> getNode1() {
+    public Node getNode1() {
         return node1;
     }
 
@@ -243,7 +243,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
     /**
      * @return end node
      */
-    public Node<T> getNode2() {
+    public Node getNode2() {
         return node2;
     }
 
@@ -266,7 +266,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
      * endpoint at the given node, considering that element's dimensions
      * @return position adjusted to node's size
      */
-    protected Pt getNodePort(Node<T> n, double sign, double sin, double cos, double tan) {
+    protected Pt getNodePort(Node n, double sign, double sin, double cos, double tan) {
         Pt ap = new Pt();
         Pt cp = n.getCtrPos();
         Pt s = n.getSize();
@@ -294,7 +294,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
      * Set start node
      * @param n1 start node
      */
-    public void setNode1(Node<T> n1) {
+    public void setNode1(Node n1) {
         if (node1 != null && !node1.equals(n1)) {
             node1.removeConnectedEdge(this);
             node1 = n1;
@@ -306,7 +306,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
      * Set end node
      * @param n2 end node
      */
-    public void setNode2(Node<T> n2) {
+    public void setNode2(Node n2) {
         if (node2 != null && !node2.equals(n2)) {
             node2.removeConnectedEdge(this);
             node2 = n2;
@@ -316,7 +316,7 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 
     public void setReverted(boolean r) {
         if (reverted != r) {
-            Node<T> tn = node1;
+            Node tn = node1;
             node1 = node2;
             node2 = tn;
             String tnn = node1Name;

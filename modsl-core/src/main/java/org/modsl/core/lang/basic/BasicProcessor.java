@@ -26,7 +26,7 @@ import org.modsl.core.agt.model.Node;
 import org.modsl.core.cfg.AbstractConfigLoader;
 import org.modsl.core.cfg.AbstractProcessor;
 
-public class BasicProcessor extends AbstractProcessor<BasicMetaType, BasicParser> {
+public class BasicProcessor extends AbstractProcessor<BasicParser> {
 
 	@Override
 	protected AbstractConfigLoader getConfigLoader(String path, String name) {
@@ -54,7 +54,7 @@ public class BasicProcessor extends AbstractProcessor<BasicMetaType, BasicParser
 	}
 
 	@Override
-	protected Node<BasicMetaType> getRoot() {
+	protected Node getRoot() {
 		return parser.root;
 	}
 

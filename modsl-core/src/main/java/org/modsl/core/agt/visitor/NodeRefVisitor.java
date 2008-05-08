@@ -18,7 +18,6 @@ package org.modsl.core.agt.visitor;
 
 import org.modsl.core.agt.model.AbstractGraphElement;
 import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -28,10 +27,10 @@ import org.modsl.core.agt.model.Node;
  * 
  * @param <T> meta type class
  */
-public class NodeRefVisitor<T extends MetaType> extends AbstractVisitor<T> {
+public class NodeRefVisitor extends AbstractVisitor {
 
     @Override
-    public void in(Edge<T> edge) {
+    public void in(Edge edge) {
         edge.setNode1(resolveNode(edge.getParent(), edge.getNode1(), edge.getNode1Name()));
         edge.setNode2(resolveNode(edge.getParent(), edge.getNode2(), edge.getNode2Name()));
     }
@@ -43,9 +42,9 @@ public class NodeRefVisitor<T extends MetaType> extends AbstractVisitor<T> {
      * @param nodeName
      * @return node
      */
-    private Node<T> resolveNode(AbstractGraphElement<T> parent, Node<T> node, String nodeName) {
+    private Node resolveNode(AbstractGraphElement parent, Node node, String nodeName) {
         if (node == null) {
-            Node<T> n = ((Node<T>) parent).getNode(nodeName);
+            Node n = ((Node) parent).getNode(nodeName);
             if (n == null) {
                 throw new InvalidNodeNameException(nodeName);
             }

@@ -19,7 +19,7 @@ package org.modsl.core.agt.decor;
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.AbstractGraphElement;
 
-public abstract class AbstractDecorator<E extends AbstractGraphElement<?>> {
+public abstract class AbstractDecorator<E extends AbstractGraphElement> {
 
 	protected E parent;
 

@@ -40,8 +40,8 @@ public class VisitorSTTest {
 	@Test
 	public void graph() {
 
-		Node<VMetaType> root = buildTree();
-		StringTemplateVisitor<VMetaType> stv = new StringTemplateVisitor<VMetaType>(STGDIRS, "visitor_demo", 0);
+		Node root = buildTree();
+		StringTemplateVisitor stv = new StringTemplateVisitor(STGDIRS, "visitor_demo", 0);
 		root.accept(stv);
 		String result = stv.toString();
 
@@ -60,33 +60,33 @@ public class VisitorSTTest {
 
 	}
 
-	private Node<VMetaType> buildTree() {
+	private Node buildTree() {
 
-		Node<VMetaType> root = new Node<VMetaType>(VMetaType.GRAPH, "graph_name");
+		Node root = new Node(VMetaType.GRAPH, "graph_name");
 
-		Node<VMetaType> n1 = new Node<VMetaType>(VMetaType.NODE, "n1");
-		Node<VMetaType> n2 = new Node<VMetaType>(VMetaType.NODE, "n2");
-		Node<VMetaType> n3 = new Node<VMetaType>(VMetaType.NODE, "n3_subroot");
-		Node<VMetaType> n4 = new Node<VMetaType>(VMetaType.NODE, "n4");
+		Node n1 = new Node(VMetaType.NODE, "n1");
+		Node n2 = new Node(VMetaType.NODE, "n2");
+		Node n3 = new Node(VMetaType.NODE, "n3_subroot");
+		Node n4 = new Node(VMetaType.NODE, "n4");
 
 		root.add(n1);
 		root.add(n2);
 		root.add(n3);
 		root.add(n4);
 
-		root.addChild(new Edge<VMetaType>(VMetaType.EDGE, "e1.2", n1, n2));
-		root.addChild(new Edge<VMetaType>(VMetaType.EDGE, "e1.3", n1, n3));
-		root.addChild(new Edge<VMetaType>(VMetaType.EDGE, "e2.3", n2, n3));
+		root.addChild(new Edge(VMetaType.EDGE, "e1.2", n1, n2));
+		root.addChild(new Edge(VMetaType.EDGE, "e1.3", n1, n3));
+		root.addChild(new Edge(VMetaType.EDGE, "e2.3", n2, n3));
 
-		Node<VMetaType> ns1 = new Node<VMetaType>(VMetaType.NODE, "ns1");
-		Node<VMetaType> ns2 = new Node<VMetaType>(VMetaType.NODE, "ns2");
-		Node<VMetaType> ns3 = new Node<VMetaType>(VMetaType.NODE, "ns3");
+		Node ns1 = new Node(VMetaType.NODE, "ns1");
+		Node ns2 = new Node(VMetaType.NODE, "ns2");
+		Node ns3 = new Node(VMetaType.NODE, "ns3");
 
 		n3.add(ns1);
 		n3.add(ns2);
 		n3.add(ns3);
 
-		n3.addChild(new Edge<VMetaType>(VMetaType.EDGE, "es1.2", ns1, ns2));
+		n3.addChild(new Edge(VMetaType.EDGE, "es1.2", ns1, ns2));
 
 		return root;
 

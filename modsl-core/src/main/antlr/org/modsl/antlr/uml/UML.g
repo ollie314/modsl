@@ -18,8 +18,8 @@ options {
 }
 
 @parser::members {
-	public Node<UMLMetaType> root, cnode;
-	protected Deque<Node<UMLMetaType>> nodes = new LinkedList<Node<UMLMetaType>>();
+	public Node root, cnode;
+	protected Deque<Node> nodes = new LinkedList<Node>();
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 }
 
@@ -27,7 +27,7 @@ diagram : collabDiagram;
 
 collabDiagram 
 	@init{ root = collabFactory.createRootNode(); cnode = root; }
-	@after { root.accept(new NodeRefVisitor<UMLMetaType>()); }
+	@after { root.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { root.setName($ID.text); };
 
 collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=ID (EDGEOP ids+=ID '.' mds+=ID)* ';' 

@@ -1,12 +1,12 @@
 package org.modsl.core.agt.model;
 
-public abstract class AbstractBox<T extends MetaType> extends AbstractGraphElement<T> {
+public abstract class AbstractBox extends AbstractGraphElement {
 
     protected int index = -1;
     protected Pt pos = new Pt();
     protected Pt size = new Pt();
 
-    public AbstractBox(T type) {
+    public AbstractBox(MetaType type) {
         super(type);
     }
 

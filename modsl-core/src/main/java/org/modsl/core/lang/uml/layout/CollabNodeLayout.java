@@ -27,7 +27,7 @@ import org.modsl.core.agt.model.Node;
 public class CollabNodeLayout extends SimpleLabelLayout {
 
 	@Override
-	public void apply(Node<?> node) {
+	public void apply(Node node) {
 		super.apply(node);
 		FontTransform ft = node.getType().getConfig().getFontTransform();
 		node.getSize().y += ft.getBottomPadding();

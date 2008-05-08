@@ -21,7 +21,7 @@ public class Bend implements Point {
 	protected int index = -1;
 	protected Pt pos = new Pt();
 	protected Pt size = new Pt();
-	protected Edge<?> parent;
+	protected Edge parent;
 
 	@Override
 	public int getIndex() {
@@ -66,11 +66,11 @@ public class Bend implements Point {
 		return false;
 	}
 
-	public Edge<?> getParent() {
+	public Edge getParent() {
 		return parent;
 	}
 
-	public void setParent(Edge<?> parent) {
+	public void setParent(Edge parent) {
 		this.parent = parent;
 	}
 

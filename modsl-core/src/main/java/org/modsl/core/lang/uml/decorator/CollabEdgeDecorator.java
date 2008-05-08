@@ -26,14 +26,14 @@ import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.uml.UMLMetaType;
 
-public class CollabEdgeDecorator extends AbstractDecorator<Edge<?>> {
+public class CollabEdgeDecorator extends AbstractDecorator<Edge> {
 
     protected double arrowAngle = PI / 5d;
 
     protected double arrowLength;
 
     @Override
-    public void decorate(Edge<?> parent) {
+    public void decorate(Edge parent) {
         super.decorate(parent);
         arrowLength = UMLMetaType.COLLAB_EDGE.getConfig().getFontTransform().getArrowLength();
     }
@@ -61,8 +61,8 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge<?>> {
      */
     public Pt getMidPoint() {
         //		return parent.getNode1().getCtrPos().plus(parent.getNode2().getCtrPos().minus(parent.getNode1().getCtrPos()).div(2d));
-        Node<?> n1 = parent.getNode1();
-        Node<?> n2 = parent.getNode2();
+        Node n1 = parent.getNode1();
+        Node n2 = parent.getNode2();
         double ratio = 1d * n1.getOutDegree() / (n1.getOutDegree() + n2.getInDegree());
         ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO 
         return n1.getCtrPos().plus(n2.getCtrPos().minus(n1.getCtrPos()).mulBy(ratio));
