@@ -47,12 +47,18 @@ public abstract class AbstractElement {
      */
     protected MetaType type;
 
+    /**
+     * Index
+     */
     protected int index = -1;
 
+    /**
+     * Create new
+     */
     public AbstractElement() {
         //
     }
-    
+
     /**
      * Create new
      * @param type
@@ -75,9 +81,17 @@ public abstract class AbstractElement {
 
     /**
      * Guaranteed to be called on all elements of the graph, traversing depth
-     * first, edges before nodes when elements of the graph already created.
+     * first, edges before nodes before bends before labels when elements of the
+     * graph already created.
      */
     public abstract void accept(AbstractVisitor visitor);
+
+    /**
+     * @return index
+     */
+    public int getIndex() {
+        return index;
+    }
 
     /**
      * @return name
@@ -101,10 +115,25 @@ public abstract class AbstractElement {
     }
 
     /**
+     * @return is this element virtual? default is false
+     */
+    public boolean isVirtual() {
+        return false;
+    }
+
+    /**
      * @return true if visible
      */
     public boolean isVisible() {
         return visible;
+    }
+
+    /**
+     * Set index
+     * @param index
+     */
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     /**
@@ -137,18 +166,6 @@ public abstract class AbstractElement {
      */
     public void setVisible(boolean visible) {
         this.visible = visible;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public boolean isVirtual() {
-        return false;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
 }

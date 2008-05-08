@@ -27,9 +27,7 @@ import java.util.List;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
- * Graph edge.
- * 
- * @param T type enum
+ * Graph edge
  * @author avishnyakov
  */
 public class Edge extends AbstractElement {
@@ -68,7 +66,7 @@ public class Edge extends AbstractElement {
      * Labels
      */
     protected List<Label> labels = new LinkedList<Label>();
-    
+
     /**
      * Create new
      * @param type type
@@ -107,11 +105,18 @@ public class Edge extends AbstractElement {
         visitor.out(this);
     }
 
+    /**
+     * Add new bend
+     * @param bend
+     */
     public void add(Bend bend) {
         bends.add(bend);
         bend.setParent(this);
     }
 
+    /**
+     * @return angle at node 2
+     */
     public double angle2() {
         Pt delta = getDelta2();
         if (delta.y > 0d) {
@@ -127,27 +132,39 @@ public class Edge extends AbstractElement {
         }
     }
 
+    /**
+     * @return cos at node 1
+     */
     public double cos1() {
         Pt delta = getDelta1();
         return delta.x / delta.len();
     }
 
+    /**
+     * @return cos at node 2
+     */
     public double cos2() {
         Pt delta = getDelta2();
         return delta.x / delta.len();
     }
 
-   
+    /**
+     * @param index
+     * @return bend
+     */
     public Bend getBend(int index) {
         return bends.get(index);
     }
 
+    /**
+     * @return all bends
+     */
     public List<Bend> getBends() {
         return bends;
     }
 
     /**
-     * @return (delta(x), delta(y)) between node1's center pos and thee first
+     * @return (delta(x), delta(y)) between node1's center pos and the first
      * bend
      */
     public Pt getDelta1() {
@@ -161,6 +178,11 @@ public class Edge extends AbstractElement {
         return node2.getCtrPos().minus(getLastBend().getCtrPos());
     }
 
+    /**
+     * @param p1
+     * @param p2
+     * @return distance (in hops) between nodes or bends this edge connects
+     */
     public int getDistance(AbstractBox p1, AbstractBox p2) {
         int p1i = -2, p2i = -2;
         p1i = p1.equals(node1) ? -1 : p1i;
@@ -174,6 +196,10 @@ public class Edge extends AbstractElement {
         return p1i > -2 && p2i > -2 ? abs(p2i - p1i) : Integer.MAX_VALUE;
     }
 
+    /**
+     * @return get first bend after the node 1 (will return node 2 if there are
+     * no bends)
+     */
     public AbstractBox getFirstBend() {
         if (bends.isEmpty()) {
             return node2;
@@ -182,6 +208,10 @@ public class Edge extends AbstractElement {
         }
     }
 
+    /**
+     * @return get last bend before the node 2 (will return node 1 if there are
+     * no bends)
+     */
     public AbstractBox getLastBend() {
         if (bends.isEmpty()) {
             return node1;
@@ -191,10 +221,11 @@ public class Edge extends AbstractElement {
     }
 
     /**
-     * @return length of this edge w/o adjustment for overlay
+     * @return length of this edge (staright line between center positions) w/o
+     * adjustment for overlay
      */
     public double getLength() {
-        return node2.getPos().minus(node1.getPos()).len();
+        return node2.getCtrPos().minus(node1.getCtrPos()).len();
     }
 
     /**
@@ -212,7 +243,7 @@ public class Edge extends AbstractElement {
     }
 
     /**
-     * @return startpoint position at node 1
+     * @return start point position at node 1
      */
     public Pt getNode1Port() {
         return getNodePort(node1, 1d, sin1(), cos1(), tan1());
@@ -233,7 +264,7 @@ public class Edge extends AbstractElement {
     }
 
     /**
-     * @return endpoint position at node 2
+     * @return end point position at node 2
      */
     public Pt getNode2Port() {
         return getNodePort(node2, -1d, sin2(), cos2(), tan2());
@@ -259,11 +290,9 @@ public class Edge extends AbstractElement {
         return ap;
     }
 
-    @Override
-    public int hashCode() {
-        return (node1 == null ? 0 : node1.hashCode()) + (node2 == null ? 0 : node2.hashCode());
-    }
-
+    /**
+     * @return true is reverted (by layout algorithm)
+     */
     public boolean isReverted() {
         return reverted;
     }
@@ -292,6 +321,10 @@ public class Edge extends AbstractElement {
         }
     }
 
+    /**
+     * Revert edge's direction (layout)
+     * @param r
+     */
     public void setReverted(boolean r) {
         if (reverted != r) {
             Node tn = node1;
@@ -304,21 +337,33 @@ public class Edge extends AbstractElement {
         }
     }
 
+    /**
+     * @return sin at node 1
+     */
     public double sin1() {
         Pt delta = getDelta1();
         return delta.y / delta.len();
     }
 
+    /**
+     * @return sin at node 2
+     */
     public double sin2() {
         Pt delta = getDelta2();
         return delta.y / delta.len();
     }
 
+    /**
+     * @return tan at node 1
+     */
     public double tan1() {
         Pt delta = getDelta1();
         return delta.y / delta.x;
     }
 
+    /**
+     * @return tan at node 2
+     */
     public double tan2() {
         Pt delta = getDelta2();
         return delta.y / delta.x;
@@ -328,10 +373,6 @@ public class Edge extends AbstractElement {
     public String toString() {
         return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "->"
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
-    }
-
-    public boolean isVirtual() {
-        return false;
     }
 
 }
