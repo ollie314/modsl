@@ -18,30 +18,40 @@ package org.modsl.core.agt.visitor;
 
 import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
 
 public class LayoutVisitor extends AbstractVisitor {
 
-    private void apply(Edge edge, AbstractLayout[] layouts) {
-        for (AbstractLayout l : layouts) {
+      @Override
+    public void out(Edge edge) {
+        for (AbstractLayout l : edge.getType().getConfig().getLayouts()) {
             l.apply(edge);
         }
     }
 
-    private void apply(Node node, AbstractLayout[] layouts) {
-        for (AbstractLayout l : layouts) {
+    @Override
+    public void out(Node node) {
+        for (AbstractLayout l : node.getType().getConfig().getLayouts()) {
             l.apply(node);
+        }    
+        
+    }
+    
+    @Override
+    public void out(Graph graph) {
+        for (AbstractLayout l : graph.getType().getConfig().getLayouts()) {
+            l.apply(graph);
+        }    
+    }
+
+    @Override
+    public void out(Label label) {
+        for (AbstractLayout l : label.getType().getConfig().getLayouts()) {
+            l.apply(label);
         }
     }
 
-    @Override
-    public void out(Edge edge) {
-        apply(edge, edge.getType().getConfig().getLayouts());
-    }
-
-    @Override
-    public void out(Node node) {
-        apply(node, node.getType().getConfig().getLayouts());
-    }
 
 }

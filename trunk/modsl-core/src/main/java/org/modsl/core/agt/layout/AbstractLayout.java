@@ -21,6 +21,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
 
 public abstract class AbstractLayout {
@@ -32,6 +33,10 @@ public abstract class AbstractLayout {
     public abstract void setLayoutConfig(Map<String, String> propMap);
 
     public void apply(Node node) {
+        // no op
+    }
+
+    public void apply(Label label) {
         // no op
     }
 
