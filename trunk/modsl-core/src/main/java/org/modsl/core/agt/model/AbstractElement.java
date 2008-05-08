@@ -23,7 +23,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * Abstract graph element
  * @author avishnyakov
  */
-public abstract class AbstractElement {
+public abstract class AbstractElement<P extends AbstractElement<?>> {
 
     protected Logger log = Logger.getLogger(getClass());
 
@@ -35,7 +35,7 @@ public abstract class AbstractElement {
     /**
      * Parent node
      */
-    protected AbstractElement parent;
+    protected P parent;
 
     /**
      * This element is visible
@@ -103,7 +103,7 @@ public abstract class AbstractElement {
     /**
      * @return parent
      */
-    public AbstractElement getParent() {
+    public P getParent() {
         return parent;
     }
 
@@ -148,7 +148,7 @@ public abstract class AbstractElement {
      * Set parent
      * @param parent
      */
-    public void setParent(AbstractElement parent) {
+    public void setParent(P parent) {
         this.parent = parent;
     }
 

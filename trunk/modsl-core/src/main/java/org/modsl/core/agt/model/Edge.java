@@ -30,7 +30,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * Graph edge
  * @author avishnyakov
  */
-public class Edge extends AbstractElement {
+public class Edge extends AbstractElement<Graph> {
 
     /**
      * Start node
@@ -183,7 +183,7 @@ public class Edge extends AbstractElement {
      * @param p2
      * @return distance (in hops) between nodes or bends this edge connects
      */
-    public int getDistance(AbstractBox p1, AbstractBox p2) {
+    public int getDistance(AbstractBox<?> p1, AbstractBox<?> p2) {
         int p1i = -2, p2i = -2;
         p1i = p1.equals(node1) ? -1 : p1i;
         p2i = p2.equals(node1) ? -1 : p2i;
@@ -200,7 +200,7 @@ public class Edge extends AbstractElement {
      * @return get first bend after the node 1 (will return node 2 if there are
      * no bends)
      */
-    public AbstractBox getFirstBend() {
+    public AbstractBox<?> getFirstBend() {
         if (bends.isEmpty()) {
             return node2;
         } else {
@@ -212,7 +212,7 @@ public class Edge extends AbstractElement {
      * @return get last bend before the node 2 (will return node 1 if there are
      * no bends)
      */
-    public AbstractBox getLastBend() {
+    public AbstractBox<?> getLastBend() {
         if (bends.isEmpty()) {
             return node1;
         } else {

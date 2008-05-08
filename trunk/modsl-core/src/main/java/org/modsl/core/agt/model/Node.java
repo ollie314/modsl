@@ -28,7 +28,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * @author AVishnyakov
  * @param <T> type enum
  */
-public class Node extends AbstractBox {
+public class Node extends AbstractBox<Graph> {
 
     /**
      * List of connected edges
@@ -137,7 +137,7 @@ public class Node extends AbstractBox {
         return size;
     }
 
-    public boolean isConnectedTo(AbstractBox n2) {
+    public boolean isConnectedTo(AbstractBox<?> n2) {
         for (Edge e : connectedEdges) {
             if (e.getDistance(this, n2) == 1) {
                 return true;
