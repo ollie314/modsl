@@ -24,85 +24,86 @@ import org.junit.Test;
 import org.modsl.core.Utils;
 import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
 
 public class VisitorSTTest {
 
-	protected Logger log = Logger.getLogger(getClass());
+    protected Logger log = Logger.getLogger(getClass());
 
-	protected static final String ROOT = "test/st/visitor";
-	protected static final String STGDIRS = ROOT;
+    protected static final String ROOT = "test/st/visitor";
+    protected static final String STGDIRS = ROOT;
 
-	protected StringTemplateGroup group;
+    protected StringTemplateGroup group;
 
-	@Test
-	public void graph() {
+    @Test
+    public void graph() {
 
-		Node root = buildTree();
-		StringTemplateVisitor stv = new StringTemplateVisitor(STGDIRS, "visitor_demo", 0);
-		root.accept(stv);
-		String result = stv.toString();
+        Graph root = buildTree();
+        StringTemplateVisitor stv = new StringTemplateVisitor(STGDIRS, "visitor_demo", 0);
+        root.accept(stv);
+        String result = stv.toString();
 
-		// log.debug(result);
+        // log.debug(result);
 
-		assertEquals(1, Utils.matchCount(result, "<graph"));
-		assertEquals(1, Utils.matchCount(result, "graph_name"));
-		assertEquals(1, Utils.matchCount(result, "</graph>"));
-		assertEquals(2, Utils.matchCount(result, "e1"));
-		assertEquals(1, Utils.matchCount(result, "es1"));
-		assertEquals(2, Utils.matchCount(result, "n.?1"));
-		assertEquals(2, Utils.matchCount(result, "n.?2"));
-		assertEquals(2, Utils.matchCount(result, "n.?3"));
-		assertEquals(7, Utils.matchCount(result, "</node>"));
-		assertEquals(4, Utils.matchCount(result, "</edge>"));
+        assertEquals(1, Utils.matchCount(result, "<graph"));
+        assertEquals(1, Utils.matchCount(result, "graph_name"));
+        assertEquals(1, Utils.matchCount(result, "</graph>"));
+        assertEquals(2, Utils.matchCount(result, "e1"));
+        assertEquals(1, Utils.matchCount(result, "es1"));
+        assertEquals(2, Utils.matchCount(result, "n.?1"));
+        assertEquals(2, Utils.matchCount(result, "n.?2"));
+        assertEquals(2, Utils.matchCount(result, "n.?3"));
+        assertEquals(7, Utils.matchCount(result, "</node>"));
+        assertEquals(4, Utils.matchCount(result, "</edge>"));
 
-	}
+    }
 
-	private Node buildTree() {
+    private Graph buildTree() {
 
-		Node root = new Node(VMetaType.GRAPH, "graph_name");
+        Graph root = new Graph(VMetaType.GRAPH, "graph_name");
 
-		Node n1 = new Node(VMetaType.NODE, "n1");
-		Node n2 = new Node(VMetaType.NODE, "n2");
-		Node n3 = new Node(VMetaType.NODE, "n3_subroot");
-		Node n4 = new Node(VMetaType.NODE, "n4");
+        Node n1 = new Node(VMetaType.NODE, "n1");
+        Node n2 = new Node(VMetaType.NODE, "n2");
+        Graph n3 = new Graph(VMetaType.NODE, "n3_subroot");
+        Node n4 = new Node(VMetaType.NODE, "n4");
 
-		root.add(n1);
-		root.add(n2);
-		root.add(n3);
-		root.add(n4);
+        root.add(n1);
+        root.add(n2);
+        //root.add(n3);
+        root.add(n4);
 
-		root.addChild(new Edge(VMetaType.EDGE, "e1.2", n1, n2));
-		root.addChild(new Edge(VMetaType.EDGE, "e1.3", n1, n3));
-		root.addChild(new Edge(VMetaType.EDGE, "e2.3", n2, n3));
+        root.add(new Edge(VMetaType.EDGE, "e1.2", n1, n2));
+        //root.add(new Edge(VMetaType.EDGE, "e1.3", n1, n3));
+        //root.add(new Edge(VMetaType.EDGE, "e2.3", n2, n3));
 
-		Node ns1 = new Node(VMetaType.NODE, "ns1");
-		Node ns2 = new Node(VMetaType.NODE, "ns2");
-		Node ns3 = new Node(VMetaType.NODE, "ns3");
+        Node ns1 = new Node(VMetaType.NODE, "ns1");
+        Node ns2 = new Node(VMetaType.NODE, "ns2");
+        Node ns3 = new Node(VMetaType.NODE, "ns3");
 
-		n3.add(ns1);
-		n3.add(ns2);
-		n3.add(ns3);
+        n3.add(ns1);
+        n3.add(ns2);
+        n3.add(ns3);
 
-		n3.addChild(new Edge(VMetaType.EDGE, "es1.2", ns1, ns2));
+        n3.add(new Edge(VMetaType.EDGE, "es1.2", ns1, ns2));
 
-		return root;
+        return root;
 
-	}
+    }
 
-	public enum VMetaType implements MetaType {
+    public enum VMetaType implements MetaType {
 
-		GRAPH, NODE, EDGE;
+        GRAPH, NODE, EDGE;
 
-		protected MetaTypeConfig config = new MetaTypeConfig();
+        protected MetaTypeConfig config = new MetaTypeConfig();
 
-		@Override
-		public MetaTypeConfig getConfig() {
-			return config;
-		}
+        @Override
+        public MetaTypeConfig getConfig() {
+            return config;
+        }
 
-	}
+    }
 
 }

@@ -19,6 +19,7 @@ package org.modsl.core.agt.layout;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 
@@ -38,4 +39,7 @@ public abstract class AbstractLayout {
         // no op 
     }
 
+    public void apply(Edge edge) {
+        // no op 
+    }
 }

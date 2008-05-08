@@ -21,7 +21,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Lexer;
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.RecognitionException;
-import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 import org.modsl.core.agt.visitor.LayoutVisitor;
@@ -85,7 +85,7 @@ public abstract class AbstractProcessor<S extends Parser> {
     /**
      * @return extract diagram-specific root node from the parser
      */
-    protected abstract Node getRoot();
+    protected abstract Graph getRoot();
 
     /**
      * @return string template visitor (rendering engine). It is possible though
@@ -118,7 +118,7 @@ public abstract class AbstractProcessor<S extends Parser> {
      * @return abstract graph tree's root node
      * @throws RecognitionException
      */
-    public Node parse(String s) throws RecognitionException {
+    public Graph parse(String s) throws RecognitionException {
         ANTLRStringStream input = new ANTLRStringStream(s);
         this.lexer = getLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -136,7 +136,7 @@ public abstract class AbstractProcessor<S extends Parser> {
      * @throws RecognitionException
      */
     public String process(String s, Pt reqSize) throws RecognitionException {
-        Node root = parse(s);
+        Graph root = parse(s);
         root.setReqSize(reqSize);
         root.accept(getLayoutVisitor());
         root.rescale(root.getReqSize());
@@ -151,7 +151,7 @@ public abstract class AbstractProcessor<S extends Parser> {
      * @throws RecognitionException
      */
     public String process(String s) throws RecognitionException {
-        Node root = parse(s);
+        Graph root = parse(s);
         root.accept(getLayoutVisitor());
         root.accept(getStringTemplateVisitor());
         return getStringTemplateVisitor().toString();

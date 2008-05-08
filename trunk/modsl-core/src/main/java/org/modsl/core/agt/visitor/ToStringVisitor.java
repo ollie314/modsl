@@ -17,6 +17,7 @@
 package org.modsl.core.agt.visitor;
 
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -44,7 +45,7 @@ public class ToStringVisitor extends AbstractVisitor {
     protected String indentation = "";
 
     @Override
-    public void in(Node node) {
+    public void in(Graph node) {
         sb.append("\n").append(indentation).append(node.toString());
         if (node.getNodes().size() > 0) {
             sb.append(" {");
@@ -53,7 +54,7 @@ public class ToStringVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void out(Node node) {
+    public void out(Graph node) {
         indentation = indentation.substring(0, indentation.length() - IND_UNIT.length());
         if (node.getNodes().size() > 0) {
             sb.append("\n").append(indentation).append("}");

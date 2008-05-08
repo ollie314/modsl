@@ -18,24 +18,20 @@ options {
 }
 
 @parser::members {
-	public Node root, cnode;
-	protected Deque<Node> nodes = new LinkedList<Node>();
+	public Graph root;
 	protected BasicFactory factory = new BasicFactory();
 }
 
 graph 
-	@init{ root = factory.createRootNode(); cnode = root; }
+	@init{ root = factory.createRootNode(); }
 	@after { root.accept(new NodeRefVisitor()); }
 	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';
 
-nodeStatement
-	@init {	nodes.addFirst(cnode); }
-	@after { cnode = nodes.removeFirst(); }
-	: ID { Node n = factory.createNode(cnode, $ID); cnode = n; };
+nodeStatement : ID { Node n = factory.createNode(root, $ID);  };
 
-edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* { factory.createEdges(cnode, $ids); };
+edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* { factory.createEdges(root, $ids); };
 
 EDGEOP: '->' | '--';
 ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | '_' | 'a'..'z' |'A'..'Z')* | INT);

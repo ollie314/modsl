@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.antlr.runtime.Token;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -39,7 +40,7 @@ public class UMLCollabFactory extends AbstractUMLFactory {
      * @param ctokens edge tokens
      * @return list of edges
      */
-    public List<Edge> createEdges(Node parent, List<Token> ctokens, List<Token> mtokens) {
+    public List<Edge> createEdges(Graph parent, List<Token> ctokens, List<Token> mtokens) {
 
         List<Edge> es = new LinkedList<Edge>();
 
@@ -58,7 +59,7 @@ public class UMLCollabFactory extends AbstractUMLFactory {
 
             Edge e = new Edge(UMLMetaType.COLLAB_EDGE, (edgeCounter++) + ":" + mtokens.get(i).getText(),
                     n1, n2);
-            parent.addChild(e);
+            parent.add(e);
             es.add(e);
 
             n1 = n2; // << shift
@@ -75,7 +76,7 @@ public class UMLCollabFactory extends AbstractUMLFactory {
      * @param token node token
      * @return new node
      */
-    private Node createNode(Node parent, Token token) {
+    private Node createNode(Graph parent, Token token) {
         Node n = new Node(UMLMetaType.COLLAB_NODE, token.getText());
         n.setIndex(nodeCounter++);
         parent.add(n);
@@ -89,7 +90,7 @@ public class UMLCollabFactory extends AbstractUMLFactory {
      * @param token new node token
      * @return node
      */
-    private Node createNodeIfDoesntExist(Node parent, Token token) {
+    private Node createNodeIfDoesntExist(Graph parent, Token token) {
         Node n = parent.getNode(token.getText());
         if (n == null) {
             return createNode(parent, token);
@@ -99,8 +100,8 @@ public class UMLCollabFactory extends AbstractUMLFactory {
     }
 
     @Override
-    public Node createRootNode() {
-        return new Node(UMLMetaType.COLLAB_ROOT);
+    public Graph createRootNode() {
+        return new Graph(UMLMetaType.COLLAB_ROOT);
     }
 
 }

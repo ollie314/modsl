@@ -63,11 +63,15 @@ public class Graph extends AbstractBox {
         resetPaddings();
     }
 
+    public Graph(MetaType type, String name) {
+        super(type, name);
+    }
+
     /**
      * Add child edge
      * @param child
      */
-    public void addChild(Edge child) {
+    public void add(Edge child) {
         child.parent = this;
         edges.add(child);
     }
@@ -107,7 +111,7 @@ public class Graph extends AbstractBox {
     /**
      * @return children edge list
      */
-    public List<Edge> getChildEdges() {
+    public List<Edge> getEdges() {
         return edges;
     }
 

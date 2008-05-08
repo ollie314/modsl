@@ -49,6 +49,10 @@ public class SugiyamaLayerStack {
         nodeMap = new HashMap<AbstractConnectedBox, Integer>(nodeSize);
     }
 
+    protected List<AbstractConnectedBox> getElements(int layer) {
+        return layers.get(layer);
+    }
+
     protected int size() {
         return layers.size();
     }

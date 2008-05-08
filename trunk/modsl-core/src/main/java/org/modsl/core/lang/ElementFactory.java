@@ -16,7 +16,7 @@
 
 package org.modsl.core.lang;
 
-import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.Graph;
 
 /**
  * Marker interface for all element factories.
@@ -27,6 +27,6 @@ public interface ElementFactory {
 	/**
 	 * @return root node
 	 */
-	public Node createRootNode();
+	public Graph createRootNode();
 	
 }

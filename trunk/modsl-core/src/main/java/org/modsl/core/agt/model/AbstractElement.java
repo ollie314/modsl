@@ -49,6 +49,10 @@ public abstract class AbstractElement {
 
     protected int index = -1;
 
+    public AbstractElement() {
+        //
+    }
+    
     /**
      * Create new
      * @param type

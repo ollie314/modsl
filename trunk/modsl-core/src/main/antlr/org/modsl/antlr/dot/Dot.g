@@ -18,24 +18,20 @@ options {
 }
 
 @parser::members {
-	public Node root, cnode;
-	protected Deque<Node> nodes = new LinkedList<Node>();
+	public Graph root;
 	protected DotFactory factory = new DotFactory();
 }
 
 graph 
-	@init{ root = factory.createRootNode(); cnode = root; }
+	@init{ root = factory.createRootNode();  }
 	@after { root.accept(new NodeRefVisitor()); }
 	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';
 
-nodeStatement
-	@init {	nodes.addFirst(cnode); }
-	@after { cnode = nodes.removeFirst(); }
-	: ID attributeList? { Node n = factory.createNode(cnode, $ID); cnode = n; };
+nodeStatement : ID attributeList? { Node n = factory.createNode(root, $ID);  };
 
-edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* attributeList? { factory.createEdges(cnode, $ids); };
+edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* attributeList? { factory.createEdges(root, $ids); };
 
 attributeList: '[' attribute (',' attribute)* ']';
 
