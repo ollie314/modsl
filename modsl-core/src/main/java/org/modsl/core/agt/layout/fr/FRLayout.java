@@ -67,7 +67,7 @@ public class FRLayout extends AbstractLayout {
     }
 
     private void attraction() {
-        for (Edge e : root.getChildEdges()) {
+        for (Edge e : root.getEdges()) {
             Pt delta = e.getNode1Port().minus(e.getNode2Port());
             double dl = delta.lenSafe();
             e.getNode1().getAltPos().decBy(delta.div(dl).mult(attractionForce(dl)));

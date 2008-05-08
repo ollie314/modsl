@@ -14,6 +14,11 @@ public abstract class AbstractBox extends AbstractElement {
         super(type, name);
     }
 
+    public AbstractBox() {
+        
+        //
+    }
+
     /**
      * @return center position (will be different from pos if size > 0)
      */

@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.antlr.runtime.Token;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.lang.ElementFactory;
 
@@ -37,7 +38,7 @@ public class DotFactory implements ElementFactory {
      * @param tokens edge tokens
      * @return list of edges
      */
-    public List<Edge> createEdges(Node parent, List<Token> tokens) {
+    public List<Edge> createEdges(Graph parent, List<Token> tokens) {
 
         List<Edge> es = new LinkedList<Edge>();
 
@@ -55,7 +56,7 @@ public class DotFactory implements ElementFactory {
             n2 = createNodeIfDoesntExist(parent, t2);
 
             Edge e = new Edge(DotMetaType.EDGE, n1, n2);
-            parent.addChild(e);
+            parent.add(e);
             es.add(e);
 
             n1 = n2; // << shift
@@ -71,7 +72,7 @@ public class DotFactory implements ElementFactory {
      * @param token node token
      * @return new node
      */
-    public Node createNode(Node parent, Token token) {
+    public Node createNode(Graph parent, Token token) {
         Node n = new Node(DotMetaType.NODE, token.getText());
         parent.add(n);
         return n;
@@ -84,7 +85,7 @@ public class DotFactory implements ElementFactory {
      * @param token new node token
      * @return node
      */
-    private Node createNodeIfDoesntExist(Node parent, Token token) {
+    private Node createNodeIfDoesntExist(Graph parent, Token token) {
         Node n = parent.getNode(token.getText());
         if (n == null) {
             return createNode(parent, token);
@@ -97,8 +98,8 @@ public class DotFactory implements ElementFactory {
      * Create root node
      * @return root node
      */
-    public Node createRootNode() {
-        return new Node(DotMetaType.GRAPH);
+    public Graph createRootNode() {
+        return new Graph(DotMetaType.GRAPH);
     }
 
 }

@@ -24,7 +24,7 @@ public abstract class AbstractAGTModelTest {
 
     protected Logger log = Logger.getLogger(getClass());
 
-    protected Node root = new Node(TMetaType.GRAPH);
+    protected Graph root = new Graph(TMetaType.GRAPH);
     protected Node n1 = new Node(TMetaType.NODE, "n1");
     protected Node n2 = new Node(TMetaType.NODE, "n2");
     protected Node n3 = new Node(TMetaType.NODE, "n3");
@@ -72,14 +72,14 @@ public abstract class AbstractAGTModelTest {
         n7.setPos(new Pt(975d, 500d));
         n7.setSize(new Pt(10d, 10d));
 
-        root.addChild(e1_3);
-        root.addChild(e2_4);
-        root.addChild(e3_7);
-        root.addChild(e4_6);
-        root.addChild(e1_5);
-        root.addChild(e2_5);
-        root.addChild(e6_2);
-        root.addChild(e7_5);
+        root.add(e1_3);
+        root.add(e2_4);
+        root.add(e3_7);
+        root.add(e4_6);
+        root.add(e1_5);
+        root.add(e2_5);
+        root.add(e6_2);
+        root.add(e7_5);
 
     }
 

@@ -18,8 +18,8 @@ options {
 }
 
 @parser::members {
-	public Node root, cnode;
-	protected Deque<Node> nodes = new LinkedList<Node>();
+	public Graph root, cnode;
+	protected Deque<Graph> nodes = new LinkedList<Graph>();
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 }
 

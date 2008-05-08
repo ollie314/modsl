@@ -53,7 +53,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     }
 
     void insertDummies() {
-        for (Edge currEdge : new ArrayList<Edge>(root.getChildEdges())) {
+        for (Edge currEdge : new ArrayList<Edge>(root.getEdges())) {
             int fromLayer = stack.getLayer(currEdge.getNode1());
             int toLayer = stack.getLayer(currEdge.getNode2());
             if (toLayer - fromLayer > 1) {
@@ -87,7 +87,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     void removeCycles() {
         List<Node> nodes = sortByOutDegree();
-        Set<Edge> removed = new HashSet<Edge>(root.getChildEdges().size());
+        Set<Edge> removed = new HashSet<Edge>(root.getEdges().size());
         for (Node n : nodes) {
             for (Edge in : new ArrayList<Edge>(n.getInEdges())) {
                 if (!removed.contains(in)) {
@@ -149,7 +149,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     }
 
     void undoRemoveCycles() {
-        for (Edge e : root.getChildEdges()) {
+        for (Edge e : root.getEdges()) {
             e.setReverted(false);
         }
     }

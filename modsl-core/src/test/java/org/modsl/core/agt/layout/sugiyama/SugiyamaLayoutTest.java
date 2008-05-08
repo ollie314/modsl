@@ -113,31 +113,31 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		layout.removeCycles();
 		layout.layer();
 		layout.insertDummies();
-		assertEquals(2, layout.stack.getPoints(0).size());
-		assertTrue(layout.stack.getPoints(0).contains(n1));
-		assertTrue(layout.stack.getPoints(0).contains(n2));
-		assertEquals(5, layout.stack.getPoints(1).size());
-		assertTrue(layout.stack.getPoints(1).contains(n3));
-		assertTrue(layout.stack.getPoints(1).contains(n4));
-		assertTrue(layout.stack.getPoints(1).contains(e1_5.getBend(0)));
-		assertTrue(layout.stack.getPoints(1).contains(e2_5.getBend(0)));
-		assertTrue(layout.stack.getPoints(1).contains(e6_2.getBend(0)));
-		assertEquals(4, layout.stack.getPoints(2).size());
-		assertTrue(layout.stack.getPoints(2).contains(e1_5.getBend(1)));
-		assertTrue(layout.stack.getPoints(2).contains(e2_5.getBend(1)));
-		assertEquals(1, layout.stack.getPoints(3).size());
+		assertEquals(2, layout.stack.getElements(0).size());
+		assertTrue(layout.stack.getElements(0).contains(n1));
+		assertTrue(layout.stack.getElements(0).contains(n2));
+		assertEquals(5, layout.stack.getElements(1).size());
+		assertTrue(layout.stack.getElements(1).contains(n3));
+		assertTrue(layout.stack.getElements(1).contains(n4));
+		assertTrue(layout.stack.getElements(1).contains(e1_5.getBend(0)));
+		assertTrue(layout.stack.getElements(1).contains(e2_5.getBend(0)));
+		assertTrue(layout.stack.getElements(1).contains(e6_2.getBend(0)));
+		assertEquals(4, layout.stack.getElements(2).size());
+		assertTrue(layout.stack.getElements(2).contains(e1_5.getBend(1)));
+		assertTrue(layout.stack.getElements(2).contains(e2_5.getBend(1)));
+		assertEquals(1, layout.stack.getElements(3).size());
 	}
 
 	@Test
 	public void insertDummies() {
 		int sn = root.getNodes().size();
-		int se = root.getChildEdges().size();
+		int se = root.getEdges().size();
 		layout.removeCycles();
 		layout.layer();
 		layout.insertDummies();
 		// log.debug(new ToStringVisitor().toString(root));
 		assertEquals(sn, root.getNodes().size());
-		assertEquals(se, root.getChildEdges().size());
+		assertEquals(se, root.getEdges().size());
 		assertTrue(n1.isConnectedTo(e1_5.getBend(0)));
 		assertTrue(e1_5.getBend(0).isConnectedTo(e1_5.getBend(1)));
 		assertTrue(e1_5.getBend(1).isConnectedTo(n5));

@@ -20,14 +20,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.visitor.ToStringVisitor;
+import org.modsl.core.agt.model.Graph;
 
 public class UMLGrammarTest extends AbstractUMLTest {
 
 	@Test
 	public void root() throws RecognitionException {
-		Node root = processor.parse("collab gr {}");
+		Graph root = processor.parse("collab gr {}");
 		assertEquals("gr", root.getName());
 		assertEquals(null, root.getParent());
 		assertEquals(0, root.getNodes().size());
@@ -37,7 +36,7 @@ public class UMLGrammarTest extends AbstractUMLTest {
 	public void edges() throws RecognitionException {
 		// Node<UMLMetaType> root = processor.parse("collab ge { n1->n2.m1();
 		// n2->n3.m2()->n4; }");
-		Node root = processor.parse("collab ge { n1->:n2.m2; n3:n4->n5.m5->:n6.m6(); }");
+	    Graph root = processor.parse("collab ge { n1->:n2.m2; n3:n4->n5.m5->:n6.m6(); }");
 //		log.debug(new ToStringVisitor<UMLMetaType>().toString(root));
 		//assertEquals(3, root.getNodes().size());
 		//assertEquals(0, root.getEdges().size());

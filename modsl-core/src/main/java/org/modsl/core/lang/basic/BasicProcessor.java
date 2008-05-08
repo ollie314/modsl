@@ -22,7 +22,7 @@ import org.antlr.runtime.Lexer;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.basic.BasicLexer;
 import org.modsl.antlr.basic.BasicParser;
-import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.cfg.AbstractConfigLoader;
 import org.modsl.core.cfg.AbstractProcessor;
 
@@ -54,7 +54,7 @@ public class BasicProcessor extends AbstractProcessor<BasicParser> {
 	}
 
 	@Override
-	protected Node getRoot() {
+	protected Graph getRoot() {
 		return parser.root;
 	}
 

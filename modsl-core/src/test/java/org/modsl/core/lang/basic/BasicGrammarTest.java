@@ -20,13 +20,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.Graph;
 
 public class BasicGrammarTest extends AbstractBasicTest {
 
 	@Test
 	public void root() throws RecognitionException {
-		Node root = processor.parse("graph g {}");
+		Graph root = processor.parse("graph g {}");
 		assertEquals("g", root.getName());
 		assertEquals(null, root.getParent());
 		assertEquals(0, root.getNodes().size());
@@ -34,7 +34,7 @@ public class BasicGrammarTest extends AbstractBasicTest {
 
 	@Test
 	public void nodes() throws RecognitionException {
-		Node root = processor.parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+		Graph root = processor.parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
 		assertEquals(3, root.getNodes().size());
 		assertEquals("stmt1", root.getNodes().get(0).getName());
 		assertEquals("stmt1", root.getNode("stmt1").getName());
@@ -46,10 +46,10 @@ public class BasicGrammarTest extends AbstractBasicTest {
 
 	@Test
 	public void edges() throws RecognitionException {
-		Node root = processor.parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
+		Graph root = processor.parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
 		// log.debug(new ToStringVisitor().toString(root));
 		assertEquals(8, root.getNodes().size());
-		assertEquals(4, root.getChildEdges().size());
+		assertEquals(4, root.getEdges().size());
 	}
 
 }
