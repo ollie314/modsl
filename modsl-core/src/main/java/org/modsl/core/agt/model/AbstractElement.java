@@ -74,8 +74,7 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
      * @param name
      */
     public AbstractElement(MetaType type, String name) {
-        super();
-        this.type = type;
+        this(type);
         this.name = name;
     }
 
@@ -166,6 +165,11 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
      */
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    @Override
+    public String toString() {
+        return name + ":" + type;
     }
 
 }

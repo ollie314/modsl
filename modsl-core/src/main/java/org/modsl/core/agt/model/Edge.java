@@ -371,7 +371,7 @@ public class Edge extends AbstractElement<Graph> {
 
     @Override
     public String toString() {
-        return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "->"
+        return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-" + bends.size() + "->"
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
     }
 

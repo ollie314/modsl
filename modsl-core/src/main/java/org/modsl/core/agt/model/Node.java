@@ -173,9 +173,5 @@ public class Node extends AbstractBox<Graph> {
         return size.y / size.x;
     }
 
-    @Override
-    public String toString() {
-        return name + "(" + index + "):" + type;
-    }
 
 }
