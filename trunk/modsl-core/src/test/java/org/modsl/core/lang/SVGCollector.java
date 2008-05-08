@@ -36,8 +36,8 @@ public class SVGCollector {
         this.name = name;
     }
 
-    public void collect(String root, String svg, Pt reqSize) throws IOException {
-        String n = name + "_" + root + ".svg";
+    public void collect(String graph, String svg, Pt reqSize) throws IOException {
+        String n = name + "_" + graph + ".svg";
         Utils.toFile(path + "/" + n, svg);
         urls.add(n);
         sizes.add(reqSize);

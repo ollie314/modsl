@@ -54,8 +54,8 @@ public class BasicProcessor extends AbstractProcessor<BasicParser> {
 	}
 
 	@Override
-	protected Graph getRoot() {
-		return parser.root;
+	protected Graph getGraph() {
+		return parser.graph;
 	}
 
 	@Override

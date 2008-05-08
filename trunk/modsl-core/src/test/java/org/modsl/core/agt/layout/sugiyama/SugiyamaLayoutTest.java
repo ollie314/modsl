@@ -35,13 +35,13 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		layout = new SugiyamaLayout();
-		layout.root = root;
+		layout.graph = graph;
 	}
 
 	@Test
 	public void degreeSorting() {
 		List<Node> sorted = layout.sortByOutDegree();
-		assertEquals(sorted.size(), root.getNodes().size());
+		assertEquals(sorted.size(), graph.getNodes().size());
 		assertEquals(n1, sorted.get(0));
 		assertEquals(n2, sorted.get(1));
 		assertEquals(n5, sorted.get(sorted.size() - 1));
@@ -69,7 +69,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 	public void topologicalSort() {
 		layout.removeCycles();
 		List<Node> sorted = layout.topologicalSort();
-		assertEquals(root.getNodes().size(), sorted.size());
+		assertEquals(graph.getNodes().size(), sorted.size());
 		assertEquals(n1, sorted.get(0));
 		assertEquals(n2, sorted.get(1));
 		assertEquals(n3, sorted.get(2));
@@ -130,14 +130,14 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 
 	@Test
 	public void insertDummies() {
-		int sn = root.getNodes().size();
-		int se = root.getEdges().size();
+		int sn = graph.getNodes().size();
+		int se = graph.getEdges().size();
 		layout.removeCycles();
 		layout.layer();
 		layout.insertDummies();
 		// log.debug(new ToStringVisitor().toString(root));
-		assertEquals(sn, root.getNodes().size());
-		assertEquals(se, root.getEdges().size());
+		assertEquals(sn, graph.getNodes().size());
+		assertEquals(se, graph.getEdges().size());
 		assertTrue(n1.isConnectedTo(e1_5.getBend(0)));
 		assertTrue(e1_5.getBend(0).isConnectedTo(e1_5.getBend(1)));
 		assertTrue(e1_5.getBend(1).isConnectedTo(n5));

@@ -95,7 +95,7 @@ public class BasicFactory implements ElementFactory {
     }
 
     @Override
-    public Graph createRootNode() {
+    public Graph createGraph() {
         return new Graph(BasicMetaType.GRAPH);
     }
 

@@ -54,8 +54,8 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 	}
 
 	@Override
-	protected Graph getRoot() {
-		return parser.root;
+	protected Graph getGraph() {
+		return parser.graph;
 	}
 
 	@Override

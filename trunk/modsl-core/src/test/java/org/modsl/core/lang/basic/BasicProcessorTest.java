@@ -50,7 +50,7 @@ public class BasicProcessorTest extends AbstractBasicTest {
 
 	private void process(String s, Pt reqSize) throws RecognitionException, IOException {
 		String result = processor.process(s, reqSize);
-		svgCollector.collect(processor.getRoot().getName(), result, reqSize);
+		svgCollector.collect(processor.getGraph().getName(), result, reqSize);
 	}
 
 }

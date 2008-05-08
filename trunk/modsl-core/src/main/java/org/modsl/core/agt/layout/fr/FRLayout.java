@@ -43,17 +43,17 @@ public class FRLayout extends AbstractLayout {
     protected double tempMultiplier, attractionMultiplier, repulsionMultiplier;
     protected int maxIterations;
 
-    protected Graph root;
+    protected Graph graph;
 
     @Override
-    public void apply(Graph root) {
+    public void apply(Graph graph) {
 
-        this.root = root;
+        this.graph = graph;
 
-        root.recalcSize();
-        Pt gsize = root.getSize();
+        graph.recalcSize();
+        Pt gsize = graph.getSize();
         temp = max((gsize.x + gsize.y) * tempMultiplier, Pt.EPSILON);
-        kForce = max(sqrt(root.getArea() / root.getNodes().size()), Pt.EPSILON);
+        kForce = max(sqrt(graph.getArea() / graph.getNodes().size()), Pt.EPSILON);
         kAttraction = attractionMultiplier * kForce;
         kRepulsion = repulsionMultiplier * kForce;
 
@@ -67,7 +67,7 @@ public class FRLayout extends AbstractLayout {
     }
 
     private void attraction() {
-        for (Edge e : root.getEdges()) {
+        for (Edge e : graph.getEdges()) {
             Pt delta = e.getNode1Port().minus(e.getNode2Port());
             double dl = delta.lenSafe();
             e.getNode1().getAltPos().decBy(delta.div(dl).mult(attractionForce(dl)));
@@ -104,7 +104,7 @@ public class FRLayout extends AbstractLayout {
     }
 
     private void moveVertexes() {
-        for (Node n : root.getNodes()) {
+        for (Node n : graph.getNodes()) {
             Pt delta = n.getAltPos().minus(n.getPos());
             double dl = delta.lenSafe();
             n.getPos().incBy(delta.div(dl).mult(min(dl, temp)));
@@ -116,9 +116,9 @@ public class FRLayout extends AbstractLayout {
     }
 
     private void repulsion() {
-        for (Node na : root.getNodes()) {
+        for (Node na : graph.getNodes()) {
             na.getAltPos().zero();
-            for (Node nb : root.getNodes()) {
+            for (Node nb : graph.getNodes()) {
                 if (na != nb) {
                     Pt delta = getDelta(na, nb);
                     double dl = delta.lenSafe();

@@ -100,8 +100,8 @@ public class UMLCollabFactory extends AbstractUMLFactory {
     }
 
     @Override
-    public Graph createRootNode() {
-        return new Graph(UMLMetaType.COLLAB_ROOT);
+    public Graph createGraph() {
+        return new Graph(UMLMetaType.COLLAB_GRAPH);
     }
 
 }

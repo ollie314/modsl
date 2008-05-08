@@ -4,12 +4,12 @@ group basic : root;
 // Collaboration diagram templates
 //
 
-COLLAB_ROOT_in(node, decor) ::= <<
-$root_in(node)$
-<!-- $node.name$: basic graph -->
+COLLAB_GRAPH_in(graph, decor) ::= <<
+$root_in(graph)$
+<!-- $graph.name$: basic graph -->
 <defs>
 <style type="text/css"><![CDATA[ 
-	text.collabroot { font-family: $decor.meta.COLLAB_ROOT.config.ft.name$; font-size: $decor.meta.COLLAB_ROOT.config.ft.size$px; }
+	text.collabgraph { font-family: $decor.meta.COLLAB_GRAPH.config.ft.name$; font-size: $decor.meta.COLLAB_GRAPH.config.ft.size$px; }
 	text.collabnode { fill: black; font-family: $decor.meta.COLLAB_NODE.config.ft.name$; font-size: $decor.meta.COLLAB_NODE.config.ft.size$px; }
 	rect.collabnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
 	line.collabnode { stroke: black; stroke-width: 1px; }	
@@ -37,9 +37,9 @@ COLLAB_EDGE_in(edge, decor) ::= <<
 <text x="$decor.textPos.x$" y="$decor.textPos.y$" class="collabedge">$edge.name$</text>
 >>
 
-COLLAB_ROOT_out(node, decor) ::= <<
+COLLAB_GRAPH_out(graph, decor) ::= <<
 
-$root_out()$
+$root_out(graph)$
 >>
 
 DUMMY_EDGE_in(edge, decor) ::= <<

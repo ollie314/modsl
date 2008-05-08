@@ -25,31 +25,31 @@ import org.modsl.core.agt.model.Graph;
 public class BasicGrammarTest extends AbstractBasicTest {
 
 	@Test
-	public void root() throws RecognitionException {
-		Graph root = processor.parse("graph g {}");
-		assertEquals("g", root.getName());
-		assertEquals(null, root.getParent());
-		assertEquals(0, root.getNodes().size());
+	public void graph() throws RecognitionException {
+		Graph graph = processor.parse("graph g {}");
+		assertEquals("g", graph.getName());
+		assertEquals(null, graph.getParent());
+		assertEquals(0, graph.getNodes().size());
 	}
 
 	@Test
 	public void nodes() throws RecognitionException {
-		Graph root = processor.parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
-		assertEquals(3, root.getNodes().size());
-		assertEquals("stmt1", root.getNodes().get(0).getName());
-		assertEquals("stmt1", root.getNode("stmt1").getName());
-		assertEquals("\"stmt2\"", root.getNodes().get(1).getName());
-		assertEquals("\"stmt2\"", root.getNode("\"stmt2\"").getName());
-		assertEquals("12345", root.getNodes().get(2).getName());
-		assertEquals("12345", root.getNode("12345").getName());
+		Graph graph = processor.parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+		assertEquals(3, graph.getNodes().size());
+		assertEquals("stmt1", graph.getNodes().get(0).getName());
+		assertEquals("stmt1", graph.getNode("stmt1").getName());
+		assertEquals("\"stmt2\"", graph.getNodes().get(1).getName());
+		assertEquals("\"stmt2\"", graph.getNode("\"stmt2\"").getName());
+		assertEquals("12345", graph.getNodes().get(2).getName());
+		assertEquals("12345", graph.getNode("12345").getName());
 	}
 
 	@Test
 	public void edges() throws RecognitionException {
-		Graph root = processor.parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
+		Graph graph = processor.parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
 		// log.debug(new ToStringVisitor().toString(root));
-		assertEquals(8, root.getNodes().size());
-		assertEquals(4, root.getEdges().size());
+		assertEquals(8, graph.getNodes().size());
+		assertEquals(4, graph.getEdges().size());
 	}
 
 }

@@ -18,20 +18,20 @@ options {
 }
 
 @parser::members {
-	public Graph root;
+	public Graph graph;
 	protected DotFactory factory = new DotFactory();
 }
 
 graph 
-	@init{ root = factory.createRootNode();  }
-	@after { root.accept(new NodeRefVisitor()); }
-	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
+	@init{ graph = factory.createGraph();  }
+	@after { graph.accept(new NodeRefVisitor()); }
+	: 'graph' ID '{' statement* '}' { graph.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';
 
-nodeStatement : ID attributeList? { Node n = factory.createNode(root, $ID);  };
+nodeStatement : ID attributeList? { Node n = factory.createNode(graph, $ID);  };
 
-edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* attributeList? { factory.createEdges(root, $ids); };
+edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* attributeList? { factory.createEdges(graph, $ids); };
 
 attributeList: '[' attribute (',' attribute)* ']';
 

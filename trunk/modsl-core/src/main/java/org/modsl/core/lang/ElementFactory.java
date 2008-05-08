@@ -27,6 +27,6 @@ public interface ElementFactory {
 	/**
 	 * @return root node
 	 */
-	public Graph createRootNode();
+	public Graph createGraph();
 	
 }

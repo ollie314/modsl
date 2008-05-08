@@ -24,7 +24,7 @@ public abstract class AbstractAGTModelTest {
 
     protected Logger log = Logger.getLogger(getClass());
 
-    protected Graph root = new Graph(TMetaType.GRAPH);
+    protected Graph graph = new Graph(TMetaType.GRAPH);
     protected Node n1 = new Node(TMetaType.NODE, "n1");
     protected Node n2 = new Node(TMetaType.NODE, "n2");
     protected Node n3 = new Node(TMetaType.NODE, "n3");
@@ -44,42 +44,42 @@ public abstract class AbstractAGTModelTest {
     @Before
     public void setUp() throws Exception {
 
-        root.add(n1);
+        graph.add(n1);
         n1.setPos(new Pt(0d, 0d));
         n1.setSize(new Pt(10d, 10d));
 
-        root.add(n2);
+        graph.add(n2);
         n2.setPos(new Pt(1000d, 0d));
         n2.setSize(new Pt(200d, 50d));
 
-        root.add(n3);
+        graph.add(n3);
         n3.setPos(new Pt(1000d, 1000d));
         n3.setSize(new Pt(10d, 10d));
 
-        root.add(n4);
+        graph.add(n4);
         n4.setPos(new Pt(0d, 1000d));
         n4.setSize(new Pt(50d, 200d));
 
-        root.add(n5);
+        graph.add(n5);
         n5.setPos(new Pt(500d, 1100d));
         n5.setSize(new Pt(50d, 50d));
 
-        root.add(n6);
+        graph.add(n6);
         n6.setPos(new Pt(25d, 500d));
         n6.setSize(new Pt(10d, 10d));
 
-        root.add(n7);
+        graph.add(n7);
         n7.setPos(new Pt(975d, 500d));
         n7.setSize(new Pt(10d, 10d));
 
-        root.add(e1_3);
-        root.add(e2_4);
-        root.add(e3_7);
-        root.add(e4_6);
-        root.add(e1_5);
-        root.add(e2_5);
-        root.add(e6_2);
-        root.add(e7_5);
+        graph.add(e1_3);
+        graph.add(e2_4);
+        graph.add(e3_7);
+        graph.add(e4_6);
+        graph.add(e1_5);
+        graph.add(e2_5);
+        graph.add(e6_2);
+        graph.add(e7_5);
 
     }
 
