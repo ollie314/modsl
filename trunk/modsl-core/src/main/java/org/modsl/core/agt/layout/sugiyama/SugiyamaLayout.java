@@ -133,24 +133,6 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 		return sources;
 	}
 
-	@SuppressWarnings("unchecked")
-	// TODO
-	void split(Edge<?> edge) {
-		Node dummyNode = new Node(DUMMY_NODE, "dummyNode" + dummyCount++, true);
-		root.add(dummyNode);
-		Edge dummyEdge;
-		if (edge.isReverted()) {
-			dummyEdge = new Edge(DUMMY_EDGE, "dummyEdge" + dummyCount++, dummyNode, edge.getNode2(), true);
-			dummyEdge.setRevertedInternal(edge.isReverted());
-			stack.add(dummyNode, stack.getLayer(edge.getNode2()) - 1);
-			edge.setNode2(dummyNode);
-		} else {
-			dummyEdge = new Edge(DUMMY_EDGE, "dummyEdge" + dummyCount++, edge.getNode1(), dummyNode, true);
-			stack.add(dummyNode, stack.getLayer(edge.getNode1()) + 1);
-			edge.setNode1(dummyNode);
-		}
-		root.addChild(dummyEdge);
-	}
 
 	List<Node<?>> topologicalSort() {
 		List<Node<?>> q = sources();
@@ -162,7 +144,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 				Node<?> m = e.getNode2();
 				boolean allEdgesRemoved = true;
 				for (Edge<?> e2 : m.getInEdges()) {
-					if (!l.contains(e2.getNode1())) {
+                    if (!l.contains(e2.getNode1())) {
 						allEdgesRemoved = false;
 					}
 				}

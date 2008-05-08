@@ -18,7 +18,6 @@ package org.modsl.core.agt.layout.sugiyama;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -26,7 +25,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.modsl.core.agt.model.AbstractAGTModelTest;
-import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
 public class SugiyamaLayoutTest extends AbstractAGTModelTest {
@@ -95,25 +93,6 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		assertEquals(2, layout.stack.getLayer(n7));
 	}
 
-	@Test
-	public void split() {
-		int sn = root.getNodes().size();
-		int se = root.getChildEdges().size();
-		// n1 --e1_5--> n5
-		layout.stack = new SugiyamaLayerStack(5, root.getNodes().size());
-		layout.split(e1_5);
-		assertEquals(sn + 1, root.getNodes().size());
-		assertEquals(se + 1, root.getChildEdges().size());
-		// n1 --de--> dn --e1_5--> n5
-		Node<?> dn = root.getNode(sn);
-		assertEquals(e1_5, dn.getOutEdges().get(0));
-		Edge<?> de = root.getChildEdge(se);
-		assertEquals(de, dn.getInEdges().get(0));
-		assertEquals(n1, de.getNode1());
-		assertEquals(dn, de.getNode2());
-		assertEquals(dn, e1_5.getNode1());
-		assertEquals(n5, e1_5.getNode2());
-	}
 
 	@Test
 	public void undoRemoveCycles() {
