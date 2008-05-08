@@ -32,7 +32,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * @param T type enum
  * @author avishnyakov
  */
-public class Edge extends AbstractGraphElement {
+public class Edge extends AbstractElement {
 
     /**
      * Start node
@@ -350,6 +350,10 @@ public class Edge extends AbstractGraphElement {
     public String toString() {
         return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "->"
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
+    }
+
+    public boolean isVirtual() {
+        return false;
     }
 
 }

@@ -16,7 +16,7 @@
 
 package org.modsl.core.agt.visitor;
 
-import org.modsl.core.agt.model.AbstractGraphElement;
+import org.modsl.core.agt.model.AbstractElement;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Node;
 
@@ -42,7 +42,7 @@ public class NodeRefVisitor extends AbstractVisitor {
      * @param nodeName
      * @return node
      */
-    private Node resolveNode(AbstractGraphElement parent, Node node, String nodeName) {
+    private Node resolveNode(AbstractElement parent, Node node, String nodeName) {
         if (node == null) {
             Node n = ((Node) parent).getNode(nodeName);
             if (n == null) {
