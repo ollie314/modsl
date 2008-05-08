@@ -137,11 +137,6 @@ public class Node extends AbstractConnectedBox {
         return size;
     }
 
-    @Override
-    public int hashCode() {
-        return name.hashCode();
-    }
-
     public boolean isConnectedTo(AbstractConnectedBox n2) {
         for (Edge e : connectedEdges) {
             if (e.getDistance(this, n2) == 1) {
