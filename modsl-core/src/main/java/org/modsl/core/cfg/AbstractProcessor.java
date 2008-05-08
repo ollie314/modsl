@@ -52,7 +52,7 @@ public abstract class AbstractProcessor<S extends Parser> {
     protected abstract AbstractConfigLoader getConfigLoader(String path, String name);
 
     /**
-     * @return layout visitor. It is possible though not likely that subclesses
+     * @return layout visitor. It is possible though not likely that subclasses
      * will need to override this.
      */
     protected AbstractVisitor getLayoutVisitor() {
