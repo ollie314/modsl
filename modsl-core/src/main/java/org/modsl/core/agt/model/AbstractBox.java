@@ -102,6 +102,8 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @param b other box
      * @return true if connected directly (no intermediate bends or nodes)
      */
-    public abstract boolean isConnectedTo(AbstractBox<?> b);
-
+    public boolean isConnectedTo(AbstractBox<?> b) {
+        return false;
+    }
+    
 }

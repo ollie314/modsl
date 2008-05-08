@@ -85,7 +85,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
      * @param element element value
      * @return resulting string
      */
-    private String callTemplate(String name, String key, AbstractElement element) {
+    private String callTemplate(String name, String key, AbstractElement<?> element) {
         try {
             StringTemplate st = group.getInstanceOf(name);
             if (st != null) {

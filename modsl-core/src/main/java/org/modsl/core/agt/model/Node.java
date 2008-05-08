@@ -74,7 +74,7 @@ public class Node extends AbstractBox<Graph> {
         visitor.out(this);
     }
 
-    public boolean addConnectedEdge(Edge edge) {
+    protected boolean addConnectedEdge(Edge edge) {
         return connectedEdges.add(edge);
     }
 
@@ -83,15 +83,6 @@ public class Node extends AbstractBox<Graph> {
      */
     public Pt getAltPos() {
         return altPos;
-    }
-
-    public Edge getConnnectedEdgeTo(Node n2) {
-        for (Edge e : connectedEdges) {
-            if (n2.equals(e.getNode1()) || n2.equals(e.getNode2())) {
-                return e;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -137,16 +128,16 @@ public class Node extends AbstractBox<Graph> {
         return size;
     }
 
-    public boolean isConnectedTo(AbstractBox<?> n2) {
+    public boolean isConnectedTo(AbstractBox<?> b) {
         for (Edge e : connectedEdges) {
-            if (e.getDistance(this, n2) == 1) {
+            if (e.getDistance(this, b) == 1) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean removeConnectedEdge(Edge edge) {
+    protected boolean removeConnectedEdge(Edge edge) {
         return connectedEdges.remove(edge);
     }
 

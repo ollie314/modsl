@@ -305,9 +305,4 @@ public class Graph extends AbstractBox<Graph> {
         return name + ":" + type;
     }
 
-    @Override
-    public boolean isConnectedTo(AbstractBox<?> b) {
-        return false;
-    }
-
 }
