@@ -30,18 +30,16 @@ import org.modsl.core.agt.common.ModSLException;
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayout;
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.lang.uml.UMLMetaType;
 
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
-
-    protected Node root;
+    protected Graph root;
     protected SugiyamaLayerStack stack;
 
     @Override
-    public void apply(Node r) {
+    public void apply(Graph r) {
         this.root = r;
         removeCycles();
         layer();

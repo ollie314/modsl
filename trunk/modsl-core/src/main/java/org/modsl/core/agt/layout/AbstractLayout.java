@@ -19,7 +19,7 @@ package org.modsl.core.agt.layout;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 
 public abstract class AbstractLayout {
@@ -30,10 +30,12 @@ public abstract class AbstractLayout {
 
     public abstract void setLayoutConfig(Map<String, String> propMap);
 
-    public void apply(Edge edge) {
-        // NO OP - not likely a layout would operate on edges 
+    public void apply(Node node) {
+        // no op
     }
 
-    public abstract void apply(Node node);
+    public void apply(Graph graph) {
+        // no op 
+    }
 
 }
