@@ -30,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.modsl.core.agt.model.Point;
+import org.modsl.core.agt.model.AbstractConnectedBox;
 
 public class SugiyamaLayerStack {
 
@@ -38,41 +38,41 @@ public class SugiyamaLayerStack {
     protected static final double X_SEPARATION = 60d;
     protected static final double Y_SEPARATION = 60d;
 
-    private List<List<Point>> layers;
-    private Map<Point, Integer> nodeMap;
+    private List<List<AbstractConnectedBox>> layers;
+    private Map<AbstractConnectedBox, Integer> nodeMap;
 
     SugiyamaLayerStack(int h, int nodeSize) {
-        layers = new ArrayList<List<Point>>(h);
+        layers = new ArrayList<List<AbstractConnectedBox>>(h);
         for (int i = 0; i < h; i++) {
-            layers.add(new ArrayList<Point>(nodeSize / h + 1));
+            layers.add(new ArrayList<AbstractConnectedBox>(nodeSize / h + 1));
         }
-        nodeMap = new HashMap<Point, Integer>(nodeSize);
+        nodeMap = new HashMap<AbstractConnectedBox, Integer>(nodeSize);
     }
 
     protected int size() {
         return layers.size();
     }
 
-    void add(Point n1, int layerIndex) {
+    void add(AbstractConnectedBox n1, int layerIndex) {
         layers.get(layerIndex).add(n1);
         nodeMap.put(n1, layerIndex);
     }
 
-    int barycenter(List<Point> ln) {
+    int barycenter(List<AbstractConnectedBox> ln) {
         if (ln.size() == 0) {
             return 0;
         } else {
             double bc = 0;
-            for (Point n : ln) {
+            for (AbstractConnectedBox n : ln) {
                 bc += n.getIndex();
             }
             return (int) round(bc / ln.size());
         }
     }
 
-    List<Point> getConnectedTo(Point n1, int layerIndex) {
-        List<Point> ln = new LinkedList<Point>();
-        for (Point n2 : layers.get(layerIndex)) {
+    List<AbstractConnectedBox> getConnectedTo(AbstractConnectedBox n1, int layerIndex) {
+        List<AbstractConnectedBox> ln = new LinkedList<AbstractConnectedBox>();
+        for (AbstractConnectedBox n2 : layers.get(layerIndex)) {
             if (n1.isConnectedTo(n2)) {
                 ln.add(n2);
             }
@@ -80,7 +80,7 @@ public class SugiyamaLayerStack {
         return ln;
     }
 
-    int getLayer(Point n) {
+    int getLayer(AbstractConnectedBox n) {
         Integer l = nodeMap.get(n);
         if (l == null) {
             return 0;
@@ -90,7 +90,7 @@ public class SugiyamaLayerStack {
     }
 
     void initIndexes() {
-        for (List<Point> l : layers) {
+        for (List<AbstractConnectedBox> l : layers) {
             setOrderedIndexes(l);
         }
     }
@@ -98,9 +98,9 @@ public class SugiyamaLayerStack {
     void layerHeights() {
         double currOffset = 0d;
         for (int l = 0; l < layers.size(); l++) {
-            List<Point> ln = layers.get(l);
+            List<AbstractConnectedBox> ln = layers.get(l);
             double maxh = maxHeight(ln);
-            for (Point n : ln) {
+            for (AbstractConnectedBox n : ln) {
                 if (n.isVirtual()) {
                     n.getPos().y = currOffset + maxHeight(ln) / 2d;
                 } else {
@@ -111,9 +111,9 @@ public class SugiyamaLayerStack {
         }
     }
 
-    double maxHeight(List<Point> ln) {
+    double maxHeight(List<AbstractConnectedBox> ln) {
         double mh = 0d;
-        for (Point n : ln) {
+        for (AbstractConnectedBox n : ln) {
             mh = max(mh, n.getSize().y);
         }
         return mh;
@@ -134,21 +134,21 @@ public class SugiyamaLayerStack {
     }
 
     void reduceCrossings2L(int staticLayer, int layerToShuffle) {
-        final List<Point> shuffle = layers.get(layerToShuffle);
-        for (Point n : shuffle) {
-            List<Point> neighbors = getConnectedTo(n, staticLayer);
+        final List<AbstractConnectedBox> shuffle = layers.get(layerToShuffle);
+        for (AbstractConnectedBox n : shuffle) {
+            List<AbstractConnectedBox> neighbors = getConnectedTo(n, staticLayer);
             int bc = barycenter(neighbors);
             n.setIndex(bc);
         }
-        Collections.sort(shuffle, new Comparator<Point>() {
-            public int compare(Point n1, Point n2) {
+        Collections.sort(shuffle, new Comparator<AbstractConnectedBox>() {
+            public int compare(AbstractConnectedBox n1, AbstractConnectedBox n2) {
                 return n1.getIndex() - n2.getIndex();
             }
         });
         setOrderedIndexes(shuffle);
     }
 
-    void setOrderedIndexes(List<Point> ln) {
+    void setOrderedIndexes(List<AbstractConnectedBox> ln) {
         for (int i = 0; i < ln.size(); i++) {
             ln.get(i).setIndex(i);
         }
@@ -159,7 +159,7 @@ public class SugiyamaLayerStack {
         double x[] = new double[layers.size()];
         for (int l = 0; l < layers.size(); l++) {
             double currOffset = 0d;
-            for (Point n : layers.get(l)) {
+            for (AbstractConnectedBox n : layers.get(l)) {
                 currOffset += n.getSize().x + X_SEPARATION;
             }
             x[l] = currOffset - X_SEPARATION;
@@ -167,15 +167,11 @@ public class SugiyamaLayerStack {
         }
         for (int l = 0; l < layers.size(); l++) {
             double currOffset = (maxx - x[l]) / 2d;
-            for (Point n : layers.get(l)) {
+            for (AbstractConnectedBox n : layers.get(l)) {
                 n.getPos().x = currOffset;
                 currOffset += n.getSize().x + X_SEPARATION;
             }
         }
-    }
-
-    List<Point> getPoints(int i) {
-        return layers.get(i);
     }
 
     @Override

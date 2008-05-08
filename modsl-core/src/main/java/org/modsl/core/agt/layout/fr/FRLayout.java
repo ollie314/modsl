@@ -25,6 +25,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
@@ -42,10 +43,10 @@ public class FRLayout extends AbstractLayout {
     protected double tempMultiplier, attractionMultiplier, repulsionMultiplier;
     protected int maxIterations;
 
-    protected Node root;
+    protected Graph root;
 
     @Override
-    public void apply(Node root) {
+    public void apply(Graph root) {
 
         this.root = root;
 

@@ -126,40 +126,7 @@ public class Edge extends AbstractElement {
         return delta.x / delta.len();
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Edge) {
-            Edge e = (Edge) obj;
-            if (this == e) {
-                return true;
-            } else {
-                boolean same = true;
-                if (node1 == null) {
-                    if (e.node1 == null) {
-                        same = same && node1Name.equals(e.node1Name);
-                    } else {
-                        same = false;
-                    }
-                } else {
-                    same = same && node1.equals(e.node1);
-                }
-                if (node2 == null) {
-                    if (e.node2 == null) {
-                        same = same && node2Name.equals(e.node2Name);
-                    } else {
-                        same = false;
-                    }
-                } else {
-                    same = same && node2.equals(e.node2);
-                }
-                return same;
-            }
-        } else {
-            return false;
-        }
-    }
-
+   
     public Bend getBend(int index) {
         return bends.get(index);
     }
@@ -183,7 +150,7 @@ public class Edge extends AbstractElement {
         return node2.getCtrPos().minus(getLastBend().getCtrPos());
     }
 
-    public int getDistance(Point p1, Point p2) {
+    public int getDistance(AbstractBox p1, AbstractBox p2) {
         int p1i = -2, p2i = -2;
         p1i = p1.equals(node1) ? -1 : p1i;
         p2i = p2.equals(node1) ? -1 : p2i;
@@ -196,7 +163,7 @@ public class Edge extends AbstractElement {
         return p1i > -2 && p2i > -2 ? abs(p2i - p1i) : Integer.MAX_VALUE;
     }
 
-    public Point getFirstBend() {
+    public AbstractBox getFirstBend() {
         if (bends.isEmpty()) {
             return node2;
         } else {
@@ -204,7 +171,7 @@ public class Edge extends AbstractElement {
         }
     }
 
-    public Point getLastBend() {
+    public AbstractBox getLastBend() {
         if (bends.isEmpty()) {
             return node1;
         } else {

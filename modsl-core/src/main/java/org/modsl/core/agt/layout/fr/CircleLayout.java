@@ -26,6 +26,7 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.layout.AbstractLayout;
+import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
@@ -40,12 +41,12 @@ public class CircleLayout extends AbstractLayout {
     private Logger log = Logger.getLogger(getClass());
 
     protected double angle;
-    protected Node graph;
+    protected Graph graph;
     protected int circlePositions, maxRounds;
     protected Random random;
 
     @Override
-    public void apply(Node node) {
+    public void apply(Graph node) {
 
         this.graph = node;
         this.circlePositions = graph.getNodes().size();

@@ -139,7 +139,9 @@ public abstract class AbstractElement {
         return index;
     }
 
-    public abstract boolean isVirtual();
+    public boolean isVirtual() {
+        return false;
+    }
 
     public void setIndex(int index) {
         this.index = index;
