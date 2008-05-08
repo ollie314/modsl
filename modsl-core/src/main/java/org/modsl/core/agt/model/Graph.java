@@ -27,7 +27,7 @@ import java.util.Map;
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
-public class Graph extends AbstractBox {
+public class Graph extends AbstractBox<Graph> {
 
     /**
      * List of children nodes
@@ -306,7 +306,7 @@ public class Graph extends AbstractBox {
     }
 
     @Override
-    public boolean isConnectedTo(AbstractBox b) {
+    public boolean isConnectedTo(AbstractBox<?> b) {
         return false;
     }
 

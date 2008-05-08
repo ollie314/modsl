@@ -18,21 +18,24 @@ package org.modsl.core.agt.model;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
-public class Label extends AbstractBox {
+public class Label extends AbstractBox<Node> {
 
     public Label(MetaType type) {
         super(type);
-        // TODO Auto-generated constructor stub
+    }
+
+    public Label(MetaType type, String name) {
+        super(type, name);
     }
 
     @Override
     public void accept(AbstractVisitor visitor) {
-        // TODO Auto-generated method stub
-
+        visitor.in(this);
+        visitor.out(this);
     }
 
     @Override
-    public boolean isConnectedTo(AbstractBox b) {
+    public boolean isConnectedTo(AbstractBox<?> b) {
         return false;
     }
 

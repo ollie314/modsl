@@ -18,29 +18,20 @@ package org.modsl.core.agt.model;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
-public class Bend extends AbstractBox {
-
-    protected Edge parent;
+public class Bend extends AbstractBox<Edge> {
 
     @Override
     public void accept(AbstractVisitor visitor) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public Edge getParent() {
-        return parent;
+        visitor.in(this);
+        visitor.out(this);
     }
 
     @Override
-    public boolean isConnectedTo(AbstractBox p2) {
-        if (parent.getDistance(this, p2) == 1) {
+    public boolean isConnectedTo(AbstractBox<?> box) {
+        if (parent.getDistance(this, box) == 1) {
             return true;
         }
         return false;
     }
 
-    public void setParent(Edge parent) {
-        this.parent = parent;
-    }
 }
