@@ -78,6 +78,7 @@ public class Graph extends AbstractBox {
 
     @Override
     public void accept(AbstractVisitor visitor) {
+        visitor.in(this);
         for (Edge e : edges) {
             e.accept(visitor);
         }
@@ -87,7 +88,7 @@ public class Graph extends AbstractBox {
         for (Label l : labels) {
             l.accept(visitor);
         }
-
+        visitor.out(this);
     }
 
     /**
@@ -281,6 +282,11 @@ public class Graph extends AbstractBox {
      */
     public double getArea() {
         return size.x * size.y;
+    }
+
+    @Override
+    public String toString() {
+        return name + ":" + type;
     }
 
 }

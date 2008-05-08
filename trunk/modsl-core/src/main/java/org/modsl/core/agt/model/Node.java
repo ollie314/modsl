@@ -52,6 +52,11 @@ public class Node extends AbstractConnectedBox {
     protected Pt pos = new Pt();
 
     /**
+     * Labels
+     */
+    protected List<Label> labels = new LinkedList<Label>();
+
+    /**
      * Create new
      * @param type type
      * @param name name
@@ -63,6 +68,9 @@ public class Node extends AbstractConnectedBox {
     @Override
     public void accept(AbstractVisitor visitor) {
         visitor.in(this);
+        for (Label l : labels) {
+            l.accept(visitor);
+        }
         visitor.out(this);
     }
 
