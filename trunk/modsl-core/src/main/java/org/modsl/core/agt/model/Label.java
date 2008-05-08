@@ -34,9 +34,4 @@ public class Label extends AbstractBox<Node> {
         visitor.out(this);
     }
 
-    @Override
-    public boolean isConnectedTo(AbstractBox<?> b) {
-        return false;
-    }
-
 }
