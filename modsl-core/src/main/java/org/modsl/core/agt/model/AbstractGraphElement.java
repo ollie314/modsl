@@ -35,7 +35,7 @@ public abstract class AbstractGraphElement<T extends MetaType> {
     /**
      * Parent node
      */
-    protected Node<T> parent;
+    protected AbstractGraphElement<T> parent;
 
     /**
      * This element is visible
@@ -83,7 +83,7 @@ public abstract class AbstractGraphElement<T extends MetaType> {
     /**
      * @return parent
      */
-    public Node<T> getParent() {
+    public AbstractGraphElement<T> getParent() {
         return parent;
     }
 
@@ -113,7 +113,7 @@ public abstract class AbstractGraphElement<T extends MetaType> {
      * Set parent
      * @param parent
      */
-    public void setParent(Node<T> parent) {
+    public void setParent(AbstractGraphElement<T> parent) {
         this.parent = parent;
     }
 
