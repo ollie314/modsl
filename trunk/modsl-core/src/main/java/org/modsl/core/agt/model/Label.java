@@ -31,4 +31,9 @@ public class Label extends AbstractBox {
 
     }
 
+    @Override
+    public boolean isConnectedTo(AbstractBox b) {
+        return false;
+    }
+
 }

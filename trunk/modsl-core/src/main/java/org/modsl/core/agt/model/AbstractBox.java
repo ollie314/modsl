@@ -98,4 +98,10 @@ public abstract class AbstractBox extends AbstractElement {
         this.size = size;
     }
 
+    /**
+     * @param b other box
+     * @return true if connected directly (no intermediate bends or nodes)
+     */
+    public abstract boolean isConnectedTo(AbstractBox b);
+
 }
