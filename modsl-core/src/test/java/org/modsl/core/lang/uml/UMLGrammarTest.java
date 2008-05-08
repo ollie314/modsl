@@ -25,18 +25,18 @@ import org.modsl.core.agt.model.Graph;
 public class UMLGrammarTest extends AbstractUMLTest {
 
 	@Test
-	public void root() throws RecognitionException {
-		Graph root = processor.parse("collab gr {}");
-		assertEquals("gr", root.getName());
-		assertEquals(null, root.getParent());
-		assertEquals(0, root.getNodes().size());
+	public void graph() throws RecognitionException {
+		Graph graph = processor.parse("collab gr {}");
+		assertEquals("gr", graph.getName());
+		assertEquals(null, graph.getParent());
+		assertEquals(0, graph.getNodes().size());
 	}
 
 	@Test
 	public void edges() throws RecognitionException {
 		// Node<UMLMetaType> root = processor.parse("collab ge { n1->n2.m1();
 		// n2->n3.m2()->n4; }");
-	    Graph root = processor.parse("collab ge { n1->:n2.m2; n3:n4->n5.m5->:n6.m6(); }");
+	    Graph graph = processor.parse("collab ge { n1->:n2.m2; n3:n4->n5.m5->:n6.m6(); }");
 //		log.debug(new ToStringVisitor<UMLMetaType>().toString(root));
 		//assertEquals(3, root.getNodes().size());
 		//assertEquals(0, root.getEdges().size());

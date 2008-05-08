@@ -24,41 +24,41 @@ public class RootAGTModelTest extends AbstractAGTModelTest {
 
     @Test
     public void recalcSize() {
-        root.recalcSize();
-        assertEquals(1200d, root.getSize().x, Pt.EPSILON);
-        assertEquals(1200d, root.getSize().y, Pt.EPSILON);
+        graph.recalcSize();
+        assertEquals(1200d, graph.getSize().x, Pt.EPSILON);
+        assertEquals(1200d, graph.getSize().y, Pt.EPSILON);
     }
 
     @Test
     public void getMaxPt() {
-        assertEquals(1200d, root.getMaxPt().x, Pt.EPSILON);
-        assertEquals(1200d, root.getMaxPt().y, Pt.EPSILON);
+        assertEquals(1200d, graph.getMaxPt().x, Pt.EPSILON);
+        assertEquals(1200d, graph.getMaxPt().y, Pt.EPSILON);
     }
 
     @Test
     public void getMinPt() {
-        assertEquals(0d, root.getMinPt().x, Pt.EPSILON);
-        assertEquals(0d, root.getMinPt().y, Pt.EPSILON);
+        assertEquals(0d, graph.getMinPt().x, Pt.EPSILON);
+        assertEquals(0d, graph.getMinPt().y, Pt.EPSILON);
     }
 
     @Test
     public void rescale() {
-        root.rescale(new Pt(1000d, 1000d));
-        assertEquals(1000d, root.getSize().x, Pt.EPSILON);
-        assertEquals(1000d, root.getSize().y, Pt.EPSILON);
+        graph.rescale(new Pt(1000d, 1000d));
+        assertEquals(1000d, graph.getSize().x, Pt.EPSILON);
+        assertEquals(1000d, graph.getSize().y, Pt.EPSILON);
         assertEquals(800d, n2.getPos().x, 7d);
         assertEquals(0d, n2.getPos().y, 5d);
         assertEquals(0d, n4.getPos().x, 6d);
         assertEquals(800d, n4.getPos().y, 7d);
         assertEquals(400d, n5.getPos().x, 5d);
         assertEquals(880d, n5.getPos().y, 7d);
-        assertEquals(1000000d, root.getArea(), 1d);
+        assertEquals(1000000d, graph.getArea(), 1d);
     }
 
     @Test
     public void getArea() {
-        root.recalcSize();
-        assertEquals(1200d * 1200d, root.getArea(), Pt.EPSILON);
+        graph.recalcSize();
+        assertEquals(1200d * 1200d, graph.getArea(), Pt.EPSILON);
     }
 
 }

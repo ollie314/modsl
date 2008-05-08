@@ -83,9 +83,9 @@ public abstract class AbstractProcessor<S extends Parser> {
     protected abstract String getPath();
 
     /**
-     * @return extract diagram-specific root node from the parser
+     * @return extract graph root node from the parser
      */
-    protected abstract Graph getRoot();
+    protected abstract Graph getGraph();
 
     /**
      * @return string template visitor (rendering engine). It is possible though
@@ -124,7 +124,7 @@ public abstract class AbstractProcessor<S extends Parser> {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         this.parser = getParser(tokens);
         runParser();
-        return getRoot();
+        return getGraph();
     }
 
     /**
@@ -136,11 +136,11 @@ public abstract class AbstractProcessor<S extends Parser> {
      * @throws RecognitionException
      */
     public String process(String s, Pt reqSize) throws RecognitionException {
-        Graph root = parse(s);
-        root.setReqSize(reqSize);
-        root.accept(getLayoutVisitor());
-        root.rescale(root.getReqSize());
-        root.accept(getStringTemplateVisitor());
+        Graph graph = parse(s);
+        graph.setReqSize(reqSize);
+        graph.accept(getLayoutVisitor());
+        graph.rescale(graph.getReqSize());
+        graph.accept(getStringTemplateVisitor());
         return getStringTemplateVisitor().toString();
     }
 
@@ -151,9 +151,9 @@ public abstract class AbstractProcessor<S extends Parser> {
      * @throws RecognitionException
      */
     public String process(String s) throws RecognitionException {
-        Graph root = parse(s);
-        root.accept(getLayoutVisitor());
-        root.accept(getStringTemplateVisitor());
+        Graph graph = parse(s);
+        graph.accept(getLayoutVisitor());
+        graph.accept(getStringTemplateVisitor());
         return getStringTemplateVisitor().toString();
     }
 

@@ -98,7 +98,7 @@ public class DotFactory implements ElementFactory {
      * Create root node
      * @return root node
      */
-    public Graph createRootNode() {
+    public Graph createGraph() {
         return new Graph(DotMetaType.GRAPH);
     }
 

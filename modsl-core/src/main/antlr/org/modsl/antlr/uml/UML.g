@@ -18,7 +18,7 @@ options {
 }
 
 @parser::members {
-	public Graph root, cnode;
+	public Graph graph;
 	protected Deque<Graph> nodes = new LinkedList<Graph>();
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 }
@@ -26,12 +26,12 @@ options {
 diagram : collabDiagram;
 
 collabDiagram 
-	@init{ root = collabFactory.createRootNode(); cnode = root; }
-	@after { root.accept(new NodeRefVisitor()); }
-	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { root.setName($ID.text); };
+	@init{ graph = collabFactory.createGraph();  }
+	@after { graph.accept(new NodeRefVisitor()); }
+	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { graph.setName($ID.text); };
 
 collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=ID (EDGEOP ids+=ID '.' mds+=ID)* ';' 
-	{ collabFactory.createEdges(cnode, $ids, $mds); }; 
+	{ collabFactory.createEdges(graph, $ids, $mds); }; 
 
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;

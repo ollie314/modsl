@@ -42,14 +42,13 @@ public class VisitorSTTest {
     @Test
     public void graph() {
 
-        Graph root = buildTree();
-        log.debug(new ToStringVisitor().toString(root));
+        Graph graph = buildTree();
+        //log.debug(new ToStringVisitor().toString(graph));
         StringTemplateVisitor stv = new StringTemplateVisitor(STGDIRS, "visitor_demo", 0);
-        root.accept(stv);
+        graph.accept(stv);
         String result = stv.toString();
-
-        
-        log.debug(result);
+       
+        //log.debug(result);
 
         assertEquals(1, Utils.matchCount(result, "<graph"));
         assertEquals(1, Utils.matchCount(result, "graph_name"));
@@ -65,20 +64,20 @@ public class VisitorSTTest {
 
     private Graph buildTree() {
 
-        Graph root = new Graph(VMetaType.GRAPH, "graph_name");
+        Graph graph = new Graph(VMetaType.GRAPH, "graph_name");
 
         Node n1 = new Node(VMetaType.NODE, "n1");
         Node n2 = new Node(VMetaType.NODE, "n2");
         Node n3 = new Node(VMetaType.NODE, "n3");
 
-        root.add(n1);
-        root.add(n2);
-        root.add(n3);
+        graph.add(n1);
+        graph.add(n2);
+        graph.add(n3);
 
-        root.add(new Edge(VMetaType.EDGE, "e1_2", n1, n2));
+        graph.add(new Edge(VMetaType.EDGE, "e1_2", n1, n2));
 
 
-        return root;
+        return graph;
 
     }
 

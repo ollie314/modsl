@@ -16,6 +16,7 @@
 
 package org.modsl.core.agt.visitor;
 
+import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
@@ -55,7 +56,7 @@ public class ToStringVisitor extends AbstractVisitor {
         indentation = indentation.substring(0, indentation.length() - IND_UNIT.length());
         sb.append("\n").append(indentation).append("}");
     }
-    
+
     @Override
     public void in(Node node) {
         sb.append("\n").append(indentation).append(node.toString());
@@ -79,11 +80,11 @@ public class ToStringVisitor extends AbstractVisitor {
 
     /**
      * Render given AGT as a string
-     * @param tree's root
+     * @param box
      * @return string
      */
-    public String toString(Graph root) {
-        root.accept(this);
+    public String toString(AbstractBox<?> box) {
+        box.accept(this);
         return toString();
     }
 

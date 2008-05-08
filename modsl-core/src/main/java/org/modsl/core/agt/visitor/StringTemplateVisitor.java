@@ -22,6 +22,7 @@ import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.DefaultTemplateLexer;
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.decor.AbstractDecorator;
+import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.AbstractElement;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
@@ -180,11 +181,11 @@ public class StringTemplateVisitor extends AbstractVisitor {
 
     /**
      * Return given AGT as a string
-     * @param root
+     * @param box
      * @return string
      */
-    public String toString(Node root) {
-        root.accept(this);
+    public String toString(AbstractBox<?> box) {
+        box.accept(this);
         return toString();
     }
 

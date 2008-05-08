@@ -35,12 +35,12 @@ import org.modsl.core.agt.model.Node;
 
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
-    protected Graph root;
+    protected Graph graph;
     protected SugiyamaLayerStack stack;
 
     @Override
-    public void apply(Graph r) {
-        this.root = r;
+    public void apply(Graph graph) {
+        this.graph = graph;
         removeCycles();
         layer();
         insertDummies();
@@ -49,11 +49,11 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         undoRemoveCycles();
         stack.layerHeights();
         stack.xPositions();
-        root.rescale();
+        graph.rescale();
     }
 
     void insertDummies() {
-        for (Edge currEdge : new ArrayList<Edge>(root.getEdges())) {
+        for (Edge currEdge : new ArrayList<Edge>(graph.getEdges())) {
             int fromLayer = stack.getLayer(currEdge.getNode1());
             int toLayer = stack.getLayer(currEdge.getNode2());
             if (toLayer - fromLayer > 1) {
@@ -87,7 +87,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     void removeCycles() {
         List<Node> nodes = sortByOutDegree();
-        Set<Edge> removed = new HashSet<Edge>(root.getEdges().size());
+        Set<Edge> removed = new HashSet<Edge>(graph.getEdges().size());
         for (Node n : nodes) {
             for (Edge in : new ArrayList<Edge>(n.getInEdges())) {
                 if (!removed.contains(in)) {
@@ -104,7 +104,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
     }
 
     List<Node> sortByOutDegree() {
-        List<Node> nodes = new ArrayList<Node>(root.getNodes());
+        List<Node> nodes = new ArrayList<Node>(graph.getNodes());
         Collections.sort(nodes, new Comparator<Node>() {
             public int compare(Node n1, Node n2) {
                 return n2.getOutDegree() - n1.getOutDegree();
@@ -115,7 +115,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     List<Node> sources() {
         List<Node> sources = new LinkedList<Node>();
-        for (Node n : root.getNodes()) {
+        for (Node n : graph.getNodes()) {
             if (n.getInDegree() == 0) {
                 sources.add(n);
             }
@@ -142,14 +142,14 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
                 }
             }
         }
-        if (root.getNodes().size() != l.size()) {
-            throw new ModSLException("Topological sort failed for " + root + " in Sugiyama layout");
+        if (graph.getNodes().size() != l.size()) {
+            throw new ModSLException("Topological sort failed for " + graph + " in Sugiyama layout");
         }
         return l;
     }
 
     void undoRemoveCycles() {
-        for (Edge e : root.getEdges()) {
+        for (Edge e : graph.getEdges()) {
             e.setReverted(false);
         }
     }

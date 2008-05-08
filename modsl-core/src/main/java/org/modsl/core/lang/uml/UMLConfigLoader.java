@@ -36,14 +36,14 @@ public class UMLConfigLoader extends AbstractConfigLoader {
 
     @Override
     public void initLayouts() {
-        // UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new AbstractLayout[] { new CircleLayout(), new FRLayout() });
-        UMLMetaType.COLLAB_ROOT.getConfig().setLayout(new AbstractLayout[] { new SugiyamaLayout() });
+        // UMLMetaType.COLLAB_GRAPH.getConfig().setLayout(new AbstractLayout[] { new CircleLayout(), new FRLayout() });
+        UMLMetaType.COLLAB_GRAPH.getConfig().setLayout(new AbstractLayout[] { new SugiyamaLayout() });
         UMLMetaType.COLLAB_NODE.getConfig().setLayout(new AbstractLayout[] { new CollabNodeLayout() });
     }
 
     @Override
     public void initDecorators() {
-        UMLMetaType.COLLAB_ROOT.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
+        UMLMetaType.COLLAB_GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
         UMLMetaType.COLLAB_NODE.getConfig().setDecorator(new CollabNodeDecorator());
         UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
     }

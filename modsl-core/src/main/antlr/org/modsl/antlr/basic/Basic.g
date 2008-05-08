@@ -18,20 +18,20 @@ options {
 }
 
 @parser::members {
-	public Graph root;
+	public Graph graph;
 	protected BasicFactory factory = new BasicFactory();
 }
 
 graph 
-	@init{ root = factory.createRootNode(); }
-	@after { root.accept(new NodeRefVisitor()); }
-	: 'graph' ID '{' statement* '}' { root.setName($ID.text); };
+	@init{ graph = factory.createGraph(); }
+	@after { graph.accept(new NodeRefVisitor()); }
+	: 'graph' ID '{' statement* '}' { graph.setName($ID.text); };
 
 statement: (nodeStatement | edgeStatement) ';';
 
-nodeStatement : ID { Node n = factory.createNode(root, $ID);  };
+nodeStatement : ID { Node n = factory.createNode(graph, $ID);  };
 
-edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* { factory.createEdges(root, $ids); };
+edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* { factory.createEdges(graph, $ids); };
 
 EDGEOP: '->' | '--';
 ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | '_' | 'a'..'z' |'A'..'Z')* | INT);
