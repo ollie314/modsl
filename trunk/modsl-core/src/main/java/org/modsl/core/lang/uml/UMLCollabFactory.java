@@ -39,11 +39,11 @@ public class UMLCollabFactory extends AbstractUMLFactory {
      * @param ctokens edge tokens
      * @return list of edges
      */
-    public List<Edge<UMLMetaType>> createEdges(Node<UMLMetaType> parent, List<Token> ctokens, List<Token> mtokens) {
+    public List<Edge> createEdges(Node parent, List<Token> ctokens, List<Token> mtokens) {
 
-        List<Edge<UMLMetaType>> es = new LinkedList<Edge<UMLMetaType>>();
+        List<Edge> es = new LinkedList<Edge>();
 
-        Node<UMLMetaType> n1 = null, n2 = null;
+        Node n1 = null, n2 = null;
         Token t1, t2;
 
         for (int i = 0; i < ctokens.size() - 1; i++) {
@@ -56,7 +56,7 @@ public class UMLCollabFactory extends AbstractUMLFactory {
             }
             n2 = createNodeIfDoesntExist(parent, t2);
 
-            Edge<UMLMetaType> e = new Edge<UMLMetaType>(UMLMetaType.COLLAB_EDGE, (edgeCounter++) + ":" + mtokens.get(i).getText(),
+            Edge e = new Edge(UMLMetaType.COLLAB_EDGE, (edgeCounter++) + ":" + mtokens.get(i).getText(),
                     n1, n2);
             parent.addChild(e);
             es.add(e);
@@ -75,8 +75,8 @@ public class UMLCollabFactory extends AbstractUMLFactory {
      * @param token node token
      * @return new node
      */
-    private Node<UMLMetaType> createNode(Node<UMLMetaType> parent, Token token) {
-        Node<UMLMetaType> n = new Node<UMLMetaType>(UMLMetaType.COLLAB_NODE, token.getText());
+    private Node createNode(Node parent, Token token) {
+        Node n = new Node(UMLMetaType.COLLAB_NODE, token.getText());
         n.setIndex(nodeCounter++);
         parent.add(n);
         return n;
@@ -89,8 +89,8 @@ public class UMLCollabFactory extends AbstractUMLFactory {
      * @param token new node token
      * @return node
      */
-    private Node<UMLMetaType> createNodeIfDoesntExist(Node<UMLMetaType> parent, Token token) {
-        Node<UMLMetaType> n = parent.getNode(token.getText());
+    private Node createNodeIfDoesntExist(Node parent, Token token) {
+        Node n = parent.getNode(token.getText());
         if (n == null) {
             return createNode(parent, token);
         } else {
@@ -99,8 +99,8 @@ public class UMLCollabFactory extends AbstractUMLFactory {
     }
 
     @Override
-    public Node<UMLMetaType> createRootNode() {
-        return new Node<UMLMetaType>(UMLMetaType.COLLAB_ROOT);
+    public Node createRootNode() {
+        return new Node(UMLMetaType.COLLAB_ROOT);
     }
 
 }

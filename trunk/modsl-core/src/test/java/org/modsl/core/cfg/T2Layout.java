@@ -36,7 +36,7 @@ public class T2Layout extends AbstractLayout {
     }
 
     @Override
-    public void apply(Node<?> node) {
+    public void apply(Node node) {
         // TODO Auto-generated method stub
     }
 

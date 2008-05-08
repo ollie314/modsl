@@ -23,7 +23,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * Abstract graph element
  * @author avishnyakov
  */
-public abstract class AbstractGraphElement<T extends MetaType> {
+public abstract class AbstractGraphElement {
 
     protected Logger log = Logger.getLogger(getClass());
 
@@ -35,7 +35,7 @@ public abstract class AbstractGraphElement<T extends MetaType> {
     /**
      * Parent node
      */
-    protected AbstractGraphElement<T> parent;
+    protected AbstractGraphElement parent;
 
     /**
      * This element is visible
@@ -45,13 +45,13 @@ public abstract class AbstractGraphElement<T extends MetaType> {
     /**
      * Type
      */
-    protected T type;
+    protected MetaType type;
 
     /**
      * Create new
      * @param type
      */
-    public AbstractGraphElement(T type) {
+    public AbstractGraphElement(MetaType type) {
         super();
         this.type = type;
     }
@@ -61,7 +61,7 @@ public abstract class AbstractGraphElement<T extends MetaType> {
      * @param type
      * @param name
      */
-    public AbstractGraphElement(T type, String name) {
+    public AbstractGraphElement(MetaType type, String name) {
         super();
         this.type = type;
         this.name = name;
@@ -71,7 +71,7 @@ public abstract class AbstractGraphElement<T extends MetaType> {
      * Guaranteed to be called on all elements of the graph, traversing depth
      * first, edges before nodes when elements of the graph already created.
      */
-    public abstract void accept(AbstractVisitor<T> visitor);
+    public abstract void accept(AbstractVisitor visitor);
 
     /**
      * @return name
@@ -83,14 +83,14 @@ public abstract class AbstractGraphElement<T extends MetaType> {
     /**
      * @return parent
      */
-    public AbstractGraphElement<T> getParent() {
+    public AbstractGraphElement getParent() {
         return parent;
     }
 
     /**
      * @return meta type
      */
-    public T getType() {
+    public MetaType getType() {
         return type;
     }
 
@@ -113,7 +113,7 @@ public abstract class AbstractGraphElement<T extends MetaType> {
      * Set parent
      * @param parent
      */
-    public void setParent(AbstractGraphElement<T> parent) {
+    public void setParent(AbstractGraphElement parent) {
         this.parent = parent;
     }
 
@@ -121,7 +121,7 @@ public abstract class AbstractGraphElement<T extends MetaType> {
      * Set meta type
      * @param type
      */
-    public void setType(T type) {
+    public void setType(MetaType type) {
         this.type = type;
     }
 

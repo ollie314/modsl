@@ -22,7 +22,7 @@ import java.util.Map;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
-public class MetaTypeMapDecorator extends AbstractDecorator<Node<?>> {
+public class MetaTypeMapDecorator extends AbstractDecorator<Node> {
 
 	protected Map<String, Object> metaTypeMap;
 

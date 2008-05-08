@@ -60,7 +60,7 @@ public class MetaTypeConfig {
 		return layouts;
 	}
 
-	public void setDecorator(AbstractDecorator<?> decorator) {
+	public void setDecorator(AbstractDecorator decorator) {
 		this.decorator = decorator;
 	}
 

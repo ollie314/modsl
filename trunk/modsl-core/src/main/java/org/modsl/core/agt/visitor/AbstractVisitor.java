@@ -28,13 +28,13 @@ import org.modsl.core.agt.model.Node;
  *
  * @param <T> element meta type class
  */
-public abstract class AbstractVisitor<T extends MetaType> {
+public abstract class AbstractVisitor {
 
     /**
      * Enter edge
      * @param edge
      */
-    public void in(Edge<T> edge) {
+    public void in(Edge edge) {
         // NO OP
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractVisitor<T extends MetaType> {
      * Enter node
      * @param node
      */
-    public void in(Node<T> node) {
+    public void in(Node node) {
         // NO OP
     }
 
@@ -50,7 +50,7 @@ public abstract class AbstractVisitor<T extends MetaType> {
      * Exit edge. Not likely to be used for now since edges don't have child elements.
      * @param edge
      */
-    public void out(Edge<T> edge) {
+    public void out(Edge edge) {
         // NO OP
     }
 
@@ -58,7 +58,7 @@ public abstract class AbstractVisitor<T extends MetaType> {
      * Exit node
      * @param node
      */
-    public void out(Node<T> node) {
+    public void out(Node node) {
         // NO OP
     }
 }

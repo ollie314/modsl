@@ -24,7 +24,6 @@ import org.apache.log4j.Logger;
 import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.AbstractGraphElement;
 import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -34,117 +33,117 @@ import org.modsl.core.agt.model.Node;
  * 
  * @param <T> meta type class
  */
-public class StringTemplateVisitor<T extends MetaType> extends AbstractVisitor<T> {
+public class StringTemplateVisitor extends AbstractVisitor {
 
-	private static final String SUFF_IN = "_in";
-	private static final String SUFF_OUT = "_out";
+    private static final String SUFF_IN = "_in";
+    private static final String SUFF_OUT = "_out";
 
-	protected Logger log = Logger.getLogger(getClass());
-	protected StringTemplateGroup group;
+    protected Logger log = Logger.getLogger(getClass());
+    protected StringTemplateGroup group;
 
-	protected StringBuilder sb = new StringBuilder();
+    protected StringBuilder sb = new StringBuilder();
 
-	/**
-	 * Create new
-	 * @param stgPath string template group path (multiple dirs separated by
-	 * colon)
-	 * @param stgName string template group name (specific to given graph type)
-	 * @param refresh template refresh timeout, seconds
-	 */
-	public StringTemplateVisitor(String stgPath, String stgName, int refresh) {
-		StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(stgPath, new STErrorListener()));
-		group = StringTemplateGroup.loadGroup(stgName, DefaultTemplateLexer.class, null);
-		if (refresh > -1) {
-			group.setRefreshInterval(refresh);
-		}
-	}
+    /**
+     * Create new
+     * @param stgPath string template group path (multiple dirs separated by
+     * colon)
+     * @param stgName string template group name (specific to given graph type)
+     * @param refresh template refresh timeout, seconds
+     */
+    public StringTemplateVisitor(String stgPath, String stgName, int refresh) {
+        StringTemplateGroup.registerGroupLoader(new CommonGroupLoader(stgPath, new STErrorListener()));
+        group = StringTemplateGroup.loadGroup(stgName, DefaultTemplateLexer.class, null);
+        if (refresh > -1) {
+            group.setRefreshInterval(refresh);
+        }
+    }
 
-	/**
-	 * Call template "edgeType"_suff (edgeType_in or edgeType_out) on the given
-	 * edge
-	 * @param edge
-	 * @param suff _in or _out
-	 */
-	private void callTemplate(Edge<T> edge, String suff) {
-		sb.append(callTemplate(edge.getType() + suff, "edge", edge));
-	}
+    /**
+     * Call template "edgeType"_suff (edgeType_in or edgeType_out) on the given
+     * edge
+     * @param edge
+     * @param suff _in or _out
+     */
+    private void callTemplate(Edge edge, String suff) {
+        sb.append(callTemplate(edge.getType() + suff, "edge", edge));
+    }
 
-	/**
-	 * Call template "nodeType"_suff (nodeType_in or nodeType_out) on the given
-	 * node
-	 * @param node
-	 * @param suff _in or _out
-	 */
-	private void callTemplate(Node<T> node, String suff) {
-		sb.append(callTemplate(node.getType() + suff, "node", node));
-	}
+    /**
+     * Call template "nodeType"_suff (nodeType_in or nodeType_out) on the given
+     * node
+     * @param node
+     * @param suff _in or _out
+     */
+    private void callTemplate(Node node, String suff) {
+        sb.append(callTemplate(node.getType() + suff, "node", node));
+    }
 
-	/**
-	 * Call template, ignore "template not found" error
-	 * @param name template name
-	 * @param key element key
-	 * @param element element value
-	 * @return resulting string
-	 */
-	private String callTemplate(String name, String key, AbstractGraphElement<T> element) {
-		try {
-			StringTemplate st = group.getInstanceOf(name);
-			if (st != null) {
-				st.setAttribute(key, element);
-				st.setAttribute("decor", getDecorator(element));
-				return st.toString();
-			} else {
-				return "";
-			}
-		} catch (IllegalArgumentException ex) {
-			return "";
-		}
-	}
+    /**
+     * Call template, ignore "template not found" error
+     * @param name template name
+     * @param key element key
+     * @param element element value
+     * @return resulting string
+     */
+    private String callTemplate(String name, String key, AbstractGraphElement element) {
+        try {
+            StringTemplate st = group.getInstanceOf(name);
+            if (st != null) {
+                st.setAttribute(key, element);
+                st.setAttribute("decor", getDecorator(element));
+                return st.toString();
+            } else {
+                return "";
+            }
+        } catch (IllegalArgumentException ex) {
+            return "";
+        }
+    }
 
-	@SuppressWarnings("unchecked")
-	private Object getDecorator(AbstractGraphElement<T> element) {
-		AbstractDecorator ad = element.getType().getConfig().getDecorator();
-		if (ad == null) {
-			return null;
-		} else {
-			ad.decorate(element);
-			return ad;
-		}
-	}
+    @SuppressWarnings("unchecked")
+    private Object getDecorator(AbstractGraphElement element) {
+        AbstractDecorator ad = element.getType().getConfig().getDecorator();
+        if (ad == null) {
+            return null;
+        } else {
+            ad.decorate(element);
+            return ad;
+        }
+    }
 
-	@Override
-	public void in(Edge<T> edge) {
-		callTemplate(edge, SUFF_IN);
-	}
+    @Override
+    public void in(Edge edge) {
+        callTemplate(edge, SUFF_IN);
+    }
 
-	@Override
-	public void in(Node<T> node) {
-		callTemplate(node, SUFF_IN);
-	}
+    @Override
+    public void in(Node node) {
+        callTemplate(node, SUFF_IN);
+    }
 
-	@Override
-	public void out(Edge<T> edge) {
-		callTemplate(edge, SUFF_OUT);
-	}
+    @Override
+    public void out(Edge edge) {
+        callTemplate(edge, SUFF_OUT);
+    }
 
-	@Override
-	public void out(Node<T> node) {
-		callTemplate(node, SUFF_OUT);
-	}
+    @Override
+    public void out(Node node) {
+        callTemplate(node, SUFF_OUT);
+    }
 
-	@Override
-	public String toString() {
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        return sb.toString();
+    }
 
-	/**
-	 * Return given AGT as a string
-	 * @param root
-	 * @return string
-	 */
-	public String toString(Node<T> root) {
-		root.accept(this);
-		return toString();
-	}
+    /**
+     * Return given AGT as a string
+     * @param root
+     * @return string
+     */
+    public String toString(Node root) {
+        root.accept(this);
+        return toString();
+    }
 
 }

@@ -36,133 +36,124 @@ import org.modsl.core.lang.uml.UMLMetaType;
 
 public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
-	// TODO dynamic separation based on label size?
-	// TODO bends
-	protected static final double X_SEPARATION = 60d;
-	protected static final double Y_SEPARATION = 60d;
 
-	protected static MetaType DUMMY_EDGE = UMLMetaType.DUMMY_EDGE;
-	protected static MetaType DUMMY_NODE = UMLMetaType.DUMMY_NODE;
-	protected int dummyCount = 1;
+    protected Node root;
+    protected SugiyamaLayerStack stack;
 
-	protected Node<?> root;
-	protected SugiyamaLayerStack stack;
+    @Override
+    public void apply(Node r) {
+        this.root = r;
+        removeCycles();
+        layer();
+        insertDummies();
+        stack.initIndexes();
+        stack.reduceCrossings();
+        undoRemoveCycles();
+        stack.layerHeights();
+        stack.xPositions();
+        root.rescale();
+    }
 
-	@Override
-	public void apply(Node<?> r) {
-		this.root = r;
-		removeCycles();
-		layer();
-		insertDummies();
-		stack.initIndexes();
-		stack.reduceCrossings();
-		undoRemoveCycles();
-		stack.layerHeights();
-		stack.xPositions();
-		root.rescale();
-	}
+    void insertDummies() {
+        for (Edge currEdge : new ArrayList<Edge>(root.getChildEdges())) {
+            int fromLayer = stack.getLayer(currEdge.getNode1());
+            int toLayer = stack.getLayer(currEdge.getNode2());
+            if (toLayer - fromLayer > 1) {
+                for (int layer = fromLayer + 1; layer < toLayer; layer++) {
+                    Bend b = new Bend();
+                    currEdge.add(b);
+                    stack.add(b, layer);
+                }
+            }
+        }
+    }
 
-	void insertDummies() {
-		for (Edge<?> currEdge : new ArrayList<Edge<?>>(root.getChildEdges())) {
-			int fromLayer = stack.getLayer(currEdge.getNode1());
-			int toLayer = stack.getLayer(currEdge.getNode2());
-			if (toLayer - fromLayer > 1) {
-				for (int layer = fromLayer + 1; layer < toLayer; layer++) {
-					Bend b = new Bend();
-					currEdge.add(b);
-					stack.add(b, layer);
-				}
-			}
-		}
-	}
+    void layer() {
+        List<Node> sorted = topologicalSort();
+        for (Node n : sorted) {
+            n.setIndex(0);
+        }
+        int h = 0;
+        for (Node n1 : sorted) {
+            for (Edge out : n1.getOutEdges()) {
+                Node n2 = out.getNode2();
+                n2.setIndex(max(n1.getIndex() + 1, n2.getIndex()));
+                h = max(h, n2.getIndex() + 1);
+            }
+        }
+        stack = new SugiyamaLayerStack(h, sorted.size());
+        for (Node n1 : sorted) {
+            stack.add(n1, n1.getIndex());
+        }
+    }
 
-	void layer() {
-		List<Node<?>> sorted = topologicalSort();
-		for (Node<?> n : sorted) {
-			n.setIndex(0);
-		}
-		int h = 0;
-		for (Node<?> n1 : sorted) {
-			for (Edge<?> out : n1.getOutEdges()) {
-				Node<?> n2 = out.getNode2();
-				n2.setIndex(max(n1.getIndex() + 1, n2.getIndex()));
-				h = max(h, n2.getIndex() + 1);
-			}
-		}
-		stack = new SugiyamaLayerStack(h, sorted.size());
-		for (Node<?> n1 : sorted) {
-			stack.add(n1, n1.getIndex());
-		}
-	}
+    void removeCycles() {
+        List<Node> nodes = sortByOutDegree();
+        Set<Edge> removed = new HashSet<Edge>(root.getChildEdges().size());
+        for (Node n : nodes) {
+            for (Edge in : new ArrayList<Edge>(n.getInEdges())) {
+                if (!removed.contains(in)) {
+                    in.setReverted(true);
+                    removed.add(in);
+                }
+            }
+            for (Edge out : n.getOutEdges()) {
+                if (!removed.contains(out)) {
+                    removed.add(out);
+                }
+            }
+        }
+    }
 
-	void removeCycles() {
-		List<Node<?>> nodes = sortByOutDegree();
-		Set<Edge<?>> removed = new HashSet<Edge<?>>(root.getChildEdges().size());
-		for (Node<?> n : nodes) {
-			for (Edge<?> in : new ArrayList<Edge<?>>(n.getInEdges())) {
-				if (!removed.contains(in)) {
-					in.setReverted(true);
-					removed.add(in);
-				}
-			}
-			for (Edge<?> out : n.getOutEdges()) {
-				if (!removed.contains(out)) {
-					removed.add(out);
-				}
-			}
-		}
-	}
+    List<Node> sortByOutDegree() {
+        List<Node> nodes = new ArrayList<Node>(root.getNodes());
+        Collections.sort(nodes, new Comparator<Node>() {
+            public int compare(Node n1, Node n2) {
+                return n2.getOutDegree() - n1.getOutDegree();
+            }
+        });
+        return nodes;
+    }
 
-	List<Node<?>> sortByOutDegree() {
-		List<Node<?>> nodes = new ArrayList<Node<?>>(root.getNodes());
-		Collections.sort(nodes, new Comparator<Node<?>>() {
-			public int compare(Node<?> n1, Node<?> n2) {
-				return n2.getOutDegree() - n1.getOutDegree();
-			}
-		});
-		return nodes;
-	}
+    List<Node> sources() {
+        List<Node> sources = new LinkedList<Node>();
+        for (Node n : root.getNodes()) {
+            if (n.getInDegree() == 0) {
+                sources.add(n);
+            }
+        }
+        return sources;
+    }
 
-	List<Node<?>> sources() {
-		List<Node<?>> sources = new LinkedList<Node<?>>();
-		for (Node<?> n : root.getNodes()) {
-			if (n.getInDegree() == 0) {
-				sources.add(n);
-			}
-		}
-		return sources;
-	}
-
-
-	List<Node<?>> topologicalSort() {
-		List<Node<?>> q = sources();
-		List<Node<?>> l = new LinkedList<Node<?>>();
-		while (q.size() > 0) {
-			Node<?> n = q.remove(0);
-			l.add(n);
-			for (Edge<?> e : n.getOutEdges()) {
-				Node<?> m = e.getNode2();
-				boolean allEdgesRemoved = true;
-				for (Edge<?> e2 : m.getInEdges()) {
+    List<Node> topologicalSort() {
+        List<Node> q = sources();
+        List<Node> l = new LinkedList<Node>();
+        while (q.size() > 0) {
+            Node n = q.remove(0);
+            l.add(n);
+            for (Edge e : n.getOutEdges()) {
+                Node m = e.getNode2();
+                boolean allEdgesRemoved = true;
+                for (Edge e2 : m.getInEdges()) {
                     if (!l.contains(e2.getNode1())) {
-						allEdgesRemoved = false;
-					}
-				}
-				if (allEdgesRemoved) {
-					q.add(m);
-				}
-			}
-		}
-		if (root.getNodes().size() != l.size()) {
-			throw new ModSLException("Topological sort failed for " + root + " in Sugiyama layout");
-		}
-		return l;
-	}
+                        allEdgesRemoved = false;
+                    }
+                }
+                if (allEdgesRemoved) {
+                    q.add(m);
+                }
+            }
+        }
+        if (root.getNodes().size() != l.size()) {
+            throw new ModSLException("Topological sort failed for " + root + " in Sugiyama layout");
+        }
+        return l;
+    }
 
-	void undoRemoveCycles() {
-		for (Edge<?> e : root.getChildEdges()) {
-			e.setReverted(false);
-		}
-	}
+    void undoRemoveCycles() {
+        for (Edge e : root.getChildEdges()) {
+            e.setReverted(false);
+        }
+    }
 
 }

@@ -42,10 +42,10 @@ public class FRLayout extends AbstractLayout {
     protected double tempMultiplier, attractionMultiplier, repulsionMultiplier;
     protected int maxIterations;
 
-    protected Node<?> root;
+    protected Node root;
 
     @Override
-    public void apply(Node<?> root) {
+    public void apply(Node root) {
 
         this.root = root;
 
@@ -66,7 +66,7 @@ public class FRLayout extends AbstractLayout {
     }
 
     private void attraction() {
-        for (Edge<?> e : root.getChildEdges()) {
+        for (Edge e : root.getChildEdges()) {
             Pt delta = e.getNode1Port().minus(e.getNode2Port());
             double dl = delta.lenSafe();
             e.getNode1().getAltPos().decBy(delta.div(dl).mult(attractionForce(dl)));
@@ -83,7 +83,7 @@ public class FRLayout extends AbstractLayout {
         return "fr_layout";
     }
 
-    private Pt getDelta(Node<?> n1, Node<?> n2) {
+    private Pt getDelta(Node n1, Node n2) {
         Pt delta = n1.getCtrPos().minus(n2.getCtrPos());
         // String s = delta.toString();
         if (n1.getSize().y > n1.getSize().x) {
@@ -103,7 +103,7 @@ public class FRLayout extends AbstractLayout {
     }
 
     private void moveVertexes() {
-        for (Node<?> n : root.getNodes()) {
+        for (Node n : root.getNodes()) {
             Pt delta = n.getAltPos().minus(n.getPos());
             double dl = delta.lenSafe();
             n.getPos().incBy(delta.div(dl).mult(min(dl, temp)));
@@ -115,9 +115,9 @@ public class FRLayout extends AbstractLayout {
     }
 
     private void repulsion() {
-        for (Node<?> na : root.getNodes()) {
+        for (Node na : root.getNodes()) {
             na.getAltPos().zero();
-            for (Node<?> nb : root.getNodes()) {
+            for (Node nb : root.getNodes()) {
                 if (na != nb) {
                     Pt delta = getDelta(na, nb);
                     double dl = delta.lenSafe();

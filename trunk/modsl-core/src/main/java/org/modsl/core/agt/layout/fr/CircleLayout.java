@@ -40,12 +40,12 @@ public class CircleLayout extends AbstractLayout {
     private Logger log = Logger.getLogger(getClass());
 
     protected double angle;
-    protected Node<?> graph;
+    protected Node graph;
     protected int circlePositions, maxRounds;
     protected Random random;
 
     @Override
-    public void apply(Node<?> node) {
+    public void apply(Node node) {
 
         this.graph = node;
         this.circlePositions = graph.getNodes().size();
@@ -85,7 +85,7 @@ public class CircleLayout extends AbstractLayout {
         }
     }
 
-    private void setCirclePosition(Node<?> n, int p) {
+    private void setCirclePosition(Node n, int p) {
         double len = graph.getReqSize().len();
         n.getPos().x = graph.getReqSize().x / 2d + len / 2d * cos(getPosAngle(p));
         n.getPos().y = graph.getReqSize().y / 2d + len / 2d * sin(getPosAngle(p));
@@ -97,8 +97,8 @@ public class CircleLayout extends AbstractLayout {
     }
 
     private void swap(int p1, int p2) {
-        Node<?> n1 = graph.getNode(p1);
-        Node<?> n2 = graph.getNode(p2);
+        Node n1 = graph.getNode(p1);
+        Node n2 = graph.getNode(p2);
         Pt pt1 = n1.getPos();
         n1.setPos(n2.getPos());
         n2.setPos(pt1);

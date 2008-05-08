@@ -40,7 +40,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 
 	@Test
 	public void degreeSorting() {
-		List<Node<?>> sorted = layout.sortByOutDegree();
+		List<Node> sorted = layout.sortByOutDegree();
 		assertEquals(sorted.size(), root.getNodes().size());
 		assertEquals(n1, sorted.get(0));
 		assertEquals(n2, sorted.get(1));
@@ -68,7 +68,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 	@Test
 	public void topologicalSort() {
 		layout.removeCycles();
-		List<Node<?>> sorted = layout.topologicalSort();
+		List<Node> sorted = layout.topologicalSort();
 		assertEquals(root.getNodes().size(), sorted.size());
 		assertEquals(n1, sorted.get(0));
 		assertEquals(n2, sorted.get(1));
