@@ -49,18 +49,17 @@ public class VisitorSTTest {
         String result = stv.toString();
 
         
-        // log.debug(result);
+        log.debug(result);
 
         assertEquals(1, Utils.matchCount(result, "<graph"));
         assertEquals(1, Utils.matchCount(result, "graph_name"));
         assertEquals(1, Utils.matchCount(result, "</graph>"));
-        assertEquals(2, Utils.matchCount(result, "e1"));
-        assertEquals(1, Utils.matchCount(result, "es1"));
-        assertEquals(2, Utils.matchCount(result, "n.?1"));
-        assertEquals(2, Utils.matchCount(result, "n.?2"));
-        assertEquals(2, Utils.matchCount(result, "n.?3"));
-        assertEquals(7, Utils.matchCount(result, "</node>"));
-        assertEquals(4, Utils.matchCount(result, "</edge>"));
+        assertEquals(1, Utils.matchCount(result, "e1_2"));
+        assertEquals(1, Utils.matchCount(result, "n1"));
+        assertEquals(1, Utils.matchCount(result, "n2"));
+        assertEquals(1, Utils.matchCount(result, "n3"));
+        assertEquals(3, Utils.matchCount(result, "</node>"));
+        assertEquals(1, Utils.matchCount(result, "</edge>"));
 
     }
 
@@ -70,27 +69,14 @@ public class VisitorSTTest {
 
         Node n1 = new Node(VMetaType.NODE, "n1");
         Node n2 = new Node(VMetaType.NODE, "n2");
-        //Graph n3 = new Graph(VMetaType.NODE, "n3_subroot");
-        Node n4 = new Node(VMetaType.NODE, "n4");
+        Node n3 = new Node(VMetaType.NODE, "n3");
 
         root.add(n1);
         root.add(n2);
-        //root.add(n3);
-        root.add(n4);
+        root.add(n3);
 
-        root.add(new Edge(VMetaType.EDGE, "e1.2", n1, n2));
-        //root.add(new Edge(VMetaType.EDGE, "e1.3", n1, n3));
-        //root.add(new Edge(VMetaType.EDGE, "e2.3", n2, n3));
+        root.add(new Edge(VMetaType.EDGE, "e1_2", n1, n2));
 
-        Node ns1 = new Node(VMetaType.NODE, "ns1");
-        Node ns2 = new Node(VMetaType.NODE, "ns2");
-        Node ns3 = new Node(VMetaType.NODE, "ns3");
-
-        //n3.add(ns1);
-        //n3.add(ns2);
-        //n3.add(ns3);
-
-        //n3.add(new Edge(VMetaType.EDGE, "es1.2", ns1, ns2));
 
         return root;
 

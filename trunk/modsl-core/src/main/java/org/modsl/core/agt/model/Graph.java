@@ -300,9 +300,4 @@ public class Graph extends AbstractBox<Graph> {
         return size.x * size.y;
     }
 
-    @Override
-    public String toString() {
-        return name + ":" + type;
-    }
-
 }

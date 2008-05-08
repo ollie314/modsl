@@ -24,6 +24,8 @@ import org.apache.log4j.Logger;
 import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.AbstractElement;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -66,6 +68,26 @@ public class StringTemplateVisitor extends AbstractVisitor {
      */
     private void callTemplate(Edge edge, String suff) {
         sb.append(callTemplate(edge.getType() + suff, "edge", edge));
+    }
+
+    /**
+     * Call template "graphType"_suff (graphType_in or graphType_out) on the
+     * given graph
+     * @param graph
+     * @param suff _in or _out
+     */
+    private void callTemplate(Graph graph, String suff) {
+        sb.append(callTemplate(graph.getType() + suff, "graph", graph));
+    }
+
+    /**
+     * Call template "labelType"_suff (labelType_in or labelType_out) on the
+     * given label
+     * @param label
+     * @param suff _in or _out
+     */
+    private void callTemplate(Label label, String suff) {
+        sb.append(callTemplate(label.getType() + suff, "label", label));
     }
 
     /**
@@ -117,6 +139,16 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @Override
+    public void in(Graph graph) {
+        callTemplate(graph, SUFF_IN);
+    }
+
+    @Override
+    public void in(Label label) {
+        callTemplate(label, SUFF_IN);
+    }
+
+    @Override
     public void in(Node node) {
         callTemplate(node, SUFF_IN);
     }
@@ -124,6 +156,16 @@ public class StringTemplateVisitor extends AbstractVisitor {
     @Override
     public void out(Edge edge) {
         callTemplate(edge, SUFF_OUT);
+    }
+
+    @Override
+    public void out(Graph graph) {
+        callTemplate(graph, SUFF_OUT);
+    }
+
+    @Override
+    public void out(Label label) {
+        callTemplate(label, SUFF_OUT);
     }
 
     @Override

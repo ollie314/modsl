@@ -1,8 +1,8 @@
 group visitor_demo;
 
-GRAPH_in(node,decor) ::= <<
+GRAPH_in(graph,decor) ::= <<
 
-<graph name="$node.name$">
+<graph name="$graph.name$">
 
 >>
 
@@ -25,7 +25,7 @@ EDGE_out(edge,decor) ::= <<
 
 >>
 
-GRAPH_out(node,decor) ::= <<
+GRAPH_out(graph,decor) ::= <<
 </graph>
 
 >>
