@@ -65,16 +65,6 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
     protected List<Bend> bends = new LinkedList<Bend>();
 
     /**
-     * Label position
-     */
-    protected Pt labelPos = new Pt();
-
-    /**
-     * Label size
-     */
-    protected Pt labelSize = new Pt();
-
-    /**
      * Create new
      * @param type type
      * @param node1 start node
@@ -98,19 +88,6 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
     public Edge(T type, String name, Node<T> node1, Node<T> node2) {
         this(type, node1, node2);
         this.name = name;
-    }
-
-    /**
-     * Create new
-     * @param type type
-     * @param name name
-     * @param node1 start node
-     * @param node2 end node
-     * @param dummy
-     */
-    public Edge(T type, String name, Node<T> node1, Node<T> node2, boolean dummy) {
-        this(type, name, node1, node2);
-        this.dummy = dummy;
     }
 
     @Override
@@ -227,14 +204,6 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
         }
     }
 
-    public Pt getLabelPos() {
-        return labelPos;
-    }
-
-    public Pt getLabelSize() {
-        return labelSize;
-    }
-
     public Point getLastBend() {
         if (bends.isEmpty()) {
             return node1;
@@ -319,14 +288,6 @@ public class Edge<T extends MetaType> extends AbstractGraphElement<T> {
 
     public boolean isReverted() {
         return reverted;
-    }
-
-    public void setLabelPos(Pt labelPos) {
-        this.labelPos = labelPos;
-    }
-
-    public void setLabelSize(Pt labelSize) {
-        this.labelSize = labelSize;
     }
 
     /**

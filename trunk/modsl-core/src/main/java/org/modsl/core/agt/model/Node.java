@@ -121,17 +121,6 @@ public class Node<T extends MetaType> extends AbstractGraphElement<T> implements
 		resetPaddings();
 	}
 
-	/**
-	 * Create new
-	 * @param type type
-	 * @param name name
-	 * @param dummy true if dummy
-	 */
-	public Node(T type, String name, boolean dummy) {
-		this(type, name);
-		this.dummy = dummy;
-	}
-
 	@Override
 	public void accept(AbstractVisitor<T> visitor) {
 		visitor.in(this);
