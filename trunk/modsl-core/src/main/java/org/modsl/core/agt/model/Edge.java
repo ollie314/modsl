@@ -413,4 +413,8 @@ public class Edge extends AbstractElement<Graph> {
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
     }
 
+    public void addLabel(Label label) {
+        labels.add(label);
+    }
+
 }
