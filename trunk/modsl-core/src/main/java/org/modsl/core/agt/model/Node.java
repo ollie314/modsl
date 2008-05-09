@@ -29,7 +29,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * @param <T> type enum
  */
 public class Node extends AbstractBox<Graph> {
-    
+
     private static int counter = 0;
 
     /**
@@ -49,7 +49,7 @@ public class Node extends AbstractBox<Graph> {
      */
     public Node(MetaType type, String name) {
         super(type, name);
-        this.index=counter++;
+        this.index = counter++;
     }
 
     @Override
@@ -64,6 +64,7 @@ public class Node extends AbstractBox<Graph> {
     protected boolean addConnectedEdge(Edge edge) {
         return connectedEdges.add(edge);
     }
+
 
     public int getInDegree() {
         return getInEdges().size();
@@ -119,6 +120,5 @@ public class Node extends AbstractBox<Graph> {
     public double tan() {
         return size.y / size.x;
     }
-
 
 }
