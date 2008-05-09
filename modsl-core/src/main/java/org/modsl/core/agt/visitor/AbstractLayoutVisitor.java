@@ -14,30 +14,22 @@
  * the License.
  */
 
-package org.modsl.core.cfg;
+package org.modsl.core.agt.visitor;
 
 import java.util.Map;
 
-import org.modsl.core.agt.layout.AbstractLayout;
-import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.MetaType;
 
-public class T1Layout extends AbstractLayout {
+public abstract class AbstractLayoutVisitor extends AbstractVisitor {
 
-    protected Map<String, String> propMap;
+    protected MetaType type;
 
-    @Override
-    public String getConfigName() {
-        return "test1_layout_config";
+    public AbstractLayoutVisitor(MetaType type) {
+        this.type = type;
     }
 
-    @Override
-    public void setLayoutConfig(Map<String, String> propMap) {
-        this.propMap = propMap;
-    }
+    public abstract String getConfigName();
 
-    @Override
-    public void apply(Node node) {
-        // TODO Auto-generated method stub
-    }
+    public abstract void setLayoutConfig(Map<String, String> propMap);
 
 }

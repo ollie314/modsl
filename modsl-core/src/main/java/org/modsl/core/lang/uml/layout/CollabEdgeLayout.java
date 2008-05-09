@@ -22,9 +22,10 @@ import static java.lang.Math.min;
 import java.util.List;
 
 import org.modsl.core.agt.common.FontTransform;
-import org.modsl.core.agt.layout.AbstractNonConfigurableLayout;
+import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Label;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.uml.UMLMetaType;
@@ -33,10 +34,17 @@ import org.modsl.core.lang.uml.UMLMetaType;
  * Edge label placement
  * @author avishnyakov
  */
-public class CollabEdgeLayout extends AbstractNonConfigurableLayout {
+public class CollabEdgeLayout extends AbstractNonConfigurableLayoutVisitor {
+
+    public CollabEdgeLayout(MetaType type) {
+        super(type);
+    }
 
     @Override
-    public void apply(Edge edge) {
+    public void in(Edge edge) {
+        if (edge.getType() != this.type) {
+            return;
+        }
         List<Label> lst = edge.getLabels(UMLMetaType.COLLAB_EDGE_LABEL);
         if (lst.isEmpty()) {
             return;

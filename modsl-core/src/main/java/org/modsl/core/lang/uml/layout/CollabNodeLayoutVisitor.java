@@ -14,22 +14,31 @@
  * the License.
  */
 
-package org.modsl.core.agt.layout;
+package org.modsl.core.lang.uml.layout;
 
 import org.modsl.core.agt.common.FontTransform;
+import org.modsl.core.agt.layout.SimpleLabelLayoutVisitor;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.model.Pt;
 
 /**
  * Does simple node size calculation based on node's text height and width.
  * @author avishnyakov
  */
-public class SimpleLabelLayout extends AbstractNonConfigurableLayout {
+public class CollabNodeLayoutVisitor extends SimpleLabelLayoutVisitor {
+
+    public CollabNodeLayoutVisitor(MetaType type) {
+        super(type);
+    }
 
     @Override
-    public void apply(Node node) {
+    public void in(Node node) {
+        if (node.getType() != this.type) {
+            return;
+        }
+        super.in(node);
         FontTransform ft = node.getType().getConfig().getFontTransform();
-        node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
+        node.getSize().y += ft.getBottomPadding();
     }
 
 }

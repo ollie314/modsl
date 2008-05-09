@@ -29,23 +29,39 @@ import java.util.Map;
 import java.util.Set;
 
 import org.modsl.core.agt.common.ModSLException;
-import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 
 /**
  * Sugiyama layout algorithm
  * @author avishnyakov
  */
-public class SugiyamaLayout extends AbstractLayout {
+public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
 
     protected Graph graph;
+
     protected SugiyamaLayerStack stack = new SugiyamaLayerStack();
+    
+    public SugiyamaLayoutVisitor(MetaType type) {
+        super(type);
+    }
 
     @Override
-    public void apply(Graph graph) {
+    public String getConfigName() {
+        return "sugiyama_layout";
+    }
+
+    @Override
+    public void in(Graph graph) {
+
+        if (graph.getType() != this.type) {
+            return;
+        }
+
         this.graph = graph;
         removeCycles();
         layer();
@@ -110,6 +126,13 @@ public class SugiyamaLayout extends AbstractLayout {
         }
     }
 
+    @Override
+    public void setLayoutConfig(Map<String, String> propMap) {
+        stack.maxSweeps = Integer.parseInt(propMap.get("maxSweeps"));
+        stack.xSeparation = Double.parseDouble(propMap.get("xSeparation"));
+        stack.ySeparation = Double.parseDouble(propMap.get("ySeparation"));
+    }
+
     List<Node> sortByOutDegree() {
         List<Node> nodes = new ArrayList<Node>(graph.getNodes());
         Collections.sort(nodes, new Comparator<Node>() {
@@ -159,18 +182,6 @@ public class SugiyamaLayout extends AbstractLayout {
         for (Edge e : graph.getEdges()) {
             e.setReverted(false);
         }
-    }
-
-    @Override
-    public String getConfigName() {
-        return "sugiyama_layout";
-    }
-
-    @Override
-    public void setLayoutConfig(Map<String, String> propMap) {
-        stack.maxSweeps = Integer.parseInt(propMap.get("maxSweeps"));
-        stack.xSeparation = Double.parseDouble(propMap.get("xSeparation"));
-        stack.ySeparation = Double.parseDouble(propMap.get("ySeparation"));
     }
 
 }

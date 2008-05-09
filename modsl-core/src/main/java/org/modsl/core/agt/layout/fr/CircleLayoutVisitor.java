@@ -25,38 +25,30 @@ import java.util.Map;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
-import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
+import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 
 /**
  * Lays the element out on a circle to reduce edge crossing in the FR algorithm
  * later
  * @author avishnyakov
  */
-public class CircleLayout extends AbstractLayout {
+public class CircleLayoutVisitor extends AbstractLayoutVisitor {
 
     @SuppressWarnings("unused")
     private Logger log = Logger.getLogger(getClass());
 
     protected double angle;
+
     protected Graph graph;
     protected int circlePositions, maxRounds;
     protected Random random;
 
-    @Override
-    public void apply(Graph node) {
-
-        this.graph = node;
-        this.circlePositions = graph.getNodes().size();
-        this.angle = 2d * PI / circlePositions;
-
-        this.random = new Random(node.getName().hashCode());
-
-        initCircle();
-        optimizeEdgeLength();
-
+    public CircleLayoutVisitor(MetaType type) {
+        super(type);
     }
 
     @Override
@@ -66,6 +58,24 @@ public class CircleLayout extends AbstractLayout {
 
     private double getPosAngle(int p) {
         return PI / 4d - angle * p;
+    }
+
+    @Override
+    public void in(Graph graph) {
+
+        if (graph.getType() != this.type) {
+            return;
+        }
+
+        this.graph = graph;
+        this.circlePositions = graph.getNodes().size();
+        this.angle = 2d * PI / circlePositions;
+
+        this.random = new Random(graph.getName().hashCode());
+
+        initCircle();
+        optimizeEdgeLength();
+
     }
 
     private void initCircle() {

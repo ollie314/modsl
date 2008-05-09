@@ -23,17 +23,18 @@ import static java.lang.Math.sqrt;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
+import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 
 /**
  * Fruchterman-Rheingold layout algorithm
  * @author avishnyakov
  */
-public class FRLayout extends AbstractLayout {
+public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
     @SuppressWarnings("unused")
     private Logger log = Logger.getLogger(this.getClass());
@@ -41,29 +42,12 @@ public class FRLayout extends AbstractLayout {
     protected double temp, kForce, kAttraction, kRepulsion;
 
     protected double tempMultiplier, attractionMultiplier, repulsionMultiplier;
-    protected int maxIterations;
 
+    protected int maxIterations;
     protected Graph graph;
 
-    @Override
-    public void apply(Graph graph) {
-
-        this.graph = graph;
-
-        graph.recalcSize();
-        Pt gsize = graph.getSize();
-        temp = max((gsize.x + gsize.y) * tempMultiplier, Pt.EPSILON);
-        kForce = max(sqrt(graph.getArea() / graph.getNodes().size()), Pt.EPSILON);
-        kAttraction = attractionMultiplier * kForce;
-        kRepulsion = repulsionMultiplier * kForce;
-
-        for (int iterCurrent = 0; iterCurrent < maxIterations; iterCurrent++) {
-            repulsion();
-            attraction();
-            moveVertexes();
-            reduceTemperature(iterCurrent, maxIterations);
-        }
-
+    public FRLayoutVisitor(MetaType type) {
+        super(type);
     }
 
     private void attraction() {
@@ -101,6 +85,31 @@ public class FRLayout extends AbstractLayout {
         }
         // log.debug(s + ":" + delta);
         return delta;
+    }
+
+    @Override
+    public void in(Graph graph) {
+
+        if (graph.getType() != this.type) {
+            return;
+        }
+        
+        this.graph = graph;
+
+        graph.recalcSize();
+        Pt gsize = graph.getSize();
+        temp = max((gsize.x + gsize.y) * tempMultiplier, Pt.EPSILON);
+        kForce = max(sqrt(graph.getArea() / graph.getNodes().size()), Pt.EPSILON);
+        kAttraction = attractionMultiplier * kForce;
+        kRepulsion = repulsionMultiplier * kForce;
+
+        for (int iterCurrent = 0; iterCurrent < maxIterations; iterCurrent++) {
+            repulsion();
+            attraction();
+            moveVertexes();
+            reduceTemperature(iterCurrent, maxIterations);
+        }
+
     }
 
     private void moveVertexes() {
