@@ -45,7 +45,7 @@ public class BasicProcessorTest extends AbstractBasicTest {
 
 	@Test
 	public void process4() throws RecognitionException, IOException {
-		process("graph g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(400, 320));
+		process("graph g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(500, 420));
 	}
 
 	private void process(String s, Pt reqSize) throws RecognitionException, IOException {
