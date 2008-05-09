@@ -38,22 +38,6 @@ public class Node extends AbstractBox<Graph> {
     protected Set<Edge> connectedEdges = new HashSet<Edge>();
 
     /**
-     * This element's size
-     */
-    protected Pt size = new Pt();
-
-    /**
-     * Alternate position (place holder for layout algorithms)
-     */
-    protected Pt altPos = new Pt();
-
-    /**
-     * This element's position (it's left top corner) relative to it's parent
-     * node
-     */
-    protected Pt pos = new Pt();
-
-    /**
      * Labels
      */
     protected List<Label> labels = new LinkedList<Label>();
@@ -79,18 +63,6 @@ public class Node extends AbstractBox<Graph> {
 
     protected boolean addConnectedEdge(Edge edge) {
         return connectedEdges.add(edge);
-    }
-
-    /**
-     * @return alternate position
-     */
-    public Pt getAltPos() {
-        return altPos;
-    }
-
-    @Override
-    public Pt getCtrPos() {
-        return pos.plus(size.div(2d));
     }
 
     public int getInDegree() {
@@ -121,16 +93,6 @@ public class Node extends AbstractBox<Graph> {
         return ins;
     }
 
-    @Override
-    public Pt getPos() {
-        return pos;
-    }
-
-    @Override
-    public Pt getSize() {
-        return size;
-    }
-
     public boolean isConnectedTo(AbstractBox<?> b) {
         for (Edge e : connectedEdges) {
             if (e.getDistance(this, b) == 1) {
@@ -142,24 +104,6 @@ public class Node extends AbstractBox<Graph> {
 
     protected boolean removeConnectedEdge(Edge edge) {
         return connectedEdges.remove(edge);
-    }
-
-    /**
-     * Set alternate position
-     * @param altPos
-     */
-    public void setAltPos(Pt altPos) {
-        this.altPos = altPos;
-    }
-
-    @Override
-    public void setPos(Pt pos) {
-        this.pos = pos;
-    }
-
-    @Override
-    public void setSize(Pt size) {
-        this.size = size;
     }
 
     /**

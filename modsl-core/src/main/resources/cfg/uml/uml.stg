@@ -14,8 +14,8 @@ $root_in(graph)$
 	rect.collabnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
 	line.collabnode { stroke: black; stroke-width: 1px; }	
 	line.collabedge, path.collabedge { fill:none; stroke: dimgrey; stroke-width: 1px; }
-	text.collabedge { fill: black; font-family: $decor.meta.COLLAB_EDGE.config.ft.name$; font-size: $decor.meta.COLLAB_EDGE.config.ft.size$px; }
-	rect.collabedge { fill: white; stroke: white; stroke-width: 1px; opacity: 1; }	
+	text.collabedgelabel { fill: black; font-family: $decor.meta.COLLAB_EDGE_LABEL.config.ft.name$; font-size: $decor.meta.COLLAB_EDGE_LABEL.config.ft.size$px; }
+	rect.collabedgelabel { fill: white; stroke: white; stroke-width: 1px; opacity: 1; }	
 ]]></style>
 </defs>
 
@@ -33,8 +33,12 @@ COLLAB_EDGE_in(edge, decor) ::= <<
 <path d="M $edge.node1Port.x$ $edge.node1Port.y$ L $edge.bends:{b|$b.pos.x$ $b.pos.y$ }$$edge.node2Port.x$ $edge.node2Port.y$" class="collabedge"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collabedge"/>
 <line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collabedge"/>
-<rect x="$decor.textBgPos.x$" y="$decor.textBgPos.y$" width="$decor.textBgSize.x$" height="$decor.textBgSize.y$" class="collabedge"/>
-<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="collabedge">$edge.name$</text>
+>>
+
+COLLAB_EDGE_LABEL_in(label, decor) ::= <<
+
+<rect x="$label.pos.x$" y="$label.pos.y$" width="$label.size.x$" height="$label.size.y$" class="collabedgelabel"/>
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="collabedgelabel">$label.name$</text>
 >>
 
 COLLAB_GRAPH_out(graph, decor) ::= <<
