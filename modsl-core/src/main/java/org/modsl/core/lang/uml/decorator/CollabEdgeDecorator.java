@@ -17,12 +17,9 @@
 package org.modsl.core.lang.uml.decorator;
 
 import static java.lang.Math.PI;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.uml.UMLMetaType;
 
@@ -54,39 +51,6 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge> {
         double alpha = parent.angle2() + arrowAngle / 2d;
         return new Pt(parent.getNode2Port().x - arrowLength * Math.cos(alpha), parent.getNode2Port().y - arrowLength
                 * Math.sin(alpha));
-    }
-
-    /**
-     * @return position of the connector's midpoint
-     */
-    public Pt getMidPoint() {
-        //		return parent.getNode1().getCtrPos().plus(parent.getNode2().getCtrPos().minus(parent.getNode1().getCtrPos()).div(2d));
-        Node n1 = parent.getNode1();
-        Node n2 = parent.getNode2();
-        double ratio = 1d * n1.getOutDegree() / (n1.getOutDegree() + n2.getInDegree());
-        ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO 
-        return n1.getCtrPos().plus(n2.getCtrPos().minus(n1.getCtrPos()).mulBy(ratio));
-    }
-
-    /**
-     * @return position of the label text
-     */
-    public Pt getTextPos() {
-        return getMidPoint().decBy(new Pt(getFt().getStringWidth(parent.getName()) / 2d, 0));
-    }
-
-    /**
-     * @return size of the label text bg
-     */
-    public Pt getTextBgSize() {
-        return new Pt(getFt().getStringWidth(parent.getName()), getFt().getHeight());
-    }
-
-    /**
-     * @return pos of the label text bg
-     */
-    public Pt getTextBgPos() {
-        return getTextPos().decBy(new Pt(0, getFt().getBaseline()));
     }
 
 }
