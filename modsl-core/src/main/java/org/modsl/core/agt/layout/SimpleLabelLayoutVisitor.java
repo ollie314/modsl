@@ -33,10 +33,11 @@ public class SimpleLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisit
 
     @Override
     public void in(Node node) {
-        if (node.getType() == this.type) {
-            FontTransform ft = node.getType().getConfig().getFontTransform();
-            node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
+        if (node.getType() != this.type) {
+            return;
         }
+        FontTransform ft = node.getType().getConfig().getFontTransform();
+        node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
     }
 
 }
