@@ -29,16 +29,20 @@ import java.util.Map;
 import java.util.Set;
 
 import org.modsl.core.agt.common.ModSLException;
-import org.modsl.core.agt.layout.AbstractNonConfigurableLayout;
+import org.modsl.core.agt.layout.AbstractLayout;
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 
-public class SugiyamaLayout extends AbstractNonConfigurableLayout {
+/**
+ * Sugiyama layout algorithm
+ * @author avishnyakov
+ */
+public class SugiyamaLayout extends AbstractLayout {
 
     protected Graph graph;
-    protected SugiyamaLayerStack stack;
+    protected SugiyamaLayerStack stack = new SugiyamaLayerStack();
 
     @Override
     public void apply(Graph graph) {
@@ -82,7 +86,7 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
                 h = max(h, lmap.get(n2) + 1);
             }
         }
-        stack = new SugiyamaLayerStack(h, sorted.size());
+        stack.init(h, sorted.size());
         for (Node n : sorted) {
             stack.add(n, lmap.get(n));
         }
@@ -155,6 +159,18 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
         for (Edge e : graph.getEdges()) {
             e.setReverted(false);
         }
+    }
+
+    @Override
+    public String getConfigName() {
+        return "sugiyama_layout";
+    }
+
+    @Override
+    public void setLayoutConfig(Map<String, String> propMap) {
+        stack.maxSweeps = Integer.parseInt(propMap.get("maxSweeps"));
+        stack.xSeparation = Double.parseDouble(propMap.get("xSeparation"));
+        stack.ySeparation = Double.parseDouble(propMap.get("ySeparation"));
     }
 
 }
