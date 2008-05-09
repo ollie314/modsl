@@ -76,9 +76,11 @@ public class SugiyamaLayerStack {
 
     List<AbstractBox<?>> getConnectedTo(AbstractBox<?> n1, int layerIndex) {
         List<AbstractBox<?>> ln = new LinkedList<AbstractBox<?>>();
-        for (AbstractBox<?> n2 : layers.get(layerIndex)) {
-            if (n1.isConnectedTo(n2)) {
-                ln.add(n2);
+        if (layerIndex < layers.size() && layerIndex >= 0) {
+            for (AbstractBox<?> n2 : layers.get(layerIndex)) {
+                if (n1.isConnectedTo(n2)) {
+                    ln.add(n2);
+                }
             }
         }
         return ln;
@@ -205,28 +207,14 @@ public class SugiyamaLayerStack {
     void xPositionsAlt() {
         for (int round = 0; round < maxSweeps; round++) {
             if (round % 2 == 0) {
-                for (int l = 0; l < layers.size() - 2; l++) {
+                for (int l = 0; l < layers.size() - 1; l++) {
                     adjustPosX(l, l + 1, l + 2);
                 }
-                adjustPosX(layers.size() - 2, layers.size() - 1);
             } else {
-                for (int l = layers.size() - 1; l > 1; l--) {
+                for (int l = layers.size() - 1; l > 0; l--) {
                     adjustPosX(l, l - 1, l - 2);
                 }
-                adjustPosX(1, 0);
             }
-        }
-    }
-
-    void adjustPosX(int staticLayer, int flexLayer) {
-        List<AbstractBox<?>> flex = layers.get(flexLayer);
-        double currOffset = 0d;
-        for (AbstractBox<?> n : flex) {
-            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticLayer);
-            double bc = barycenterX(n.getCtrPos().x, neighbors)- n.getSize().x / 2d;
-            n.getPos().x = n.getSize().x / 2d + max(currOffset, bc);
-            currOffset = n.getPos().x + n.getSize().x + xSeparation;
-            log.debug(staticLayer + "->" + flexLayer + " " + flex);
         }
     }
 
@@ -235,12 +223,13 @@ public class SugiyamaLayerStack {
         double currOffset = 0d;
         for (AbstractBox<?> n : flex) {
             List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
-            double bc1 = barycenterX(n.getCtrPos().x, neighbors1)- n.getSize().x / 2d;
             List<AbstractBox<?>> neighbors2 = getConnectedTo(n, staticLayer2);
-            double bc2 = barycenterX(n.getCtrPos().x, neighbors2)- n.getSize().x / 2d;
-            n.getPos().x =  max(currOffset, (bc1 + bc2) / 2d);
+            neighbors1.addAll(neighbors2);
+            double bc1 = barycenterX(n.getCtrPos().x, neighbors1) - n.getSize().x / 2d;
+//            double bc2 = barycenterX(bc1, neighbors2) - n.getSize().x / 2d;
+            n.getPos().x = max(currOffset, bc1);
             currOffset = n.getPos().x + n.getSize().x + xSeparation;
-            log.debug(staticLayer1 + "/" + staticLayer2 + "->" + flexLayer + " " + flex);
+            //log.debug(staticLayer1 + "/" + staticLayer2 + "->" + flexLayer + " " + flex);
         }
     }
 
