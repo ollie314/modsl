@@ -71,7 +71,10 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         stack.reduceCrossings();
         undoRemoveCycles();
         stack.layerHeights();
-        stack.xPositions();
+        stack.xPositionsAlt();
+
+        log.debug(new ToStringVisitor().toString(graph));
+        
         graph.rescale();
     }
 

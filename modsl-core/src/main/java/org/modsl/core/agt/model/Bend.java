@@ -24,6 +24,7 @@ public class Bend extends AbstractBox<Edge> {
 
     public Bend() {
         super();
+        this.name = "b" + counter;
         this.index = counter++;
     }
 

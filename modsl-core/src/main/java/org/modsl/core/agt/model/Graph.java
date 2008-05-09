@@ -258,8 +258,22 @@ public class Graph extends AbstractBox<Graph> {
      */
     public void normalize() {
         Pt min = getMinPt();
+        for (Label l: getLabels()) {
+            l.pos.decBy(min);
+        }
         for (Node n : nodes) {
             n.pos.decBy(min);
+            for (Label l: n.getLabels()) {
+                l.pos.decBy(min);
+            }
+        }
+        for (Edge e : edges) {
+            for (Label l: e.getLabels()) {
+                l.pos.decBy(min);
+            }
+            for (Bend b: e.getBends()) {
+                b.pos.decBy(min);
+            }
         }
     }
 

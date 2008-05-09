@@ -30,6 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.modsl.core.agt.model.AbstractBox;
 
 /**
@@ -37,6 +38,8 @@ import org.modsl.core.agt.model.AbstractBox;
  * @author avishnyakov
  */
 public class SugiyamaLayerStack {
+
+    protected Logger log = Logger.getLogger(getClass());
 
     protected int maxSweeps;
 
@@ -199,4 +202,57 @@ public class SugiyamaLayerStack {
         }
     }
 
+    void xPositionsAlt() {
+        for (int round = 0; round < maxSweeps; round++) {
+            if (round % 2 == 0) {
+                for (int l = 0; l < layers.size() - 2; l++) {
+                    adjustPosX(l, l + 1, l + 2);
+                }
+                adjustPosX(layers.size() - 2, layers.size() - 1);
+            } else {
+                for (int l = layers.size() - 1; l > 1; l--) {
+                    adjustPosX(l, l - 1, l - 2);
+                }
+                adjustPosX(1, 0);
+            }
+        }
+    }
+
+    void adjustPosX(int staticLayer, int flexLayer) {
+        List<AbstractBox<?>> flex = layers.get(flexLayer);
+        double currOffset = 0d;
+        for (AbstractBox<?> n : flex) {
+            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticLayer);
+            double bc = barycenterX(n.getCtrPos().x, neighbors)- n.getSize().x / 2d;
+            n.getPos().x = n.getSize().x / 2d + max(currOffset, bc);
+            currOffset = n.getPos().x + n.getSize().x + xSeparation;
+            log.debug(staticLayer + "->" + flexLayer + " " + flex);
+        }
+    }
+
+    void adjustPosX(int staticLayer1, int flexLayer, int staticLayer2) {
+        List<AbstractBox<?>> flex = layers.get(flexLayer);
+        double currOffset = 0d;
+        for (AbstractBox<?> n : flex) {
+            List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
+            double bc1 = barycenterX(n.getCtrPos().x, neighbors1)- n.getSize().x / 2d;
+            List<AbstractBox<?>> neighbors2 = getConnectedTo(n, staticLayer2);
+            double bc2 = barycenterX(n.getCtrPos().x, neighbors2)- n.getSize().x / 2d;
+            n.getPos().x =  max(currOffset, (bc1 + bc2) / 2d);
+            currOffset = n.getPos().x + n.getSize().x + xSeparation;
+            log.debug(staticLayer1 + "/" + staticLayer2 + "->" + flexLayer + " " + flex);
+        }
+    }
+
+    double barycenterX(double def, List<AbstractBox<?>> ln) {
+        if (ln.size() == 0) {
+            return def;
+        } else {
+            double bc = 0;
+            for (AbstractBox<?> n : ln) {
+                bc += n.getCtrPos().x;
+            }
+            return bc / ln.size();
+        }
+    }
 }
