@@ -22,6 +22,7 @@ import java.util.List;
 import org.antlr.runtime.Token;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -56,8 +57,9 @@ public class UMLCollabFactory extends AbstractUMLFactory {
             }
             n2 = createNodeIfDoesntExist(parent, t2);
 
-            Edge e = new Edge(UMLMetaType.COLLAB_EDGE, (edgeCounter++) + ":" + mtokens.get(i).getText(),
-                    n1, n2);
+            String label = (edgeCounter++) + ":" + mtokens.get(i).getText();
+            Edge e = new Edge(UMLMetaType.COLLAB_EDGE, label, n1, n2);
+            e.addLabel(new Label(UMLMetaType.COLLAB_EDGE_LABEL, label));
             parent.add(e);
             es.add(e);
 

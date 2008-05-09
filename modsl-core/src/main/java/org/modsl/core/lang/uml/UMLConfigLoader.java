@@ -22,6 +22,7 @@ import org.modsl.core.agt.layout.sugiyama.SugiyamaLayout;
 import org.modsl.core.cfg.AbstractConfigLoader;
 import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.CollabNodeDecorator;
+import org.modsl.core.lang.uml.layout.CollabEdgeLayout;
 import org.modsl.core.lang.uml.layout.CollabNodeLayout;
 
 /**
@@ -36,9 +37,9 @@ public class UMLConfigLoader extends AbstractConfigLoader {
 
     @Override
     public void initLayouts() {
-        // UMLMetaType.COLLAB_GRAPH.getConfig().setLayout(new AbstractLayout[] { new CircleLayout(), new FRLayout() });
         UMLMetaType.COLLAB_GRAPH.getConfig().setLayout(new AbstractLayout[] { new SugiyamaLayout() });
         UMLMetaType.COLLAB_NODE.getConfig().setLayout(new AbstractLayout[] { new CollabNodeLayout() });
+        UMLMetaType.COLLAB_EDGE.getConfig().setLayout(new AbstractLayout[] { new CollabEdgeLayout() });
     }
 
     @Override

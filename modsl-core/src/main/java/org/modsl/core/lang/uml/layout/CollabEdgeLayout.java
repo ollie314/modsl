@@ -14,24 +14,29 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml;
+package org.modsl.core.lang.uml.layout;
 
-import org.modsl.core.agt.common.MetaTypeConfig;
-import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.agt.layout.AbstractNonConfigurableLayout;
+import org.modsl.core.agt.model.Edge;
 
 /**
- * UML meta-types
- * @author AVishnyakov
+ * Edge label placement
+ * @author avishnyakov
  */
-public enum UMLMetaType implements MetaType {
+public class CollabEdgeLayout extends AbstractNonConfigurableLayout {
 
-	COLLAB_GRAPH, COLLAB_NODE, COLLAB_EDGE, COLLAB_NODE_LABEL, COLLAB_EDGE_LABEL;
+    @Override
+    public void apply(Edge edge) {
+    }
 
-	protected MetaTypeConfig config = new MetaTypeConfig();
-
-	@Override
-	public MetaTypeConfig getConfig() {
-		return config;
-	}
+    /*
+     * 
+     *  @Override
+        public void apply() {
+            super.apply(node);
+            FontTransform ft = node.getType().getConfig().getFontTransform();
+            node.getSize().y += ft.getBottomPadding();
+        }
+     */
 
 }
