@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core;
+package org.modsl.core.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
