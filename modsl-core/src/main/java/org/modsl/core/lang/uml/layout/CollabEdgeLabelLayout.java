@@ -24,7 +24,7 @@ import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.model.NodeLabel;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Pt;
 
 /**
@@ -38,7 +38,7 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
     }
 
     @Override
-    public void in(NodeLabel label) {
+    public void in(Label label) {
         if (label.getType() != this.type) {
             return;
         }

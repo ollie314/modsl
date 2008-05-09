@@ -19,7 +19,7 @@ package org.modsl.core.agt.visitor;
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.model.NodeLabel;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -60,7 +60,7 @@ public abstract class AbstractVisitor {
      * Enter label
      * @param label
      */
-    public void in(NodeLabel label) {
+    public void in(Label label) {
         // NO OP
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractVisitor {
      * Exit label
      * @param label
      */
-    public void out(NodeLabel label) {
+    public void out(Label label) {
         // NO OP
     }
 
