@@ -23,8 +23,10 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.signum;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
@@ -69,7 +71,7 @@ public class Edge extends AbstractElement<Graph> {
     /**
      * Labels
      */
-    protected List<Label> labels = new LinkedList<Label>();
+    protected Map<MetaType, List<Label>> labels = new HashMap<MetaType, List<Label>>();
 
     /**
      * Create new
@@ -105,8 +107,10 @@ public class Edge extends AbstractElement<Graph> {
         for (Bend b : bends) {
             b.accept(visitor);
         }
-        for (Label l : labels) {
-            l.accept(visitor);
+        for (List<Label> lst : labels.values()) {
+            for (Label l : lst) {
+                l.accept(visitor);
+            }
         }
         visitor.out(this);
     }
@@ -118,6 +122,24 @@ public class Edge extends AbstractElement<Graph> {
     public void add(Bend bend) {
         bends.add(bend);
         bend.setParent(this);
+    }
+
+    public void addLabel(Label label) {
+        List<Label> lst = labels.get(label.getType());
+        if (lst == null) {
+            lst = new LinkedList<Label>();
+            labels.put(label.getType(), lst);
+        }
+        lst.add(label);
+    }
+
+    public List<Label> getLabels(MetaType type) {
+        List<Label> lst = labels.get(type);
+        if (lst == null) {
+            return new LinkedList<Label>();
+        } else {
+            return lst;
+        }
     }
 
     /**
@@ -411,10 +433,6 @@ public class Edge extends AbstractElement<Graph> {
     public String toString() {
         return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-" + bends.size() + "->"
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
-    }
-
-    public void addLabel(Label label) {
-        labels.add(label);
     }
 
 }

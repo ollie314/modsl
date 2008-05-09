@@ -16,6 +16,7 @@
 
 package org.modsl.core.agt.model;
 
+import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
 public class Label extends AbstractBox<Node> {
@@ -35,6 +36,11 @@ public class Label extends AbstractBox<Node> {
     public void accept(AbstractVisitor visitor) {
         visitor.in(this);
         visitor.out(this);
+    }
+
+    public Pt getTextPos() {
+        FontTransform ft = getType().getConfig().getFt();
+        return getPos().plus(new Pt(ft.getLeftPadding(), ft.getExtBaseline(0)));
     }
 
 }
