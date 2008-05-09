@@ -32,7 +32,6 @@ import org.modsl.core.agt.model.Node;
 public class UMLCollabFactory extends AbstractUMLFactory {
 
     protected int edgeCounter = 1;
-    protected int nodeCounter = 1;
 
     /**
      * Create list of edges given list of edge tokens
@@ -78,7 +77,6 @@ public class UMLCollabFactory extends AbstractUMLFactory {
      */
     private Node createNode(Graph parent, Token token) {
         Node n = new Node(UMLMetaType.COLLAB_NODE, token.getText());
-        n.setIndex(nodeCounter++);
         parent.add(n);
         return n;
     }
