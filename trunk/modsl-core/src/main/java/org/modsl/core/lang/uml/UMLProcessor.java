@@ -29,7 +29,7 @@ import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
 import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.CollabNodeDecorator;
-import org.modsl.core.lang.uml.layout.CollabEdgeLayout;
+import org.modsl.core.lang.uml.layout.CollabEdgeLabelLayout;
 import org.modsl.core.lang.uml.layout.CollabNodeLayoutVisitor;
 
 public class UMLProcessor extends AbstractProcessor<UMLParser> {
@@ -75,7 +75,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
     public void initLayouts() {
         addLayoutVisitor(new CollabNodeLayoutVisitor(UMLMetaType.COLLAB_NODE));
         addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
-        addLayoutVisitor(new CollabEdgeLayout(UMLMetaType.COLLAB_EDGE));
+        addLayoutVisitor(new CollabEdgeLabelLayout(UMLMetaType.COLLAB_EDGE_LABEL));
     }
 
     @Override

@@ -19,16 +19,16 @@ package org.modsl.core.agt.model;
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
-public class Label extends AbstractBox<Node> {
+public class NodeLabel extends AbstractBox<AbstractElement<?>> {
 
     private static int counter = 0;
 
-    public Label(MetaType type) {
+    public NodeLabel(MetaType type) {
         super(type);
         this.index = counter++;
     }
 
-    public Label(MetaType type, String name) {
+    public NodeLabel(MetaType type, String name) {
         super(type, name);
     }
 
