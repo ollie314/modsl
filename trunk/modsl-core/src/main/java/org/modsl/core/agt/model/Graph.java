@@ -37,9 +37,9 @@ public class Graph extends AbstractBox<Graph> {
     protected List<Node> nodes = new LinkedList<Node>();
 
     /**
-     * List of children labels
+     * Labels
      */
-    protected List<Label> labels = new LinkedList<Label>();
+    protected Map<MetaType, List<Label>> labels = new HashMap<MetaType, List<Label>>();
 
     /**
      * Map of children nodes {name->node}
@@ -106,7 +106,7 @@ public class Graph extends AbstractBox<Graph> {
         for (Node n : nodes) {
             n.accept(visitor);
         }
-        for (Label l : labels) {
+        for (Label l : getLabels()) {
             l.accept(visitor);
         }
         visitor.out(this);
@@ -152,11 +152,19 @@ public class Graph extends AbstractBox<Graph> {
             s.x = max(s.x, p.x);
             s.y = max(s.y, p.y);
         }
-        for (Label l : labels) {
+        for (Label l : getLabels()) {
             s.x = max(s.x, l.pos.x + l.size.x);
             s.y = max(s.y, l.pos.y + l.size.y);
         }
         return s;
+    }
+    
+    public List<Label> getLabels() {
+        List<Label> lst = new LinkedList<Label>();
+        for (List<Label> l2 : labels.values()) {
+            lst.addAll(l2);
+        }
+        return lst;
     }
 
     /**
@@ -175,7 +183,7 @@ public class Graph extends AbstractBox<Graph> {
             s.x = min(s.x, p.x);
             s.y = min(s.y, p.y);
         }
-        for (Label l : labels) {
+        for (Label l : getLabels()) {
             s.x = min(s.x, l.pos.x);
             s.y = min(s.y, l.pos.y);
         }
@@ -276,8 +284,22 @@ public class Graph extends AbstractBox<Graph> {
         Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
         Pt sizeExt = size.minus(maxXYSize);
         Pt topLeft = new Pt(leftPadding, topPadding);
+        for (Label l: getLabels()) {
+            l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
+        }
         for (Node n : nodes) {
             n.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
+            for (Label l: n.getLabels()) {
+                l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
+            }
+        }
+        for (Edge e : edges) {
+            for (Label l: e.getLabels()) {
+                l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
+            }
+            for (Bend b: e.getBends()) {
+                b.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
+            }
         }
         size = new Pt(newSize);
     }

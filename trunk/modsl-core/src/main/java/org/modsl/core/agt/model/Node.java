@@ -16,9 +16,11 @@
 
 package org.modsl.core.agt.model;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
@@ -40,8 +42,8 @@ public class Node extends AbstractBox<Graph> {
     /**
      * Labels
      */
-    protected List<Label> labels = new LinkedList<Label>();
-
+    protected Map<MetaType, List<Label>> labels = new HashMap<MetaType, List<Label>>();
+    
     /**
      * Create new
      * @param type type
@@ -51,11 +53,11 @@ public class Node extends AbstractBox<Graph> {
         super(type, name);
         this.index = counter++;
     }
-
+    
     @Override
     public void accept(AbstractVisitor visitor) {
         visitor.in(this);
-        for (Label l : labels) {
+        for (Label l : getLabels()) {
             l.accept(visitor);
         }
         visitor.out(this);
@@ -65,10 +67,10 @@ public class Node extends AbstractBox<Graph> {
         return connectedEdges.add(edge);
     }
 
-
     public int getInDegree() {
         return getInEdges().size();
     }
+
 
     public List<Edge> getInEdges() {
         List<Edge> ins = new LinkedList<Edge>();
@@ -78,6 +80,14 @@ public class Node extends AbstractBox<Graph> {
             }
         }
         return ins;
+    }
+
+    public List<Label> getLabels() {
+        List<Label> lst = new LinkedList<Label>();
+        for (List<Label> l2 : labels.values()) {
+            lst.addAll(l2);
+        }
+        return lst;
     }
 
     public int getOutDegree() {

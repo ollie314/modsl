@@ -143,6 +143,14 @@ public class Edge extends AbstractElement<Graph> {
         }
     }
 
+    public List<Label> getLabels() {
+        List<Label> lst = new LinkedList<Label>();
+        for (List<Label> l2 : labels.values()) {
+            lst.addAll(l2);
+        }
+        return lst;
+    }
+
     /**
      * @return angle at node 2
      */
