@@ -6,7 +6,7 @@ group basic : root;
 
 COLLAB_GRAPH_in(graph, decor) ::= <<
 $root_in(graph)$
-<!-- $graph.name$: basic graph -->
+<!-- $graph.name$: collaboration diagram -->
 <defs>
 <style type="text/css"><![CDATA[ 
 	text.collabgraph { font-family: $decor.meta.COLLAB_GRAPH.config.ft.name$; font-size: $decor.meta.COLLAB_GRAPH.config.ft.size$px; }
