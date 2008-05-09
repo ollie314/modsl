@@ -49,10 +49,9 @@ public abstract class AbstractProcessor<S extends Parser> {
     protected Lexer lexer;
     protected S parser;
 
-    /**
-     * @return meta type class
-     */
-    protected abstract Class<? extends MetaType> getMetaTypeClass();
+    protected void addLayoutVisitor(AbstractLayoutVisitor layoutVisitor) {
+        layoutVisitors.add(layoutVisitor);
+    }
 
     /**
      * @return extract graph root node from the parser
@@ -64,6 +63,11 @@ public abstract class AbstractProcessor<S extends Parser> {
      * @return diagram-specific lexer
      */
     protected abstract Lexer getLexer(ANTLRStringStream input);
+
+    /**
+     * @return meta type class
+     */
+    protected abstract Class<? extends MetaType> getMetaTypeClass();
 
     /**
      * @return diagram type name (used to find the config properties)
@@ -101,26 +105,6 @@ public abstract class AbstractProcessor<S extends Parser> {
      * Call this method once to initialize the processor
      */
     public void init() {
-        load();
-        stringTemplateVisitor = new StringTemplateVisitor(getPath(), getName(), getRefreshInterval());
-    }
-
-    /**
-     * Initialize layout classes. Subclasses of this class need to register
-     * layout manager class arrays with corresponding meta type class instances.
-     */
-    public abstract void initDecorators();
-
-    /**
-     * Initialize layout classes. Subclasses of this class need to register
-     * layout manager class arrays with corresponding meta type class instances.
-     */
-    public abstract void initLayouts();
-
-    /**
-     * Load configuration from disk
-     */
-    public void load() {
         initLayouts();
         initDecorators();
         for (AbstractLayoutVisitor lv : layoutVisitors) {
@@ -131,7 +115,19 @@ public abstract class AbstractProcessor<S extends Parser> {
             }
         }
         new FontTransformLoader(getPath(), getName(), getMetaTypeClass()).load();
+        stringTemplateVisitor = new StringTemplateVisitor(getPath(), getName(), getRefreshInterval());
     }
+
+    /**
+     * Initialize layout classes. Subclasses of this class need to register
+     * layout manager class arrays with corresponding meta type class instances.
+     */
+    protected abstract void initDecorators();
+
+    /**
+     * Initialize layout classes
+     */
+    protected abstract void initLayouts();
 
     /**
      * Parse input
@@ -187,9 +183,5 @@ public abstract class AbstractProcessor<S extends Parser> {
      * @throws RecognitionException
      */
     protected abstract void runParser() throws RecognitionException;
-
-    protected void addLayoutVisitor(AbstractLayoutVisitor layoutVisitor) {
-        layoutVisitors.add(layoutVisitor);
-    }
 
 }
