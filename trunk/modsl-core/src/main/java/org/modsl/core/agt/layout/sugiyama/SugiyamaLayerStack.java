@@ -91,6 +91,11 @@ public class SugiyamaLayerStack {
 
     void initIndexes() {
         for (List<AbstractBox<?>> l : layers) {
+            Collections.sort(l, new Comparator<AbstractBox<?>>() {
+                public int compare(AbstractBox<?> n1, AbstractBox<?> n2) {
+                    return n1.getIndex() - n2.getIndex();
+                }
+            });
             setOrderedIndexes(l);
         }
     }
@@ -160,7 +165,13 @@ public class SugiyamaLayerStack {
 
     @Override
     public String toString() {
-        return nodeMap.toString();
+        StringBuilder sb = new StringBuilder(getClass().getSimpleName());
+        sb.append("(").append(layers.size()).append(")");
+        int lc = 0;
+        for (List<AbstractBox<?>> l : layers) {
+            sb.append("\n\t").append(lc++).append(" # ").append(l);
+        }
+        return sb.toString();
     }
 
     void xPositions() {
