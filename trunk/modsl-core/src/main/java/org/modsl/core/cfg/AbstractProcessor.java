@@ -16,15 +16,19 @@
 
 package org.modsl.core.cfg;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Lexer;
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Pt;
+import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 import org.modsl.core.agt.visitor.AbstractVisitor;
-import org.modsl.core.agt.visitor.LayoutVisitor;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
 
 /**
@@ -40,24 +44,20 @@ import org.modsl.core.agt.visitor.StringTemplateVisitor;
 public abstract class AbstractProcessor<S extends Parser> {
 
     private StringTemplateVisitor stringTemplateVisitor;
-    private LayoutVisitor layoutVisitor;
-    private AbstractConfigLoader configLoader;
+    private List<AbstractLayoutVisitor> layoutVisitors = new LinkedList<AbstractLayoutVisitor>();
 
     protected Lexer lexer;
     protected S parser;
 
     /**
-     * @return diagram-specific config loader
+     * @return meta type class
      */
-    protected abstract AbstractConfigLoader getConfigLoader(String path, String name);
+    protected abstract Class<? extends MetaType> getMetaTypeClass();
 
     /**
-     * @return layout visitor. It is possible though not likely that subclasses
-     * will need to override this.
+     * @return extract graph root node from the parser
      */
-    protected AbstractVisitor getLayoutVisitor() {
-        return layoutVisitor;
-    }
+    protected abstract Graph getGraph();
 
     /**
      * @param input
@@ -83,9 +83,11 @@ public abstract class AbstractProcessor<S extends Parser> {
     protected abstract String getPath();
 
     /**
-     * @return extract graph root node from the parser
+     * @return template refresh interval
      */
-    protected abstract Graph getGraph();
+    protected int getRefreshInterval() {
+        return Integer.MAX_VALUE;
+    }
 
     /**
      * @return string template visitor (rendering engine). It is possible though
@@ -99,17 +101,36 @@ public abstract class AbstractProcessor<S extends Parser> {
      * Call this method once to initialize the processor
      */
     public void init() {
-        configLoader = getConfigLoader(getPath(), getName());
-        configLoader.load();
+        load();
         stringTemplateVisitor = new StringTemplateVisitor(getPath(), getName(), getRefreshInterval());
-        layoutVisitor = new LayoutVisitor();
     }
 
     /**
-     * @return template refresh interval
+     * Initialize layout classes. Subclasses of this class need to register
+     * layout manager class arrays with corresponding meta type class instances.
      */
-    protected int getRefreshInterval() {
-        return Integer.MAX_VALUE;
+    public abstract void initDecorators();
+
+    /**
+     * Initialize layout classes. Subclasses of this class need to register
+     * layout manager class arrays with corresponding meta type class instances.
+     */
+    public abstract void initLayouts();
+
+    /**
+     * Load configuration from disk
+     */
+    public void load() {
+        initLayouts();
+        initDecorators();
+        for (AbstractLayoutVisitor lv : layoutVisitors) {
+            if (lv.getConfigName() != null) {
+                PropLoader pl = new PropLoader(getPath(), lv.getConfigName(), false);
+                pl.load();
+                lv.setLayoutConfig(pl.getProps());
+            }
+        }
+        new FontTransformLoader(getPath(), getName(), getMetaTypeClass()).load();
     }
 
     /**
@@ -128,6 +149,21 @@ public abstract class AbstractProcessor<S extends Parser> {
     }
 
     /**
+     * Parse input and return rendered string result without rescaling
+     * @param s input
+     * @return result
+     * @throws RecognitionException
+     */
+    public String process(String s) throws RecognitionException {
+        Graph graph = parse(s);
+        for (AbstractLayoutVisitor layout : layoutVisitors) {
+            graph.accept(layout);
+        }
+        graph.accept(getStringTemplateVisitor());
+        return getStringTemplateVisitor().toString();
+    }
+
+    /**
      * Parse input and return rendered string result with rescaling to reqested
      * size
      * @param s input
@@ -138,21 +174,10 @@ public abstract class AbstractProcessor<S extends Parser> {
     public String process(String s, Pt reqSize) throws RecognitionException {
         Graph graph = parse(s);
         graph.setReqSize(reqSize);
-        graph.accept(getLayoutVisitor());
+        for (AbstractLayoutVisitor layout : layoutVisitors) {
+            graph.accept(layout);
+        }
         graph.rescale(graph.getReqSize());
-        graph.accept(getStringTemplateVisitor());
-        return getStringTemplateVisitor().toString();
-    }
-
-    /**
-     * Parse input and return rendered string result without rescaling
-     * @param s input
-     * @return result
-     * @throws RecognitionException
-     */
-    public String process(String s) throws RecognitionException {
-        Graph graph = parse(s);
-        graph.accept(getLayoutVisitor());
         graph.accept(getStringTemplateVisitor());
         return getStringTemplateVisitor().toString();
     }
@@ -162,5 +187,9 @@ public abstract class AbstractProcessor<S extends Parser> {
      * @throws RecognitionException
      */
     protected abstract void runParser() throws RecognitionException;
+
+    protected void addLayoutVisitor(AbstractLayoutVisitor layoutVisitor) {
+        layoutVisitors.add(layoutVisitor);
+    }
 
 }

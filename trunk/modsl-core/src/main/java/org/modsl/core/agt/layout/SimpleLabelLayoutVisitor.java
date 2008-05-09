@@ -14,30 +14,29 @@
  * the License.
  */
 
-package org.modsl.core.cfg;
+package org.modsl.core.agt.layout;
 
-import java.util.Map;
-
-import org.modsl.core.agt.layout.AbstractLayout;
+import org.modsl.core.agt.common.FontTransform;
+import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.Pt;
 
-public class T3Layout extends AbstractLayout {
+/**
+ * Does simple node size calculation based on node's text height and width.
+ * @author avishnyakov
+ */
+public class SimpleLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
 
-    protected Map<String, String> propMap;
-
-    @Override
-    public String getConfigName() {
-        return "test3_layout_config";
+    public SimpleLabelLayoutVisitor(MetaType type) {
+        super(type);
     }
 
     @Override
-    public void setLayoutConfig(Map<String, String> propMap) {
-        this.propMap = propMap;
-    }
-
-    @Override
-    public void apply(Node node) {
-        // TODO Auto-generated method stub
+    public void in(Node node) {
+        if (node.getType() == this.type) {
+            FontTransform ft = node.getType().getConfig().getFontTransform();
+            node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
+        }
     }
 
 }

@@ -24,17 +24,18 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.modsl.core.agt.TMetaType;
 import org.modsl.core.agt.model.AbstractAGTModelTest;
 import org.modsl.core.agt.model.Node;
 
 public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 
-	protected SugiyamaLayout layout;
+	protected SugiyamaLayoutVisitor layout;
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		layout = new SugiyamaLayout();
+		layout = new SugiyamaLayoutVisitor(TMetaType.GRAPH);
 		layout.graph = graph;
 	}
 
