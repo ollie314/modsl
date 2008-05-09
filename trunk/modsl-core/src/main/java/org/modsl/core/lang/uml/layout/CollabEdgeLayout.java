@@ -21,6 +21,7 @@ import static java.lang.Math.min;
 
 import java.util.List;
 
+import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayout;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Label;
@@ -41,9 +42,10 @@ public class CollabEdgeLayout extends AbstractNonConfigurableLayout {
             return;
         } else {
             Label midLabel = lst.get(0);
-            Pt midPoint = getMidPoint(edge); 
-           midLabel.setPos(getTextPos(edge));
-           
+            Pt midPoint = getMidPoint(edge);
+            FontTransform ft = edge.getType().getConfig().getFt();
+            midLabel.setSize(new Pt(ft.getExtStringWidth(edge.getName()), ft.getExtHeight(1)));
+            midLabel.setPos(midPoint.minus(new Pt(midLabel.getSize().x / 2d, midLabel.getSize().x / 2d)));
         }
     }
 
@@ -58,34 +60,5 @@ public class CollabEdgeLayout extends AbstractNonConfigurableLayout {
         ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO 
         return n1.getCtrPos().plus(n2.getCtrPos().minus(n1.getCtrPos()).mulBy(ratio));
     }
-
-    /**
-     * @return position of the label text
-     */
-    public Pt getTextPos(Edge edge) {
-        return getMidPoint(edge).decBy(new Pt(getFt().getStringWidth(parent.getName()) / 2d, 0));
-    }
-
-    /**
-     * @return size of the label text bg
-     */
-    public Pt getTextBgSize(Edge edge) {
-        return new Pt(getFt().getStringWidth(parent.getName()), getFt().getHeight());
-    }
-
-    /**
-     * @return pos of the label text bg
-     */
-    public Pt getTextBgPos(Edge edge) {
-        return getTextPos().decBy(new Pt(0, getFt().getBaseline()));
-    } /*
-        * 
-        *  @Override
-           public void apply() {
-               super.apply(node);
-               FontTransform ft = node.getType().getConfig().getFontTransform();
-               node.getSize().y += ft.getBottomPadding();
-           }
-        */
 
 }

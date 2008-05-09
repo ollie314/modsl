@@ -20,6 +20,7 @@ package org.modsl.core.agt.model;
  * Abstract rectangle graph element
  * @author avishnyakov
  */
+
 public abstract class AbstractBox<P extends AbstractElement<?>> extends AbstractElement<P> {
 
     /**
@@ -61,6 +62,10 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
         super(type, name);
     }
 
+    public Pt getAltPos() {
+        return altPos;
+    }
+
     /**
      * @return center position (will be different from pos if size > 0)
      */
@@ -83,6 +88,18 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     }
 
     /**
+     * @param b other box
+     * @return true if connected directly (no intermediate bends or nodes)
+     */
+    public boolean isConnectedTo(AbstractBox<?> b) {
+        return false;
+    }
+
+    public void setAltPos(Pt altPos) {
+        this.altPos = altPos;
+    }
+
+    /**
      * Set position (top left corner)
      * @param pos
      */
@@ -96,14 +113,6 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public void setSize(Pt size) {
         this.size = size;
-    }
-
-    /**
-     * @param b other box
-     * @return true if connected directly (no intermediate bends or nodes)
-     */
-    public boolean isConnectedTo(AbstractBox<?> b) {
-        return false;
     }
     
 }
