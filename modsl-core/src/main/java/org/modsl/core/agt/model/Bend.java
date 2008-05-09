@@ -21,6 +21,11 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
 public class Bend extends AbstractBox<Edge> {
 
     @Override
+    public boolean isVirtual() {
+        return true;
+    }
+
+    @Override
     public void accept(AbstractVisitor visitor) {
         visitor.in(this);
         visitor.out(this);

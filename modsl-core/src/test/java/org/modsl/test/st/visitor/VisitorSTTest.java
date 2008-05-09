@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.modsl.core.Utils;
 import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
@@ -29,6 +28,7 @@ import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
 import org.modsl.core.agt.visitor.ToStringVisitor;
+import org.modsl.core.utils.Utils;
 
 public class VisitorSTTest {
 

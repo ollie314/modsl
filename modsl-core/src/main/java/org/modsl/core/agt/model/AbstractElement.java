@@ -38,11 +38,6 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
     protected P parent;
 
     /**
-     * This element is visible
-     */
-    protected boolean visible = true;
-
-    /**
      * Type
      */
     protected MetaType type;
@@ -121,13 +116,6 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
     }
 
     /**
-     * @return true if visible
-     */
-    public boolean isVisible() {
-        return visible;
-    }
-
-    /**
      * Set index
      * @param index
      */
@@ -157,14 +145,6 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
      */
     public void setType(MetaType type) {
         this.type = type;
-    }
-
-    /**
-     * Set visible flag
-     * @param visible
-     */
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 
     @Override

@@ -22,10 +22,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 /**
- * Encapsulates all font metric related attributes and functions
- * 
+ * Encapsulates all font metric-related attributes and functions
  * @author avishnyakov
- * 
  */
 public class FontTransform {
 
@@ -33,7 +31,6 @@ public class FontTransform {
      * This inner class is used to get access to font metrics in headless
      * environment
      * @author avishnyakov
-     * 
      */
     private static class HeadlessCanvas extends Canvas {
 

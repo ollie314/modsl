@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.modsl.core.Utils;
 import org.modsl.core.agt.model.Pt;
+import org.modsl.core.utils.Utils;
 
 public class SVGCollector {
 
