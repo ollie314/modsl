@@ -226,9 +226,12 @@ public class SugiyamaLayerStack {
             List<AbstractBox<?>> neighbors2 = getConnectedTo(n, staticLayer2);
             neighbors1.addAll(neighbors2);
             double bc1 = barycenterX(n.getCtrPos().x, neighbors1) - n.getSize().x / 2d;
-//            double bc2 = barycenterX(bc1, neighbors2) - n.getSize().x / 2d;
+            //            double bc2 = barycenterX(bc1, neighbors2) - n.getSize().x / 2d;
             n.getPos().x = max(currOffset, bc1);
             currOffset = n.getPos().x + n.getSize().x + xSeparation;
+            if ("c3:o3".equals(n.getName())) {
+                log.debug(n);
+            }
             //log.debug(staticLayer1 + "/" + staticLayer2 + "->" + flexLayer + " " + flex);
         }
     }
