@@ -35,6 +35,7 @@ import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
+import org.modsl.core.agt.visitor.ToStringVisitor;
 
 /**
  * Sugiyama layout algorithm
