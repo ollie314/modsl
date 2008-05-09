@@ -18,9 +18,12 @@ package org.modsl.core.agt.visitor;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.modsl.core.agt.model.MetaType;
 
 public abstract class AbstractLayoutVisitor extends AbstractVisitor {
+
+    protected Logger log = Logger.getLogger(getClass());
 
     protected MetaType type;
 
