@@ -28,7 +28,6 @@ public class FontTransformLoaderTest {
     public void load() {
         FontTransformLoader ftl = new FontTransformLoader("test/props/ft", "demo", TMetaType.class);
         ftl.load();
-        // log.debug(ftl);
     }
 
 }
