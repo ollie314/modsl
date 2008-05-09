@@ -32,16 +32,21 @@ import java.util.Map;
 
 import org.modsl.core.agt.model.AbstractBox;
 
+/**
+ * A stack of layers for the Sugiyama layout
+ * @author avishnyakov
+ */
 public class SugiyamaLayerStack {
 
-    // TODO dynamic separation based on label size?
-    protected static final double X_SEPARATION = 60d;
-    protected static final double Y_SEPARATION = 60d;
+    protected int maxSweeps;
+
+    protected double xSeparation;
+    protected double ySeparation;
 
     private List<List<AbstractBox<?>>> layers;
     private Map<AbstractBox<?>, Integer> nodeMap;
 
-    SugiyamaLayerStack(int h, int nodeSize) {
+    void init(int h, int nodeSize) {
         layers = new ArrayList<List<AbstractBox<?>>>(h);
         for (int i = 0; i < h; i++) {
             layers.add(new ArrayList<AbstractBox<?>>(nodeSize / h + 1));
@@ -112,7 +117,7 @@ public class SugiyamaLayerStack {
                     n.getPos().y = currOffset;
                 }
             }
-            currOffset += maxh + Y_SEPARATION;
+            currOffset += maxh + ySeparation;
         }
     }
 
@@ -125,7 +130,7 @@ public class SugiyamaLayerStack {
     }
 
     void reduceCrossings() {
-        for (int round = 0; round < 100; round++) {
+        for (int round = 0; round < maxSweeps; round++) {
             if (round % 2 == 0) {
                 for (int l = 0; l < layers.size() - 1; l++) {
                     reduceCrossings2L(l, l + 1);
@@ -180,16 +185,16 @@ public class SugiyamaLayerStack {
         for (int l = 0; l < layers.size(); l++) {
             double currOffset = 0d;
             for (AbstractBox<?> n : layers.get(l)) {
-                currOffset += n.getSize().x + X_SEPARATION;
+                currOffset += n.getSize().x + xSeparation;
             }
-            x[l] = currOffset - X_SEPARATION;
+            x[l] = currOffset - xSeparation;
             maxx = max(maxx, x[l]);
         }
         for (int l = 0; l < layers.size(); l++) {
             double currOffset = (maxx - x[l]) / 2d;
             for (AbstractBox<?> n : layers.get(l)) {
                 n.getPos().x = currOffset;
-                currOffset += n.getSize().x + X_SEPARATION;
+                currOffset += n.getSize().x + xSeparation;
             }
         }
     }
