@@ -29,6 +29,8 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  * @param <T> type enum
  */
 public class Node extends AbstractBox<Graph> {
+    
+    private static int counter = 0;
 
     /**
      * List of connected edges
@@ -63,6 +65,7 @@ public class Node extends AbstractBox<Graph> {
      */
     public Node(MetaType type, String name) {
         super(type, name);
+        this.index=counter++;
     }
 
     @Override

@@ -29,6 +29,8 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
 
 public class Graph extends AbstractBox<Graph> {
 
+    private static int counter = 0;
+
     /**
      * List of children nodes
      */
@@ -76,11 +78,14 @@ public class Graph extends AbstractBox<Graph> {
 
     public Graph(MetaType type) {
         super(type);
+        this.index = counter++;
         resetPaddings();
     }
 
     public Graph(MetaType type, String name) {
         super(type, name);
+        resetPaddings();
+        this.index = counter++;
     }
 
     /**
@@ -147,10 +152,10 @@ public class Graph extends AbstractBox<Graph> {
             s.x = max(s.x, p.x);
             s.y = max(s.y, p.y);
         }
-        /*for (Label l : labels) {
+        for (Label l : labels) {
             s.x = max(s.x, l.pos.x + l.size.x);
             s.y = max(s.y, l.pos.y + l.size.y);
-        }*/
+        }
         return s;
     }
 
@@ -165,7 +170,7 @@ public class Graph extends AbstractBox<Graph> {
             s.x = min(s.x, n.pos.x);
             s.y = min(s.y, n.pos.y);
         }
-        /*for (Edge e : edges) {
+        for (Edge e : edges) {
             Pt p = e.getMinPt();
             s.x = min(s.x, p.x);
             s.y = min(s.y, p.y);
@@ -173,7 +178,7 @@ public class Graph extends AbstractBox<Graph> {
         for (Label l : labels) {
             s.x = min(s.x, l.pos.x);
             s.y = min(s.y, l.pos.y);
-        }*/
+        }
         return s;
     }
 

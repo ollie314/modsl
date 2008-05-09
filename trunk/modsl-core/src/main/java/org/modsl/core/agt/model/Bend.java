@@ -20,6 +20,13 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
 
 public class Bend extends AbstractBox<Edge> {
 
+    private static int counter = 0;
+
+    public Bend() {
+        super();
+        this.index = counter++;
+    }
+
     @Override
     public boolean isVirtual() {
         return true;

@@ -34,6 +34,8 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  */
 public class Edge extends AbstractElement<Graph> {
 
+    private static int counter = 0;
+
     /**
      * Start node
      */
@@ -77,6 +79,7 @@ public class Edge extends AbstractElement<Graph> {
      */
     public Edge(MetaType type, Node node1, Node node2) {
         super(type);
+        this.index = counter++;
         this.node1 = node1;
         this.node1.addConnectedEdge(this);
         this.node2 = node2;
@@ -92,6 +95,7 @@ public class Edge extends AbstractElement<Graph> {
      */
     public Edge(MetaType type, String name, Node node1, Node node2) {
         this(type, node1, node2);
+        this.index = counter++;
         this.name = name;
     }
 
