@@ -21,10 +21,11 @@ import static java.lang.Math.min;
 
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
+import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Pt;
 
 /**
@@ -46,7 +47,7 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
         Pt midPoint = getMidPoint(edge);
         FontTransform ft = edge.getType().getConfig().getFt();
         label.setSize(new Pt(ft.getExtStringWidth(edge.getName()), ft.getExtHeight(1)));
-        label.setPos(midPoint.minus(new Pt(label.getSize().x / 2d, label.getSize().x / 2d)));
+        label.setPos(midPoint.minus(new Pt(label.getSize().x / 2d, label.getSize().y / 2d)));
 
     }
 
@@ -59,7 +60,16 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
         Node n2 = edge.getNode2();
         double ratio = 1d * n1.getOutDegree() / (n1.getOutDegree() + n2.getInDegree());
         ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO 
-        return n1.getCtrPos().plus(n2.getCtrPos().minus(n1.getCtrPos()).mulBy(ratio));
+        AbstractBox<?> b1 = n1;
+        AbstractBox<?> b2 = n2;
+        if (edge.getBends().size() > 0) {
+            if (n1.getOutDegree() > n2.getInDegree()) {
+                b1 = edge.getLastBend();
+            } else {
+                b2 = edge.getFirstBend();
+            }
+        }
+        return b1.getCtrPos().plus(b2.getCtrPos().minus(b1.getCtrPos()).mulBy(ratio));
     }
 
 }
