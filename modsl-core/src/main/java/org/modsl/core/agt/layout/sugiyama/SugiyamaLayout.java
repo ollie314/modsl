@@ -21,9 +21,11 @@ import static java.lang.Math.max;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.modsl.core.agt.common.ModSLException;
@@ -68,20 +70,21 @@ public class SugiyamaLayout extends AbstractNonConfigurableLayout {
 
     void layer() {
         List<Node> sorted = topologicalSort();
+        Map<Node, Integer> lmap = new HashMap<Node, Integer>();
         for (Node n : sorted) {
-            n.setIndex(0);
+            lmap.put(n, 0);
         }
         int h = 0;
         for (Node n1 : sorted) {
             for (Edge out : n1.getOutEdges()) {
                 Node n2 = out.getNode2();
-                n2.setIndex(max(n1.getIndex() + 1, n2.getIndex()));
-                h = max(h, n2.getIndex() + 1);
+                lmap.put(n2, max(lmap.get(n1) + 1, lmap.get(n2)));
+                h = max(h, lmap.get(n2) + 1);
             }
         }
         stack = new SugiyamaLayerStack(h, sorted.size());
-        for (Node n1 : sorted) {
-            stack.add(n1, n1.getIndex());
+        for (Node n : sorted) {
+            stack.add(n, lmap.get(n));
         }
     }
 
