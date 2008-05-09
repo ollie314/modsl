@@ -19,6 +19,8 @@ package org.modsl.core.agt.model;
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 import static java.lang.Math.acos;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static java.lang.Math.signum;
 
 import java.util.LinkedList;
@@ -226,6 +228,38 @@ public class Edge extends AbstractElement<Graph> {
      */
     public double getLength() {
         return node2.getCtrPos().minus(node1.getCtrPos()).len();
+    }
+
+    /**
+     * @return max (x,y) point of this edge
+     */
+    public Pt getMaxPt() {
+        Pt s = new Pt(0d, 0d);
+        s.x = max(s.x, node1.getCtrPos().x);
+        s.y = max(s.y, node1.getCtrPos().y);
+        for (Bend b : bends) {
+            s.x = max(s.x, b.getCtrPos().x);
+            s.y = max(s.y, b.getCtrPos().y);
+        }
+        s.x = max(s.x, node2.getCtrPos().x);
+        s.y = max(s.y, node2.getCtrPos().y);
+        return s;
+    }
+
+    /**
+     * @return min (x,y) point of this edge
+     */
+    public Pt getMinPt() {
+        Pt s = new Pt(Double.MAX_VALUE, Double.MAX_VALUE);
+        s.x = min(s.x, node1.getCtrPos().x);
+        s.y = min(s.y, node1.getCtrPos().y);
+        for (Bend b : bends) {
+            s.x = min(s.x, b.getCtrPos().x);
+            s.y = min(s.y, b.getCtrPos().y);
+        }
+        s.x = min(s.x, node2.getCtrPos().x);
+        s.y = min(s.y, node2.getCtrPos().y);
+        return s;
     }
 
     /**
