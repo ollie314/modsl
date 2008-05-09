@@ -26,7 +26,7 @@ import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.AbstractElement;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.model.Label;
+import org.modsl.core.agt.model.NodeLabel;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -87,7 +87,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
      * @param label
      * @param suff _in or _out
      */
-    private void callTemplate(Label label, String suff) {
+    private void callTemplate(NodeLabel label, String suff) {
         sb.append(callTemplate(label.getType() + suff, "label", label));
     }
 
@@ -145,7 +145,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void in(Label label) {
+    public void in(NodeLabel label) {
         callTemplate(label, SUFF_IN);
     }
 
@@ -165,7 +165,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void out(Label label) {
+    public void out(NodeLabel label) {
         callTemplate(label, SUFF_OUT);
     }
 

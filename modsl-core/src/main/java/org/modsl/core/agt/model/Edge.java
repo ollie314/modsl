@@ -71,7 +71,7 @@ public class Edge extends AbstractElement<Graph> {
     /**
      * Labels
      */
-    protected Map<MetaType, List<Label>> labels = new HashMap<MetaType, List<Label>>();
+    protected Map<MetaType, List<NodeLabel>> labels = new HashMap<MetaType, List<NodeLabel>>();
 
     /**
      * Create new
@@ -107,8 +107,8 @@ public class Edge extends AbstractElement<Graph> {
         for (Bend b : bends) {
             b.accept(visitor);
         }
-        for (List<Label> lst : labels.values()) {
-            for (Label l : lst) {
+        for (List<NodeLabel> lst : labels.values()) {
+            for (NodeLabel l : lst) {
                 l.accept(visitor);
             }
         }
@@ -124,19 +124,20 @@ public class Edge extends AbstractElement<Graph> {
         bend.setParent(this);
     }
 
-    public void addLabel(Label label) {
-        List<Label> lst = labels.get(label.getType());
+    public void addLabel(NodeLabel label) {
+        List<NodeLabel> lst = labels.get(label.getType());
         if (lst == null) {
-            lst = new LinkedList<Label>();
+            lst = new LinkedList<NodeLabel>();
             labels.put(label.getType(), lst);
         }
+        label.setParent(this);
         lst.add(label);
     }
 
-    public List<Label> getLabels(MetaType type) {
-        List<Label> lst = labels.get(type);
+    public List<NodeLabel> getLabels(MetaType type) {
+        List<NodeLabel> lst = labels.get(type);
         if (lst == null) {
-            return new LinkedList<Label>();
+            return new LinkedList<NodeLabel>();
         } else {
             return lst;
         }

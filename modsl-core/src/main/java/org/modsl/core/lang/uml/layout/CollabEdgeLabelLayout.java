@@ -19,42 +19,35 @@ package org.modsl.core.lang.uml.layout;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-import java.util.List;
-
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.NodeLabel;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.lang.uml.UMLMetaType;
 
 /**
  * Edge label placement
  * @author avishnyakov
  */
-public class CollabEdgeLayout extends AbstractNonConfigurableLayoutVisitor {
+public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor {
 
-    public CollabEdgeLayout(MetaType type) {
+    public CollabEdgeLabelLayout(MetaType type) {
         super(type);
     }
 
     @Override
-    public void in(Edge edge) {
-        if (edge.getType() != this.type) {
+    public void in(NodeLabel label) {
+        if (label.getType() != this.type) {
             return;
         }
-        List<Label> lst = edge.getLabels(UMLMetaType.COLLAB_EDGE_LABEL);
-        if (lst.isEmpty()) {
-            return;
-        } else {
-            Label midLabel = lst.get(0);
-            Pt midPoint = getMidPoint(edge);
-            FontTransform ft = edge.getType().getConfig().getFt();
-            midLabel.setSize(new Pt(ft.getExtStringWidth(edge.getName()), ft.getExtHeight(1)));
-            midLabel.setPos(midPoint.minus(new Pt(midLabel.getSize().x / 2d, midLabel.getSize().x / 2d)));
-        }
+        Edge edge = (Edge) label.getParent();
+        Pt midPoint = getMidPoint(edge);
+        FontTransform ft = edge.getType().getConfig().getFt();
+        label.setSize(new Pt(ft.getExtStringWidth(edge.getName()), ft.getExtHeight(1)));
+        label.setPos(midPoint.minus(new Pt(label.getSize().x / 2d, label.getSize().x / 2d)));
+
     }
 
     /**

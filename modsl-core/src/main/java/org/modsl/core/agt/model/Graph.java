@@ -39,7 +39,7 @@ public class Graph extends AbstractBox<Graph> {
     /**
      * List of children labels
      */
-    protected List<Label> labels = new LinkedList<Label>();
+    protected List<NodeLabel> labels = new LinkedList<NodeLabel>();
 
     /**
      * Map of children nodes {name->node}
@@ -106,7 +106,7 @@ public class Graph extends AbstractBox<Graph> {
         for (Node n : nodes) {
             n.accept(visitor);
         }
-        for (Label l : labels) {
+        for (NodeLabel l : labels) {
             l.accept(visitor);
         }
         visitor.out(this);
@@ -152,7 +152,7 @@ public class Graph extends AbstractBox<Graph> {
             s.x = max(s.x, p.x);
             s.y = max(s.y, p.y);
         }
-        for (Label l : labels) {
+        for (NodeLabel l : labels) {
             s.x = max(s.x, l.pos.x + l.size.x);
             s.y = max(s.y, l.pos.y + l.size.y);
         }
@@ -175,7 +175,7 @@ public class Graph extends AbstractBox<Graph> {
             s.x = min(s.x, p.x);
             s.y = min(s.y, p.y);
         }
-        for (Label l : labels) {
+        for (NodeLabel l : labels) {
             s.x = min(s.x, l.pos.x);
             s.y = min(s.y, l.pos.y);
         }
