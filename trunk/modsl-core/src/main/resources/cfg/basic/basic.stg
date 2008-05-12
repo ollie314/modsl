@@ -19,7 +19,7 @@ NODE_in(node, decor) ::= <<
 
 NODE_LABEL_in(label, decor) ::= <<
 
-<text x="$label.textPos.x$" y="$lable.textPos.y$" class="nodelabel">$node.name$</text>
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="nodelabel">$label.name$</text>
 >>
 
 EDGE_in(edge, decor) ::= <<
