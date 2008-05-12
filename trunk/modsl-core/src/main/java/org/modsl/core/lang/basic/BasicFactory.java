@@ -22,6 +22,7 @@ import java.util.List;
 import org.antlr.runtime.Token;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.lang.ElementFactory;
 
@@ -32,71 +33,72 @@ import org.modsl.core.lang.ElementFactory;
  */
 public class BasicFactory implements ElementFactory {
 
-    /**
-     * Create list of edges given list of edge tokens
-     * @param parent parent node the edges belong to
-     * @param tokens edge tokens
-     * @return list of edges
-     */
-    public List<Edge> createEdges(Graph parent, List<Token> tokens) {
+	/**
+	 * Create list of edges given list of edge tokens
+	 * @param parent parent node the edges belong to
+	 * @param tokens edge tokens
+	 * @return list of edges
+	 */
+	public List<Edge> createEdges(Graph parent, List<Token> tokens) {
 
-        List<Edge> es = new LinkedList<Edge>();
+		List<Edge> es = new LinkedList<Edge>();
 
-        Node n1 = null, n2 = null;
-        Token t1, t2;
+		Node n1 = null, n2 = null;
+		Token t1, t2;
 
-        for (int i = 0; i < tokens.size() - 1; i++) {
+		for (int i = 0; i < tokens.size() - 1; i++) {
 
-            t1 = tokens.get(i);
-            t2 = tokens.get(i + 1);
+			t1 = tokens.get(i);
+			t2 = tokens.get(i + 1);
 
-            if (i == 0) {
-                n1 = createNodeIfDoesntExist(parent, t1);
-            }
-            n2 = createNodeIfDoesntExist(parent, t2);
+			if (i == 0) {
+				n1 = createNodeIfDoesntExist(parent, t1);
+			}
+			n2 = createNodeIfDoesntExist(parent, t2);
 
-            Edge e = new Edge(BasicMetaType.EDGE, n1, n2);
-            parent.add(e);
-            es.add(e);
+			Edge e = new Edge(BasicMetaType.EDGE, n1, n2);
+			parent.add(e);
+			es.add(e);
 
-            n1 = n2; // << shift
+			n1 = n2; // << shift
 
-        }
+		}
 
-        return es;
+		return es;
 
-    }
+	}
 
-    /**
-     * Create node from token
-     * @param token node token
-     * @return new node
-     */
-    public Node createNode(Graph parent, Token token) {
-        Node n = new Node(BasicMetaType.NODE, token.getText());
-        parent.add(n);
-        return n;
-    }
+	/**
+	 * Create node from token
+	 * @param token node token
+	 * @return new node
+	 */
+	public Node createNode(Graph parent, Token token) {
+		Node n = new Node(BasicMetaType.NODE, token.getText());
+		n.addLabel(new Label(BasicMetaType.NODE_LABEL, token.getText()));
+		parent.add(n);
+		return n;
+	}
 
-    /**
-     * Will create node by given name if the node with such name doesn't exist
-     * yet
-     * @param parent parent node
-     * @param token new node token
-     * @return node
-     */
-    private Node createNodeIfDoesntExist(Graph parent, Token token) {
-        Node n = parent.getNode(token.getText());
-        if (n == null) {
-            return createNode(parent, token);
-        } else {
-            return n;
-        }
-    }
+	/**
+	 * Will create node by given name if the node with such name doesn't exist
+	 * yet
+	 * @param parent parent node
+	 * @param token new node token
+	 * @return node
+	 */
+	private Node createNodeIfDoesntExist(Graph parent, Token token) {
+		Node n = parent.getNode(token.getText());
+		if (n == null) {
+			return createNode(parent, token);
+		} else {
+			return n;
+		}
+	}
 
-    @Override
-    public Graph createGraph() {
-        return new Graph(BasicMetaType.GRAPH);
-    }
+	@Override
+	public Graph createGraph() {
+		return new Graph(BasicMetaType.GRAPH);
+	}
 
 }

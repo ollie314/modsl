@@ -5,8 +5,8 @@ $root_in(graph)$
 <!-- $node.name$: basic graph -->
 <style type="text/css"><![CDATA[ 
 	text.graph { font-family: $decor.meta.GRAPH.config.ft.name$; font-size: $decor.meta.GRAPH.config.ft.size$px; }
-	text.node { fill: black; font-family: $decor.meta.NODE.config.ft.name$; font-size: $decor.meta.NODE.config.ft.size$px; }
 	rect.node { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
+	text.nodelabel { fill: black; font-family: $decor.meta.NODE_LABEL.config.ft.name$; font-size: $decor.meta.NODE_LABEL.config.ft.size$px; }
 	line.edge { stroke: dimgrey; stroke-width: 1px; }
 ]]></style>
 
@@ -15,7 +15,11 @@ $root_in(graph)$
 NODE_in(node, decor) ::= <<
 
 <rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="node"/>
-<text x="$decor.textPos.x$" y="$decor.textPos.y$" class="node">$node.name$</text>
+>>
+
+NODE_LABEL_in(label, decor) ::= <<
+
+<text x="$label.textPos.x$" y="$lable.textPos.y$" class="nodelabel">$node.name$</text>
 >>
 
 EDGE_in(edge, decor) ::= <<

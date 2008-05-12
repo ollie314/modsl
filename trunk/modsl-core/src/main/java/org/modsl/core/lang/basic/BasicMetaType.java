@@ -25,7 +25,7 @@ import org.modsl.core.agt.model.MetaType;
  */
 public enum BasicMetaType implements MetaType {
 
-	GRAPH, NODE, EDGE;
+	GRAPH, NODE, NODE_LABEL, EDGE;
 
 	protected MetaTypeConfig config = new MetaTypeConfig();
 
