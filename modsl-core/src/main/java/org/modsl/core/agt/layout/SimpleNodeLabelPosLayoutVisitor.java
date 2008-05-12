@@ -14,31 +14,32 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.layout;
+package org.modsl.core.agt.layout;
 
-import org.modsl.core.agt.common.FontTransform;
-import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
 /**
- * Does simple node size calculation based on node's text height and width.
+ * Does simple node label position calculation based on parent node's position
  * @author avishnyakov
  */
-public class CollabNodeLayoutVisitor extends SimpleNodeLabelSizeLayoutVisitor {
+public class SimpleNodeLabelPosLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
 
-    public CollabNodeLayoutVisitor(MetaType type) {
-        super(type);
-    }
+	public SimpleNodeLabelPosLayoutVisitor(MetaType type) {
+		super(type);
+	}
 
-    @Override
-    public void in(Node node) {
-        if (node.getType() != this.type) {
-            return;
-        }
-        super.in(node);
-        FontTransform ft = node.getType().getConfig().getFontTransform();
-        node.getSize().y += ft.getBottomPadding();
-    }
+	@Override
+	public void in(Node node) {
+		if (node.getType() != this.type) {
+			return;
+		}
+		if (!node.getLabels().isEmpty()) {
+			Label label = node.getLabels().get(0);
+			label.getPos().x = node.getPos().x;
+			label.getPos().y = node.getPos().y;
+		}
+	}
 
 }
