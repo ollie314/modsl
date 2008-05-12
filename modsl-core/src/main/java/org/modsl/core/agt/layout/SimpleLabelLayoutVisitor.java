@@ -17,27 +17,36 @@
 package org.modsl.core.agt.layout;
 
 import org.modsl.core.agt.common.FontTransform;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
 /**
- * Does simple node size calculation based on node's text height and width.
+ * Does simple node size calculation based on node's labels' height and width.
  * @author avishnyakov
  */
 public class SimpleLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
 
-    public SimpleLabelLayoutVisitor(MetaType type) {
-        super(type);
-    }
+	public SimpleLabelLayoutVisitor(MetaType type) {
+		super(type);
+	}
 
-    @Override
-    public void in(Node node) {
-        if (node.getType() != this.type) {
-            return;
-        }
-        FontTransform ft = node.getType().getConfig().getFontTransform();
-        node.setSize(new Pt(ft.getExtStringWidth(node.getName()), ft.getExtHeight(1)));
-    }
+	@Override
+	public void in(Node node) {
+		if (node.getType() != this.type) {
+			return;
+		}
+		FontTransform ft = node.getType().getConfig().getFontTransform();
+		if (node.getLabels().isEmpty()) {
+			node.setSize(new Pt(ft.getExtStringWidth(" "), ft.getExtHeight(1)));
+
+		} else {
+			Label label = node.getLabels().get(0);
+			node.setSize(new Pt(ft.getExtStringWidth(label.getName()), ft.getExtHeight(1)));
+			label.getPos().x = node.getPos().x;
+			label.getPos().y = node.getPos().y;
+		}
+	}
 
 }

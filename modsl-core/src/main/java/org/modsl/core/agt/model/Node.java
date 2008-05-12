@@ -16,11 +16,9 @@
 
 package org.modsl.core.agt.model;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
@@ -32,108 +30,108 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  */
 public class Node extends AbstractBox<Graph> {
 
-    private static int counter = 0;
+	private static int counter = 0;
 
-    /**
-     * List of connected edges
-     */
-    protected Set<Edge> connectedEdges = new HashSet<Edge>();
+	/**
+	 * List of connected edges
+	 */
+	protected Set<Edge> connectedEdges = new HashSet<Edge>();
 
-    /**
-     * Labels
-     */
-    protected Map<MetaType, List<Label>> labels = new HashMap<MetaType, List<Label>>();
-    
-    /**
-     * Create new
-     * @param type type
-     * @param name name
-     */
-    public Node(MetaType type, String name) {
-        super(type, name);
-        this.index = counter++;
-    }
-    
-    @Override
-    public void accept(AbstractVisitor visitor) {
-        visitor.in(this);
-        for (Label l : getLabels()) {
-            l.accept(visitor);
-        }
-        visitor.out(this);
-    }
+	/**
+	 * Labels
+	 */
+	protected List<Label> labels = new LinkedList<Label>();
 
-    protected boolean addConnectedEdge(Edge edge) {
-        return connectedEdges.add(edge);
-    }
+	/**
+	 * Create new
+	 * @param type type
+	 * @param name name
+	 */
+	public Node(MetaType type, String name) {
+		super(type, name);
+		this.index = counter++;
+	}
 
-    public int getInDegree() {
-        return getInEdges().size();
-    }
+	@Override
+	public void accept(AbstractVisitor visitor) {
+		visitor.in(this);
+		for (Label l : labels) {
+			l.accept(visitor);
+		}
+		visitor.out(this);
+	}
 
+	protected boolean addConnectedEdge(Edge edge) {
+		return connectedEdges.add(edge);
+	}
 
-    public List<Edge> getInEdges() {
-        List<Edge> ins = new LinkedList<Edge>();
-        for (Edge e : connectedEdges) {
-            if (e.getNode2().equals(this)) {
-                ins.add(e);
-            }
-        }
-        return ins;
-    }
+	public void addLabel(Label label) {
+		labels.add(label);
+		label.setParent(this);
+	}
 
-    public List<Label> getLabels() {
-        List<Label> lst = new LinkedList<Label>();
-        for (List<Label> l2 : labels.values()) {
-            lst.addAll(l2);
-        }
-        return lst;
-    }
+	public int getInDegree() {
+		return getInEdges().size();
+	}
 
-    public int getOutDegree() {
-        return getOutEdges().size();
-    }
+	public List<Edge> getInEdges() {
+		List<Edge> ins = new LinkedList<Edge>();
+		for (Edge e : connectedEdges) {
+			if (e.getNode2().equals(this)) {
+				ins.add(e);
+			}
+		}
+		return ins;
+	}
 
-    public List<Edge> getOutEdges() {
-        List<Edge> ins = new LinkedList<Edge>();
-        for (Edge e : connectedEdges) {
-            if (e.getNode1().equals(this)) {
-                ins.add(e);
-            }
-        }
-        return ins;
-    }
+	public List<Label> getLabels() {
+		return labels;
+	}
 
-    public boolean isConnectedTo(AbstractBox<?> b) {
-        for (Edge e : connectedEdges) {
-            if (e.getDistance(this, b) == 1) {
-                return true;
-            }
-        }
-        return false;
-    }
+	public int getOutDegree() {
+		return getOutEdges().size();
+	}
 
-    protected boolean removeConnectedEdge(Edge edge) {
-        return connectedEdges.remove(edge);
-    }
+	public List<Edge> getOutEdges() {
+		List<Edge> ins = new LinkedList<Edge>();
+		for (Edge e : connectedEdges) {
+			if (e.getNode1().equals(this)) {
+				ins.add(e);
+			}
+		}
+		return ins;
+	}
 
-    /**
-     * @return sin of angle between 0 and diagonal
-     */
-    public double sin() {
-        return size.y / size.len();
-    }
+	public boolean isConnectedTo(AbstractBox<?> b) {
+		for (Edge e : connectedEdges) {
+			if (e.getDistance(this, b) == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    /**
-     * @return tan of angle between 0 and diagonal
-     */
-    public double tan() {
-        return size.y / size.x;
-    }
+	protected boolean removeConnectedEdge(Edge edge) {
+		return connectedEdges.remove(edge);
+	}
 
-    @Override
-    public String toString() {
-        return super.toString() + "@" + pos;
-    }
+	/**
+	 * @return sin of angle between 0 and diagonal
+	 */
+	public double sin() {
+		return size.y / size.len();
+	}
+
+	/**
+	 * @return tan of angle between 0 and diagonal
+	 */
+	public double tan() {
+		return size.y / size.x;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "@" + pos;
+	}
 
 }
