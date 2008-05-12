@@ -25,59 +25,59 @@ import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.decor.SimpleNodeDecorator;
 import org.modsl.core.agt.layout.SimpleLabelLayoutVisitor;
-import org.modsl.core.agt.layout.fr.CircleLayoutVisitor;
-import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
+import org.modsl.core.agt.layout.fr2.Circle2LayoutVisitor;
+import org.modsl.core.agt.layout.fr2.FR2LayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
 
 public class BasicProcessor extends AbstractProcessor<BasicParser> {
 
-    @Override
-    protected Lexer getLexer(ANTLRStringStream input) {
-        return new BasicLexer(input);
-    }
+	@Override
+	protected Lexer getLexer(ANTLRStringStream input) {
+		return new BasicLexer(input);
+	}
 
-    @Override
-    protected String getName() {
-        return "basic";
-    }
+	@Override
+	protected String getName() {
+		return "basic";
+	}
 
-    @Override
-    protected BasicParser getParser(CommonTokenStream tokens) {
-        return new BasicParser(tokens);
-    }
+	@Override
+	protected BasicParser getParser(CommonTokenStream tokens) {
+		return new BasicParser(tokens);
+	}
 
-    @Override
-    protected String getPath() {
-        return "cfg/basic:cfg";
-    }
+	@Override
+	protected String getPath() {
+		return "cfg/basic:cfg";
+	}
 
-    @Override
-    protected Graph getGraph() {
-        return parser.graph;
-    }
+	@Override
+	protected Graph getGraph() {
+		return parser.graph;
+	}
 
-    @Override
-    protected void runParser() throws RecognitionException {
-        parser.graph();
-    }
+	@Override
+	protected void runParser() throws RecognitionException {
+		parser.graph();
+	}
 
-    @Override
-    public void initLayouts() {
-        addLayoutVisitor(new SimpleLabelLayoutVisitor(BasicMetaType.NODE));
-        addLayoutVisitor(new CircleLayoutVisitor(BasicMetaType.GRAPH));
-        addLayoutVisitor(new FRLayoutVisitor(BasicMetaType.GRAPH));
-    }
+	@Override
+	public void initLayouts() {
+		addLayoutVisitor(new SimpleLabelLayoutVisitor(BasicMetaType.NODE));
+		addLayoutVisitor(new Circle2LayoutVisitor(BasicMetaType.GRAPH));
+		addLayoutVisitor(new FR2LayoutVisitor(BasicMetaType.GRAPH));
+	}
 
-    @Override
-    public void initDecorators() {
-        BasicMetaType.GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(BasicMetaType.class));
-        BasicMetaType.NODE.getConfig().setDecorator(new SimpleNodeDecorator());
-    }
+	@Override
+	public void initDecorators() {
+		BasicMetaType.GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(BasicMetaType.class));
+		BasicMetaType.NODE.getConfig().setDecorator(new SimpleNodeDecorator());
+	}
 
-    @Override
-    protected Class<? extends MetaType> getMetaTypeClass() {
-        return BasicMetaType.class;
-    }
+	@Override
+	protected Class<? extends MetaType> getMetaTypeClass() {
+		return BasicMetaType.class;
+	}
 }
