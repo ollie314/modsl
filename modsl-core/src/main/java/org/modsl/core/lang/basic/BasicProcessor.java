@@ -23,7 +23,6 @@ import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.basic.BasicLexer;
 import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
-import org.modsl.core.agt.decor.SimpleNodeDecorator;
 import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
 import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
 import org.modsl.core.agt.layout.fr2.Circle2LayoutVisitor;
@@ -75,7 +74,6 @@ public class BasicProcessor extends AbstractProcessor<BasicParser> {
 	@Override
 	public void initDecorators() {
 		BasicMetaType.GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(BasicMetaType.class));
-		BasicMetaType.NODE.getConfig().setDecorator(new SimpleNodeDecorator());
 	}
 
 	@Override

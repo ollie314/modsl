@@ -16,18 +16,19 @@
 
 package org.modsl.core.lang.uml.decorator;
 
-import org.modsl.core.agt.decor.SimpleNodeDecorator;
+import org.modsl.core.agt.decor.AbstractDecorator;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Pt;
 
-public class CollabNodeDecorator extends SimpleNodeDecorator {
+public class CollabNodeDecorator extends AbstractDecorator<Label> {
 
 	public Pt getUnderline1() {
-		return new Pt(getTextPos().x, parent.getPos().y + getFt().getExtBaseline(0) + 2);
+		return new Pt(parent.getTextPos().x, parent.getPos().y + getFt().getExtBaseline(0) + 2);
 	}
 
 	public Pt getUnderline2() {
-		return new Pt(getTextPos().x + getFt().getStringWidth(parent.getName()), parent.getPos().y + getFt().getExtBaseline(0)
-				+ 2);
+		return new Pt(parent.getTextPos().x + getFt().getStringWidth(parent.getName()), parent.getPos().y
+				+ getFt().getExtBaseline(0) + 2);
 	}
 
 }
