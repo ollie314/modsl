@@ -20,32 +20,33 @@ import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
+import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.SVGCollector;
 import org.modsl.core.utils.Utils;
 
 public class UMLProcessorTest extends AbstractUMLTest {
 
-    protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml");
+	protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml");
 
-    @Test
-    public void process1() throws Exception {
-        process("collab coll1 { c1:o1->c2:o2.m2()->c3:o3.m3()->c1:o1.m4(); }");
-    }
+	@Test
+	public void process1() throws Exception {
+		process("collab coll1 { c1:o1->c2:o2.m2()->c3:o3.m3()->c1:o1.m4(); }");
+	}
 
-    @Test
-    public void process2() throws RecognitionException, IOException {
-        process("collab coll2 { :o1->:o2.m2(); :o1->:o3.m3(); :o2->:o4.m4(); :o2->:o5.m5();"
-                + " :o3->:o6.m6(); :o3->:o7.m7(); :o6->:o7.m8(); :o1->:o6.m9(); :o6->:o2.m10(); }");
-    }
+	@Test
+	public void process2() throws RecognitionException, IOException {
+		process("collab coll2 { :o1->:o2.m2(); :o1->:o3.m3(); :o2->:o4.m4(); :o2->:o5.m5();"
+				+ " :o3->:o6.m6(); :o3->:o7.m7(); :o6->:o7.m8(); :o1->:o6.m9(); :o6->:o2.m10(); }");
+	}
 
-    @Test
-    public void process3() throws RecognitionException, IOException {
-        process(Utils.fromFile("samples/uml/collab3.modsl"));
-    }
+	@Test
+	public void process3() throws RecognitionException, IOException {
+		process(Utils.fromFile("samples/uml/collab3.modsl"));
+	}
 
-    private void process(String s) throws RecognitionException, IOException {
-        String result = processor.process(s); //, new Pt(640, 480));
-        svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());
-    }
+	private void process(String s) throws RecognitionException, IOException {
+		String result = processor.process(s, new Pt(640, 480));
+		svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());
+	}
 
 }
