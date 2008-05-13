@@ -19,7 +19,6 @@ package org.modsl.core.agt.layout;
 import java.util.Map;
 
 import org.modsl.core.agt.model.MetaType;
-import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 
 public abstract class AbstractNonConfigurableLayoutVisitor extends AbstractLayoutVisitor {
 

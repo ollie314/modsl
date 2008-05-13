@@ -24,10 +24,10 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Lexer;
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.RecognitionException;
+import org.modsl.core.agt.layout.AbstractLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 import org.modsl.core.agt.visitor.StringTemplateVisitor;
 

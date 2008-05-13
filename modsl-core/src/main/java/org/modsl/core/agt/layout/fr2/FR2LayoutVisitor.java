@@ -24,13 +24,13 @@ import static java.lang.Math.sqrt;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.layout.AbstractLayoutVisitor;
 import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 
 /**
  * Modified Fruchterman-Rheingold layout algorithm

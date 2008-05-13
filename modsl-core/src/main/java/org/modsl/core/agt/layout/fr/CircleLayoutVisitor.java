@@ -25,11 +25,11 @@ import java.util.Map;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.layout.AbstractLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 
 /**
  * Lays the element out on a circle to reduce edge crossing in the FR algorithm

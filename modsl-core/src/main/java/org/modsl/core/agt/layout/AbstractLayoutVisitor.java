@@ -14,12 +14,13 @@
  * the License.
  */
 
-package org.modsl.core.agt.visitor;
+package org.modsl.core.agt.layout;
 
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.agt.visitor.AbstractVisitor;
 
 public abstract class AbstractLayoutVisitor extends AbstractVisitor {
 
