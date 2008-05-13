@@ -16,7 +16,9 @@
 
 package org.modsl.core.agt.model;
 
+import static java.lang.Math.PI;
 import static java.lang.Math.abs;
+import static java.lang.Math.acos;
 import static java.lang.Math.signum;
 
 /**
@@ -121,14 +123,14 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     /**
      * @return distance between centers of this box and the other box
      */
-    public Pt getCtrDelta(AbstractBox<P> n2) {
+    public Pt getCtrDelta(AbstractBox<?> n2) {
         return n2.getCtrPos().minus(getCtrPos());
     }
 
     /**
      * @return cos(angle of the line between this box and the other box)
      */
-    public double cos(AbstractBox<P> n2) {
+    public double cos(AbstractBox<?> n2) {
         Pt delta = getCtrDelta(n2);
         return delta.x / delta.len();
     }
@@ -136,7 +138,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     /**
      * @return sin(angle of the line between this box and the other box)
      */
-    public double sin(AbstractBox<P> n2) {
+    public double sin(AbstractBox<?> n2) {
         Pt delta = getCtrDelta(n2);
         return delta.y / delta.len();
     }
@@ -144,36 +146,36 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     /**
      * @return tan(angle of the line between this box and the other box)
      */
-    public double tan(AbstractBox<P> n2) {
+    public double tan(AbstractBox<?> n2) {
         Pt delta = getCtrDelta(n2);
         return delta.y / delta.x;
     }
 
-    public Pt[] getMinDeltaPts(AbstractBox<P> n2) {
+    public Pt[] getMinDeltaPts(AbstractBox<?> n2) {
         Pt[] res = new Pt[2];
         res[0] = this.getPort(this.sin(n2), this.cos(n2), this.tan(n2));
         res[1] = n2.getPort(n2.sin(this), n2.cos(this), n2.tan(this));
         return res;
     }
 
-    public Pt getMinDelta(AbstractBox<P> n2) {
+    public Pt getMinDelta(AbstractBox<?> n2) {
         Pt[] res = getMinDeltaPts(n2);
-        return res[1].decBy(res[0]);
+        return res[0].decBy(res[1]);
     }
     
     public Pt getPort(double sin, double cos, double tan) {
-        Pt ap = new Pt();
+        Pt port = new Pt();
         Pt cp = getCtrPos();
         Pt s = getSize();
         if (abs(tan()) > abs(tan)) {
-            // i.e. line is crossing e2's side
-            ap.x = cp.x + s.x * signum(cos) / 2d;
-            ap.y = cp.y + s.x * tan * signum(cos) / 2d;
+            // i.e. line is crossing this box's side
+            port.x = cp.x + s.x * signum(cos) / 2d;
+            port.y = cp.y + s.x * tan * signum(cos) / 2d;
         } else {
-            ap.x = cp.x + s.y / tan * signum(sin) / 2d;
-            ap.y = cp.y + s.y * signum(sin) / 2d;
+            port.x = cp.x + s.y / tan * signum(sin) / 2d;
+            port.y = cp.y + s.y * signum(sin) / 2d;
         }
-        return ap;
+        return port;
     }
     
     /**
@@ -194,6 +196,24 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public double tan() {
         return size.y / size.x;
+    }
+    
+    /**
+     * @return angle of the line between this box and the other box
+     */
+    public double angle(AbstractBox<?> n2) {
+        Pt delta = getCtrDelta(n2);
+        if (delta.y > 0d) {
+            return acos(this.cos(n2));
+        } else if (delta.y < 0d) {
+            return 2 * PI - acos(this.cos(n2));
+        } else {
+            if (delta.x >= 0d) {
+                return 0;
+            } else {
+                return PI;
+            }
+        }
     }
 
 }
