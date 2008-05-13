@@ -78,7 +78,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 		addLayoutVisitor(new CollabNodeLayoutVisitor(UMLMetaType.COLLAB_NODE));
 		// addLayoutVisitor(new
 		// SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
-		addLayoutVisitor(new Circle2LayoutVisitor(UMLMetaType.COLLAB_GRAPH));
+		//addLayoutVisitor(new Circle2LayoutVisitor(UMLMetaType.COLLAB_GRAPH));
 		addLayoutVisitor(new FR2LayoutVisitor(UMLMetaType.COLLAB_GRAPH));
 		addLayoutVisitor(new CollabEdgeLabelLayout(UMLMetaType.COLLAB_EDGE_LABEL));
 		addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.COLLAB_NODE));
