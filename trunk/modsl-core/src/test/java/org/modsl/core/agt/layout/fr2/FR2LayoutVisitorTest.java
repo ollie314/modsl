@@ -9,7 +9,6 @@ import org.modsl.core.agt.TMetaType;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.agt.visitor.ToStringVisitor;
 
 public class FR2LayoutVisitorTest {
 
@@ -42,6 +41,6 @@ public class FR2LayoutVisitorTest {
         layout.in(graph);
         assertEquals(81d, n1.getCtrDelta(n2).len(), 1d);
         //log.debug(new ToStringVisitor().toString(graph));
-   }
+    }
 
 }
