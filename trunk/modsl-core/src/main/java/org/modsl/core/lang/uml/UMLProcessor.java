@@ -23,6 +23,7 @@ import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
+import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
 import org.modsl.core.agt.layout.fr2.Circle2LayoutVisitor;
 import org.modsl.core.agt.layout.fr2.FR2LayoutVisitor;
 import org.modsl.core.agt.model.Graph;
@@ -68,7 +69,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 	@Override
 	public void initDecorators() {
 		UMLMetaType.COLLAB_GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
-		UMLMetaType.COLLAB_NODE.getConfig().setDecorator(new CollabNodeDecorator());
+		UMLMetaType.COLLAB_NODE_LABEL.getConfig().setDecorator(new CollabNodeDecorator());
 		UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
 	}
 
@@ -80,6 +81,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 		addLayoutVisitor(new Circle2LayoutVisitor(UMLMetaType.COLLAB_GRAPH));
 		addLayoutVisitor(new FR2LayoutVisitor(UMLMetaType.COLLAB_GRAPH));
 		addLayoutVisitor(new CollabEdgeLabelLayout(UMLMetaType.COLLAB_EDGE_LABEL));
+		addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.COLLAB_NODE));
 	}
 
 	@Override
