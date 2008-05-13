@@ -16,6 +16,7 @@
 
 package org.modsl.core.agt.layout.fr2;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
@@ -96,12 +97,44 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
         kRepulsion = repulsionMultiplier * kForce;
 
         for (int iterCurrent = 0; iterCurrent < maxIterations; iterCurrent++) {
+            zeroDisp();
             repulsion();
             attraction();
+            //grid();
             moveVertexes();
             reduceTemperature(iterCurrent, maxIterations);
         }
 
+    }
+
+    /*void grid() {
+        for (Node n1 : graph.getNodes()) {
+            Node n = graph.getNodes().get(0);
+            double nlen = Double.MAX_VALUE;
+            for (Node n2 : graph.getNodes()) {
+                if (n1 != n2) {
+                    double l = n1.getPos().minus(n2.getPos()).len();
+                    if (l < nlen) {
+                        n = n2;
+                        nlen = l;
+                    }
+                }
+            }
+            Pt delta = n1.getPos().minus(n.getPos());
+            if (abs(n1.getPos().x - n.getPos().x) < abs(n1.getPos().y - n.getPos().y)) {
+                n1.getDisp().x -= attractionForce(delta.x);
+                n.getDisp().x += attractionForce(delta.x);
+            } else {
+                n1.getDisp().y -= attractionForce(delta.y);
+                n.getDisp().y += attractionForce(delta.y);
+            }
+        }
+    }*/
+
+    void zeroDisp() {
+        for (Node n1 : graph.getNodes()) {
+            n1.getDisp().zero();
+        }
     }
 
     void moveVertexes() {
@@ -120,7 +153,6 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 
     void repulsion() {
         for (Node n1 : graph.getNodes()) {
-            n1.getDisp().zero();
             for (Node n2 : graph.getNodes()) {
                 if (n1 != n2) {
                     Pt delta = getDelta(n1, n2);
