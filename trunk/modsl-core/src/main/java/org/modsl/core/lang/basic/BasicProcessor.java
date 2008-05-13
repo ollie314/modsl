@@ -66,7 +66,7 @@ public class BasicProcessor extends AbstractProcessor<BasicParser> {
 	@Override
 	public void initLayouts() {
 		addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(BasicMetaType.NODE));
-		addLayoutVisitor(new Circle2LayoutVisitor(BasicMetaType.GRAPH));
+		//addLayoutVisitor(new Circle2LayoutVisitor(BasicMetaType.GRAPH));
 		addLayoutVisitor(new FR2LayoutVisitor(BasicMetaType.GRAPH));
 		addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(BasicMetaType.NODE));
 	}

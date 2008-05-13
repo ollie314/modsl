@@ -25,6 +25,8 @@ import org.modsl.core.lang.SVGCollector;
 
 public class BasicProcessorTest extends AbstractBasicTest {
 
+	static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "basic");
+
 	@Test
 	public void process1() throws Exception {
 		process("graph g1 { n1->n2; n1->n3->n4->n5; n2->n3; n5->n8->n9; n9->n4; n8-> n4; }", new Pt(400, 320));
@@ -44,6 +46,11 @@ public class BasicProcessorTest extends AbstractBasicTest {
 	@Test
 	public void process4() throws RecognitionException, IOException {
 		process("graph g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(500, 420));
+	}
+
+	void process(String s, Pt reqSize) throws RecognitionException, IOException {
+		String result = processor.process(s, reqSize);
+		svgCollector.collect(processor.getGraph().getName(), result, reqSize);
 	}
 
 }
