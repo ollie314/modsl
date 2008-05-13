@@ -45,7 +45,7 @@ public class UMLProcessorTest extends AbstractUMLTest {
 	}
 
 	private void process(String s) throws RecognitionException, IOException {
-		String result = processor.process(s, new Pt(640, 480));
+		String result = processor.process(s);
 		svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());
 	}
 
