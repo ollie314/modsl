@@ -293,7 +293,7 @@ public class Edge extends AbstractElement<Graph> {
 	 * @return start point position at node 1
 	 */
 	public Pt getNode1Port() {
-		return getNodePort(node1, 1d, sin1(), cos1(), tan1());
+		return node1.getNodePort(1d, sin1(), cos1(), tan1());
 	}
 
 	/**
@@ -314,27 +314,7 @@ public class Edge extends AbstractElement<Graph> {
 	 * @return end point position at node 2
 	 */
 	public Pt getNode2Port() {
-		return getNodePort(node2, -1d, sin2(), cos2(), tan2());
-	}
-
-	/**
-	 * Convenience method to calculate adjusted position of the connector's
-	 * endpoint at the given node, considering that element's dimensions
-	 * @return position adjusted to node's size
-	 */
-	protected Pt getNodePort(Node n, double sign, double sin, double cos, double tan) {
-		Pt ap = new Pt();
-		Pt cp = n.getCtrPos();
-		Pt s = n.getSize();
-		if (abs(n.tan()) > abs(tan)) {
-			// i.e. line is crossing e2's side
-			ap.x = cp.x + sign * s.x * signum(cos) / 2d;
-			ap.y = cp.y + sign * s.x * tan * signum(cos) / 2d;
-		} else {
-			ap.x = cp.x + sign * s.y / tan * signum(sin) / 2d;
-			ap.y = cp.y + sign * s.y * signum(sin) / 2d;
-		}
-		return ap;
+		return node2.getNodePort(-1d, sin2(), cos2(), tan2());
 	}
 
 	/**

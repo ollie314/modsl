@@ -16,6 +16,9 @@
 
 package org.modsl.core.agt.model;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.signum;
+
 /**
  * Abstract rectangle graph element
  * @author avishnyakov
@@ -113,6 +116,87 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public void setSize(Pt size) {
         this.size = size;
+    }
+
+    /**
+     * @return distance between centers of this box and the other box
+     */
+    public Pt getCtrDelta(AbstractBox<P> n2) {
+        return n2.getCtrPos().minus(getCtrPos());
+    }
+
+    /**
+     * @return cos(angle of the line between this box and the other box)
+     */
+    public double cos(AbstractBox<P> n2) {
+        Pt delta = getCtrDelta(n2);
+        return delta.x / delta.len();
+    }
+
+    /**
+     * @return sin(angle of the line between this box and the other box)
+     */
+    public double sin(AbstractBox<P> n2) {
+        Pt delta = getCtrDelta(n2);
+        return delta.y / delta.len();
+    }
+
+    /**
+     * @return tan(angle of the line between this box and the other box)
+     */
+    public double tan(AbstractBox<P> n2) {
+        Pt delta = getCtrDelta(n2);
+        return delta.y / delta.x;
+    }
+
+    public Pt[] getMinDeltaPts(AbstractBox<P> n2) {
+        Pt[] res = new Pt[2];
+        double c = cos(n2);
+        double s = sin(n2);
+        double t = tan(n2);
+        res[0] = this.getNodePort(1d, s, c, t);
+        res[1] = n2.getNodePort(-1d, s, c, t);
+        return res;
+    }
+
+    public Pt getMinDelta(AbstractBox<P> n2) {
+        Pt[] res = getMinDeltaPts(n2);
+        return res[1].decBy(res[0]);
+    }
+    
+    public Pt getNodePort(double sign, double sin, double cos, double tan) {
+        Pt ap = new Pt();
+        Pt cp = getCtrPos();
+        Pt s = getSize();
+        if (abs(tan()) > abs(tan)) {
+            // i.e. line is crossing e2's side
+            ap.x = cp.x + sign * s.x * signum(cos) / 2d;
+            ap.y = cp.y + sign * s.x * tan * signum(cos) / 2d;
+        } else {
+            ap.x = cp.x + sign * s.y / tan * signum(sin) / 2d;
+            ap.y = cp.y + sign * s.y * signum(sin) / 2d;
+        }
+        return ap;
+    }
+    
+    /**
+     * @return cos of angle between 0 and diagonal of this box
+     */
+    public double cos() {
+        return size.x / size.len();
+    }
+    /**
+     * @return sin of angle between 0 and diagonal of this box
+     */
+    public double sin() {
+        return size.y / size.len();
+    }
+
+    /**
+     * @return tan of angle between 0 and diagonal of this box
+     */
+    public double tan() {
+        return size.y / size.x;
     }
 
 }
