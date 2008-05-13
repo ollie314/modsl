@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.visitor.AbstractVisitor;
@@ -353,6 +354,13 @@ public class Graph extends AbstractBox<Graph> {
 	 */
 	public double getArea() {
 		return size.x * size.y;
+	}
+
+	public void randomize(long seed) {
+		Random r = new Random(seed);
+		for (Node n : nodes) {
+			n.setPos(new Pt(r.nextDouble(), r.nextDouble()));
+		}
 	}
 
 }

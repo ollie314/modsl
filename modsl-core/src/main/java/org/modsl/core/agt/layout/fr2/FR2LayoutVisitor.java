@@ -71,12 +71,11 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 	Pt getDelta(Node n1, Node n2) {
 		Pt delta = n1.getCtrPos().minus(n2.getCtrPos());
 		// String s = delta.toString();
-		if (n1.getSize().y > n1.getSize().x) {
-			delta.decBy((n1.getSize().y - n1.getSize().x) / 2d);
-		}
-		if (n2.getSize().y > n2.getSize().x) {
-			delta.decBy((n2.getSize().y - n2.getSize().x) / 2d);
-		}
+		/*
+		 * if (n1.getSize().y > n1.getSize().x) { delta.decBy((n1.getSize().y -
+		 * n1.getSize().x) / 2d); } if (n2.getSize().y > n2.getSize().x) {
+		 * delta.decBy((n2.getSize().y - n2.getSize().x) / 2d); }
+		 */
 		// TODO bigger element adjustment
 		// delta.decBy(v1.getDiagonal() / 8d);
 		// delta.decBy(v2.getDiagonal() / 8d);
@@ -96,10 +95,10 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 
 		this.graph = graph;
 
+		graph.randomize(graph.getName().hashCode());
 		graph.recalcSize();
-		Pt gsize = graph.getSize();
-		temp = max((gsize.x + gsize.y) * tempMultiplier, Pt.EPSILON);
-		kForce = max(sqrt(graph.getArea() / graph.getNodes().size()), Pt.EPSILON);
+		temp = max((graph.getReqSize().x + graph.getReqSize().y) * tempMultiplier, Pt.EPSILON);
+		kForce = max(sqrt(graph.getReqSize().x * graph.getReqSize().y / graph.getNodes().size()), Pt.EPSILON);
 		kAttraction = attractionMultiplier * kForce;
 		kRepulsion = repulsionMultiplier * kForce;
 
@@ -117,6 +116,8 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 			Pt delta = n.getAltPos().minus(n.getPos());
 			double dl = delta.lenSafe();
 			n.getPos().incBy(delta.div(dl).mult(min(dl, temp)));
+			n.getPos().x = min(graph.getReqSize().x / 2d, max(-graph.getReqSize().x / 2d, n.getPos().x));
+			n.getPos().y = min(graph.getReqSize().y / 2d, max(-graph.getReqSize().y / 2d, n.getPos().y));
 		}
 	}
 
