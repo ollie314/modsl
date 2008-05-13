@@ -22,18 +22,33 @@ import org.apache.log4j.Logger;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
+/**
+ * Base class for all layout visitors
+ * @author AVishnyakov
+ */
 public abstract class AbstractLayoutVisitor extends AbstractVisitor {
 
     protected Logger log = Logger.getLogger(getClass());
 
     protected MetaType type;
 
+    /**
+     * New visitor for given meta-type
+     * @param type
+     */
     public AbstractLayoutVisitor(MetaType type) {
         this.type = type;
     }
 
+    /**
+     * @return configuration name (used to initialize this layout visitor)
+     */
     public abstract String getConfigName();
 
+    /**
+     * Called when the configuration map is loaded from disk
+     * @param propMap
+     */
     public abstract void setLayoutConfig(Map<String, String> propMap);
 
 }
