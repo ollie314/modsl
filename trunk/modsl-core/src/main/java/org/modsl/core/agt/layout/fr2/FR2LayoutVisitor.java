@@ -38,14 +38,13 @@ import org.modsl.core.agt.visitor.AbstractLayoutVisitor;
 public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 
     @SuppressWarnings("unused")
-    private Logger log = Logger.getLogger(this.getClass());
+    Logger log = Logger.getLogger(this.getClass());
 
-    protected double temp, kForce, kAttraction, kRepulsion;
-
-    protected double tempMultiplier, attractionMultiplier, repulsionMultiplier;
-
-    protected int maxIterations;
-    protected Graph graph;
+    double temp, kForce, kAttraction, kRepulsion;
+    double tempMultiplier, attractionMultiplier, repulsionMultiplier;
+    int maxIterations;
+    Graph graph;
+    Pt req;
 
     public FR2LayoutVisitor(MetaType type) {
         super(type);
@@ -55,8 +54,8 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
         for (Edge e : graph.getEdges()) {
             Pt delta = getDelta(e.getNode1(), e.getNode2());
             double dl = delta.lenSafe();
-            e.getNode1().getAltPos().decBy(delta.div(dl).mult(attractionForce(dl)));
-            e.getNode2().getAltPos().incBy(delta.div(dl).mult(attractionForce(dl)));
+            e.getNode1().getDisp().decBy(delta.div(dl).mult(attractionForce(dl)));
+            e.getNode2().getDisp().incBy(delta.div(dl).mult(attractionForce(dl)));
         }
     }
 
@@ -87,11 +86,12 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
         }
 
         this.graph = graph;
+        this.req = graph.getReqSize();
 
         graph.randomize(graph.getName().hashCode());
         graph.recalcSize();
-        temp = max((graph.getReqSize().x + graph.getReqSize().y) * tempMultiplier, Pt.EPSILON);
-        kForce = max(sqrt(graph.getReqSize().x * graph.getReqSize().y / graph.getNodes().size()), Pt.EPSILON);
+        temp = max((req.x + req.y) * tempMultiplier, Pt.EPSILON);
+        kForce = max(sqrt(req.x * req.y / graph.getNodes().size()), Pt.EPSILON);
         kAttraction = attractionMultiplier * kForce;
         kRepulsion = repulsionMultiplier * kForce;
 
@@ -105,9 +105,8 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
     }
 
     void moveVertexes() {
-        Pt req = graph.getReqSize();
         for (Node n : graph.getNodes()) {
-            Pt delta = n.getAltPos().minus(n.getPos());
+            Pt delta = n.getDisp().minus(n.getPos());
             double dl = delta.lenSafe();
             n.getPos().incBy(delta.div(dl).mult(min(dl, temp)));
             n.getPos().x = min(req.x / 2d, max(-req.x / 2d, n.getPos().x));
@@ -121,12 +120,12 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 
     void repulsion() {
         for (Node n1 : graph.getNodes()) {
-            n1.getAltPos().zero();
+            n1.getDisp().zero();
             for (Node n2 : graph.getNodes()) {
                 if (n1 != n2) {
                     Pt delta = getDelta(n1, n2);
                     double dl = delta.lenSafe();
-                    n1.getAltPos().incBy(delta.div(dl).mult(repulsionForce(dl)));
+                    n1.getDisp().incBy(delta.div(dl).mult(repulsionForce(dl)));
                 }
             }
         }

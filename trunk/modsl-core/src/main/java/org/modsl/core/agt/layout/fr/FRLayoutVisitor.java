@@ -54,8 +54,8 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
         for (Edge e : graph.getEdges()) {
             Pt delta = e.getNode1Port().minus(e.getNode2Port());
             double dl = delta.lenSafe();
-            e.getNode1().getAltPos().decBy(delta.div(dl).mult(attractionForce(dl)));
-            e.getNode2().getAltPos().incBy(delta.div(dl).mult(attractionForce(dl)));
+            e.getNode1().getDisp().decBy(delta.div(dl).mult(attractionForce(dl)));
+            e.getNode2().getDisp().incBy(delta.div(dl).mult(attractionForce(dl)));
         }
     }
 
@@ -114,7 +114,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
     private void moveVertexes() {
         for (Node n : graph.getNodes()) {
-            Pt delta = n.getAltPos().minus(n.getPos());
+            Pt delta = n.getDisp().minus(n.getPos());
             double dl = delta.lenSafe();
             n.getPos().incBy(delta.div(dl).mult(min(dl, temp)));
         }
@@ -126,12 +126,12 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
     private void repulsion() {
         for (Node na : graph.getNodes()) {
-            na.getAltPos().zero();
+            na.getDisp().zero();
             for (Node nb : graph.getNodes()) {
                 if (na != nb) {
                     Pt delta = getDelta(na, nb);
                     double dl = delta.lenSafe();
-                    na.getAltPos().incBy(delta.div(dl).mult(repulsionForce(dl)));
+                    na.getDisp().incBy(delta.div(dl).mult(repulsionForce(dl)));
                 }
             }
         }

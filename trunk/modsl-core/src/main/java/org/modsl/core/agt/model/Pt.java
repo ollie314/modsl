@@ -33,9 +33,9 @@ public class Pt {
      */
     public final static double EPSILON = 0.0000001d;
 
-    public double x;
+    public double x = 0d;
 
-    public double y;
+    public double y = 0d;
 
     /**
      * New instance with <code>x = y = 0</code>
