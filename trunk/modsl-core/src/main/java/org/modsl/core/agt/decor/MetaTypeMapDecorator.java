@@ -22,10 +22,18 @@ import java.util.Map;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
+/**
+ * Adds quick access to the meta-type map when rendering the string template
+ * @author AVishnyakov
+ */
 public class MetaTypeMapDecorator extends AbstractDecorator<Node> {
 
 	protected Map<String, Object> metaTypeMap;
 
+	/**
+	 * Creates new instance for the given meta type class
+	 * @param mtc
+	 */
 	public MetaTypeMapDecorator(Class<? extends MetaType> mtc) {
 		Object[] mta = mtc.getEnumConstants();
 		metaTypeMap = new HashMap<String, Object>(mta.length);
@@ -34,6 +42,10 @@ public class MetaTypeMapDecorator extends AbstractDecorator<Node> {
 		}
 	}
 
+	/**
+	 * Convenience method for string template access to the meta-type map
+	 * @return meta type map
+	 */
 	public Map<String, Object> getMeta() {
 		return metaTypeMap;
 	}

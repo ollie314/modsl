@@ -18,9 +18,20 @@ package org.modsl.core.agt.common;
 
 import org.modsl.core.agt.decor.AbstractDecorator;
 
+/**
+ * Meta-type configuration object
+ * @author AVishnyakov
+ */
 public class MetaTypeConfig {
 
+	/**
+	 * Font transform object for this meta-type instance
+	 */
     protected FontTransform fontTransform;
+    
+    /**
+     * Decorator for this meta-type instance
+     */
     protected AbstractDecorator<?> decorator;
 
     public AbstractDecorator<?> getDecorator() {
@@ -43,6 +54,10 @@ public class MetaTypeConfig {
         return fontTransform;
     }
 
+    /**
+     * Set decorator object
+     * @param decorator
+     */
     public void setDecorator(AbstractDecorator<?> decorator) {
         this.decorator = decorator;
     }
