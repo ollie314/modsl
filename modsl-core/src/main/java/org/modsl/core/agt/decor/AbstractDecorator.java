@@ -19,16 +19,30 @@ package org.modsl.core.agt.decor;
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.AbstractElement;
 
-public abstract class AbstractDecorator<E extends AbstractElement> {
+/**
+ * Base class for all decorators
+ * @author AVishnyakov
+ *
+ * @param <E> graph element class
+ */
+public abstract class AbstractDecorator<E extends AbstractElement<?>> {
 
-	protected E parent;
+	protected E element;
 
+	/**
+	 * Will be called by the visitor when rendering the graph
+	 * @param element
+	 */
 	public void decorate(E element) {
-		this.parent = element;
+		this.element = element;
 	}
 
+	/**
+	 * Convenience method to get access to the font transform object
+	 * @return font transform object associated with the element being decorated
+	 */
 	public FontTransform getFt() {
-		return parent.getType().getConfig().getFt();
+		return element.getType().getConfig().getFt();
 	}
 
 }

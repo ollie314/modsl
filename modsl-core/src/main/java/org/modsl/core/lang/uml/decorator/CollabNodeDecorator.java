@@ -23,11 +23,11 @@ import org.modsl.core.agt.model.Pt;
 public class CollabNodeDecorator extends AbstractDecorator<Label> {
 
 	public Pt getUnderline1() {
-		return new Pt(parent.getTextPos().x, parent.getPos().y + getFt().getExtBaseline(0) + 2);
+		return new Pt(element.getTextPos().x, element.getPos().y + getFt().getExtBaseline(0) + 2);
 	}
 
 	public Pt getUnderline2() {
-		return new Pt(parent.getTextPos().x + getFt().getStringWidth(parent.getName()), parent.getPos().y
+		return new Pt(element.getTextPos().x + getFt().getStringWidth(element.getName()), element.getPos().y
 				+ getFt().getExtBaseline(0) + 2);
 	}
 

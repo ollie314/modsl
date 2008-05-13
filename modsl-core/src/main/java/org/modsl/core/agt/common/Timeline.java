@@ -19,32 +19,29 @@ package org.modsl.core.agt.common;
 import java.util.LinkedList;
 import java.util.List;
 
-
-
 /**
  * Represents timeline as named points in time
- * 
  * @author avishnyakov
  */
 public class Timeline {
 
-    protected long createdTimestamp = System.currentTimeMillis();
-    protected List<Timestamp> timestamps = new LinkedList<Timestamp>();
-    protected long lastTimestamp = createdTimestamp;
+	protected long createdTimestamp = System.currentTimeMillis();
+	protected List<Timestamp> timestamps = new LinkedList<Timestamp>();
+	protected long lastTimestamp = createdTimestamp;
 
-    /**
-     * Add new timestamp with current time and given name
-     * @param name
-     */
-    public void timestamp(String name) {
-        long newLastTimestamp = System.currentTimeMillis();
-        timestamps.add(new Timestamp(name, newLastTimestamp - this.lastTimestamp));
-        this.lastTimestamp = newLastTimestamp;
-    }
+	/**
+	 * Add new timestamp with current time and given name
+	 * @param name
+	 */
+	public void timestamp(String name) {
+		long newLastTimestamp = System.currentTimeMillis();
+		timestamps.add(new Timestamp(name, newLastTimestamp - this.lastTimestamp));
+		this.lastTimestamp = newLastTimestamp;
+	}
 
-    @Override
-    public String toString() {
-        return timestamps.toString() + ":" + (lastTimestamp - createdTimestamp);
-    }
+	@Override
+	public String toString() {
+		return timestamps.toString() + ":" + (lastTimestamp - createdTimestamp);
+	}
 
 }

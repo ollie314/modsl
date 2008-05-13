@@ -16,6 +16,10 @@
 
 package org.modsl.core.agt.common;
 
+/**
+ * Base class for all ModSL exceptions
+ * @author AVishnyakov
+ */
 public class ModSLException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;

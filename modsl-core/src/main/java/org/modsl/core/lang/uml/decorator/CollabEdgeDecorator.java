@@ -41,16 +41,16 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge> {
      * @return position of the left arrow's side
      */
     public Pt getArrowLeft() {
-        double alpha = parent.angle2() - arrowAngle / 2d;
-        return new Pt(parent.getNode2Port().x - arrowLength * cos(alpha), parent.getNode2Port().y - arrowLength * sin(alpha));
+        double alpha = element.angle2() - arrowAngle / 2d;
+        return new Pt(element.getNode2Port().x - arrowLength * cos(alpha), element.getNode2Port().y - arrowLength * sin(alpha));
     }
 
     /**
      * @return position of the right arrow's side
      */
     public Pt getArrowRight() {
-        double alpha = parent.angle2() + arrowAngle / 2d;
-        return new Pt(parent.getNode2Port().x - arrowLength * cos(alpha), parent.getNode2Port().y - arrowLength * sin(alpha));
+        double alpha = element.angle2() + arrowAngle / 2d;
+        return new Pt(element.getNode2Port().x - arrowLength * cos(alpha), element.getNode2Port().y - arrowLength * sin(alpha));
     }
 
 }
