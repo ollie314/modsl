@@ -25,32 +25,38 @@ import org.modsl.core.lang.SVGCollector;
 
 public class BasicProcessorTest extends AbstractBasicTest {
 
-	static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "basic");
+    static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "basic");
 
-	@Test
-	public void process1() throws Exception {
-		process("graph g1 { n1->n2; n1->n3->n4->n5; n2->n3; n5->n8->n9; n9->n4; n8-> n4; }", new Pt(400, 320));
-	}
+    @Test
+    public void process1() throws Exception {
+        process("graph g1 { n1->n2; n1->n3->n4->n5; n2->n3; n5->n8->n9; n9->n4; n8-> n4; }", new Pt(400, 320));
+    }
 
-	@Test
-	public void process2() throws RecognitionException, IOException {
-		process("graph g2 { n1->n2->n3->n4->n5->n6->n7->n8; }", new Pt(400, 320));
-	}
+    @Test
+    public void process2() throws RecognitionException, IOException {
+        process("graph g2 { n1->n2->n3->n4->n5->n6->n7->n8; }", new Pt(400, 320));
+    }
 
-	@Test
-	public void process3() throws RecognitionException, IOException {
-		process("graph g3 { n1->n2->n3->n4->n5->n6->n7->n8; n5->n1->n3; n2->n4->n6->n8->n5->n2; "
-				+ "n3->n5->n7; n6->n1->n4->n8; n6->n2->n8->n1->n7; n4->n7->n2; n8->n3->n6; n3->n7; }", new Pt(400, 320));
-	}
+    @Test
+    public void process3() throws RecognitionException, IOException {
+        process("graph g3 { n1->n2->n3->n4->n5->n6->n7->n8; n5->n1->n3; n2->n4->n6->n8->n5->n2; "
+                + "n3->n5->n7; n6->n1->n4->n8; n6->n2->n8->n1->n7; n4->n7->n2; n8->n3->n6; n3->n7; }", new Pt(400, 320));
+    }
 
-	@Test
-	public void process4() throws RecognitionException, IOException {
-		process("graph g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(500, 420));
-	}
+    @Test
+    public void process4() throws RecognitionException, IOException {
+        process("graph g4 { n1->n2; n1->n3; n2->n4; n2->n5; n3->n6; n3->n7; n6->n7; n1->n6; }", new Pt(500, 420));
+    }
 
-	void process(String s, Pt reqSize) throws RecognitionException, IOException {
-		String result = processor.process(s, reqSize);
-		svgCollector.collect(processor.getGraph().getName(), result, reqSize);
-	}
+    @Test
+    public void process5() throws RecognitionException, IOException {
+        process("graph g4 { n1->n2->n3->n1; n2->n4->n5->n2; n3->n5->n6->n3; "
+                + "n4->n7->n8->n4; n5->n8->n9->n5; n6->n9->n10->n6; }", new Pt(500, 420));
+    }
+
+    void process(String s, Pt reqSize) throws RecognitionException, IOException {
+        String result = processor.process(s, reqSize);
+        svgCollector.collect(processor.getGraph().getName(), result, reqSize);
+    }
 
 }
