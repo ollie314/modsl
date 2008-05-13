@@ -16,17 +16,29 @@
 
 package org.modsl.core.lang.basic;
 
+import java.io.IOException;
+
+import org.antlr.runtime.RecognitionException;
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.model.Pt;
+import org.modsl.core.lang.SVGCollector;
 
 public abstract class AbstractBasicTest {
 
-	protected final Logger log = Logger.getLogger(getClass());
+	static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "basic");
 
-	protected BasicProcessor processor;
+	final Logger log = Logger.getLogger(getClass());
+
+	BasicProcessor processor;
 
 	public AbstractBasicTest() {
 		processor = new BasicProcessor();
 		processor.init();
+	}
+
+	void process(String s, Pt reqSize) throws RecognitionException, IOException {
+		String result = processor.process(s, reqSize);
+		svgCollector.collect(processor.getGraph().getName(), result, reqSize);
 	}
 
 }
