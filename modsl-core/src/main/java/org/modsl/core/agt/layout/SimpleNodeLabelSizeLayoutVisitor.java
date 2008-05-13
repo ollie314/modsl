@@ -23,7 +23,7 @@ import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
 /**
- * Does simple node size calculation based on node's labels' height and width.
+ * Does simple node size calculation based on node labels' height and width.
  * @author avishnyakov
  */
 public class SimpleNodeLabelSizeLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
