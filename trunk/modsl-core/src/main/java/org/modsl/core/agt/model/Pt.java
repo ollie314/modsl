@@ -123,6 +123,13 @@ public class Pt {
         return abs(this.x - xy.x) < EPSILON && abs(this.y - xy.y) < EPSILON;
     }
 
+    /**
+     * @return rounded value
+     */
+    public Pt getRounded() {
+        return new Pt(round(x), round(y));
+    }
+
     @Override
     public int hashCode() {
         long bits = 7 + 31 * Double.doubleToLongBits(x) + Double.doubleToLongBits(y);
@@ -252,13 +259,6 @@ public class Pt {
     public void zero() {
         x = 0d;
         y = 0d;
-    }
-
-    /**
-     * @return rounded value
-     */
-    public Pt getRounded() {
-        return new Pt(round(x), round(y));
     }
 
 }

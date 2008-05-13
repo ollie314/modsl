@@ -70,7 +70,7 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
     }
 
     Pt getDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
-        Pt delta = n1.getMinDelta(n2);
+        Pt delta = n1.getPortDelta(n2);
         //Pt delta2 = n1.getCtrPos().minus(n2.getCtrPos());
         //log.debug(delta + " " + delta2);
         if (delta.len() < Pt.EPSILON) {
