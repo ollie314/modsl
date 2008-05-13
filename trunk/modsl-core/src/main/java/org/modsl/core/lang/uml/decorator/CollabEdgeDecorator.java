@@ -17,6 +17,8 @@
 package org.modsl.core.lang.uml.decorator;
 
 import static java.lang.Math.PI;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.Edge;
@@ -40,8 +42,7 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge> {
      */
     public Pt getArrowLeft() {
         double alpha = parent.angle2() - arrowAngle / 2d;
-        return new Pt(parent.getNode2Port().x + arrowLength * Math.cos(alpha), parent.getNode2Port().y + arrowLength
-                * Math.sin(alpha));
+        return new Pt(parent.getNode2Port().x - arrowLength * cos(alpha), parent.getNode2Port().y - arrowLength * sin(alpha));
     }
 
     /**
@@ -49,8 +50,7 @@ public class CollabEdgeDecorator extends AbstractDecorator<Edge> {
      */
     public Pt getArrowRight() {
         double alpha = parent.angle2() + arrowAngle / 2d;
-        return new Pt(parent.getNode2Port().x + arrowLength * Math.cos(alpha), parent.getNode2Port().y + arrowLength
-                * Math.sin(alpha));
+        return new Pt(parent.getNode2Port().x - arrowLength * cos(alpha), parent.getNode2Port().y - arrowLength * sin(alpha));
     }
 
 }

@@ -20,7 +20,7 @@ public class FR2LayoutVisitorTest extends AbstractUMLTest {
     public void process1() throws Exception {
         process("collab g1 { node1->node2.method1(); node1->node3.method2()->node4.method3()->node5.method4(); "
                 + "node2->node3.method5(); node5->node8.method6()->node9.method7(); node9->node4.method8(); "
-                + "node8->node4.method9(); }", new Pt(400, 320));
+                + "node8->node4.method9(); }", new Pt(800, 320));
     }
 
 }
