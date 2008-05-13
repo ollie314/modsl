@@ -115,19 +115,6 @@ public class Node extends AbstractBox<Graph> {
 		return connectedEdges.remove(edge);
 	}
 
-	/**
-	 * @return sin of angle between 0 and diagonal
-	 */
-	public double sin() {
-		return size.y / size.len();
-	}
-
-	/**
-	 * @return tan of angle between 0 and diagonal
-	 */
-	public double tan() {
-		return size.y / size.x;
-	}
 
 	@Override
 	public String toString() {
