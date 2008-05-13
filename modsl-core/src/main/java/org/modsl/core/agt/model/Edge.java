@@ -122,8 +122,18 @@ public class Edge extends AbstractElement<Graph> {
         label.setParent(this);
     }
 
-    public List<Label> getLabels() {
-        return labels;
+    /**
+     * @return angle at node 2
+     */
+    public double angle1() {
+        return getFirstBend().angle(node1);
+    }
+
+    /**
+     * @return angle at node 2
+     */
+    public double angle2() {
+        return getLastBend().angle(node2);
     }
 
     /**
@@ -160,20 +170,6 @@ public class Edge extends AbstractElement<Graph> {
     }
 
     /**
-     * @return angle at node 2
-     */
-    public double angle1() {
-        return getFirstBend().angle(node1);
-    }
-
-    /**
-     * @return angle at node 2
-     */
-    public double angle2() {
-        return getLastBend().angle(node2);
-    }
-
-    /**
      * @return get first bend after the node 1 (will return node 2 if there are
      * no bends)
      */
@@ -183,6 +179,10 @@ public class Edge extends AbstractElement<Graph> {
         } else {
             return bends.get(0);
         }
+    }
+
+    public List<Label> getLabels() {
+        return labels;
     }
 
     /**

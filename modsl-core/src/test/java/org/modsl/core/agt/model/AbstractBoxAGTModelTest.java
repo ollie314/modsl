@@ -73,12 +73,12 @@ public class AbstractBoxAGTModelTest extends AbstractAGTModelTest {
     @Test
     public void deltas() {
         assertEquals(new Pt(1095,20), n1.getCtrDelta(n2));
-        assertEquals(10d, n1.getMinDeltaPts(n2)[0].x, 1d);
-        assertEquals(5d, n1.getMinDeltaPts(n2)[0].y, 1d);
-        assertEquals(1000d, n1.getMinDeltaPts(n2)[1].x, 1d);
-        assertEquals(23d, n1.getMinDeltaPts(n2)[1].y, 1d);
-        assertEquals(-990d, n1.getMinDelta(n2).x, 1d);
-        assertEquals(-18d, n1.getMinDelta(n2).y, 1d);
+        assertEquals(10d, n1.getPorts(n2)[0].x, 1d);
+        assertEquals(5d, n1.getPorts(n2)[0].y, 1d);
+        assertEquals(1000d, n1.getPorts(n2)[1].x, 1d);
+        assertEquals(23d, n1.getPorts(n2)[1].y, 1d);
+        assertEquals(-990d, n1.getPortDelta(n2).x, 1d);
+        assertEquals(-18d, n1.getPortDelta(n2).y, 1d);
     }
 
 }

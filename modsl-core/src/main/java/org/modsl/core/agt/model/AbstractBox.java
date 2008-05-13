@@ -67,8 +67,48 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
         super(type, name);
     }
 
+    /**
+     * @return angle of the line between this box and the other box
+     */
+    public double angle(AbstractBox<?> n2) {
+        Pt delta = getCtrDelta(n2);
+        if (delta.y > 0d) {
+            return acos(this.cos(n2));
+        } else if (delta.y < 0d) {
+            return 2 * PI - acos(this.cos(n2));
+        } else {
+            if (delta.x >= 0d) {
+                return 0;
+            } else {
+                return PI;
+            }
+        }
+    }
+
+    /**
+     * @return cos of angle between 0 and diagonal of this box
+     */
+    public double cos() {
+        return size.x / size.len();
+    }
+
+    /**
+     * @return cos(angle of the line between this box and the other box)
+     */
+    public double cos(AbstractBox<?> b2) {
+        Pt delta = getCtrDelta(b2);
+        return delta.x / delta.len();
+    }
+
     public Pt getAltPos() {
         return altPos;
+    }
+
+    /**
+     * @return distance between centers of this box and the other box
+     */
+    public Pt getCtrDelta(AbstractBox<?> b2) {
+        return b2.getCtrPos().minus(getCtrPos());
     }
 
     /**
@@ -76,6 +116,49 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public Pt getCtrPos() {
         return pos.plus(size.div(2d));
+    }
+
+    /**
+     * Connector port position at this box for given angle func values
+     * @param sin
+     * @param cos
+     * @param tan
+     * @return connector port position
+     */
+    Pt getPort(double sin, double cos, double tan) {
+        Pt port = new Pt();
+        Pt cp = getCtrPos();
+        Pt s = getSize();
+        if (abs(tan()) > abs(tan)) {
+            // i.e. line is crossing this box's side
+            port.x = cp.x + s.x * signum(cos) / 2d;
+            port.y = cp.y + s.x * tan * signum(cos) / 2d;
+        } else {
+            port.x = cp.x + s.y / tan * signum(sin) / 2d;
+            port.y = cp.y + s.y * signum(sin) / 2d;
+        }
+        return port;
+    }
+
+    /**
+     * @param b2 other box
+     * @return min delta considering the boxes' sizes
+     */
+    public Pt getPortDelta(AbstractBox<?> b2) {
+        Pt[] res = getPorts(b2);
+        return res[0].decBy(res[1]);
+    }
+
+    /**
+     * @param b2 other box
+     * @return port connector points if this box is connected to another box by
+     * a straight line
+     */
+    public Pt[] getPorts(AbstractBox<?> b2) {
+        Pt[] res = new Pt[2];
+        res[0] = this.getPort(this.sin(b2), this.cos(b2), this.tan(b2));
+        res[1] = b2.getPort(b2.sin(this), b2.cos(this), b2.tan(this));
+        return res;
     }
 
     /**
@@ -121,74 +204,18 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     }
 
     /**
-     * @return distance between centers of this box and the other box
+     * @return sin of angle between 0 and diagonal of this box
      */
-    public Pt getCtrDelta(AbstractBox<?> n2) {
-        return n2.getCtrPos().minus(getCtrPos());
-    }
-
-    /**
-     * @return cos(angle of the line between this box and the other box)
-     */
-    public double cos(AbstractBox<?> n2) {
-        Pt delta = getCtrDelta(n2);
-        return delta.x / delta.len();
+    public double sin() {
+        return size.y / size.len();
     }
 
     /**
      * @return sin(angle of the line between this box and the other box)
      */
-    public double sin(AbstractBox<?> n2) {
-        Pt delta = getCtrDelta(n2);
+    public double sin(AbstractBox<?> b2) {
+        Pt delta = getCtrDelta(b2);
         return delta.y / delta.len();
-    }
-
-    /**
-     * @return tan(angle of the line between this box and the other box)
-     */
-    public double tan(AbstractBox<?> n2) {
-        Pt delta = getCtrDelta(n2);
-        return delta.y / delta.x;
-    }
-
-    public Pt[] getMinDeltaPts(AbstractBox<?> n2) {
-        Pt[] res = new Pt[2];
-        res[0] = this.getPort(this.sin(n2), this.cos(n2), this.tan(n2));
-        res[1] = n2.getPort(n2.sin(this), n2.cos(this), n2.tan(this));
-        return res;
-    }
-
-    public Pt getMinDelta(AbstractBox<?> n2) {
-        Pt[] res = getMinDeltaPts(n2);
-        return res[0].decBy(res[1]);
-    }
-    
-    public Pt getPort(double sin, double cos, double tan) {
-        Pt port = new Pt();
-        Pt cp = getCtrPos();
-        Pt s = getSize();
-        if (abs(tan()) > abs(tan)) {
-            // i.e. line is crossing this box's side
-            port.x = cp.x + s.x * signum(cos) / 2d;
-            port.y = cp.y + s.x * tan * signum(cos) / 2d;
-        } else {
-            port.x = cp.x + s.y / tan * signum(sin) / 2d;
-            port.y = cp.y + s.y * signum(sin) / 2d;
-        }
-        return port;
-    }
-    
-    /**
-     * @return cos of angle between 0 and diagonal of this box
-     */
-    public double cos() {
-        return size.x / size.len();
-    }
-    /**
-     * @return sin of angle between 0 and diagonal of this box
-     */
-    public double sin() {
-        return size.y / size.len();
     }
 
     /**
@@ -197,23 +224,13 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     public double tan() {
         return size.y / size.x;
     }
-    
+
     /**
-     * @return angle of the line between this box and the other box
+     * @return tan(angle of the line between this box and the other box)
      */
-    public double angle(AbstractBox<?> n2) {
-        Pt delta = getCtrDelta(n2);
-        if (delta.y > 0d) {
-            return acos(this.cos(n2));
-        } else if (delta.y < 0d) {
-            return 2 * PI - acos(this.cos(n2));
-        } else {
-            if (delta.x >= 0d) {
-                return 0;
-            } else {
-                return PI;
-            }
-        }
+    public double tan(AbstractBox<?> b2) {
+        Pt delta = getCtrDelta(b2);
+        return delta.y / delta.x;
     }
 
 }
