@@ -34,9 +34,9 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     protected Pt pos = new Pt();
 
     /**
-     * Alt position (needed for layouts)
+     * Alt position/displacement (needed for layouts)
      */
-    protected Pt altPos = new Pt();
+    protected Pt disp = new Pt();
 
     /**
      * Size
@@ -100,8 +100,8 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
         return delta.x / delta.len();
     }
 
-    public Pt getAltPos() {
-        return altPos;
+    public Pt getDisp() {
+        return disp;
     }
 
     /**
@@ -183,8 +183,8 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
         return false;
     }
 
-    public void setAltPos(Pt altPos) {
-        this.altPos = altPos;
+    public void setDisp(Pt altPos) {
+        this.disp = altPos;
     }
 
     /**
