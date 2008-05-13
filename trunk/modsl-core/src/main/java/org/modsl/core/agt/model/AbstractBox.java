@@ -151,11 +151,8 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
 
     public Pt[] getMinDeltaPts(AbstractBox<P> n2) {
         Pt[] res = new Pt[2];
-        double c = cos(n2);
-        double s = sin(n2);
-        double t = tan(n2);
-        res[0] = this.getNodePort(1d, s, c, t);
-        res[1] = n2.getNodePort(-1d, s, c, t);
+        res[0] = this.getPort(this.sin(n2), this.cos(n2), this.tan(n2));
+        res[1] = n2.getPort(n2.sin(this), n2.cos(this), n2.tan(this));
         return res;
     }
 
@@ -164,17 +161,17 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
         return res[1].decBy(res[0]);
     }
     
-    public Pt getNodePort(double sign, double sin, double cos, double tan) {
+    public Pt getPort(double sin, double cos, double tan) {
         Pt ap = new Pt();
         Pt cp = getCtrPos();
         Pt s = getSize();
         if (abs(tan()) > abs(tan)) {
             // i.e. line is crossing e2's side
-            ap.x = cp.x + sign * s.x * signum(cos) / 2d;
-            ap.y = cp.y + sign * s.x * tan * signum(cos) / 2d;
+            ap.x = cp.x + s.x * signum(cos) / 2d;
+            ap.y = cp.y + s.x * tan * signum(cos) / 2d;
         } else {
-            ap.x = cp.x + sign * s.y / tan * signum(sin) / 2d;
-            ap.y = cp.y + sign * s.y * signum(sin) / 2d;
+            ap.x = cp.x + s.y / tan * signum(sin) / 2d;
+            ap.y = cp.y + s.y * signum(sin) / 2d;
         }
         return ap;
     }
