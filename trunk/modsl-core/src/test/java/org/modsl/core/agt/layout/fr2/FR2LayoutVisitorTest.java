@@ -14,14 +14,18 @@ public class FR2LayoutVisitorTest {
 
 	Logger log = Logger.getLogger(getClass());
 
-	Graph graph = new Graph(TMetaType.GRAPH, "g");
-	Node n1 = new Node(TMetaType.NODE, "n1");
-	Node n2 = new Node(TMetaType.NODE, "n2");
+	Graph graph;
+	Node n1;
+	Node n2;
 
 	FR2LayoutVisitor layout = new FR2LayoutVisitor(TMetaType.GRAPH);
 
 	@Before
 	public void setUp() throws Exception {
+
+	    graph = new Graph(TMetaType.GRAPH, "g");
+	    n1 = new Node(TMetaType.NODE, "n1");
+	    n2 = new Node(TMetaType.NODE, "n2");
 
 		graph.setReqSize(new Pt(100d, 100d));
 		graph.add(n1);
@@ -62,4 +66,20 @@ public class FR2LayoutVisitorTest {
 		layout.in(graph);
 		// log.debug(new ToStringVisitor().toString(graph));
 	}
+	
+	@Test
+    public void weight() {
+	    double w = 1d;
+	    for (Node n: graph.getNodes()) {
+	        n.setWeight(w++);
+	    }
+        layout.bars.add(new Bar(false, 0, 0d));
+        n1.setIndex(0);
+        layout.bars.add(new Bar(false, 100, 0d));
+        n2.setIndex(1);
+        layout.in(graph);
+        // log.debug(new ToStringVisitor().toString(graph));
+    }
+	
+	
 }

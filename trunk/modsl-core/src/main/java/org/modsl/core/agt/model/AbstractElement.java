@@ -25,27 +25,27 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  */
 public abstract class AbstractElement<P extends AbstractElement<?>> {
 
-    protected Logger log = Logger.getLogger(getClass());
+    Logger log = Logger.getLogger(getClass());
 
     /**
      * Name of this object
      */
-    protected String name;
+    String name;
 
     /**
      * Parent node
      */
-    protected P parent;
+    P parent;
 
     /**
      * Type
      */
-    protected MetaType type;
+    MetaType type;
 
     /**
      * Index
      */
-    protected int index = -1;
+    int index = -1;
 
     /**
      * Create new

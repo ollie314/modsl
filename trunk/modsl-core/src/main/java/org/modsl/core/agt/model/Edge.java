@@ -36,37 +36,37 @@ public class Edge extends AbstractElement<Graph> {
     /**
      * Start node
      */
-    protected Node node1;
+    Node node1;
 
     /**
      * End node
      */
-    protected Node node2;
+    Node node2;
 
     /**
      * Start node name (will be resolved to node1 reference when post-processing
      */
-    protected String node1Name;
+    String node1Name;
 
     /**
      * End node name (will be resolved to node2 reference when post-processing
      */
-    protected String node2Name;
+    String node2Name;
 
     /**
      * Are start and end nodes swapped? Needed for the layout algorithms.
      */
-    protected boolean reverted = false;
+    boolean reverted = false;
 
     /**
      * Bends
      */
-    protected List<Bend> bends = new LinkedList<Bend>();
+    List<Bend> bends = new LinkedList<Bend>();
 
     /**
      * Labels
      */
-    protected List<Label> labels = new LinkedList<Label>();
+    List<Label> labels = new LinkedList<Label>();
 
     /**
      * Create new
