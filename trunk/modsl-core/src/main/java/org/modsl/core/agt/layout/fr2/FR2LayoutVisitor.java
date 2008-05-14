@@ -71,7 +71,11 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
         return dist * dist / kAttraction;
     }
     
-    double weightForce(double dist) {
+    double weightRForce(double dist) {
+        return kRepulsion * kRepulsion / dist;
+    }
+    
+    double weightAForce(double dist) {
         return dist*dist*dist  / kAttraction;
     }
     
@@ -112,7 +116,7 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
             zeroDisp();
             repulsion();
             attraction();
-            weights();
+            //weights();
             //bars();
             // grid();
             moveVertexes();
@@ -124,6 +128,23 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
     void weights() {
         if (abs(maxWeight - minWeight) > Pt.EPSILON) {
             for (Node n : graph.getNodes()) {
+                
+                //rep
+                Pt anchor = new Pt();
+                if (abs(n.getWeight() - minWeight) < Pt.EPSILON) {
+                    anchor = graph.getReqSize().minus(n.getSize());
+                } else if (abs(n.getWeight() - maxWeight) < Pt.EPSILON) {
+                    anchor.x = anchor.y = 0d;
+                } else {
+                    continue;
+                }
+                Pt delta = n.getPos().minus(anchor);
+                double dl = delta.lenSafe();
+                Pt f = delta.div(dl).mult(weightRForce(dl));
+                n.getDisp().incBy(f);
+                
+                /*
+                //attr
                 Pt anchor = new Pt();
                 if (abs(n.getWeight() - minWeight) < Pt.EPSILON) {
                     anchor.x = anchor.y = 0d;
@@ -134,8 +155,11 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
                 }
                 Pt delta = n.getPos().minus(anchor);
                 double dl = delta.lenSafe();
-                Pt f = delta.div(dl).mult(weightForce(dl));
+                Pt f = delta.div(dl).mult(weightAForce(dl));
                 n.getDisp().decBy(f);
+                */
+
+                
                 //log.debug("# wgt " + n + " = " + f);
                 /*
                 double wr = (n.getWeight() - minWeight) / (maxWeight - minWeight);
