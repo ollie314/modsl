@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.SVGCollector;
 
-public class FR2LayoutVisitorTest extends AbstractUMLTest {
+public class MoreUMLProcessorTest extends AbstractUMLTest {
 
     static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml_fr2");
 
