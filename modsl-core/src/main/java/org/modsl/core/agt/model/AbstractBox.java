@@ -165,7 +165,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public Pt getPortDelta(AbstractBox<?> b2) {
         Pt[] res = getPorts(b2);
-        return res[0].decBy(res[1]);
+        return res[0].minus(res[1]);
     }
 
     /**
