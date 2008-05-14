@@ -116,12 +116,11 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 
     void weights() {
         if (abs(maxWeight - minWeight) > Pt.EPSILON) {
-            double miny = graph.getMinPt().y;
-            double maxy = graph.getMaxPt().y;
             for (Node n : graph.getNodes()) {
                 double wr = (n.getWeight() - minWeight) / (maxWeight - minWeight);
-                double ty = wr * (maxy - miny) + miny;
-                n.getDisp().y += attractionForce(n.getPos().y - ty);
+                double ty = wr * graph.getReqSize().y;
+                double f = attractionForce(n.getPos().y - ty);
+                n.getDisp().y -= f;
             }
         }
     }
@@ -170,7 +169,7 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 
     void moveVertexes() {
         for (Node n : graph.getNodes()) {
-            Pt delta = n.getDisp().minus(n.getPos());
+            Pt delta = n.getDisp();
             double dl = delta.lenSafe();
             n.getPos().incBy(delta.div(dl).mult(min(dl, temp)));
             n.getPos().x = min(req.x / 2d, max(-req.x / 2d, n.getPos().x));

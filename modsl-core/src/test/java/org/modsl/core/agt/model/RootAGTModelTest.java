@@ -31,14 +31,14 @@ public class RootAGTModelTest extends AbstractAGTModelTest {
 
     @Test
     public void getMaxPt() {
-        assertEquals(1200d, graph.getMaxPt().x, Pt.EPSILON);
-        assertEquals(1200d, graph.getMaxPt().y, Pt.EPSILON);
+        assertEquals(1200d, graph.maxPt().x, Pt.EPSILON);
+        assertEquals(1200d, graph.maxPt().y, Pt.EPSILON);
     }
 
     @Test
     public void getMinPt() {
-        assertEquals(0d, graph.getMinPt().x, Pt.EPSILON);
-        assertEquals(0d, graph.getMinPt().y, Pt.EPSILON);
+        assertEquals(0d, graph.minPt().x, Pt.EPSILON);
+        assertEquals(0d, graph.minPt().y, Pt.EPSILON);
     }
 
     @Test
