@@ -20,6 +20,8 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -45,6 +47,7 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 	int maxIterations;
 	Graph graph;
 	Pt req;
+	List<Bar> bars = new LinkedList<Bar>();
 
 	public FR2LayoutVisitor(MetaType type) {
 		super(type);
@@ -99,11 +102,29 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 			zeroDisp();
 			repulsion();
 			attraction();
+			bars();
 			// grid();
 			moveVertexes();
 			reduceTemperature(iterCurrent, maxIterations);
 		}
 
+	}
+
+	void bars() {
+		for (Node n : graph.getNodes()) {
+			for (Bar b : bars) {
+				if (n.getIndex() == b.getIndex()) {
+					Pt delta = new Pt(0d, 0d);
+					if (b.isVertical()) {
+						delta.y = n.getPos().y - b.getPos().y;
+					} else {
+						delta.x = n.getPos().x - b.getPos().x;
+					}
+					double dl = delta.lenSafe();
+					n.getDisp().decBy(delta.div(dl).mult(attractionForce(dl)));
+				}
+			}
+		}
 	}
 
 	/*
