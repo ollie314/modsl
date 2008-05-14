@@ -24,7 +24,6 @@ import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
-import org.modsl.core.agt.layout.fr2.Circle2LayoutVisitor;
 import org.modsl.core.agt.layout.fr2.FR2LayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
@@ -33,6 +32,7 @@ import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.CollabNodeDecorator;
 import org.modsl.core.lang.uml.layout.CollabEdgeLabelLayout;
 import org.modsl.core.lang.uml.layout.CollabNodeLayoutVisitor;
+import org.modsl.core.lang.uml.layout.CollabNodeWeightVisitor;
 
 public class UMLProcessor extends AbstractProcessor<UMLParser> {
 
@@ -79,6 +79,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 		// addLayoutVisitor(new
 		// SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
 		//addLayoutVisitor(new Circle2LayoutVisitor(UMLMetaType.COLLAB_GRAPH));
+        addLayoutVisitor(new CollabNodeWeightVisitor(UMLMetaType.COLLAB_NODE));
 		addLayoutVisitor(new FR2LayoutVisitor(UMLMetaType.COLLAB_GRAPH));
 		addLayoutVisitor(new CollabEdgeLabelLayout(UMLMetaType.COLLAB_EDGE_LABEL));
 		addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.COLLAB_NODE));

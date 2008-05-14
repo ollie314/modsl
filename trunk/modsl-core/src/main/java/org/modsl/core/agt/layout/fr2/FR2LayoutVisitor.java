@@ -16,6 +16,7 @@
 
 package org.modsl.core.agt.layout.fr2;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
@@ -114,12 +115,14 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
     }
 
     void weights() {
-        double miny = graph.getMinPt().y;
-        double maxy = graph.getMaxPt().y;
-        for (Node n : graph.getNodes()) {
-            double wr = (n.getWeight() - minWeight) / (maxWeight - minWeight);
-            double ty = wr * (n.getPos().y - miny)/ (maxy - n.getSize().y - miny) + miny;
-            n.getDisp().y -= attractionForce(ty);
+        if (abs(maxWeight - minWeight) > Pt.EPSILON) {
+            double miny = graph.getMinPt().y;
+            double maxy = graph.getMaxPt().y;
+            for (Node n : graph.getNodes()) {
+                double wr = (n.getWeight() - minWeight) / (maxWeight - minWeight);
+                double ty = wr * (maxy - miny) + miny;
+                n.getDisp().y += attractionForce(n.getPos().y - ty);
+            }
         }
     }
 
