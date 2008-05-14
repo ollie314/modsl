@@ -21,6 +21,11 @@ import static java.lang.Math.abs;
 import static java.lang.Math.acos;
 import static java.lang.Math.signum;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Abstract rectangle graph element
  * @author avishnyakov
@@ -46,6 +51,16 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * Weight of this box (layouts)
      */
     double weight = 0d;
+
+    /**
+     * History of positions
+     */
+    //List<Pt> posHistory = new LinkedList<Pt>();
+
+    /**
+     * History of named attributes
+     */
+    //Map<String, List<Double>> attrHistory = new HashMap<String, List<Double>>();
 
     /**
      * Create new

@@ -59,8 +59,10 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
         for (Edge e : graph.getEdges()) {
             Pt delta = getDelta(e.getNode1(), e.getNode2());
             double dl = delta.lenSafe();
-            e.getNode1().getDisp().decBy(delta.div(dl).mult(attractionForce(dl)));
-            e.getNode2().getDisp().incBy(delta.div(dl).mult(attractionForce(dl)));
+            Pt f = delta.div(dl).mult(attractionForce(dl));
+            e.getNode1().getDisp().decBy(f);
+            //log.debug("# atr " + e.getNode1() + " = -" + f + ", " + e.getNode2() + " = " + f);
+            e.getNode2().getDisp().incBy(f);
         }
     }
 
@@ -105,7 +107,7 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
             zeroDisp();
             repulsion();
             attraction();
-            weights();
+            //weights();
             //bars();
             // grid();
             moveVertexes();
@@ -120,7 +122,8 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
                 double wr = (n.getWeight() - minWeight) / (maxWeight - minWeight);
                 double ty = wr * graph.getReqSize().y;
                 double f = attractionForce(n.getPos().y - ty);
-                n.getDisp().y -= f;
+                //log.debug("# wgt " + n + " = " + f);
+                n.getDisp().y += f;
             }
         }
     }
@@ -171,7 +174,9 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
         for (Node n : graph.getNodes()) {
             Pt delta = n.getDisp();
             double dl = delta.lenSafe();
-            n.getPos().incBy(delta.div(dl).mult(min(dl, temp)));
+            Pt f = delta.div(dl).mult(min(dl, temp));
+            n.getPos().incBy(f);
+            //log.debug("# !mv " + n + " = " + f);
             n.getPos().x = min(req.x / 2d, max(-req.x / 2d, n.getPos().x));
             n.getPos().y = min(req.y / 2d, max(-req.y / 2d, n.getPos().y));
         }
@@ -187,7 +192,9 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
                 if (n1 != n2) {
                     Pt delta = getDelta(n1, n2);
                     double dl = delta.lenSafe();
-                    n1.getDisp().incBy(delta.div(dl).mult(repulsionForce(dl)));
+                    Pt f = delta.div(dl).mult(repulsionForce(dl));
+                    n1.getDisp().incBy(f);
+                    //log.debug("# rep " + n1 + " = " + f);
                 }
             }
         }
