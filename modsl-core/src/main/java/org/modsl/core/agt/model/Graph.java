@@ -143,7 +143,7 @@ public class Graph extends AbstractBox<Graph> {
      * @return max (x, y)
      */
     public Pt getMaxPt() {
-        Pt s = new Pt(0d, 0d);
+        Pt s = new Pt(Double.MIN_VALUE, Double.MIN_VALUE);
         for (Node n : nodes) {
             s.x = max(s.x, n.pos.x + n.size.x);
             s.y = max(s.y, n.pos.y + n.size.y);
