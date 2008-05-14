@@ -89,15 +89,6 @@ public class Graph extends AbstractBox<Graph> {
         this.index = counter++;
     }
 
-    /**
-     * Add child edge
-     * @param child
-     */
-    public void add(Edge child) {
-        child.parent = this;
-        edges.add(child);
-    }
-
     @Override
     public void accept(AbstractVisitor visitor) {
         visitor.in(this);
@@ -114,6 +105,15 @@ public class Graph extends AbstractBox<Graph> {
     }
 
     /**
+     * Add child edge
+     * @param child
+     */
+    public void add(Edge child) {
+        child.parent = this;
+        edges.add(child);
+    }
+
+    /**
      * Add child node
      * @param child
      */
@@ -121,6 +121,13 @@ public class Graph extends AbstractBox<Graph> {
         child.parent = this;
         nodes.add(child);
         nodeMap.put(child.getName(), child);
+    }
+
+    /**
+     * @return node's area in pixels^2
+     */
+    public double getArea() {
+        return size.x * size.y;
     }
 
     /**
@@ -138,53 +145,12 @@ public class Graph extends AbstractBox<Graph> {
         return edges;
     }
 
-    /**
-     * Bottom right corner's (x, y)
-     * @return max (x, y)
-     */
-    public Pt getMaxPt() {
-        Pt s = new Pt(Double.MIN_VALUE, Double.MIN_VALUE);
-        for (Node n : nodes) {
-            s.x = max(s.x, n.pos.x + n.size.x);
-            s.y = max(s.y, n.pos.y + n.size.y);
-        }
-        for (Edge e : edges) {
-            Pt p = e.getMaxPt();
-            s.x = max(s.x, p.x);
-            s.y = max(s.y, p.y);
-        }
-        for (Label l : getLabels()) {
-            s.x = max(s.x, l.pos.x + l.size.x);
-            s.y = max(s.y, l.pos.y + l.size.y);
-        }
-        return s;
+    private Pt getExtraPadding() {
+        return new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1);
     }
 
     public List<Label> getLabels() {
         return labels;
-    }
-
-    /**
-     * Top left corner's (x, y). Can be different from 0, 0 depending on the
-     * nodes' positions
-     * @return min (x, y)
-     */
-    public Pt getMinPt() {
-        Pt s = new Pt(Double.MAX_VALUE, Double.MAX_VALUE);
-        for (Node n : nodes) {
-            s.x = min(s.x, n.pos.x);
-            s.y = min(s.y, n.pos.y);
-        }
-        for (Edge e : edges) {
-            Pt p = e.getMinPt();
-            s.x = min(s.x, p.x);
-            s.y = min(s.y, p.y);
-        }
-        for (Label l : getLabels()) {
-            s.x = min(s.x, l.pos.x);
-            s.y = min(s.y, l.pos.y);
-        }
-        return s;
     }
 
     /**
@@ -229,6 +195,40 @@ public class Graph extends AbstractBox<Graph> {
     }
 
     /**
+     * @return max position
+     */
+    public Pt maxPos() {
+        Pt s = new Pt(Double.MIN_VALUE, Double.MIN_VALUE);
+        for (Node n : nodes) {
+            s.x = max(s.x, n.pos.x);
+            s.y = max(s.y, n.pos.y);
+        }
+        return s;
+    }
+
+    /**
+     * Bottom right corner's (x, y)
+     * @return max (x, y)
+     */
+    public Pt maxPt() {
+        Pt s = new Pt(Double.MIN_VALUE, Double.MIN_VALUE);
+        for (Node n : nodes) {
+            s.x = max(s.x, n.pos.x + n.size.x);
+            s.y = max(s.y, n.pos.y + n.size.y);
+        }
+        for (Edge e : edges) {
+            Pt p = e.getMaxPt();
+            s.x = max(s.x, p.x);
+            s.y = max(s.y, p.y);
+        }
+        for (Label l : getLabels()) {
+            s.x = max(s.x, l.pos.x + l.size.x);
+            s.y = max(s.y, l.pos.y + l.size.y);
+        }
+        return s;
+    }
+
+    /**
      * @return node with max x (the rightmost one, including it's size)
      */
     public Node maxXNode() {
@@ -250,11 +250,38 @@ public class Graph extends AbstractBox<Graph> {
         return res;
     }
 
+    public Pt minPos() {
+        return minPt();
+    }
+
+    /**
+     * Top left corner's (x, y). Can be different from 0, 0 depending on the
+     * nodes' positions
+     * @return min (x, y)
+     */
+    public Pt minPt() {
+        Pt s = new Pt(Double.MAX_VALUE, Double.MAX_VALUE);
+        for (Node n : nodes) {
+            s.x = min(s.x, n.pos.x);
+            s.y = min(s.y, n.pos.y);
+        }
+        for (Edge e : edges) {
+            Pt p = e.getMinPt();
+            s.x = min(s.x, p.x);
+            s.y = min(s.y, p.y);
+        }
+        for (Label l : getLabels()) {
+            s.x = min(s.x, l.pos.x);
+            s.y = min(s.y, l.pos.y);
+        }
+        return s;
+    }
+
     /**
      * Shift (x, y) on all vertexes to bring min(x, y) to (0, 0)
      */
     public void normalize() {
-        Pt min = getMinPt();
+        Pt min = minPt();
         for (Label l : getLabels()) {
             l.pos.decBy(min);
         }
@@ -274,12 +301,28 @@ public class Graph extends AbstractBox<Graph> {
         }
     }
 
+    public void randomize(long seed) {
+        Random r = new Random(seed);
+        for (Node n : nodes) {
+            n.setPos(new Pt(r.nextDouble(), r.nextDouble()));
+        }
+    }
+
     /**
      * Recalculates and sets size of this (non-normalized) graph to true size of
      * the non-normalized graph
      */
     public void recalcSize() {
-        size = getMaxPt().decBy(getMinPt());
+        size = maxPt().decBy(minPt());
+    }
+
+    /**
+     * Rescale/normalize diagram to it's current content, add paddings
+     * @param newSize new size
+     */
+    public void rescale() {
+        recalcSize();
+        rescale(size.plus(getExtraPadding()));
     }
 
     /**
@@ -316,19 +359,6 @@ public class Graph extends AbstractBox<Graph> {
     }
 
     /**
-     * Rescale/normalize diagram to it's current content, add paddings
-     * @param newSize new size
-     */
-    public void rescale() {
-        recalcSize();
-        rescale(size.plus(getExtraPadding()));
-    }
-
-    private Pt getExtraPadding() {
-        return new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1);
-    }
-
-    /**
      * Resets paddings to the values dictated by font transform object
      * (essentially based on the font size)
      */
@@ -347,20 +377,6 @@ public class Graph extends AbstractBox<Graph> {
      */
     public void setReqSize(Pt reqSize) {
         this.reqSize = reqSize;
-    }
-
-    /**
-     * @return node's area in pixels^2
-     */
-    public double getArea() {
-        return size.x * size.y;
-    }
-
-    public void randomize(long seed) {
-        Random r = new Random(seed);
-        for (Node n : nodes) {
-            n.setPos(new Pt(r.nextDouble(), r.nextDouble()));
-        }
     }
 
 }
