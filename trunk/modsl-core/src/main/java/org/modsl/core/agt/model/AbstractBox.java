@@ -25,7 +25,6 @@ import static java.lang.Math.signum;
  * Abstract rectangle graph element
  * @author avishnyakov
  */
-
 public abstract class AbstractBox<P extends AbstractElement<?>> extends AbstractElement<P> {
 
     /**
