@@ -30,17 +30,22 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     /**
      * Position
      */
-    protected Pt pos = new Pt();
+    Pt pos = new Pt();
 
     /**
      * Alt position/displacement (needed for layouts)
      */
-    protected Pt disp = new Pt();
+    Pt disp = new Pt();
 
     /**
      * Size
      */
-    protected Pt size = new Pt();
+    Pt size = new Pt();
+
+    /**
+     * Weight of this box (layouts)
+     */
+    double weight = 0d;
 
     /**
      * Create new
@@ -99,10 +104,6 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
         return delta.x / delta.len();
     }
 
-    public Pt getDisp() {
-        return disp;
-    }
-
     /**
      * @return distance between centers of this box and the other box
      */
@@ -115,6 +116,10 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public Pt getCtrPos() {
         return pos.plus(size.div(2d));
+    }
+
+    public Pt getDisp() {
+        return disp;
     }
 
     /**
@@ -174,6 +179,10 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
         return size;
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
     /**
      * @param b other box
      * @return true if connected directly (no intermediate bends or nodes)
@@ -200,6 +209,10 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public void setSize(Pt size) {
         this.size = size;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     /**
