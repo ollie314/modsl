@@ -190,20 +190,6 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     }
 
     /**
-     * @param b2
-     * @return true if boxes overlap
-     */
-    public boolean overlaps(AbstractBox<?> b2) {
-        if (pos.x > (b2.pos.x + b2.size.x) || (pos.x + size.x) < b2.pos.x) {
-            return false;
-        }
-        if (pos.y > (b2.pos.y + b2.size.y) || (pos.y + size.y) < b2.pos.y) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * @return position (top left corner for objects w/ size > 0)
      */
     public Pt getPos() {
@@ -227,6 +213,20 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public boolean isConnectedTo(AbstractBox<?> b) {
         return false;
+    }
+
+    /**
+     * @param b2
+     * @return true if boxes overlap
+     */
+    public boolean overlaps(AbstractBox<?> b2) {
+        if (pos.x > (b2.pos.x + b2.size.x) || (pos.x + size.x) < b2.pos.x) {
+            return false;
+        }
+        if (pos.y > (b2.pos.y + b2.size.y) || (pos.y + size.y) < b2.pos.y) {
+            return false;
+        }
+        return true;
     }
 
     public void setDisp(Pt altPos) {
