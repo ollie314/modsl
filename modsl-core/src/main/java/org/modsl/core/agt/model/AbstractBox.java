@@ -180,7 +180,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public Pt[] getPorts(AbstractBox<?> b2) {
         if (this.overlaps(b2)) {
-            return new Pt[] { new Pt(0d, 0d), new Pt(0d, 0d) };
+            return new Pt[] { getCtrPos(), b2.getCtrPos() };
         } else {
             Pt[] res = new Pt[2];
             res[0] = this.getPort(this.sin(b2), this.cos(b2), this.tan(b2));
