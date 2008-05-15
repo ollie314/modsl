@@ -50,6 +50,27 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
         super(type);
     }
 
+    @Override
+    public void apply(Graph graph) {
+
+        this.graph = graph;
+
+        graph.recalcSize();
+        Pt gsize = graph.getSize();
+        temp = max((gsize.x + gsize.y) * tempMultiplier, Pt.EPSILON);
+        kForce = max(sqrt(graph.getArea() / graph.getNodes().size()), Pt.EPSILON);
+        kAttraction = attractionMultiplier * kForce;
+        kRepulsion = repulsionMultiplier * kForce;
+
+        for (int iterCurrent = 0; iterCurrent < maxIterations; iterCurrent++) {
+            repulsion();
+            attraction();
+            moveVertexes();
+            reduceTemperature(iterCurrent, maxIterations);
+        }
+
+    }
+
     private void attraction() {
         for (Edge e : graph.getEdges()) {
             Pt delta = e.getNode1Port().minus(e.getNode2Port());
@@ -85,31 +106,6 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
         }
         // log.debug(s + ":" + delta);
         return delta;
-    }
-
-    @Override
-    public void in(Graph graph) {
-
-        if (graph.getType() != this.type) {
-            return;
-        }
-        
-        this.graph = graph;
-
-        graph.recalcSize();
-        Pt gsize = graph.getSize();
-        temp = max((gsize.x + gsize.y) * tempMultiplier, Pt.EPSILON);
-        kForce = max(sqrt(graph.getArea() / graph.getNodes().size()), Pt.EPSILON);
-        kAttraction = attractionMultiplier * kForce;
-        kRepulsion = repulsionMultiplier * kForce;
-
-        for (int iterCurrent = 0; iterCurrent < maxIterations; iterCurrent++) {
-            repulsion();
-            attraction();
-            moveVertexes();
-            reduceTemperature(iterCurrent, maxIterations);
-        }
-
     }
 
     private void moveVertexes() {

@@ -55,50 +55,8 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 		super(type);
 	}
 
-	void attraction() {
-		for (Edge e : graph.getEdges()) {
-			Pt delta = getDelta(e.getNode1(), e.getNode2());
-			double dl = delta.lenSafe();
-			Pt f = delta.div(dl).mult(attractionForce(dl));
-			e.getNode1().getDisp().decBy(f);
-			e.getNode2().getDisp().incBy(f);
-			// log.debug("# atr " + e.getNode1() + " = -" + f + ", " +
-			// e.getNode2() + " = " + f);
-		}
-	}
-
-	double attractionForce(double dist) {
-		return dist * dist / kAttraction;
-	}
-
-	double weightRForce(double dist) {
-		return kRepulsion * kRepulsion / dist;
-	}
-
-	double weightAForce(double dist) {
-		return dist * dist * dist / kAttraction;
-	}
-
 	@Override
-	public String getConfigName() {
-		return "fr2_layout";
-	}
-
-	Pt getDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
-		Pt delta = n1.getPortDelta(n2);
-		if (delta.len() < Pt.EPSILON || Double.isNaN(delta.len())) {
-			log.debug(n1 + " " + n2 + " " + delta + " " + delta.len());
-			delta.randomize(Pt.EPSILON);
-		}
-		return delta;
-	}
-
-	@Override
-	public void in(Graph graph) {
-
-		if (graph.getType() != this.type) {
-			return;
-		}
+	public void apply(Graph graph) {
 
 		this.graph = graph;
 		this.req = graph.getReqSize();
@@ -124,6 +82,122 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 			reduceTemperature(iterCurrent, maxIterations);
 		}
 
+	}
+
+	void attraction() {
+		for (Edge e : graph.getEdges()) {
+			Pt delta = getDelta(e.getNode1(), e.getNode2());
+			double dl = delta.lenSafe();
+			Pt f = delta.div(dl).mult(attractionForce(dl));
+			e.getNode1().getDisp().decBy(f);
+			e.getNode2().getDisp().incBy(f);
+			// log.debug("# atr " + e.getNode1() + " = -" + f + ", " +
+			// e.getNode2() + " = " + f);
+		}
+	}
+
+	double attractionForce(double dist) {
+		return dist * dist / kAttraction;
+	}
+
+	void bars() {
+		for (Node n : graph.getNodes()) {
+			for (Bar b : bars) {
+				if (n.getIndex() == b.getIndex()) {
+					Pt delta = new Pt(0d, 0d);
+					if (b.isVertical()) {
+						delta.y = n.getPos().y - b.getPos().y;
+					} else {
+						delta.x = n.getPos().x - b.getPos().x;
+					}
+					double dl = delta.lenSafe();
+					n.getDisp().decBy(delta.div(dl).mult(attractionForce(dl)));
+				}
+			}
+		}
+	}
+
+	void calcWeights() {
+		for (Node n : graph.getNodes()) {
+			minWeight = min(minWeight, n.getWeight());
+			maxWeight = max(maxWeight, n.getWeight());
+		}
+	}
+
+	@Override
+	public String getConfigName() {
+		return "fr2_layout";
+	}
+
+	Pt getDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
+		Pt delta = n1.getPortDelta(n2);
+		if (delta.len() < Pt.EPSILON || Double.isNaN(delta.len())) {
+			log.debug(n1 + " " + n2 + " " + delta + " " + delta.len());
+			delta.randomize(Pt.EPSILON);
+		}
+		return delta;
+	}
+
+	void moveVertexes() {
+		for (Node n : graph.getNodes()) {
+			Pt delta = n.getDisp();
+			double dl = delta.lenSafe();
+			Pt f = delta.div(dl).mult(min(dl, temp));
+			n.getPos().incBy(f);
+			// log.debug("# !mv " + delta + " " + dl + " " + n + " = " + f);
+			n.getPos().x = min(req.x - n.getSize().x, max(0d, n.getPos().x));
+			n.getPos().y = min(req.y - n.getSize().y, max(0d, n.getPos().y));
+		}
+	}
+
+	void reduceTemperature(int iterCurrent, int iterMax) {
+		temp *= (1d - (double) iterCurrent / iterMax);
+	}
+
+	void repulsion() {
+		for (Node n1 : graph.getNodes()) {
+			for (Node n2 : graph.getNodes()) {
+				if (n1 != n2) {
+					Pt delta = getDelta(n1, n2);
+					double dl = delta.lenSafe();
+					Pt f = delta.div(dl).mult(repulsionForce(dl));
+					n1.getDisp().incBy(f);
+					// log.debug("# rep " + n1 + " = " + f);
+				}
+			}
+		}
+	}
+
+	/*
+	 * void grid() { for (Node n1 : graph.getNodes()) { Node n =
+	 * graph.getNodes().get(0); double nlen = Double.MAX_VALUE; for (Node n2 :
+	 * graph.getNodes()) { if (n1 != n2) { double l =
+	 * n1.getPos().minus(n2.getPos()).len(); if (l < nlen) { n = n2; nlen = l; } } }
+	 * Pt delta = n1.getPos().minus(n.getPos()); if (abs(n1.getPos().x -
+	 * n.getPos().x) < abs(n1.getPos().y - n.getPos().y)) { n1.getDisp().x -=
+	 * attractionForce(delta.x); n.getDisp().x += attractionForce(delta.x); }
+	 * else { n1.getDisp().y -= attractionForce(delta.y); n.getDisp().y +=
+	 * attractionForce(delta.y); } } }
+	 */
+
+	double repulsionForce(double dist) {
+		return kRepulsion * kRepulsion / dist;
+	}
+
+	@Override
+	public void setLayoutConfig(Map<String, String> propMap) {
+		maxIterations = Integer.parseInt(propMap.get("maxIterations"));
+		tempMultiplier = Double.parseDouble(propMap.get("tempMultiplier"));
+		attractionMultiplier = Double.parseDouble(propMap.get("attractionMultiplier"));
+		repulsionMultiplier = Double.parseDouble(propMap.get("repulsionMultiplier"));
+	}
+
+	double weightAForce(double dist) {
+		return dist * dist * dist / kAttraction;
+	}
+
+	double weightRForce(double dist) {
+		return kRepulsion * kRepulsion / dist;
 	}
 
 	void weights() {
@@ -165,88 +239,10 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 		}
 	}
 
-	void calcWeights() {
-		for (Node n : graph.getNodes()) {
-			minWeight = min(minWeight, n.getWeight());
-			maxWeight = max(maxWeight, n.getWeight());
-		}
-	}
-
-	void bars() {
-		for (Node n : graph.getNodes()) {
-			for (Bar b : bars) {
-				if (n.getIndex() == b.getIndex()) {
-					Pt delta = new Pt(0d, 0d);
-					if (b.isVertical()) {
-						delta.y = n.getPos().y - b.getPos().y;
-					} else {
-						delta.x = n.getPos().x - b.getPos().x;
-					}
-					double dl = delta.lenSafe();
-					n.getDisp().decBy(delta.div(dl).mult(attractionForce(dl)));
-				}
-			}
-		}
-	}
-
-	/*
-	 * void grid() { for (Node n1 : graph.getNodes()) { Node n =
-	 * graph.getNodes().get(0); double nlen = Double.MAX_VALUE; for (Node n2 :
-	 * graph.getNodes()) { if (n1 != n2) { double l =
-	 * n1.getPos().minus(n2.getPos()).len(); if (l < nlen) { n = n2; nlen = l; } } }
-	 * Pt delta = n1.getPos().minus(n.getPos()); if (abs(n1.getPos().x -
-	 * n.getPos().x) < abs(n1.getPos().y - n.getPos().y)) { n1.getDisp().x -=
-	 * attractionForce(delta.x); n.getDisp().x += attractionForce(delta.x); }
-	 * else { n1.getDisp().y -= attractionForce(delta.y); n.getDisp().y +=
-	 * attractionForce(delta.y); } } }
-	 */
-
 	void zeroDisp() {
 		for (Node n1 : graph.getNodes()) {
 			n1.getDisp().zero();
 		}
-	}
-
-	void moveVertexes() {
-		for (Node n : graph.getNodes()) {
-			Pt delta = n.getDisp();
-			double dl = delta.lenSafe();
-			Pt f = delta.div(dl).mult(min(dl, temp));
-			n.getPos().incBy(f);
-			// log.debug("# !mv " + delta + " " + dl + " " + n + " = " + f);
-			n.getPos().x = min(req.x - n.getSize().x, max(0d, n.getPos().x));
-			n.getPos().y = min(req.y - n.getSize().y, max(0d, n.getPos().y));
-		}
-	}
-
-	void reduceTemperature(int iterCurrent, int iterMax) {
-		temp *= (1d - (double) iterCurrent / iterMax);
-	}
-
-	void repulsion() {
-		for (Node n1 : graph.getNodes()) {
-			for (Node n2 : graph.getNodes()) {
-				if (n1 != n2) {
-					Pt delta = getDelta(n1, n2);
-					double dl = delta.lenSafe();
-					Pt f = delta.div(dl).mult(repulsionForce(dl));
-					n1.getDisp().incBy(f);
-					// log.debug("# rep " + n1 + " = " + f);
-				}
-			}
-		}
-	}
-
-	double repulsionForce(double dist) {
-		return kRepulsion * kRepulsion / dist;
-	}
-
-	@Override
-	public void setLayoutConfig(Map<String, String> propMap) {
-		maxIterations = Integer.parseInt(propMap.get("maxIterations"));
-		tempMultiplier = Double.parseDouble(propMap.get("tempMultiplier"));
-		attractionMultiplier = Double.parseDouble(propMap.get("attractionMultiplier"));
-		repulsionMultiplier = Double.parseDouble(propMap.get("repulsionMultiplier"));
 	}
 
 }

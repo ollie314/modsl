@@ -19,7 +19,12 @@ package org.modsl.core.agt.layout;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.modsl.core.agt.model.Bend;
+import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
@@ -40,10 +45,65 @@ public abstract class AbstractLayoutVisitor extends AbstractVisitor {
         this.type = type;
     }
 
+    public void apply(Bend bend) {
+        // to be overriden
+    }
+
+    public void apply(Edge bend) {
+        // to be overriden
+    }
+
+    public void apply(Graph bend) {
+        // to be overriden
+    }
+
+    public void apply(Label bend) {
+        // to be overriden
+    }
+
+    public void apply(Node bend) {
+        // to be overriden
+    }
+
     /**
      * @return configuration name (used to initialize this layout visitor)
      */
     public abstract String getConfigName();
+
+    @Override
+    public void in(Bend bend) {
+        if (type.equals(bend.getType())) {
+            apply(bend);
+        }
+    }
+
+    @Override
+    public void in(Edge edge) {
+        if (type.equals(edge.getType())) {
+            apply(edge);
+        }
+    }
+
+    @Override
+    public void in(Graph graph) {
+        if (type.equals(graph.getType())) {
+            apply(graph);
+        }
+    }
+
+    @Override
+    public void in(Label label) {
+        if (type.equals(label.getType())) {
+            apply(label);
+        }
+    }
+
+    @Override
+    public void in(Node node) {
+        if (type.equals(node.getType())) {
+            apply(node);
+        }
+    }
 
     /**
      * Called when the configuration map is loaded from disk
