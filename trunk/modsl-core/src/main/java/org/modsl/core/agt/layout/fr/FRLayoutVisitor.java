@@ -38,7 +38,7 @@ import org.modsl.core.agt.model.Pt;
  * Modified Fruchterman-Rheingold layout algorithm
  * @author avishnyakov
  */
-public class FR2LayoutVisitor extends AbstractLayoutVisitor {
+public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
 	@SuppressWarnings("unused")
 	Logger log = Logger.getLogger(this.getClass());
@@ -51,7 +51,7 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 	Pt req;
 	List<Bar> bars = new LinkedList<Bar>();
 
-	public FR2LayoutVisitor(MetaType type) {
+	public FRLayoutVisitor(MetaType type) {
 		super(type);
 	}
 

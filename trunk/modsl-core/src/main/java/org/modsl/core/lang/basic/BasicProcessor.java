@@ -25,7 +25,7 @@ import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
 import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
-import org.modsl.core.agt.layout.fr.FR2LayoutVisitor;
+import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
@@ -65,7 +65,7 @@ public class BasicProcessor extends AbstractProcessor<BasicParser> {
 	@Override
 	public void initLayouts() {
 		addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(BasicMetaType.NODE));
-		addLayoutVisitor(new FR2LayoutVisitor(BasicMetaType.GRAPH));
+		addLayoutVisitor(new FRLayoutVisitor(BasicMetaType.GRAPH));
 		addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(BasicMetaType.NODE));
 	}
 

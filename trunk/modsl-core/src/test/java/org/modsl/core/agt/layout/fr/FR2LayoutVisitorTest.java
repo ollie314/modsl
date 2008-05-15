@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.modsl.core.agt.TMetaType;
 import org.modsl.core.agt.layout.fr.Bar;
-import org.modsl.core.agt.layout.fr.FR2LayoutVisitor;
+import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
@@ -23,7 +23,7 @@ public class FR2LayoutVisitorTest {
     Node n2;
     Edge e1_2;
 
-    FR2LayoutVisitor layout = new FR2LayoutVisitor(TMetaType.GRAPH);
+    FRLayoutVisitor layout = new FRLayoutVisitor(TMetaType.GRAPH);
 
     @Before
     public void setUp() throws Exception {
@@ -81,7 +81,7 @@ public class FR2LayoutVisitorTest {
             n.setWeight(w++);
         }
         layout.in(graph);
-        log.debug(new ToStringVisitor().toString(graph));
+        //log.debug(new ToStringVisitor().toString(graph));
     }
 
 }
