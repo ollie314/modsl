@@ -74,7 +74,7 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 			zeroDisp();
 			repulsion();
 			attraction();
-			// weights();
+			//weights();
 			// bars();
 			// grid();
 			moveVertexes();
