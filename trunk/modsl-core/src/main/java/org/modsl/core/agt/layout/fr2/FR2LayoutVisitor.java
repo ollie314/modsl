@@ -131,8 +131,7 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 
 	Pt getDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
 		Pt delta = n1.getPortDelta(n2);
-		if (delta.len() < Pt.EPSILON || Double.isNaN(delta.len())) {
-			log.debug(n1 + " " + n2 + " " + delta + " " + delta.len());
+		if (delta.len() < Pt.EPSILON) { // || Double.isNaN(delta.len())) {
 			delta.randomize(Pt.EPSILON);
 		}
 		return delta;

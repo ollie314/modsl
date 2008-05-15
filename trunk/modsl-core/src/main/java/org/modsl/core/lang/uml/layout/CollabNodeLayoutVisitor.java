@@ -33,7 +33,7 @@ public class CollabNodeLayoutVisitor extends SimpleNodeLabelSizeLayoutVisitor {
 
     @Override
     public void apply(Node node) {
-        super.in(node);
+        super.apply(node);
         FontTransform ft = node.getType().getConfig().getFontTransform();
         node.getSize().y += ft.getBottomPadding();
     }

@@ -162,7 +162,7 @@ public class Pt {
      * @return true if both x and y are less than EPS
      */
     public boolean isZero() {
-        return x < EPSILON && y < EPSILON;
+        return abs(x) < EPSILON && abs(y) < EPSILON;
     }
 
     /**
