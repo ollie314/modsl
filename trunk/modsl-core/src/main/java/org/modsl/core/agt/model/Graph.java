@@ -330,6 +330,9 @@ public class Graph extends AbstractBox<Graph> {
      * @param newSize new size
      */
     public void rescale(Pt newSize) {
+        if (nodes.isEmpty()) {
+            return;
+        }
         normalize();
         recalcSize();
         Node maxXNode = maxXNode();

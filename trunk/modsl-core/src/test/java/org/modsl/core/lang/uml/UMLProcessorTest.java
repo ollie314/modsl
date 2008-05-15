@@ -28,8 +28,18 @@ public class UMLProcessorTest extends AbstractUMLTest {
     protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml");
 
     @Test
-    public void process1() throws Exception {
-        process("collab coll1 { c1:o1->c2:o2.m2()->c3:o3.m3()->c1:o1.m4(); }");
+    public void process0() throws Exception {
+        process("collab coll0 { }");
+    }
+
+    @Test
+    public void process25() throws Exception {
+        process("collab coll25 { c1:o1->c2:o2.m2()->c3:o3.m3()->c1:o1.m4(); }");
+    }
+
+    @Test
+    public void process35() throws Exception {
+        process("collab coll35 { o1->o2.m2()->o3.m3(); o1->o4.m4()->o3.m3(); }");
     }
 
     @Test
