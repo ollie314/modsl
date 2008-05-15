@@ -35,7 +35,7 @@ COLLAB_NODE_LABEL_in(label, decor) ::= <<
 
 COLLAB_EDGE_in(edge, decor) ::= <<
 
-<path d="M $edge.node1Port.x$ $edge.node1Port.y$ L $edge.bends:{b|$b.pos.x$ $b.pos.y$ }$$edge.node2Port.x$ $edge.node2Port.y$" class="collabedge"/>
+<path d="M $edge.node1Port.x$ $edge.node1Port.y$ $edge.bends:{b|L $b.pos.x$ $b.pos.y$}$ L $edge.node2Port.x$ $edge.node2Port.y$" class="collabedge"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collabedge"/>
 <line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collabedge"/>
 >>
