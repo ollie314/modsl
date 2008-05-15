@@ -20,6 +20,7 @@
 package org.modsl.core.agt.layout.sugiyama;
 
 import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static java.lang.Math.round;
 
 import java.util.ArrayList;
@@ -205,17 +206,53 @@ public class SugiyamaLayerStack {
     }
 
     void xPositionsAlt() {
-        for (int round = 0; round < maxSweeps; round++) {
+        for (int round = 0; round < 2; round++) {
             if (round % 2 == 0) {
                 for (int l = 0; l < layers.size() - 1; l++) {
-                    adjustPosX(l, l + 1, l + 2);
+                    adjustPosXAltMin(l, l + 1);
                 }
             } else {
                 for (int l = layers.size() - 1; l > 0; l--) {
-                    adjustPosX(l, l - 1, l - 2);
+                    adjustPosXAltMax(l, l - 1);
                 }
             }
         }
+    }
+
+    void adjustPosXAltMin(int staticLayer1, int flexLayer) {
+        List<AbstractBox<?>> flex = layers.get(flexLayer);
+        double currOffset = 0d;
+        for (AbstractBox<?> n : flex) {
+            List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
+            double minx1 = minMaxX(neighbors1, false);
+            n.getPos().x = max(currOffset, minx1 - n.getSize().x / 2d);
+            currOffset = n.getPos().x + n.getSize().x + xSeparation;
+        }
+    }
+
+    void adjustPosXAltMax(int staticLayer1, int flexLayer) {
+        List<AbstractBox<?>> flex = layers.get(flexLayer);
+        AbstractBox<?> lastN = layers.get(staticLayer1).get(layers.get(staticLayer1).size() - 1);
+        double currOffset = lastN.getPos().x + lastN.getSize().x;
+        for (int i = flex.size() - 1; i >= 0; i--) {
+            AbstractBox<?> n = flex.get(i);
+            List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
+            if (neighbors1.isEmpty()) {
+                n.getPos().x = currOffset - n.getSize().x;
+            } else {
+                double minx1 = minMaxX(neighbors1, true);
+                n.getPos().x = min(currOffset, minx1 + n.getSize().x / 2d) - n.getSize().x;
+            }
+            currOffset = n.getPos().x - xSeparation;
+        }
+    }
+
+    double minMaxX(List<AbstractBox<?>> ln, boolean min) {
+        double mx = min ? Double.MAX_VALUE : -Double.MAX_VALUE;
+        for (AbstractBox<?> n : ln) {
+            mx = min ? min(n.getCtrPos().x, mx) : max(n.getCtrPos().x, mx);
+        }
+        return mx;
     }
 
     void adjustPosX(int staticLayer1, int flexLayer, int staticLayer2) {

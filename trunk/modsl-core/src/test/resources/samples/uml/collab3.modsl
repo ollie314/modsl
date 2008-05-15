@@ -13,4 +13,7 @@ collaboration ModSL3 {
 	processor->graph.rescale(); 
 	processor->stringTemplateVisitor.accept(graph);
 	stringTemplateVisitor->decorators.apply();
+	huessor->labelLayoutVisitor.accept(graph);
+	huessor->sugiyamaLayoutVisitor.accept(graph);
+	edgeLabels->somewhat.setPos();
 }
