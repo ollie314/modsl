@@ -21,11 +21,6 @@ import static java.lang.Math.abs;
 import static java.lang.Math.acos;
 import static java.lang.Math.signum;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Abstract rectangle graph element
  * @author avishnyakov
@@ -56,12 +51,10 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * History of positions
      */
     //List<Pt> posHistory = new LinkedList<Pt>();
-
     /**
      * History of named attributes
      */
     //Map<String, List<Double>> attrHistory = new HashMap<String, List<Double>>();
-
     /**
      * Create new
      */
@@ -108,7 +101,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return cos of angle between 0 and diagonal of this box
      */
     public double cos() {
-        return size.x / size.len();
+        return size.x / size.lenSafe();
     }
 
     /**
@@ -116,7 +109,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public double cos(AbstractBox<?> b2) {
         Pt delta = getCtrDelta(b2);
-        return delta.x / delta.len();
+        return delta.x / delta.lenSafe();
     }
 
     /**
@@ -234,7 +227,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return sin of angle between 0 and diagonal of this box
      */
     public double sin() {
-        return size.y / size.len();
+        return size.y / size.lenSafe();
     }
 
     /**
@@ -242,14 +235,18 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public double sin(AbstractBox<?> b2) {
         Pt delta = getCtrDelta(b2);
-        return delta.y / delta.len();
+        return delta.y / delta.lenSafe();
     }
 
     /**
      * @return tan of angle between 0 and diagonal of this box
      */
     public double tan() {
-        return size.y / size.x;
+        if (size.x < Pt.EPSILON) {
+            return Double.MAX_VALUE;
+        } else {
+            return size.y / size.x;
+        }
     }
 
     /**
@@ -257,7 +254,11 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public double tan(AbstractBox<?> b2) {
         Pt delta = getCtrDelta(b2);
-        return delta.y / delta.x;
+        if (delta.x < Pt.EPSILON) {
+            return Double.MAX_VALUE;
+        } else {
+            return delta.y / delta.x;
+        }
     }
 
 }
