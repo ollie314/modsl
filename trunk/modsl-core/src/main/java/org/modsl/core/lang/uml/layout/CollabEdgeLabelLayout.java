@@ -106,13 +106,15 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
         ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO
         AbstractBox<?> b1 = n1;
         AbstractBox<?> b2 = n2;
-        if (edge.getBends().size() > 0) {
+        /*if (edge.getBends().size() > 0) {
             if (n1.getOutDegree() > n2.getInDegree()) {
                 b1 = edge.getLastBend();
             } else {
                 b2 = edge.getFirstBend();
             }
-        }
+        }*/
+        b1 = edge.getLastBend();
+        b2 = edge.getNode2();
         return b1.getCtrPos().plus(b2.getCtrPos().minus(b1.getCtrPos()).mulBy(ratio));
     }
 
