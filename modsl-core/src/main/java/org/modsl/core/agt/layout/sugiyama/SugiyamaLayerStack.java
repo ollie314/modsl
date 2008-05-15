@@ -206,7 +206,7 @@ public class SugiyamaLayerStack {
     }
 
     void xPositionsAlt() {
-        for (int round = 0; round < 2; round++) {
+        for (int round = 0; round < 3; round++) {
             if (round % 2 == 0) {
                 for (int l = 0; l < layers.size() - 1; l++) {
                     adjustPosXAltMin(l, l + 1);
