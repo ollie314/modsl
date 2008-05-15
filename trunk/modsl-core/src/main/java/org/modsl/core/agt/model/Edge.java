@@ -209,7 +209,7 @@ public class Edge extends AbstractElement<Graph> {
      * @return max (x,y) point of this edge
      */
     public Pt getMaxPt() {
-        Pt s = new Pt(0d, 0d);
+        Pt s = new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE);
         s.x = max(s.x, node1.getCtrPos().x);
         s.y = max(s.y, node1.getCtrPos().y);
         for (Bend b : bends) {

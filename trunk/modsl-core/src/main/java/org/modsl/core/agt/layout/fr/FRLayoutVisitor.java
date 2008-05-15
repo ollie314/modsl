@@ -45,7 +45,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
 	double temp, kForce, kAttraction, kRepulsion;
 	double tempMultiplier, attractionMultiplier, repulsionMultiplier;
-	double minWeight = Double.MAX_VALUE, maxWeight = Double.MIN_VALUE;
+	double minWeight = Double.MAX_VALUE, maxWeight = -Double.MAX_VALUE;
 	int maxIterations;
 	Graph graph;
 	Pt req;
