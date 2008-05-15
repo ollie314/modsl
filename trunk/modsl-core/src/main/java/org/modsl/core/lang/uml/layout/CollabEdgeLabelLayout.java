@@ -16,9 +16,6 @@
 
 package org.modsl.core.lang.uml.layout;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -30,7 +27,6 @@ import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
-import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 
 /**
@@ -54,10 +50,9 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
 
         for (Label label : labels) {
             Edge edge = (Edge) label.getParent();
-            Pt midPoint = getMidPoint(edge);
             FontTransform ft = edge.getType().getConfig().getFt();
             label.setSize(new Pt(ft.getStringWidth(edge.getName()), ft.getHeight()));
-            label.setPos(midPoint.minus(new Pt(label.getSize().x / 2d, label.getSize().y / 2d)));
+            label.setPos(getMidPoint(label, 0));
         }
 
         Collections.sort(labels, new Comparator<Label>() {
@@ -87,7 +82,7 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
                 if (beforeLast != null && beforeLast.overlaps(label)) {
                     offset = -label.getSize().y - 1;
                 }
-                label.getPos().y += offset;
+                label.setPos(getMidPoint(label, offset));
                 beforeLast = last;
                 last = label;
             }
@@ -98,7 +93,22 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
     /**
      * @return position of the connector's midpoint
      */
-    public Pt getMidPoint(Edge edge) {
+    public Pt getMidPoint(Label label, double offset) {
+        Edge edge = (Edge) label.getParent();
+        AbstractBox<?> n1 = edge.getLastBend();
+        AbstractBox<?> n2 = edge.getNode2();
+        double ratio = 1d / 2d;
+        Pt mid = n1.getCtrPos().plus(n2.getCtrPos().minus(n1.getCtrPos()).mulBy(ratio));
+        mid.incBy(new Pt(offset / n1.tan(n2), offset));
+        mid.decBy(new Pt(label.getSize().x / 2d, label.getSize().y / 2d));
+        return mid;
+    }
+
+}
+
+/*
+ *
+ *   public Pt getMidPoint(Edge edge, double offs) {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
         double ratio = 1d / 2d;
@@ -106,16 +116,13 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
         ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO
         AbstractBox<?> b1 = n1;
         AbstractBox<?> b2 = n2;
-        /*if (edge.getBends().size() > 0) {
+        if (edge.getBends().size() > 0) {
             if (n1.getOutDegree() > n2.getInDegree()) {
                 b1 = edge.getLastBend();
             } else {
                 b2 = edge.getFirstBend();
             }
-        }*/
-        b1 = edge.getLastBend();
-        b2 = edge.getNode2();
+        }
         return b1.getCtrPos().plus(b2.getCtrPos().minus(b1.getCtrPos()).mulBy(ratio));
     }
-
-}
+*/

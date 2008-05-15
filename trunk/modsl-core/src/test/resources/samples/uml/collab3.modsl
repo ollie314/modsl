@@ -2,12 +2,9 @@ collaboration ModSL3 {
 	processor->lexer.tokenStream(); 
 	processor->parser.graph(tokenStream):graph; 
 	processor->nodeLayoutVisitor.accept(graph);
-	nodeLayoutVisitor->node.setSize();
 	processor->sugiyamaLayoutVisitor.accept(graph);
 	sugiyamaLayoutVisitor->node.setPos();
 	processor->labelLayoutVisitor.accept(graph);
-	labelLayoutVisitor->nodeLabel.setPos();
-	labelLayoutVisitor->edgeLabel.setPos();
 	processor->stringTemplateVisitor.accept(graph);
 	stringTemplateVisitor->decorators.apply();
 	stringTemplateVisitor->stringTemplate.toString();
