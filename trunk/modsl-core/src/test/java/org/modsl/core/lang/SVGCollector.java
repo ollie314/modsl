@@ -50,8 +50,8 @@ public class SVGCollector {
         for (int i = 0; i < urls.size(); i++) {
             String url = urls.get(i);
             Pt size = sizes.get(i);
-            sb.append("\n\t<embed src=\"").append(url).append("\" width=\"").append(size.x).append("\" height=\"").append(size.y)
-                    .append("\"/>");
+            sb.append("\n\t<embed src=\"").append(url).append("\" width=\"").append(size.x + 10).append("\" height=\"").append(
+                    size.y + 10).append("\"/>");
         }
         sb.append("\n\t</body>\n</html>");
         return sb.toString();
