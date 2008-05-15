@@ -42,9 +42,8 @@ import org.modsl.core.agt.model.Node;
  */
 public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
 
-    protected Graph graph;
-
-    protected SugiyamaLayerStack stack = new SugiyamaLayerStack();
+    Graph graph;
+    SugiyamaLayerStack stack = new SugiyamaLayerStack();
 
     public SugiyamaLayoutVisitor(MetaType type) {
         super(type);
@@ -52,20 +51,17 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
 
     @Override
     public void apply(Graph graph) {
-
         this.graph = graph;
         removeCycles();
-        layer();
+        splitIntoLayers();
         insertDummies();
         stack.initIndexes();
         stack.reduceCrossings();
         undoRemoveCycles();
         stack.layerHeights();
         stack.xPos();
-
-        //log.debug(new ToStringVisitor().toString(graph));
-
         graph.rescale();
+        //log.debug(new ToStringVisitor().toString(graph));
     }
 
     @Override
@@ -87,7 +83,7 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         }
     }
 
-    void layer() {
+    void splitIntoLayers() {
         List<Node> sorted = topologicalSort();
         Map<Node, Integer> lmap = new HashMap<Node, Integer>();
         for (Node n : sorted) {

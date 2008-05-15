@@ -83,7 +83,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 	@Test
 	public void layer() {
 		layout.removeCycles();
-		layout.layer();
+		layout.splitIntoLayers();
 		assertEquals(4, layout.stack.layers.size());
 		assertEquals(0, layout.stack.getLayer(n1));
 		assertEquals(0, layout.stack.getLayer(n2));
@@ -112,7 +112,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 	@Test
 	public void getLayerNodes() {
 		layout.removeCycles();
-		layout.layer();
+		layout.splitIntoLayers();
 		layout.insertDummies();
 		assertEquals(2, layout.stack.layers.get(0).size());
 		assertTrue(layout.stack.layers.get(0).contains(n1));
@@ -134,7 +134,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		int sn = graph.getNodes().size();
 		int se = graph.getEdges().size();
 		layout.removeCycles();
-		layout.layer();
+		layout.splitIntoLayers();
 		layout.insertDummies();
 		// log.debug(new ToStringVisitor().toString(root));
 		assertEquals(sn, graph.getNodes().size());
@@ -153,7 +153,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 	public void reduceCrossings2L() {
 
 		layout.removeCycles();
-		layout.layer();
+		layout.splitIntoLayers();
 		layout.insertDummies();
 		layout.stack.initIndexes();
 
@@ -172,7 +172,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 	@Test
 	public void reduceCrossings() {
 		layout.removeCycles();
-		layout.layer();
+		layout.splitIntoLayers();
 		layout.insertDummies();
 		layout.stack.initIndexes();
 		layout.stack.reduceCrossings();
