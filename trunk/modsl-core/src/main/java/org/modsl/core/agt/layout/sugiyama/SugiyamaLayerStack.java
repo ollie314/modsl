@@ -232,13 +232,16 @@ public class SugiyamaLayerStack {
 
     void adjustPosXAltMax(int staticLayer1, int flexLayer) {
         List<AbstractBox<?>> flex = layers.get(flexLayer);
-        AbstractBox<?> lastN = layers.get(staticLayer1).get(layers.get(staticLayer1).size() - 1);
-        double currOffset = lastN.getPos().x + lastN.getSize().x;
+        //AbstractBox<?> lastN = layers.get(staticLayer1).get(layers.get(staticLayer1).size() - 1);
+        double currOffset = Double.MAX_VALUE; //lastN.getPos().x + lastN.getSize().x;
         for (int i = flex.size() - 1; i >= 0; i--) {
             AbstractBox<?> n = flex.get(i);
             List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
             if (neighbors1.isEmpty()) {
-                n.getPos().x = currOffset - n.getSize().x;
+                n.getPos().x = min(currOffset - n.getSize().x, n.getPos().x);
+                if (Double.MAX_VALUE == currOffset) {
+                    currOffset = n.getPos().x + n.getSize().x;
+                }
             } else {
                 double minx1 = minMaxX(neighbors1, true);
                 n.getPos().x = min(currOffset, minx1 + n.getSize().x / 2d) - n.getSize().x;
