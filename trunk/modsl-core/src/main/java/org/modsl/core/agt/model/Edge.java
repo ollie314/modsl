@@ -255,7 +255,8 @@ public class Edge extends AbstractElement<Graph> {
      * @return start point position at node 1
      */
     public Pt getNode1Port() {
-        return node1.getPort(node1.sin(node2), node1.cos(node2), node1.tan(node2));
+        AbstractBox<?> b = getFirstBend();
+        return node1.getPort(node1.sin(b), node1.cos(b), node1.tan(b));
     }
 
     /**
@@ -276,7 +277,8 @@ public class Edge extends AbstractElement<Graph> {
      * @return end point position at node 2
      */
     public Pt getNode2Port() {
-        return node2.getPort(node2.sin(node1), node2.cos(node1), node2.tan(node1));
+        AbstractBox<?> b = getLastBend();
+        return node2.getPort(node2.sin(b), node2.cos(b), node2.tan(b));
     }
 
     /**
