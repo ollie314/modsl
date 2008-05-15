@@ -62,7 +62,6 @@ public class FR2LayoutVisitor extends AbstractLayoutVisitor {
 		this.req = graph.getReqSize();
 
 		graph.randomize(graph.getName().hashCode());
-		graph.recalcSize();
 
 		calcWeights();
 

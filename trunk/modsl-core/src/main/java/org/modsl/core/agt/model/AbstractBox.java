@@ -98,6 +98,18 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     }
 
     /**
+     * @param p
+     * @return true if p is within boundaries of this box
+     */
+    public boolean contains(Pt p) {
+        if (pos.x < p.x && pos.y < p.y && p.x < pos.x + size.x && p.y < pos.y + size.y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * @return cos of angle between 0 and diagonal of this box
      */
     public double cos() {
@@ -167,10 +179,28 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * a straight line
      */
     public Pt[] getPorts(AbstractBox<?> b2) {
-        Pt[] res = new Pt[2];
-        res[0] = this.getPort(this.sin(b2), this.cos(b2), this.tan(b2));
-        res[1] = b2.getPort(b2.sin(this), b2.cos(this), b2.tan(this));
-        return res;
+        if (this.overlaps(b2)) {
+            return new Pt[] { new Pt(0d, 0d), new Pt(0d, 0d) };
+        } else {
+            Pt[] res = new Pt[2];
+            res[0] = this.getPort(this.sin(b2), this.cos(b2), this.tan(b2));
+            res[1] = b2.getPort(b2.sin(this), b2.cos(this), b2.tan(this));
+            return res;
+        }
+    }
+
+    /**
+     * @param b2
+     * @return true if boxes overlap
+     */
+    public boolean overlaps(AbstractBox<?> b2) {
+        if (pos.x > (b2.pos.x + b2.size.x) || (pos.x + size.x) < b2.pos.x) {
+            return false;
+        }
+        if (pos.y > (b2.pos.y + b2.size.y) || (pos.y + size.y) < b2.pos.y) {
+            return false;
+        }
+        return true;
     }
 
     /**
