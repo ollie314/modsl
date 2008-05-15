@@ -1,4 +1,4 @@
-package org.modsl.core.agt.layout.fr2;
+package org.modsl.core.agt.layout.fr;
 
 import org.modsl.core.agt.model.Pt;
 

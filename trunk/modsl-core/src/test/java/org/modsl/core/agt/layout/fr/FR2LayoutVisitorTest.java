@@ -1,4 +1,4 @@
-package org.modsl.core.agt.layout.fr2;
+package org.modsl.core.agt.layout.fr;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.modsl.core.agt.TMetaType;
+import org.modsl.core.agt.layout.fr.Bar;
+import org.modsl.core.agt.layout.fr.FR2LayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;

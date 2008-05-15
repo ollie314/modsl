@@ -24,7 +24,7 @@ import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
 import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
-import org.modsl.core.agt.layout.fr2.FR2LayoutVisitor;
+import org.modsl.core.agt.layout.fr.FR2LayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
