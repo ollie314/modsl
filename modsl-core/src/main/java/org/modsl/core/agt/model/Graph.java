@@ -139,6 +139,17 @@ public class Graph extends AbstractBox<Graph> {
     }
 
     /**
+     * @return all edge labels
+     */
+    public List<Label> getEdgeLabels() {
+        List<Label> l = new LinkedList<Label>();
+        for (Edge e : edges) {
+            l.addAll(e.getLabels());
+        }
+        return l;
+    }
+
+    /**
      * @return children edge list
      */
     public List<Edge> getEdges() {

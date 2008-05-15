@@ -40,7 +40,7 @@ public class Label extends AbstractBox<AbstractElement<?>> {
 
     public Pt getTextPos() {
         FontTransform ft = getType().getConfig().getFt();
-        return getPos().plus(new Pt(ft.getLeftPadding(), ft.getExtBaseline(0)));
+        return getPos().plus(new Pt(0d, ft.getBaseline()));
     }
 
 }
