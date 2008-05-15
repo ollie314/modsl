@@ -242,7 +242,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return tan of angle between 0 and diagonal of this box
      */
     public double tan() {
-        if (size.x < Pt.EPSILON) {
+        if (abs(size.x) < Pt.EPSILON) {
             return Double.MAX_VALUE;
         } else {
             return size.y / size.x;
@@ -254,7 +254,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      */
     public double tan(AbstractBox<?> b2) {
         Pt delta = getCtrDelta(b2);
-        if (delta.x < Pt.EPSILON) {
+        if (abs(delta.x) < Pt.EPSILON) {
             return Double.MAX_VALUE;
         } else {
             return delta.y / delta.x;
