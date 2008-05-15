@@ -72,7 +72,7 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
 
         });
 
-        log.debug(labels);
+        //log.debug(labels);
 
         Label last = null;
         Label beforeLast = null;
