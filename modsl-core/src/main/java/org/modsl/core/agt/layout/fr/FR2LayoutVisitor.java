@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.layout.fr2;
+package org.modsl.core.agt.layout.fr;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
