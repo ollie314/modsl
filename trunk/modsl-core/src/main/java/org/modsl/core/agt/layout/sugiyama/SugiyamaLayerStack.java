@@ -40,23 +40,12 @@ import org.modsl.core.agt.model.AbstractBox;
  */
 public class SugiyamaLayerStack {
 
-    protected Logger log = Logger.getLogger(getClass());
+    Logger log = Logger.getLogger(getClass());
 
-    protected int maxSweeps;
-
-    protected double xSeparation;
-    protected double ySeparation;
-
-    private List<List<AbstractBox<?>>> layers;
-    private Map<AbstractBox<?>, Integer> nodeMap;
-
-    void init(int h, int nodeSize) {
-        layers = new ArrayList<List<AbstractBox<?>>>(h);
-        for (int i = 0; i < h; i++) {
-            layers.add(new ArrayList<AbstractBox<?>>(nodeSize / h + 1));
-        }
-        nodeMap = new HashMap<AbstractBox<?>, Integer>(nodeSize);
-    }
+    int maxSweeps;
+    double xSeparation, ySeparation;
+    List<List<AbstractBox<?>>> layers;
+    Map<AbstractBox<?>, Integer> nodeMap;
 
     void add(AbstractBox<?> n1, int layerIndex) {
         layers.get(layerIndex).add(n1);
@@ -87,10 +76,6 @@ public class SugiyamaLayerStack {
         return ln;
     }
 
-    protected List<AbstractBox<?>> getElements(int layer) {
-        return layers.get(layer);
-    }
-
     int getLayer(AbstractBox<?> n) {
         Integer l = nodeMap.get(n);
         if (l == null) {
@@ -98,6 +83,14 @@ public class SugiyamaLayerStack {
         } else {
             return l;
         }
+    }
+
+    void init(int height, int nodeQty) {
+        layers = new ArrayList<List<AbstractBox<?>>>(height);
+        for (int i = 0; i < height; i++) {
+            layers.add(new ArrayList<AbstractBox<?>>(nodeQty / height + 1));
+        }
+        nodeMap = new HashMap<AbstractBox<?>, Integer>(nodeQty);
     }
 
     void initIndexes() {
@@ -112,18 +105,18 @@ public class SugiyamaLayerStack {
     }
 
     void layerHeights() {
-        double currOffset = 0d;
+        double offset = 0d;
         for (int l = 0; l < layers.size(); l++) {
             List<AbstractBox<?>> ln = layers.get(l);
             double maxh = maxHeight(ln);
             for (AbstractBox<?> n : ln) {
                 if (n.isVirtual()) {
-                    n.getPos().y = currOffset + maxHeight(ln) / 2d;
+                    n.getPos().y = offset + maxHeight(ln) / 2d;
                 } else {
-                    n.getPos().y = currOffset;
+                    n.getPos().y = offset;
                 }
             }
-            currOffset += maxh + ySeparation;
+            offset += maxh + ySeparation;
         }
     }
 
@@ -133,6 +126,22 @@ public class SugiyamaLayerStack {
             mh = max(mh, n.getSize().y);
         }
         return mh;
+    }
+
+    double maxX(List<AbstractBox<?>> ln) {
+        double m = -Double.MAX_VALUE;
+        for (AbstractBox<?> n : ln) {
+            m = max(n.getCtrPos().x, m);
+        }
+        return m;
+    }
+
+    double minX(List<AbstractBox<?>> ln) {
+        double m = Double.MAX_VALUE;
+        for (AbstractBox<?> n : ln) {
+            m = min(n.getCtrPos().x, m);
+        }
+        return m;
     }
 
     void reduceCrossings() {
@@ -149,29 +158,24 @@ public class SugiyamaLayerStack {
         }
     }
 
-    void reduceCrossings2L(int staticLayer, int layerToShuffle) {
-        final List<AbstractBox<?>> shuffle = layers.get(layerToShuffle);
-        for (AbstractBox<?> n : shuffle) {
-            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticLayer);
-            int bc = barycenter(neighbors);
-            n.setIndex(bc);
+    void reduceCrossings2L(int staticIndex, int flexIndex) {
+        final List<AbstractBox<?>> flex = layers.get(flexIndex);
+        for (AbstractBox<?> n : flex) {
+            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
+            n.setIndex(barycenter(neighbors));
         }
-        Collections.sort(shuffle, new Comparator<AbstractBox<?>>() {
+        Collections.sort(flex, new Comparator<AbstractBox<?>>() {
             public int compare(AbstractBox<?> n1, AbstractBox<?> n2) {
                 return n1.getIndex() - n2.getIndex();
             }
         });
-        setOrderedIndexes(shuffle);
+        setOrderedIndexes(flex);
     }
 
     void setOrderedIndexes(List<AbstractBox<?>> ln) {
         for (int i = 0; i < ln.size(); i++) {
             ln.get(i).setIndex(i);
         }
-    }
-
-    protected int size() {
-        return layers.size();
     }
 
     @Override
@@ -185,97 +189,49 @@ public class SugiyamaLayerStack {
         return sb.toString();
     }
 
-    void xPositions() {
-        double maxx = 0;
-        double x[] = new double[layers.size()];
-        for (int l = 0; l < layers.size(); l++) {
-            double currOffset = 0d;
-            for (AbstractBox<?> n : layers.get(l)) {
-                currOffset += n.getSize().x + xSeparation;
-            }
-            x[l] = currOffset - xSeparation;
-            maxx = max(maxx, x[l]);
+    void xPos() {
+        for (int l = 0; l < layers.size() - 1; l++) {
+            xPosDown(l, l + 1);
         }
-        for (int l = 0; l < layers.size(); l++) {
-            double currOffset = (maxx - x[l]) / 2d;
-            for (AbstractBox<?> n : layers.get(l)) {
-                n.getPos().x = currOffset;
-                currOffset += n.getSize().x + xSeparation;
-            }
+        for (int l = layers.size() - 1; l > 0; l--) {
+            xPosUp(l, l - 1);
+        }
+        for (int l = 0; l < layers.size() - 1; l++) {
+            xPosDown(l, l + 1);
         }
     }
 
-    void xPositionsAlt() {
-        for (int round = 0; round < 3; round++) {
-            if (round % 2 == 0) {
-                for (int l = 0; l < layers.size() - 1; l++) {
-                    adjustPosXAltMin(l, l + 1);
-                }
-            } else {
-                for (int l = layers.size() - 1; l > 0; l--) {
-                    adjustPosXAltMax(l, l - 1);
-                }
-            }
-        }
-    }
-
-    void adjustPosXAltMin(int staticLayer1, int flexLayer) {
-        List<AbstractBox<?>> flex = layers.get(flexLayer);
-        double currOffset = 0d;
+    void xPosDown(int staticIndex, int flexIndex) {
+        List<AbstractBox<?>> flex = layers.get(flexIndex);
+        double offset = 0d;
         for (AbstractBox<?> n : flex) {
-            List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
-            double minx1 = minMaxX(neighbors1, false);
-            n.getPos().x = max(currOffset, minx1 - n.getSize().x / 2d);
-            currOffset = n.getPos().x + n.getSize().x + xSeparation;
+            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
+            n.getPos().x = max(offset, maxX(neighbors) - n.getSize().x / 2d);
+            offset = n.getPos().x + n.getSize().x + xSeparation;
         }
     }
 
-    void adjustPosXAltMax(int staticLayer1, int flexLayer) {
-        List<AbstractBox<?>> flex = layers.get(flexLayer);
-        //AbstractBox<?> lastN = layers.get(staticLayer1).get(layers.get(staticLayer1).size() - 1);
-        double currOffset = Double.MAX_VALUE; //lastN.getPos().x + lastN.getSize().x;
+    void xPosUp(int staticIndex, int flexIndex) {
+        List<AbstractBox<?>> flex = layers.get(flexIndex);
+        double offset = Double.MAX_VALUE;
         for (int i = flex.size() - 1; i >= 0; i--) {
             AbstractBox<?> n = flex.get(i);
-            List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
-            if (neighbors1.isEmpty()) {
-                n.getPos().x = min(currOffset - n.getSize().x, n.getPos().x);
-                if (Double.MAX_VALUE == currOffset) {
-                    currOffset = n.getPos().x + n.getSize().x;
-                }
+            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
+            if (neighbors.isEmpty()) {
+                n.getPos().x = min(offset - n.getSize().x, n.getPos().x);
+                offset = Double.MAX_VALUE == offset ? n.getPos().x + n.getSize().x : offset;
             } else {
-                double minx1 = minMaxX(neighbors1, true);
-                n.getPos().x = min(currOffset, minx1 + n.getSize().x / 2d) - n.getSize().x;
+                n.getPos().x = min(offset, minX(neighbors) + n.getSize().x / 2d) - n.getSize().x;
             }
-            currOffset = n.getPos().x - xSeparation;
+            offset = n.getPos().x - xSeparation;
         }
     }
 
-    double minMaxX(List<AbstractBox<?>> ln, boolean min) {
-        double mx = min ? Double.MAX_VALUE : -Double.MAX_VALUE;
-        for (AbstractBox<?> n : ln) {
-            mx = min ? min(n.getCtrPos().x, mx) : max(n.getCtrPos().x, mx);
-        }
-        return mx;
-    }
+}
 
-    void adjustPosX(int staticLayer1, int flexLayer, int staticLayer2) {
-        List<AbstractBox<?>> flex = layers.get(flexLayer);
-        double currOffset = 0d;
-        for (AbstractBox<?> n : flex) {
-            List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
-            List<AbstractBox<?>> neighbors2 = getConnectedTo(n, staticLayer2);
-            neighbors1.addAll(neighbors2);
-            double bc1 = barycenterX(n.getCtrPos().x, neighbors1) - n.getSize().x / 2d;
-            //            double bc2 = barycenterX(bc1, neighbors2) - n.getSize().x / 2d;
-            n.getPos().x = max(currOffset, bc1);
-            currOffset = n.getPos().x + n.getSize().x + xSeparation;
-            //if ("c3:o3".equals(n.getName())) {
-            //    log.debug(n);
-            //}
-            //log.debug(staticLayer1 + "/" + staticLayer2 + "->" + flexLayer + " " + flex);
-        }
-    }
-
+/*
+ 
+  
     double barycenterX(double def, List<AbstractBox<?>> ln) {
         if (ln.size() == 0) {
             return def;
@@ -287,4 +243,43 @@ public class SugiyamaLayerStack {
             return bc / ln.size();
         }
     }
+ 
+    void xPositions() {
+    double maxx = 0;
+    double x[] = new double[layers.size()];
+    for (int l = 0; l < layers.size(); l++) {
+        double currOffset = 0d;
+        for (AbstractBox<?> n : layers.get(l)) {
+            currOffset += n.getSize().x + xSeparation;
+        }
+        x[l] = currOffset - xSeparation;
+        maxx = max(maxx, x[l]);
+    }
+    for (int l = 0; l < layers.size(); l++) {
+        double currOffset = (maxx - x[l]) / 2d;
+        for (AbstractBox<?> n : layers.get(l)) {
+            n.getPos().x = currOffset;
+            currOffset += n.getSize().x + xSeparation;
+        }
+    }
 }
+
+
+   void adjustPosX(int staticLayer1, int flexLayer, int staticLayer2) {
+    List<AbstractBox<?>> flex = layers.get(flexLayer);
+    double currOffset = 0d;
+    for (AbstractBox<?> n : flex) {
+        List<AbstractBox<?>> neighbors1 = getConnectedTo(n, staticLayer1);
+        List<AbstractBox<?>> neighbors2 = getConnectedTo(n, staticLayer2);
+        neighbors1.addAll(neighbors2);
+        double bc1 = barycenterX(n.getCtrPos().x, neighbors1) - n.getSize().x / 2d;
+        //            double bc2 = barycenterX(bc1, neighbors2) - n.getSize().x / 2d;
+        n.getPos().x = max(currOffset, bc1);
+        currOffset = n.getPos().x + n.getSize().x + xSeparation;
+        //if ("c3:o3".equals(n.getName())) {
+        //    log.debug(n);
+        //}
+        //log.debug(staticLayer1 + "/" + staticLayer2 + "->" + flexLayer + " " + flex);
+    }
+}
+*/

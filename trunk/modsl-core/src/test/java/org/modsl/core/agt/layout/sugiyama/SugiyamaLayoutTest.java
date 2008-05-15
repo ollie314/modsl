@@ -84,7 +84,7 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 	public void layer() {
 		layout.removeCycles();
 		layout.layer();
-		assertEquals(4, layout.stack.size());
+		assertEquals(4, layout.stack.layers.size());
 		assertEquals(0, layout.stack.getLayer(n1));
 		assertEquals(0, layout.stack.getLayer(n2));
 		assertEquals(1, layout.stack.getLayer(n3));
@@ -114,19 +114,19 @@ public class SugiyamaLayoutTest extends AbstractAGTModelTest {
 		layout.removeCycles();
 		layout.layer();
 		layout.insertDummies();
-		assertEquals(2, layout.stack.getElements(0).size());
-		assertTrue(layout.stack.getElements(0).contains(n1));
-		assertTrue(layout.stack.getElements(0).contains(n2));
-		assertEquals(5, layout.stack.getElements(1).size());
-		assertTrue(layout.stack.getElements(1).contains(n3));
-		assertTrue(layout.stack.getElements(1).contains(n4));
-		assertTrue(layout.stack.getElements(1).contains(e1_5.getBend(0)));
-		assertTrue(layout.stack.getElements(1).contains(e2_5.getBend(0)));
-		assertTrue(layout.stack.getElements(1).contains(e6_2.getBend(0)));
-		assertEquals(4, layout.stack.getElements(2).size());
-		assertTrue(layout.stack.getElements(2).contains(e1_5.getBend(1)));
-		assertTrue(layout.stack.getElements(2).contains(e2_5.getBend(1)));
-		assertEquals(1, layout.stack.getElements(3).size());
+		assertEquals(2, layout.stack.layers.get(0).size());
+		assertTrue(layout.stack.layers.get(0).contains(n1));
+		assertTrue(layout.stack.layers.get(0).contains(n2));
+		assertEquals(5, layout.stack.layers.get(1).size());
+		assertTrue(layout.stack.layers.get(1).contains(n3));
+		assertTrue(layout.stack.layers.get(1).contains(n4));
+		assertTrue(layout.stack.layers.get(1).contains(e1_5.getBend(0)));
+		assertTrue(layout.stack.layers.get(1).contains(e2_5.getBend(0)));
+		assertTrue(layout.stack.layers.get(1).contains(e6_2.getBend(0)));
+		assertEquals(4, layout.stack.layers.get(2).size());
+		assertTrue(layout.stack.layers.get(2).contains(e1_5.getBend(1)));
+		assertTrue(layout.stack.layers.get(2).contains(e2_5.getBend(1)));
+		assertEquals(1, layout.stack.layers.get(3).size());
 	}
 
 	@Test
