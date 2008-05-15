@@ -16,6 +16,7 @@
 
 package org.modsl.core.agt.layout;
 
+import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
@@ -32,10 +33,11 @@ public class SimpleNodeLabelPosLayoutVisitor extends AbstractNonConfigurableLayo
 
 	@Override
 	public void apply(Node node) {
+        FontTransform ft = node.getType().getConfig().getFontTransform();
 		if (!node.getLabels().isEmpty()) {
 			Label label = node.getLabels().get(0);
-			label.getPos().x = node.getPos().x;
-			label.getPos().y = node.getPos().y;
+			label.getPos().x = node.getPos().x + ft.getLeftPadding();
+			label.getPos().y = node.getPos().y + ft.getTopPadding();
 		}
 	}
 
