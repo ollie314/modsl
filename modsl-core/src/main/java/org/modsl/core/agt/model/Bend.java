@@ -46,5 +46,14 @@ public class Bend extends AbstractBox<Edge> {
         }
         return false;
     }
+    
+    public Pt getCtrlPt() {
+        Pt p = pos;
+        /*double c = parent.getNode1().cos(parent.getNode2());
+        double s = parent.getNode1().sin(parent.getNode2());
+        p.x = parent.getNode2().getPos().x;
+        p.y = parent.getNode2().getPos().y;*/
+        return p;
+    }
 
 }
