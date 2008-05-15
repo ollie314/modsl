@@ -35,7 +35,6 @@ import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.visitor.ToStringVisitor;
 
 /**
  * Sugiyama layout algorithm
@@ -46,22 +45,13 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
     protected Graph graph;
 
     protected SugiyamaLayerStack stack = new SugiyamaLayerStack();
-    
+
     public SugiyamaLayoutVisitor(MetaType type) {
         super(type);
     }
 
     @Override
-    public String getConfigName() {
-        return "sugiyama_layout";
-    }
-
-    @Override
-    public void in(Graph graph) {
-
-        if (graph.getType() != this.type) {
-            return;
-        }
+    public void apply(Graph graph) {
 
         this.graph = graph;
         removeCycles();
@@ -74,8 +64,13 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         stack.xPositionsAlt();
 
         //log.debug(new ToStringVisitor().toString(graph));
-        
+
         graph.rescale();
+    }
+
+    @Override
+    public String getConfigName() {
+        return "sugiyama_layout";
     }
 
     void insertDummies() {

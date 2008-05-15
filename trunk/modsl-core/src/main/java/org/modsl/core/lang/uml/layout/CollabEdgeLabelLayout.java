@@ -39,10 +39,7 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
 	}
 
 	@Override
-	public void in(Label label) {
-		if (label.getType() != this.type) {
-			return;
-		}
+	public void apply(Label label) {
 		Edge edge = (Edge) label.getParent();
 		Pt midPoint = getMidPoint(edge);
 		FontTransform ft = edge.getType().getConfig().getFt();

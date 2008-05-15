@@ -52,20 +52,7 @@ public class Circle2LayoutVisitor extends AbstractLayoutVisitor {
     }
 
     @Override
-    public String getConfigName() {
-        return "circle_layout";
-    }
-
-    private double getPosAngle(int p) {
-        return PI / 4d - angle * p;
-    }
-
-    @Override
-    public void in(Graph graph) {
-
-        if (graph.getType() != this.type) {
-            return;
-        }
+    public void apply(Graph graph) {
 
         this.graph = graph;
         this.circlePositions = graph.getNodes().size();
@@ -76,6 +63,15 @@ public class Circle2LayoutVisitor extends AbstractLayoutVisitor {
         initCircle();
         optimizeEdgeLength();
 
+    }
+
+    @Override
+    public String getConfigName() {
+        return "circle_layout";
+    }
+
+    private double getPosAngle(int p) {
+        return PI / 4d - angle * p;
     }
 
     private void initCircle() {

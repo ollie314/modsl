@@ -33,10 +33,7 @@ public class SimpleNodeLabelSizeLayoutVisitor extends AbstractNonConfigurableLay
 	}
 
 	@Override
-	public void in(Node node) {
-		if (node.getType() != this.type) {
-			return;
-		}
+	public void apply(Node node) {
 		FontTransform ft = node.getType().getConfig().getFontTransform();
 		if (node.getLabels().isEmpty()) {
 			node.setSize(new Pt(ft.getExtStringWidth(" "), ft.getExtHeight(1)));

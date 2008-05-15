@@ -31,10 +31,7 @@ public class SimpleNodeLabelPosLayoutVisitor extends AbstractNonConfigurableLayo
 	}
 
 	@Override
-	public void in(Node node) {
-		if (node.getType() != this.type) {
-			return;
-		}
+	public void apply(Node node) {
 		if (!node.getLabels().isEmpty()) {
 			Label label = node.getLabels().get(0);
 			label.getPos().x = node.getPos().x;

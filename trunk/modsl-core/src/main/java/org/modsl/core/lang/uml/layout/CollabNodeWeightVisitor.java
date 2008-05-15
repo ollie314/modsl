@@ -31,10 +31,7 @@ public class CollabNodeWeightVisitor extends SimpleNodeLabelSizeLayoutVisitor {
     }
 
     @Override
-    public void in(Node node) {
-        if (node.getType() != this.type) {
-            return;
-        }
+    public void apply(Node node) {
         node.setWeight(node.getInDegree() - node.getOutDegree());
         node.getLabels().get(0).setName(node.getName() + "/" + node.getWeight());
     }
