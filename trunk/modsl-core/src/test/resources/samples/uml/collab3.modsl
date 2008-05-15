@@ -1,19 +1,20 @@
 collaboration ModSL3 { 
-	processor->fontTransform.load();
-	processor->decorators.init();
-	processor->layoutVisitors.init();
 	processor->lexer.tokenStream(); 
 	processor->parser.graph(tokenStream):graph; 
 	processor->nodeLayoutVisitor.accept(graph);
-	nodeLayoutVisitor->nodes.setSize();
+	nodeLayoutVisitor->node.setSize();
 	processor->sugiyamaLayoutVisitor.accept(graph);
-	sugiyamaLayoutVisitor->nodes.setPos();
+	sugiyamaLayoutVisitor->node.setPos();
 	processor->labelLayoutVisitor.accept(graph);
-	labelLayoutVisitor->edgeLabels.setPos();
-	processor->graph.rescale(); 
+	labelLayoutVisitor->nodeLabel.setPos();
+	labelLayoutVisitor->edgeLabel.setPos();
 	processor->stringTemplateVisitor.accept(graph);
 	stringTemplateVisitor->decorators.apply();
-	huessor->labelLayoutVisitor.accept(graph);
-	huessor->sugiyamaLayoutVisitor.accept(graph);
-	edgeLabels->somewhat.setPos();
+	stringTemplateVisitor->stringTemplate.toString();
+	stringTemplate->graph.visit();
+	graph->node.visit();
+	node->nodeLabel.visit();
+	graph->edge.visit();
+	edge->bend.visit();
+	edge->edgeLabel.visit();
 }

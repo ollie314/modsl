@@ -172,7 +172,7 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
             }
         }
         if (graph.getNodes().size() != l.size()) {
-            throw new ModSLException("Topological sort failed for " + graph + " in Sugiyama layout");
+            throw new ModSLException("Topological sort failed for " + graph + " in Sugiyama layout, remaining nodes: " + q);
         }
         return l;
     }
