@@ -21,10 +21,11 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.NodeLabel;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
@@ -57,7 +58,11 @@ public abstract class AbstractLayoutVisitor extends AbstractVisitor {
         // to be overriden
     }
 
-    public void apply(Label<?> bend) {
+    public void apply(NodeLabel bend) {
+        // to be overriden
+    }
+
+    public void apply(EdgeLabel bend) {
         // to be overriden
     }
 
@@ -92,7 +97,14 @@ public abstract class AbstractLayoutVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void in(Label<?> label) {
+    public void in(NodeLabel label) {
+        if (type.equals(label.getType())) {
+            apply(label);
+        }
+    }
+
+    @Override
+    public void in(EdgeLabel label) {
         if (type.equals(label.getType())) {
             apply(label);
         }

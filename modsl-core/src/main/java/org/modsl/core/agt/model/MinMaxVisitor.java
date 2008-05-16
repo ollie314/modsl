@@ -24,7 +24,17 @@ abstract class MinMaxVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void in(Label<?> label) {
+    public void in(EdgeLabel label) {
+        apply(label);
+    }
+
+    @Override
+    public void in(NodeLabel label) {
+        apply(label);
+    }
+
+    @Override
+    public void in(GraphLabel label) {
         apply(label);
     }
 

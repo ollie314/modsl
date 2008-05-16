@@ -20,6 +20,7 @@ import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.NodeLabel;
 
 /**
  * Does simple node label position calculation based on parent node's position
@@ -35,7 +36,7 @@ public class SimpleNodeLabelPosLayoutVisitor extends AbstractNonConfigurableLayo
 	public void apply(Node node) {
         FontTransform ft = node.getType().getConfig().getFontTransform();
 		if (!node.getLabels().isEmpty()) {
-			Label<Node> label = node.getLabels().get(0);
+			NodeLabel label = node.getLabels().get(0);
 			label.getPos().x = node.getPos().x + ft.getLeftPadding();
 			label.getPos().y = node.getPos().y + ft.getTopPadding();
 		}

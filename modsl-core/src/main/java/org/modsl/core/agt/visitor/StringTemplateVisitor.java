@@ -25,9 +25,12 @@ import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.AbstractElement;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.GraphLabel;
 import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.NodeLabel;
 
 /**
  * Renders abstract graph tree as a string using given string template
@@ -140,12 +143,17 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @Override
+    public void in(EdgeLabel label) {
+        callTemplate(label, SUFF_IN);
+    }
+
+    @Override
     public void in(Graph graph) {
         callTemplate(graph, SUFF_IN);
     }
 
     @Override
-    public void in(Label<?> label) {
+    public void in(GraphLabel label) {
         callTemplate(label, SUFF_IN);
     }
 
@@ -155,8 +163,18 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @Override
+    public void in(NodeLabel label) {
+        callTemplate(label, SUFF_IN);
+    }
+
+    @Override
     public void out(Edge edge) {
         callTemplate(edge, SUFF_OUT);
+    }
+
+    @Override
+    public void out(EdgeLabel label) {
+        callTemplate(label, SUFF_OUT);
     }
 
     @Override
@@ -165,13 +183,18 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void out(Label<?> label) {
+    public void out(GraphLabel label) {
         callTemplate(label, SUFF_OUT);
     }
 
     @Override
     public void out(Node node) {
         callTemplate(node, SUFF_OUT);
+    }
+
+    @Override
+    public void out(NodeLabel label) {
+        callTemplate(label, SUFF_OUT);
     }
 
     @Override

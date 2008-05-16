@@ -17,30 +17,17 @@
 package org.modsl.core.agt.model;
 
 import org.modsl.core.agt.common.FontTransform;
-import org.modsl.core.agt.visitor.AbstractVisitor;
 
-public class Label<P extends AbstractElement<?>> extends AbstractBox<P> {
+public abstract class Label<P extends AbstractElement<?>> extends AbstractBox<P> {
 
-    private static int counter = 0;
+    static int counter = 0;
 
     FontTransform ft;
-
-    public Label(MetaType type) {
-        super(type);
-        this.index = counter++;
-        this.ft = getType().getConfig().getFt();
-    }
 
     public Label(MetaType type, String name) {
         super(type, name);
         this.index = counter++;
         this.ft = getType().getConfig().getFt();
-    }
-
-    @Override
-    public void accept(AbstractVisitor visitor) {
-        visitor.in(this);
-        visitor.out(this);
     }
 
     public Pt getTextPos() {

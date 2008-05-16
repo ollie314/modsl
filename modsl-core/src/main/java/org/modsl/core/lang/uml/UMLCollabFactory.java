@@ -21,9 +21,10 @@ import java.util.List;
 
 import org.antlr.runtime.Token;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.NodeLabel;
 
 /**
  * Responsible for supporting the grammar when new abstract graph tree elements
@@ -32,77 +33,77 @@ import org.modsl.core.agt.model.Node;
  */
 public class UMLCollabFactory extends AbstractUMLFactory {
 
-	protected int edgeCounter = 1;
+    protected int edgeCounter = 1;
 
-	/**
-	 * Create list of edges given list of edge tokens
-	 * @param parent parent node the edges belong to
-	 * @param ctokens edge tokens
-	 * @return list of edges
-	 */
-	public List<Edge> createEdges(Graph parent, List<Token> ctokens, List<Token> mtokens) {
+    /**
+     * Create list of edges given list of edge tokens
+     * @param parent parent node the edges belong to
+     * @param ctokens edge tokens
+     * @return list of edges
+     */
+    public List<Edge> createEdges(Graph parent, List<Token> ctokens, List<Token> mtokens) {
 
-		List<Edge> es = new LinkedList<Edge>();
+        List<Edge> es = new LinkedList<Edge>();
 
-		Node n1 = null, n2 = null;
-		Token t1, t2;
+        Node n1 = null, n2 = null;
+        Token t1, t2;
 
-		for (int i = 0; i < ctokens.size() - 1; i++) {
+        for (int i = 0; i < ctokens.size() - 1; i++) {
 
-			t1 = ctokens.get(i);
-			t2 = ctokens.get(i + 1);
+            t1 = ctokens.get(i);
+            t2 = ctokens.get(i + 1);
 
-			if (i == 0) {
-				n1 = createNodeIfDoesntExist(parent, t1);
-			}
-			n2 = createNodeIfDoesntExist(parent, t2);
+            if (i == 0) {
+                n1 = createNodeIfDoesntExist(parent, t1);
+            }
+            n2 = createNodeIfDoesntExist(parent, t2);
 
-			String label = (edgeCounter++) + ":" + mtokens.get(i).getText();
-			Edge e = new Edge(UMLMetaType.COLLAB_EDGE, label, n1, n2);
-			e.addLabel(new Label<Edge>(UMLMetaType.COLLAB_EDGE_LABEL, label));
-			parent.add(e);
-			es.add(e);
+            String label = (edgeCounter++) + ":" + mtokens.get(i).getText();
+            Edge e = new Edge(UMLMetaType.COLLAB_EDGE, label, n1, n2);
+            e.addLabel(new EdgeLabel(UMLMetaType.COLLAB_EDGE_LABEL, label));
+            parent.add(e);
+            es.add(e);
 
-			n1 = n2; // << shift
+            n1 = n2; // << shift
 
-		}
+        }
 
-		return es;
+        return es;
 
-	}
+    }
 
-	/**
-	 * Create node from token
-	 * @param parent parent
-	 * @param token node token
-	 * @return new node
-	 */
-	private Node createNode(Graph parent, Token token) {
-		Node n = new Node(UMLMetaType.COLLAB_NODE, token.getText());
-		n.addLabel(new Label<Node>(UMLMetaType.COLLAB_NODE_LABEL, token.getText()));
-		parent.add(n);
-		return n;
-	}
+    /**
+     * Create node from token
+     * @param parent parent
+     * @param token node token
+     * @return new node
+     */
+    private Node createNode(Graph parent, Token token) {
+        Node n = new Node(UMLMetaType.COLLAB_NODE, token.getText());
+        n.addLabel(new NodeLabel(UMLMetaType.COLLAB_NODE_LABEL, token.getText()));
+        parent.add(n);
+        return n;
+    }
 
-	/**
-	 * Will create node by given name if the node with such name doesn't exist
-	 * yet
-	 * @param parent parent node
-	 * @param token new node token
-	 * @return node
-	 */
-	private Node createNodeIfDoesntExist(Graph parent, Token token) {
-		Node n = parent.getNode(token.getText());
-		if (n == null) {
-			return createNode(parent, token);
-		} else {
-			return n;
-		}
-	}
+    /**
+     * Will create node by given name if the node with such name doesn't exist
+     * yet
+     * @param parent parent node
+     * @param token new node token
+     * @return node
+     */
+    private Node createNodeIfDoesntExist(Graph parent, Token token) {
+        Node n = parent.getNode(token.getText());
+        if (n == null) {
+            return createNode(parent, token);
+        } else {
+            return n;
+        }
+    }
 
-	@Override
-	public Graph createGraph() {
-		return new Graph(UMLMetaType.COLLAB_GRAPH);
-	}
+    @Override
+    public Graph createGraph() {
+        return new Graph(UMLMetaType.COLLAB_GRAPH);
+    }
 
 }

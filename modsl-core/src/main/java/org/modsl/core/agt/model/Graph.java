@@ -40,7 +40,7 @@ public class Graph extends AbstractBox<Graph> {
     /**
      * Labels
      */
-    List<Label<Graph>> labels = new LinkedList<Label<Graph>>();
+    List<GraphLabel> labels = new LinkedList<GraphLabel>();
 
     /**
      * Map of children nodes {name->node}
@@ -98,7 +98,7 @@ public class Graph extends AbstractBox<Graph> {
         for (Node n : nodes) {
             n.accept(visitor);
         }
-        for (Label<Graph> l : getLabels()) {
+        for (GraphLabel l : getLabels()) {
             l.accept(visitor);
         }
         visitor.out(this);
@@ -141,8 +141,8 @@ public class Graph extends AbstractBox<Graph> {
     /**
      * @return all edge labels
      */
-    public List<Label<Edge>> getEdgeLabels() {
-        List<Label<Edge>> l = new LinkedList<Label<Edge>>();
+    public List<EdgeLabel> getEdgeLabels() {
+        List<EdgeLabel> l = new LinkedList<EdgeLabel>();
         for (Edge e : edges) {
             l.addAll(e.getLabels());
         }
@@ -160,7 +160,7 @@ public class Graph extends AbstractBox<Graph> {
         return new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1);
     }
 
-    public List<Label<Graph>> getLabels() {
+    public List<GraphLabel> getLabels() {
         return labels;
     }
 
@@ -212,8 +212,8 @@ public class Graph extends AbstractBox<Graph> {
         MinMaxVisitor mmv = new MinMaxVisitor(new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE)) {
             @Override
             void apply(AbstractBox<?> b) {
-                p.x = max(p.x, b.pos.x);
-                p.y = max(p.y, b.pos.y);
+                p.x = max(p.x, b.getPos().x);
+                p.y = max(p.y, b.getPos().y);
             }
         };
         accept(mmv);
@@ -228,8 +228,8 @@ public class Graph extends AbstractBox<Graph> {
         MinMaxVisitor mmv = new MinMaxVisitor(new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE)) {
             @Override
             void apply(AbstractBox<?> b) {
-                p.x = max(p.x, b.pos.x + b.size.x);
-                p.y = max(p.y, b.pos.y + b.size.y);
+                p.x = max(p.x, b.getPos().x + b.getSize().x);
+                p.y = max(p.y, b.getPos().y + b.getSize().y);
             }
         };
         accept(mmv);
@@ -243,7 +243,7 @@ public class Graph extends AbstractBox<Graph> {
         MinMaxVisitor mmv = new MinMaxVisitor() {
             @Override
             void apply(AbstractBox<?> b) {
-                box = box == null ? b : (box.pos.x + box.size.x < b.pos.x + b.size.x ? b : box);
+                box = box == null ? b : (box.getPos().x + box.getSize().x < b.getPos().x + b.getSize().x ? b : box);
             }
         };
         accept(mmv);
@@ -257,7 +257,7 @@ public class Graph extends AbstractBox<Graph> {
         MinMaxVisitor mmv = new MinMaxVisitor() {
             @Override
             void apply(AbstractBox<?> b) {
-                box = box == null ? b : (box.pos.y + box.size.y < b.pos.y + b.size.y ? b : box);
+                box = box == null ? b : (box.getPos().y + box.getSize().y < b.getPos().y + b.getSize().y ? b : box);
             }
         };
         accept(mmv);
@@ -277,8 +277,8 @@ public class Graph extends AbstractBox<Graph> {
         MinMaxVisitor mmv = new MinMaxVisitor(new Pt(Double.MAX_VALUE, Double.MAX_VALUE)) {
             @Override
             void apply(AbstractBox<?> b) {
-                p.x = min(p.x, b.pos.x);
-                p.y = min(p.y, b.pos.y);
+                p.x = min(p.x, b.getPos().x);
+                p.y = min(p.y, b.getPos().y);
             }
         };
         accept(mmv);
@@ -292,7 +292,7 @@ public class Graph extends AbstractBox<Graph> {
         MinMaxVisitor mmv = new MinMaxVisitor(minPt()) {
             @Override
             void apply(AbstractBox<?> b) {
-                b.pos.decBy(p);
+                b.getPos().decBy(p);
             }
         };
         accept(mmv);
@@ -337,7 +337,7 @@ public class Graph extends AbstractBox<Graph> {
         AbstractBox<?> maxXBox = maxXBox();
         AbstractBox<?> maxYBox = maxYBox();
 
-        Pt maxXYSize = new Pt(maxXBox.size.x, maxYBox.size.y);
+        Pt maxXYSize = new Pt(maxXBox.getSize().x, maxYBox.getSize().y);
 
         final Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
         final Pt sizeExt = size.minus(maxXYSize).max(1d, 1d);
@@ -346,7 +346,7 @@ public class Graph extends AbstractBox<Graph> {
         MinMaxVisitor mmv = new MinMaxVisitor() {
             @Override
             void apply(AbstractBox<?> b) {
-                b.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
+                b.getPos().mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
             }
         };
         accept(mmv);
