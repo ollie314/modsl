@@ -22,7 +22,7 @@ public class NodeLabel extends Label<Node> {
 
     @Override
     public Pt getPos() {
-        return super.getPos().plus(offset);
+        return getParent().getPos().plus(offset);
     }
 
     public void setOffset(Pt offset) {

@@ -18,7 +18,7 @@ package org.modsl.core.agt.model;
 
 import org.modsl.core.agt.common.FontTransform;
 
-public abstract class Label<P extends AbstractElement<?>> extends AbstractBox<P> {
+abstract class Label<P extends AbstractElement<?>> extends AbstractBox<P> {
 
     static int counter = 0;
 
