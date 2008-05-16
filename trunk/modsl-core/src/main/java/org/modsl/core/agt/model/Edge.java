@@ -17,8 +17,6 @@
 package org.modsl.core.agt.model;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 import java.util.LinkedList;
 import java.util.List;
