@@ -25,13 +25,38 @@ import org.modsl.core.agt.model.MetaType;
  */
 public enum UMLMetaType implements MetaType {
 
-	COLLAB_GRAPH, COLLAB_NODE, COLLAB_NODE_LABEL, COLLAB_EDGE, COLLAB_EDGE_LABEL;
+    // Collaboration
+    COLLAB_GRAPH,
+    
+    COLLAB_NODE,
+    COLLAB_NODE_LABEL,
+    
+    COLLAB_EDGE,
+    COLLAB_EDGE_LABEL,
+   
+    // Class
+    CLASS_GRAPH,
 
-	protected MetaTypeConfig config = new MetaTypeConfig();
+    CLASS_CLASS_NODE,
+    CLASS_INTERFACE_NODE,
+    CLASS_VAR_NODE_LABEL,
+    CLASS_METHOD_NODE_LABEL,
+    CLASS_STATIC_VAR_NODE_LABEL,
+    CLASS_STATIC_METHOD_NODE_LABEL,
+    
+    CLASS_EXTENDS_EDGE,
+    CLASS_IMPLEMENTS_EDGE,
+    
+    CLASS_AGGREGATION_EDGE,
+    CLASS_COMPOSITION_EDGE,
+    CLASS_MULTIPLICITY_FROM_EDGE_LABEL,
+    CLASS_MULTIPLICITY_TO_EDGE_LABEL;
 
-	@Override
-	public MetaTypeConfig getConfig() {
-		return config;
-	}
+    protected MetaTypeConfig config = new MetaTypeConfig();
+
+    @Override
+    public MetaTypeConfig getConfig() {
+        return config;
+    }
 
 }
