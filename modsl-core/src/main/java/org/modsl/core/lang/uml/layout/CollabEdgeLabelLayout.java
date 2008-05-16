@@ -26,7 +26,6 @@ import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Pt;
 

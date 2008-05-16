@@ -28,7 +28,6 @@ import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.GraphLabel;
-import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
 
@@ -90,7 +89,27 @@ public class StringTemplateVisitor extends AbstractVisitor {
      * @param label
      * @param suff _in or _out
      */
-    private void callTemplate(Label<?> label, String suff) {
+    private void callTemplate(NodeLabel label, String suff) {
+        sb.append(callTemplate(label.getType() + suff, "label", label));
+    }
+
+    /**
+     * Call template "labelType"_suff (labelType_in or labelType_out) on the
+     * given label
+     * @param label
+     * @param suff _in or _out
+     */
+    private void callTemplate(EdgeLabel label, String suff) {
+        sb.append(callTemplate(label.getType() + suff, "label", label));
+    }
+
+    /**
+     * Call template "labelType"_suff (labelType_in or labelType_out) on the
+     * given label
+     * @param label
+     * @param suff _in or _out
+     */
+    private void callTemplate(GraphLabel label, String suff) {
         sb.append(callTemplate(label.getType() + suff, "label", label));
     }
 
