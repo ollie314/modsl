@@ -48,7 +48,7 @@ public class Bend extends AbstractBox<Edge> {
     }
     
     public Pt getCtrlPt() {
-        Pt p = pos;
+        Pt p = getPos();
         /*double c = parent.getNode1().cos(parent.getNode2());
         double s = parent.getNode1().sin(parent.getNode2());
         p.x = parent.getNode2().getPos().x;

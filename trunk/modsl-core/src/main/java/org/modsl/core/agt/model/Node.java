@@ -40,7 +40,7 @@ public class Node extends AbstractBox<Graph> {
     /**
      * Labels
      */
-    List<Label<Node>> labels = new LinkedList<Label<Node>>();
+    List<NodeLabel> labels = new LinkedList<NodeLabel>();
 
     /**
      * Create new
@@ -55,7 +55,7 @@ public class Node extends AbstractBox<Graph> {
     @Override
     public void accept(AbstractVisitor visitor) {
         visitor.in(this);
-        for (Label<Node> l : labels) {
+        for (NodeLabel l : labels) {
             l.accept(visitor);
         }
         visitor.out(this);
@@ -65,7 +65,7 @@ public class Node extends AbstractBox<Graph> {
         return connectedEdges.add(edge);
     }
 
-    public void addLabel(Label<Node> label) {
+    public void addLabel(NodeLabel label) {
         labels.add(label);
         label.setParent(this);
     }
@@ -84,7 +84,7 @@ public class Node extends AbstractBox<Graph> {
         return ins;
     }
 
-    public List<Label<Node>> getLabels() {
+    public List<NodeLabel> getLabels() {
         return labels;
     }
 
@@ -117,7 +117,7 @@ public class Node extends AbstractBox<Graph> {
 
     @Override
     public String toString() {
-        return super.toString() + "@" + pos;
+        return super.toString() + "@" + getPos();
     }
 
 }

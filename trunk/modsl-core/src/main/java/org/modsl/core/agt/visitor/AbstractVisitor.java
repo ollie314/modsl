@@ -18,9 +18,11 @@ package org.modsl.core.agt.visitor;
 
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.model.Label;
+import org.modsl.core.agt.model.GraphLabel;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.NodeLabel;
 
 /**
  * Visitor interface to traverse the abstarct graph tree. For each type of node
@@ -49,6 +51,14 @@ public abstract class AbstractVisitor {
     }
 
     /**
+     * Enter edge label
+     * @param label
+     */
+    public void in(EdgeLabel label) {
+        // NO OP
+    }
+
+    /**
      * Enter graph
      * @param graph
      */
@@ -57,10 +67,10 @@ public abstract class AbstractVisitor {
     }
 
     /**
-     * Enter label
+     * Enter graph label
      * @param label
      */
-    public void in(Label<?> label) {
+    public void in(GraphLabel label) {
         // NO OP
     }
 
@@ -69,6 +79,14 @@ public abstract class AbstractVisitor {
      * @param node
      */
     public void in(Node node) {
+        // NO OP
+    }
+
+    /**
+     * Enter node label
+     * @param label
+     */
+    public void in(NodeLabel label) {
         // NO OP
     }
 
@@ -87,6 +105,15 @@ public abstract class AbstractVisitor {
     public void out(Edge edge) {
         // NO OP
     }
+
+    /**
+     * Exit edge label
+     * @param label
+     */
+    public void out(EdgeLabel label) {
+        // NO OP
+    }
+
     /**
      * Exit graph
      * @param graph
@@ -96,10 +123,10 @@ public abstract class AbstractVisitor {
     }
 
     /**
-     * Exit label
+     * Exit graph label
      * @param label
      */
-    public void out(Label<?> label) {
+    public void out(GraphLabel label) {
         // NO OP
     }
 
@@ -108,6 +135,14 @@ public abstract class AbstractVisitor {
      * @param node
      */
     public void out(Node node) {
+        // NO OP
+    }
+
+    /**
+     * Exit node label
+     * @param label
+     */
+    public void out(NodeLabel label) {
         // NO OP
     }
 

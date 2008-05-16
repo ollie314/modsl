@@ -24,6 +24,7 @@ import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Label;
 import org.modsl.core.agt.model.MetaType;
@@ -42,26 +43,26 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
     @Override
     public void apply(final Graph graph) {
 
-        List<Label<Edge>> labels = graph.getEdgeLabels();
+        List<EdgeLabel> labels = graph.getEdgeLabels();
 
         if (labels.isEmpty()) {
             return;
         }
 
-        for (Label<Edge> label : labels) {
+        for (EdgeLabel label : labels) {
             Edge edge = label.getParent();
             FontTransform ft = edge.getType().getConfig().getFt();
             label.setSize(new Pt(ft.getStringWidth(edge.getName()), ft.getHeight()));
             label.setPos(getMidPoint(label, 0));
         }
 
-        Collections.sort(labels, new Comparator<Label<Edge>>() {
+        Collections.sort(labels, new Comparator<EdgeLabel>() {
 
-            public int compare(Label<Edge> l1, Label<Edge> l2) {
+            public int compare(EdgeLabel l1, EdgeLabel l2) {
                 return ind(l1) - ind(l2);
             }
 
-            protected int ind(Label<Edge> l) {
+            protected int ind(EdgeLabel l) {
                 return (int) (l.getPos().y * l.getPos().y + l.getPos().x);
             }
 
@@ -69,9 +70,9 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
 
         //log.debug(labels);
 
-        Label<Edge> last = null;
-        Label<Edge> beforeLast = null;
-        for (Label<Edge> label : labels) {
+        EdgeLabel last = null;
+        EdgeLabel beforeLast = null;
+        for (EdgeLabel label : labels) {
             if (last == null) {
                 last = labels.get(0);
             } else {
@@ -93,7 +94,7 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
     /**
      * @return position of the connector's midpoint
      */
-    public Pt getMidPoint(Label<Edge> label, double offset) {
+    public Pt getMidPoint(EdgeLabel label, double offset) {
         Edge edge = label.getParent();
         AbstractBox<?> n1 = edge.getLastBend();
         AbstractBox<?> n2 = edge.getNode2();
