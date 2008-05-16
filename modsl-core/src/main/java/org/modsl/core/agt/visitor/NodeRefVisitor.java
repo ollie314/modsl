@@ -43,7 +43,7 @@ public class NodeRefVisitor extends AbstractVisitor {
      * @param nodeName
      * @return node
      */
-    private Node resolveNode(AbstractElement parent, Node node, String nodeName) {
+    private Node resolveNode(AbstractElement<?> parent, Node node, String nodeName) {
         if (node == null) {
             Node n = ((Graph) parent).getNode(nodeName);
             if (n == null) {

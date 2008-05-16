@@ -99,7 +99,7 @@ public abstract class AbstractVisitor {
      * Exit label
      * @param label
      */
-    public void out(Label label) {
+    public void out(Label<?> label) {
         // NO OP
     }
 

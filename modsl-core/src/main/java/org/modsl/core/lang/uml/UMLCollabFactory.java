@@ -59,7 +59,7 @@ public class UMLCollabFactory extends AbstractUMLFactory {
 
 			String label = (edgeCounter++) + ":" + mtokens.get(i).getText();
 			Edge e = new Edge(UMLMetaType.COLLAB_EDGE, label, n1, n2);
-			e.addLabel(new Label(UMLMetaType.COLLAB_EDGE_LABEL, label));
+			e.addLabel(new Label<Edge>(UMLMetaType.COLLAB_EDGE_LABEL, label));
 			parent.add(e);
 			es.add(e);
 
@@ -79,7 +79,7 @@ public class UMLCollabFactory extends AbstractUMLFactory {
 	 */
 	private Node createNode(Graph parent, Token token) {
 		Node n = new Node(UMLMetaType.COLLAB_NODE, token.getText());
-		n.addLabel(new Label(UMLMetaType.COLLAB_NODE_LABEL, token.getText()));
+		n.addLabel(new Label<Node>(UMLMetaType.COLLAB_NODE_LABEL, token.getText()));
 		parent.add(n);
 		return n;
 	}
