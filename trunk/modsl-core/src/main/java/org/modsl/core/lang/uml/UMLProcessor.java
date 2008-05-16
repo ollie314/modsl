@@ -29,7 +29,6 @@ import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
 import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
-import org.modsl.core.lang.uml.decorator.CollabNodeLabelDecorator;
 import org.modsl.core.lang.uml.layout.CollabEdgeLabelLayout;
 import org.modsl.core.lang.uml.layout.CollabNodeLayoutVisitor;
 
@@ -68,7 +67,6 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
     @Override
     public void initDecorators() {
         UMLMetaType.COLLAB_GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
-        UMLMetaType.COLLAB_NODE_LABEL.getConfig().setDecorator(new CollabNodeLabelDecorator());
         UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
     }
 

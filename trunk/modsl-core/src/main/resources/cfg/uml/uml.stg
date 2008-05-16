@@ -29,7 +29,7 @@ COLLAB_NODE_in(node, decor) ::= <<
 
 COLLAB_NODE_LABEL_in(label, decor) ::= <<
 
-<line x1="$decor.underline1.x$" y1="$decor.underline1.y$" x2="$decor.underline2.x$" y2="$decor.underline2.y$" class="collabnodelabel"/>
+<line x1="$label.underline1.x$" y1="$label.underline1.y$" x2="$label.underline2.x$" y2="$label.underline2.y$" class="collabnodelabel"/>
 <text x="$label.textPos.x$" y="$label.textPos.y$" class="collabnodelabel">$label.name$</text>
 >>
 
