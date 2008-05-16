@@ -49,7 +49,7 @@ public class EdgeLabel extends Label<Edge> {
 
     public void setOffset(double x, double y) {
         this.offset.x = x;
-        this.offset.x = y;
+        this.offset.y = y;
     }
 
 }
