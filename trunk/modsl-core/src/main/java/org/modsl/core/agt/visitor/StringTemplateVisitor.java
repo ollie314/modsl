@@ -87,7 +87,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
      * @param label
      * @param suff _in or _out
      */
-    private void callTemplate(Label label, String suff) {
+    private void callTemplate(Label<?> label, String suff) {
         sb.append(callTemplate(label.getType() + suff, "label", label));
     }
 
@@ -145,7 +145,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void in(Label label) {
+    public void in(Label<?> label) {
         callTemplate(label, SUFF_IN);
     }
 
@@ -165,7 +165,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void out(Label label) {
+    public void out(Label<?> label) {
         callTemplate(label, SUFF_OUT);
     }
 

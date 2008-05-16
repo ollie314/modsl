@@ -75,7 +75,7 @@ public class BasicFactory implements ElementFactory {
 	 */
 	public Node createNode(Graph parent, Token token) {
 		Node n = new Node(BasicMetaType.NODE, token.getText());
-		n.addLabel(new Label(BasicMetaType.NODE_LABEL, token.getText()));
+		n.addLabel(new Label<Node>(BasicMetaType.NODE_LABEL, token.getText()));
 		parent.add(n);
 		return n;
 	}
