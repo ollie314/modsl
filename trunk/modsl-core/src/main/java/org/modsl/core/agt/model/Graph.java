@@ -127,7 +127,7 @@ public class Graph extends AbstractBox<Graph> {
      * @return node's area in pixels^2
      */
     public double getArea() {
-        return size.x * size.y;
+        return getSize().x * getSize().y;
     }
 
     /**
@@ -318,7 +318,7 @@ public class Graph extends AbstractBox<Graph> {
      */
     public void rescale() {
         recalcSize();
-        rescale(size.plus(getExtraPadding()));
+        rescale(getSize().plus(getExtraPadding()));
     }
 
     /**
@@ -340,7 +340,7 @@ public class Graph extends AbstractBox<Graph> {
         Pt maxXYSize = new Pt(maxXBox.getSize().x, maxYBox.getSize().y);
 
         final Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
-        final Pt sizeExt = size.minus(maxXYSize).max(1d, 1d);
+        final Pt sizeExt = getSize().minus(maxXYSize).max(1d, 1d);
         final Pt topLeft = new Pt(leftPadding, topPadding);
 
         MinMaxVisitor mmv = new MinMaxVisitor() {

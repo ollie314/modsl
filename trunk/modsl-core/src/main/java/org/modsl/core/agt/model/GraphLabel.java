@@ -22,11 +22,7 @@ public class GraphLabel extends Label<Graph> {
 
     @Override
     public Pt getPos() {
-        return super.getPos().plus(offset);
-    }
-
-    public void setOffset(Pt offset) {
-        this.offset = offset;
+        return getParent().getPos().plus(offset);
     }
 
 }
