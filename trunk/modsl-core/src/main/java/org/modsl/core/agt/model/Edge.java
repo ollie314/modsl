@@ -66,7 +66,7 @@ public class Edge extends AbstractElement<Graph> {
     /**
      * Labels
      */
-    List<Label> labels = new LinkedList<Label>();
+    List<Label<Edge>> labels = new LinkedList<Label<Edge>>();
 
     /**
      * Create new
@@ -102,7 +102,7 @@ public class Edge extends AbstractElement<Graph> {
         for (Bend b : bends) {
             b.accept(visitor);
         }
-        for (Label l : labels) {
+        for (Label<Edge> l : labels) {
             l.accept(visitor);
         }
         visitor.out(this);
@@ -117,7 +117,7 @@ public class Edge extends AbstractElement<Graph> {
         bend.setParent(this);
     }
 
-    public void addLabel(Label label) {
+    public void addLabel(Label<Edge> label) {
         labels.add(label);
         label.setParent(this);
     }
@@ -181,7 +181,7 @@ public class Edge extends AbstractElement<Graph> {
         }
     }
 
-    public List<Label> getLabels() {
+    public List<Label<Edge>> getLabels() {
         return labels;
     }
 
