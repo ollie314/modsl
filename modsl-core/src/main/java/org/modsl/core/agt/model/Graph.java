@@ -222,21 +222,15 @@ public class Graph extends AbstractBox<Graph> {
      * @return max (x, y)
      */
     public Pt maxPt() {
-        Pt s = new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE);
-        for (Node n : nodes) {
-            s.x = max(s.x, n.pos.x + n.size.x);
-            s.y = max(s.y, n.pos.y + n.size.y);
-        }
-        for (Edge e : edges) {
-            Pt p = e.getMaxPt();
-            s.x = max(s.x, p.x);
-            s.y = max(s.y, p.y);
-        }
-        for (Label<Graph> l : getLabels()) {
-            s.x = max(s.x, l.pos.x + l.size.x);
-            s.y = max(s.y, l.pos.y + l.size.y);
-        }
-        return s;
+        MinMaxVisitor mmv = new MinMaxVisitor(new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE)) {
+            @Override
+            void apply(AbstractBox<?> b) {
+                p.x = max(p.x, b.pos.x + b.size.x);
+                p.y = max(p.y, b.pos.y + b.size.y);
+            }
+        };
+        accept(mmv);
+        return mmv.p;
     }
 
     /**
@@ -271,45 +265,28 @@ public class Graph extends AbstractBox<Graph> {
      * @return min (x, y)
      */
     public Pt minPt() {
-        Pt s = new Pt(Double.MAX_VALUE, Double.MAX_VALUE);
-        for (Node n : nodes) {
-            s.x = min(s.x, n.pos.x);
-            s.y = min(s.y, n.pos.y);
-        }
-        for (Edge e : edges) {
-            Pt p = e.getMinPt();
-            s.x = min(s.x, p.x);
-            s.y = min(s.y, p.y);
-        }
-        for (Label<Graph> l : getLabels()) {
-            s.x = min(s.x, l.pos.x);
-            s.y = min(s.y, l.pos.y);
-        }
-        return s;
+        MinMaxVisitor mmv = new MinMaxVisitor(new Pt(Double.MAX_VALUE, Double.MAX_VALUE)) {
+            @Override
+            void apply(AbstractBox<?> b) {
+                p.x = min(p.x, b.pos.x);
+                p.y = min(p.y, b.pos.y);
+            }
+        };
+        accept(mmv);
+        return mmv.p;
     }
 
     /**
      * Shift (x, y) on all vertexes to bring min(x, y) to (0, 0)
      */
     public void normalize() {
-        Pt min = minPt();
-        for (Label<Graph> l : getLabels()) {
-            l.pos.decBy(min);
-        }
-        for (Node n : nodes) {
-            n.pos.decBy(min);
-            for (Label<Node> l : n.getLabels()) {
-                l.pos.decBy(min);
+        MinMaxVisitor mmv = new MinMaxVisitor(minPt()) {
+            @Override
+            void apply(AbstractBox<?> b) {
+                b.pos.decBy(p);
             }
-        }
-        for (Edge e : edges) {
-            for (Label<Edge> l : e.getLabels()) {
-                l.pos.decBy(min);
-            }
-            for (Bend b : e.getBends()) {
-                b.pos.decBy(min);
-            }
-        }
+        };
+        accept(mmv);
     }
 
     public void randomize(long seed) {
