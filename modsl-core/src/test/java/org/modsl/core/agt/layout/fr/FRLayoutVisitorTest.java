@@ -6,13 +6,10 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.modsl.core.agt.TMetaType;
-import org.modsl.core.agt.layout.fr.Bar;
-import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.agt.visitor.ToStringVisitor;
 
 public class FRLayoutVisitorTest {
 
@@ -35,9 +32,9 @@ public class FRLayoutVisitorTest {
 
         graph.setReqSize(new Pt(100d, 100d));
         graph.add(n1);
-        n1.setSize(new Pt(10d, 10d));
+        n1.setSize(10d, 10d);
         graph.add(n2);
-        n2.setSize(new Pt(10d, 10d));
+        n2.setSize(10d, 10d);
         graph.add(e1_2);
 
         layout.maxIterations = 100;

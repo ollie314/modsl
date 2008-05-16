@@ -115,9 +115,4 @@ public class Node extends AbstractBox<Graph> {
         return connectedEdges.remove(edge);
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "@" + getPos();
-    }
-
 }

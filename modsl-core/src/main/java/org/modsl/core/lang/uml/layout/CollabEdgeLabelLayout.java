@@ -22,12 +22,10 @@ import java.util.List;
 
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
-import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
-import org.modsl.core.agt.model.Pt;
 
 /**
  * Edge label placement
@@ -51,8 +49,10 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
         for (EdgeLabel label : labels) {
             Edge edge = label.getParent();
             FontTransform ft = edge.getType().getConfig().getFt();
-            label.setSize(new Pt(ft.getStringWidth(edge.getName()), ft.getHeight()));
-            label.setPos(getMidPoint(label, 0));
+            label.setSize(ft.getStringWidth(edge.getName()), ft.getHeight());
+            label.setAnchor1(edge.getLastBend());
+            label.setAnchor2(edge.getNode2());
+            label.setOffset(0d, 0d);
         }
 
         Collections.sort(labels, new Comparator<EdgeLabel>() {
@@ -67,7 +67,7 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
 
         });
 
-        //log.debug(labels);
+        log.debug(labels);
 
         EdgeLabel last = null;
         EdgeLabel beforeLast = null;
@@ -82,26 +82,12 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
                 if (beforeLast != null && beforeLast.overlaps(label)) {
                     offset = -label.getSize().y - 1;
                 }
-                label.setPos(getMidPoint(label, offset));
+                label.setOffset(0d, offset);
                 beforeLast = last;
                 last = label;
             }
         }
 
-    }
-
-    /**
-     * @return position of the connector's midpoint
-     */
-    public Pt getMidPoint(EdgeLabel label, double offset) {
-        Edge edge = label.getParent();
-        AbstractBox<?> n1 = edge.getLastBend();
-        AbstractBox<?> n2 = edge.getNode2();
-        double ratio = 1d / 2d;
-        Pt mid = n1.getCtrPos().plus(n2.getCtrPos().minus(n1.getCtrPos()).mulBy(ratio));
-        mid.incBy(new Pt(offset / n1.tan(n2), offset));
-        mid.decBy(new Pt(label.getSize().x / 2d, label.getSize().y / 2d));
-        return mid;
     }
 
 }

@@ -102,7 +102,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return true if p is within boundaries of this box
      */
     public boolean contains(Pt p) {
-        if (pos.x < p.x && pos.y < p.y && p.x < pos.x + size.x && p.y < pos.y + size.y) {
+        if (getPos().x < p.x && getPos().y < p.y && p.x < getPos().x + getSize().x && p.y < getPos().y + getSize().y) {
             return true;
         } else {
             return false;
@@ -113,7 +113,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return cos of angle between 0 and diagonal of this box
      */
     public double cos() {
-        return size.x / size.lenSafe();
+        return getSize().x / getSize().lenSafe();
     }
 
     /**
@@ -135,7 +135,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return center position (will be different from pos if size > 0)
      */
     public Pt getCtrPos() {
-        return pos.plus(size.div(2d));
+        return getPos().plus(getSize().div(2d));
     }
 
     public Pt getDisp() {
@@ -220,33 +220,34 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return true if boxes overlap
      */
     public boolean overlaps(AbstractBox<?> b2) {
-        if (pos.x > (b2.pos.x + b2.size.x) || (pos.x + size.x) < b2.pos.x) {
+        if (getPos().x > (b2.getPos().x + b2.getSize().x) || (getPos().x + getSize().x) < b2.getPos().x) {
             return false;
         }
-        if (pos.y > (b2.pos.y + b2.size.y) || (pos.y + size.y) < b2.pos.y) {
+        if (getPos().y > (b2.getPos().y + b2.getSize().y) || (getPos().y + getSize().y) < b2.getPos().y) {
             return false;
         }
         return true;
     }
 
-    public void setDisp(Pt altPos) {
-        this.disp = altPos;
+    public void setDisp(double x, double y) {
+        this.disp.x = x;
+        this.disp.y = y;
     }
 
     /**
      * Set position (top left corner)
-     * @param pos
      */
-    public void setPos(Pt point) {
-        this.pos = point;
+    public void setPos(double x, double y) {
+        this.pos.x = x;
+        this.pos.y = y;
     }
 
     /**
      * Set size
-     * @param size
      */
-    public void setSize(Pt size) {
-        this.size = size;
+    public void setSize(double x, double y) {
+        this.size.x = x;
+        this.size.y = y;
     }
 
     public void setWeight(double weight) {
@@ -257,7 +258,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return sin of angle between 0 and diagonal of this box
      */
     public double sin() {
-        return size.y / size.lenSafe();
+        return getSize().y / getSize().lenSafe();
     }
 
     /**
@@ -272,10 +273,10 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * @return tan of angle between 0 and diagonal of this box
      */
     public double tan() {
-        if (abs(size.x) < Pt.EPSILON) {
+        if (abs(getSize().x) < Pt.EPSILON) {
             return Double.MAX_VALUE;
         } else {
-            return size.y / size.x;
+            return getSize().y / getSize().x;
         }
     }
 
@@ -289,6 +290,11 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
         } else {
             return delta.y / delta.x;
         }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "@" + getPos();
     }
 
 }

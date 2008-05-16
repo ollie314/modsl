@@ -45,32 +45,32 @@ public abstract class AbstractAGTModelTest {
     public void setUp() throws Exception {
 
         graph.add(n1);
-        n1.setPos(new Pt(0d, 0d));
-        n1.setSize(new Pt(10d, 10d));
+        n1.setPos(0d, 0d);
+        n1.setSize(10d, 10d);
 
         graph.add(n2);
-        n2.setPos(new Pt(1000d, 0d));
-        n2.setSize(new Pt(200d, 50d));
+        n2.setPos(1000d, 0d);
+        n2.setSize(200d, 50d);
 
         graph.add(n3);
-        n3.setPos(new Pt(1000d, 1000d));
-        n3.setSize(new Pt(10d, 10d));
+        n3.setPos(1000d, 1000d);
+        n3.setSize(10d, 10d);
 
         graph.add(n4);
-        n4.setPos(new Pt(0d, 1000d));
-        n4.setSize(new Pt(50d, 200d));
+        n4.setPos(0d, 1000d);
+        n4.setSize(50d, 200d);
 
         graph.add(n5);
-        n5.setPos(new Pt(500d, 1100d));
-        n5.setSize(new Pt(50d, 50d));
+        n5.setPos(500d, 1100d);
+        n5.setSize(50d, 50d);
 
         graph.add(n6);
-        n6.setPos(new Pt(25d, 500d));
-        n6.setSize(new Pt(10d, 10d));
+        n6.setPos(25d, 500d);
+        n6.setSize(10d, 10d);
 
         graph.add(n7);
-        n7.setPos(new Pt(975d, 500d));
-        n7.setSize(new Pt(10d, 10d));
+        n7.setPos(975d, 500d);
+        n7.setSize(10d, 10d);
 
         graph.add(e1_3);
         graph.add(e2_4);

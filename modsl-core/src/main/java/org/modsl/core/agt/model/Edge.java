@@ -118,6 +118,8 @@ public class Edge extends AbstractElement<Graph> {
     public void addLabel(EdgeLabel label) {
         labels.add(label);
         label.setParent(this);
+        label.setAnchor1(node1);
+        label.setAnchor2(node2);
     }
 
     /**
@@ -263,6 +265,9 @@ public class Edge extends AbstractElement<Graph> {
             node1.removeConnectedEdge(this);
             node1 = n1;
             node1.addConnectedEdge(this);
+            for (EdgeLabel label:labels) {
+                label.setAnchor1(node1);
+            }
         }
     }
 
@@ -275,6 +280,9 @@ public class Edge extends AbstractElement<Graph> {
             node2.removeConnectedEdge(this);
             node2 = n2;
             node2.addConnectedEdge(this);
+            for (EdgeLabel label:labels) {
+                label.setAnchor2(node2);
+            }
         }
     }
 
@@ -296,7 +304,7 @@ public class Edge extends AbstractElement<Graph> {
 
     @Override
     public String toString() {
-        return name + ":" + type + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-" + bends.size() + "->"
+        return super.toString() + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-" + bends.size() + "-"
                 + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
     }
 
