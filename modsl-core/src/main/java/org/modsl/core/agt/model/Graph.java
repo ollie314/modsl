@@ -209,12 +209,15 @@ public class Graph extends AbstractBox<Graph> {
      * @return max position
      */
     public Pt maxPos() {
-        Pt s = new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE);
-        for (Node n : nodes) {
-            s.x = max(s.x, n.pos.x);
-            s.y = max(s.y, n.pos.y);
-        }
-        return s;
+        MinMaxVisitor mmv = new MinMaxVisitor(new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE)) {
+            @Override
+            void apply(AbstractBox<?> b) {
+                p.x = max(p.x, b.pos.x);
+                p.y = max(p.y, b.pos.y);
+            }
+        };
+        accept(mmv);
+        return mmv.p;
     }
 
     /**
@@ -236,23 +239,29 @@ public class Graph extends AbstractBox<Graph> {
     /**
      * @return node with max x (the rightmost one, including it's size)
      */
-    public Node maxXNode() {
-        Node res = null;
-        for (Node n : nodes) {
-            res = res == null ? n : (res.pos.x + res.size.x < n.pos.x + n.size.x ? n : res);
-        }
-        return res;
+    public AbstractBox<?> maxXBox() {
+        MinMaxVisitor mmv = new MinMaxVisitor() {
+            @Override
+            void apply(AbstractBox<?> b) {
+                box = box == null ? b : (box.pos.x + box.size.x < b.pos.x + b.size.x ? b : box);
+            }
+        };
+        accept(mmv);
+        return mmv.box;
     }
 
     /**
      * @return node with max y (the lowest one, including it's size)
      */
-    public Node maxYNode() {
-        Node res = null;
-        for (Node n : nodes) {
-            res = res == null ? n : (res.pos.y + res.size.y < n.pos.y + n.size.y ? n : res);
-        }
-        return res;
+    public AbstractBox<?> maxYBox() {
+        MinMaxVisitor mmv = new MinMaxVisitor() {
+            @Override
+            void apply(AbstractBox<?> b) {
+                box = box == null ? b : (box.pos.y + box.size.y < b.pos.y + b.size.y ? b : box);
+            }
+        };
+        accept(mmv);
+        return mmv.box;
     }
 
     public Pt minPos() {
@@ -326,10 +335,10 @@ public class Graph extends AbstractBox<Graph> {
         normalize();
         recalcSize();
 
-        Node maxXNode = maxXNode();
-        Node maxYNode = maxYNode();
+        AbstractBox<?> maxXBox = maxXBox();
+        AbstractBox<?> maxYBox = maxYBox();
 
-        Pt maxXYSize = new Pt(maxXNode.size.x, maxYNode.size.y);
+        Pt maxXYSize = new Pt(maxXBox.size.x, maxYBox.size.y);
 
         final Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
         final Pt sizeExt = size.minus(maxXYSize).max(1d, 1d);

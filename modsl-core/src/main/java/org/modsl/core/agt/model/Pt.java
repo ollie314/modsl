@@ -21,6 +21,8 @@ import static java.lang.Math.random;
 import static java.lang.Math.round;
 import static java.lang.Math.sqrt;
 
+import java.util.Random;
+
 /**
  * Represents 2D coordinates
  * @author avishnyakov
@@ -252,9 +254,10 @@ public class Pt {
      * 
      * @param range
      */
-    public void randomize(double range) {
-        x = random() * range;
-        y = random() * range;
+    public void randomize(long seed, Pt range) {
+        Random random = new Random(seed);
+        x = random.nextDouble() * range.x;
+        y = random.nextDouble() * range.y;
     }
 
     @Override
