@@ -67,7 +67,7 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
 
         });
 
-        log.debug(labels);
+        //log.debug(labels);
 
         EdgeLabel last = null;
         EdgeLabel beforeLast = null;
