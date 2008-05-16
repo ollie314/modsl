@@ -24,6 +24,7 @@ import static java.lang.Math.sqrt;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.layout.AbstractLayoutVisitor;
@@ -47,7 +48,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
     double tempMultiplier, attractionMultiplier, repulsionMultiplier;
     double minWeight = Double.MAX_VALUE, maxWeight = -Double.MAX_VALUE;
     int maxIterations;
-    long seed;
+    Random random;
     Graph graph;
     Pt req;
     List<Bar> bars = new LinkedList<Bar>();
@@ -62,8 +63,8 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
         this.graph = graph;
         this.req = graph.getReqSize();
 
-        seed = graph.getName().hashCode();
-        graph.randomize(seed);
+        random = new Random(graph.getName().hashCode());
+        graph.randomize(random);
 
         //calcWeights();
 
@@ -133,7 +134,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
     Pt getDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
         Pt delta = n1.getPortDelta(n2);
         if (delta.len() < Pt.EPSILON) { // || Double.isNaN(delta.len())) {
-            delta.randomize(seed, graph.getReqSize());
+            delta.randomize(random, new Pt(1d, 1d));
         }
         return delta;
     }

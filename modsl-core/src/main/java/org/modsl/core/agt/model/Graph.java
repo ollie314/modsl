@@ -298,10 +298,9 @@ public class Graph extends AbstractBox<Graph> {
         accept(mmv);
     }
 
-    public void randomize(long seed) {
-        Random r = new Random(seed);
+    public void randomize(Random random) {
         for (Node n : nodes) {
-            n.setPos(new Pt(r.nextDouble(), r.nextDouble()));
+            n.getPos().randomize(random, size);
         }
     }
 
