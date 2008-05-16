@@ -57,7 +57,7 @@ public abstract class AbstractLayoutVisitor extends AbstractVisitor {
         // to be overriden
     }
 
-    public void apply(Label bend) {
+    public void apply(Label<?> bend) {
         // to be overriden
     }
 
@@ -92,7 +92,7 @@ public abstract class AbstractLayoutVisitor extends AbstractVisitor {
     }
 
     @Override
-    public void in(Label label) {
+    public void in(Label<?> label) {
         if (type.equals(label.getType())) {
             apply(label);
         }

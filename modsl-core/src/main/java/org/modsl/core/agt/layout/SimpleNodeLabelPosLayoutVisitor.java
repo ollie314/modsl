@@ -35,7 +35,7 @@ public class SimpleNodeLabelPosLayoutVisitor extends AbstractNonConfigurableLayo
 	public void apply(Node node) {
         FontTransform ft = node.getType().getConfig().getFontTransform();
 		if (!node.getLabels().isEmpty()) {
-			Label label = node.getLabels().get(0);
+			Label<Node> label = node.getLabels().get(0);
 			label.getPos().x = node.getPos().x + ft.getLeftPadding();
 			label.getPos().y = node.getPos().y + ft.getTopPadding();
 		}

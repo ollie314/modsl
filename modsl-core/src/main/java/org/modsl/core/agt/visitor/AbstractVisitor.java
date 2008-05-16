@@ -60,7 +60,7 @@ public abstract class AbstractVisitor {
      * Enter label
      * @param label
      */
-    public void in(Label label) {
+    public void in(Label<?> label) {
         // NO OP
     }
 

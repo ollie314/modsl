@@ -40,7 +40,7 @@ public class Graph extends AbstractBox<Graph> {
     /**
      * Labels
      */
-    List<Label> labels = new LinkedList<Label>();
+    List<Label<Graph>> labels = new LinkedList<Label<Graph>>();
 
     /**
      * Map of children nodes {name->node}
@@ -98,7 +98,7 @@ public class Graph extends AbstractBox<Graph> {
         for (Node n : nodes) {
             n.accept(visitor);
         }
-        for (Label l : getLabels()) {
+        for (Label<Graph> l : getLabels()) {
             l.accept(visitor);
         }
         visitor.out(this);
@@ -141,8 +141,8 @@ public class Graph extends AbstractBox<Graph> {
     /**
      * @return all edge labels
      */
-    public List<Label> getEdgeLabels() {
-        List<Label> l = new LinkedList<Label>();
+    public List<Label<Edge>> getEdgeLabels() {
+        List<Label<Edge>> l = new LinkedList<Label<Edge>>();
         for (Edge e : edges) {
             l.addAll(e.getLabels());
         }
@@ -160,7 +160,7 @@ public class Graph extends AbstractBox<Graph> {
         return new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1);
     }
 
-    public List<Label> getLabels() {
+    public List<Label<Graph>> getLabels() {
         return labels;
     }
 
@@ -232,7 +232,7 @@ public class Graph extends AbstractBox<Graph> {
             s.x = max(s.x, p.x);
             s.y = max(s.y, p.y);
         }
-        for (Label l : getLabels()) {
+        for (Label<Graph> l : getLabels()) {
             s.x = max(s.x, l.pos.x + l.size.x);
             s.y = max(s.y, l.pos.y + l.size.y);
         }
@@ -281,7 +281,7 @@ public class Graph extends AbstractBox<Graph> {
             s.x = min(s.x, p.x);
             s.y = min(s.y, p.y);
         }
-        for (Label l : getLabels()) {
+        for (Label<Graph> l : getLabels()) {
             s.x = min(s.x, l.pos.x);
             s.y = min(s.y, l.pos.y);
         }
@@ -293,17 +293,17 @@ public class Graph extends AbstractBox<Graph> {
      */
     public void normalize() {
         Pt min = minPt();
-        for (Label l : getLabels()) {
+        for (Label<Graph> l : getLabels()) {
             l.pos.decBy(min);
         }
         for (Node n : nodes) {
             n.pos.decBy(min);
-            for (Label l : n.getLabels()) {
+            for (Label<Node> l : n.getLabels()) {
                 l.pos.decBy(min);
             }
         }
         for (Edge e : edges) {
-            for (Label l : e.getLabels()) {
+            for (Label<Edge> l : e.getLabels()) {
                 l.pos.decBy(min);
             }
             for (Bend b : e.getBends()) {
@@ -352,17 +352,17 @@ public class Graph extends AbstractBox<Graph> {
         Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
         Pt sizeExt = size.minus(maxXYSize).max(1d, 1d);
         Pt topLeft = new Pt(leftPadding, topPadding);
-        for (Label l : getLabels()) {
+        for (Label<Graph> l : getLabels()) {
             l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
         }
         for (Node n : nodes) {
             n.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
-            for (Label l : n.getLabels()) {
+            for (Label<Node> l : n.getLabels()) {
                 l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
             }
         }
         for (Edge e : edges) {
-            for (Label l : e.getLabels()) {
+            for (Label<Edge> l : e.getLabels()) {
                 l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
             }
             for (Bend b : e.getBends()) {

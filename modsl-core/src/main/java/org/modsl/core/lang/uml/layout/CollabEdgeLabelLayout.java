@@ -42,26 +42,26 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
     @Override
     public void apply(final Graph graph) {
 
-        List<Label> labels = graph.getEdgeLabels();
+        List<Label<Edge>> labels = graph.getEdgeLabels();
 
         if (labels.isEmpty()) {
             return;
         }
 
-        for (Label label : labels) {
-            Edge edge = (Edge) label.getParent();
+        for (Label<Edge> label : labels) {
+            Edge edge = label.getParent();
             FontTransform ft = edge.getType().getConfig().getFt();
             label.setSize(new Pt(ft.getStringWidth(edge.getName()), ft.getHeight()));
             label.setPos(getMidPoint(label, 0));
         }
 
-        Collections.sort(labels, new Comparator<Label>() {
+        Collections.sort(labels, new Comparator<Label<Edge>>() {
 
-            public int compare(Label l1, Label l2) {
+            public int compare(Label<Edge> l1, Label<Edge> l2) {
                 return ind(l1) - ind(l2);
             }
 
-            protected int ind(Label l) {
+            protected int ind(Label<Edge> l) {
                 return (int) (l.getPos().y * l.getPos().y + l.getPos().x);
             }
 
@@ -69,9 +69,9 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
 
         //log.debug(labels);
 
-        Label last = null;
-        Label beforeLast = null;
-        for (Label label : labels) {
+        Label<Edge> last = null;
+        Label<Edge> beforeLast = null;
+        for (Label<Edge> label : labels) {
             if (last == null) {
                 last = labels.get(0);
             } else {
@@ -93,8 +93,8 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
     /**
      * @return position of the connector's midpoint
      */
-    public Pt getMidPoint(Label label, double offset) {
-        Edge edge = (Edge) label.getParent();
+    public Pt getMidPoint(Label<Edge> label, double offset) {
+        Edge edge = label.getParent();
         AbstractBox<?> n1 = edge.getLastBend();
         AbstractBox<?> n2 = edge.getNode2();
         double ratio = 1d / 2d;

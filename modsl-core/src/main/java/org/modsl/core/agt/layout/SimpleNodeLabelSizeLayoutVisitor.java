@@ -38,7 +38,7 @@ public class SimpleNodeLabelSizeLayoutVisitor extends AbstractNonConfigurableLay
 		if (node.getLabels().isEmpty()) {
 			node.setSize(new Pt(ft.getExtStringWidth(" "), ft.getExtHeight(1)));
 		} else {
-			Label label = node.getLabels().get(0);
+			Label<Node> label = node.getLabels().get(0);
 			node.setSize(new Pt(ft.getExtStringWidth(label.getName()), ft.getExtHeight(1)));
 		}
 	}
