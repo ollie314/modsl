@@ -254,8 +254,7 @@ public class Pt {
      * 
      * @param range
      */
-    public void randomize(long seed, Pt range) {
-        Random random = new Random(seed);
+    public void randomize(Random random, Pt range) {
         x = random.nextDouble() * range.x;
         y = random.nextDouble() * range.y;
     }
