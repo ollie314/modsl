@@ -17,7 +17,6 @@
 package org.modsl.core.agt.model;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.max;
 import static java.lang.Math.random;
 import static java.lang.Math.round;
 import static java.lang.Math.sqrt;
@@ -181,7 +180,17 @@ public class Pt {
      * @return length of XY vector, EPS of length is 0
      */
     public double lenSafe() {
-        return max(len(), EPSILON);
+        return Math.max(len(), EPSILON);
+    }
+
+    /**
+     * Max of this point and given x, y point
+     * @param x1
+     * @param y1
+     * @return (max(x), max(y))
+     */
+    public Pt max(double x1, double y1) {
+        return new Pt(Math.max(x, x1), Math.max(y, y1));
     }
 
     /**
@@ -260,5 +269,4 @@ public class Pt {
         x = 0d;
         y = 0d;
     }
-
 }

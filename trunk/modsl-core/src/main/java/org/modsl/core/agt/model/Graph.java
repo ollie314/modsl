@@ -350,7 +350,7 @@ public class Graph extends AbstractBox<Graph> {
         Node maxYNode = maxYNode();
         Pt maxXYSize = new Pt(maxXNode.size.x, maxYNode.size.y);
         Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
-        Pt sizeExt = size.minus(maxXYSize);
+        Pt sizeExt = size.minus(maxXYSize).max(1d, 1d);
         Pt topLeft = new Pt(leftPadding, topPadding);
         for (Label l : getLabels()) {
             l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
