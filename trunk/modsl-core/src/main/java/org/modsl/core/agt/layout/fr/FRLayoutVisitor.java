@@ -63,7 +63,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
 		graph.randomize(graph.getName().hashCode());
 
-		calcWeights();
+		//calcWeights();
 
 		temp = max((req.x + req.y) * tempMultiplier, Pt.EPSILON);
 		kForce = max(sqrt(req.x * req.y / graph.getNodes().size()), Pt.EPSILON);

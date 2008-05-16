@@ -206,38 +206,6 @@ public class Edge extends AbstractElement<Graph> {
     }
 
     /**
-     * @return max (x,y) point of this edge
-     */
-    public Pt getMaxPt() {
-        Pt s = new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE);
-        s.x = max(s.x, node1.getCtrPos().x);
-        s.y = max(s.y, node1.getCtrPos().y);
-        for (Bend b : bends) {
-            s.x = max(s.x, b.getCtrPos().x);
-            s.y = max(s.y, b.getCtrPos().y);
-        }
-        s.x = max(s.x, node2.getCtrPos().x);
-        s.y = max(s.y, node2.getCtrPos().y);
-        return s;
-    }
-
-    /**
-     * @return min (x,y) point of this edge
-     */
-    public Pt getMinPt() {
-        Pt s = new Pt(Double.MAX_VALUE, Double.MAX_VALUE);
-        s.x = min(s.x, node1.getCtrPos().x);
-        s.y = min(s.y, node1.getCtrPos().y);
-        for (Bend b : bends) {
-            s.x = min(s.x, b.getCtrPos().x);
-            s.y = min(s.y, b.getCtrPos().y);
-        }
-        s.x = min(s.x, node2.getCtrPos().x);
-        s.y = min(s.y, node2.getCtrPos().y);
-        return s;
-    }
-
-    /**
      * @return start node
      */
     public Node getNode1() {
