@@ -14,6 +14,9 @@ abstract class MinMaxVisitor extends AbstractVisitor {
         this.p = init;
     }
 
+    public MinMaxVisitor() {
+    }
+
     @Override
     public void in(Bend bend) {
         apply(bend);

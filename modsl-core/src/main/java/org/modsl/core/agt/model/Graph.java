@@ -318,35 +318,33 @@ public class Graph extends AbstractBox<Graph> {
      * @param newSize new size
      */
     public void rescale(Pt newSize) {
+
         if (nodes.isEmpty()) {
             return;
         }
+
         normalize();
         recalcSize();
+
         Node maxXNode = maxXNode();
         Node maxYNode = maxYNode();
+
         Pt maxXYSize = new Pt(maxXNode.size.x, maxYNode.size.y);
-        Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
-        Pt sizeExt = size.minus(maxXYSize).max(1d, 1d);
-        Pt topLeft = new Pt(leftPadding, topPadding);
-        for (Label<Graph> l : getLabels()) {
-            l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
-        }
-        for (Node n : nodes) {
-            n.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
-            for (Label<Node> l : n.getLabels()) {
-                l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
-            }
-        }
-        for (Edge e : edges) {
-            for (Label<Edge> l : e.getLabels()) {
-                l.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
-            }
-            for (Bend b : e.getBends()) {
+
+        final Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
+        final Pt sizeExt = size.minus(maxXYSize).max(1d, 1d);
+        final Pt topLeft = new Pt(leftPadding, topPadding);
+
+        MinMaxVisitor mmv = new MinMaxVisitor() {
+            @Override
+            void apply(AbstractBox<?> b) {
                 b.pos.mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
             }
-        }
+        };
+        accept(mmv);
+
         size = new Pt(newSize);
+
     }
 
     /**
