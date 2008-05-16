@@ -23,13 +23,18 @@ public class Label extends AbstractBox<AbstractElement<?>> {
 
     private static int counter = 0;
 
+    FontTransform ft;
+
     public Label(MetaType type) {
         super(type);
         this.index = counter++;
+        this.ft = getType().getConfig().getFt();
     }
 
     public Label(MetaType type, String name) {
         super(type, name);
+        this.index = counter++;
+        this.ft = getType().getConfig().getFt();
     }
 
     @Override
@@ -39,8 +44,14 @@ public class Label extends AbstractBox<AbstractElement<?>> {
     }
 
     public Pt getTextPos() {
-        FontTransform ft = getType().getConfig().getFt();
         return getPos().plus(new Pt(0d, ft.getBaseline()));
     }
 
+    public Pt getUnderline1() {
+        return new Pt(getTextPos().x, getTextPos().y + 2);
+    }
+
+    public Pt getUnderline2() {
+        return new Pt(getTextPos().x + ft.getStringWidth(name), getTextPos().y + 2);
+    }
 }
