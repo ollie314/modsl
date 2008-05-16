@@ -14,7 +14,7 @@ import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.agt.visitor.ToStringVisitor;
 
-public class FR2LayoutVisitorTest {
+public class FRLayoutVisitorTest {
 
     Logger log = Logger.getLogger(getClass());
 

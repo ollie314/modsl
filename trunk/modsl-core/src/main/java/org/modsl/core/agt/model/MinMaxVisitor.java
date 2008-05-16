@@ -9,6 +9,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
 abstract class MinMaxVisitor extends AbstractVisitor {
 
     Pt p;
+    AbstractBox<?> box;
 
     MinMaxVisitor(Pt init) {
         this.p = init;
@@ -20,11 +21,6 @@ abstract class MinMaxVisitor extends AbstractVisitor {
     @Override
     public void in(Bend bend) {
         apply(bend);
-    }
-
-    @Override
-    public void in(Graph graph) {
-        apply(graph);
     }
 
     @Override
