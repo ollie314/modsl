@@ -38,6 +38,7 @@ public enum UMLMetaType implements MetaType {
     CLASS_GRAPH,
 
     CLASS_CLASS_NODE,
+    CLASS_NODE_LABEL,
     CLASS_INTERFACE_NODE,
     CLASS_VAR_NODE_LABEL,
     CLASS_METHOD_NODE_LABEL,
