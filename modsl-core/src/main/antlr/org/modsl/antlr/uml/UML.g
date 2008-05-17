@@ -21,6 +21,7 @@ options {
 	public Graph graph;
 	protected Deque<Graph> nodes = new LinkedList<Graph>();
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
+	protected UMLClassFactory classFactory = new UMLClassFactory();
 }
 
 diagram : collabDiagram;
