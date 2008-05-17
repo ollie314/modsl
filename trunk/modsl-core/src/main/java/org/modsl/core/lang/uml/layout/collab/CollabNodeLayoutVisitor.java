@@ -14,26 +14,28 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.layout;
+package org.modsl.core.lang.uml.layout.collab;
 
+import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
 /**
- * Assignes weight to the nodes
+ * Does simple node size calculation based on node's text height and width.
  * @author avishnyakov
  */
-public class CollabNodeWeightVisitor extends SimpleNodeLabelSizeLayoutVisitor {
+public class CollabNodeLayoutVisitor extends SimpleNodeLabelSizeLayoutVisitor {
 
-    public CollabNodeWeightVisitor(MetaType type) {
+    public CollabNodeLayoutVisitor(MetaType type) {
         super(type);
     }
 
     @Override
     public void apply(Node node) {
-        node.setWeight(node.getInDegree() - node.getOutDegree());
-        node.getLabels().get(0).setName(node.getName() + "/" + node.getWeight());
+        super.apply(node);
+        FontTransform ft = node.getType().getConfig().getFontTransform();
+        node.getSize().y += ft.getBottomPadding();
     }
 
 }

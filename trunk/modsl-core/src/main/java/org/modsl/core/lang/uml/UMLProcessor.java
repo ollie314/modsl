@@ -28,9 +28,9 @@ import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
-import org.modsl.core.lang.uml.decorator.CollabEdgeDecorator;
-import org.modsl.core.lang.uml.layout.CollabEdgeLabelLayout;
-import org.modsl.core.lang.uml.layout.CollabNodeLayoutVisitor;
+import org.modsl.core.lang.uml.decorator.collab.CollabEdgeDecorator;
+import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayout;
+import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
 
 public class UMLProcessor extends AbstractProcessor<UMLParser> {
 

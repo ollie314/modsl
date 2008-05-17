@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.layout;
+package org.modsl.core.lang.uml.layout.collab;
 
 import java.util.Collections;
 import java.util.Comparator;

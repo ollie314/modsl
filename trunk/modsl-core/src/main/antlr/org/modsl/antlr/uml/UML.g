@@ -26,7 +26,7 @@ options {
 diagram : collabDiagram;
 
 collabDiagram 
-	@init{ graph = collabFactory.createGraph();  }
+	@init { graph = collabFactory.createGraph();  }
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { graph.setName($ID.text); };
 
