@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.decorator;
+package org.modsl.core.lang.uml.decorator.collab;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
