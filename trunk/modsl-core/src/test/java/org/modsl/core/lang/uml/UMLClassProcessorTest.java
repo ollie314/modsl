@@ -32,8 +32,13 @@ public class UMLClassProcessorTest extends AbstractUMLTest {
     }
 
     @Test
-    public void process1() throws Exception {
-        process("class diagram c1 { class1; }");
+    public void process1c() throws Exception {
+        process("class diagram c1c { class class1; }");
+    }
+
+    @Test
+    public void process1i() throws Exception {
+        process("class diagram c1i { interface interface1; }");
     }
 
     private void process(String s) throws RecognitionException, IOException {

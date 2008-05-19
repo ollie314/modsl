@@ -30,22 +30,30 @@ import org.modsl.core.lang.uml.UMLMetaType;
  */
 public class UMLClassFactory extends AbstractUMLFactory {
 
-	/**
-	 * Create node from token
-	 * @param parent parent
-	 * @param token node token
-	 * @return new node
-	 */
-	public Node createNode(Graph parent, Token token) {
-		Node n = new Node(UMLMetaType.CLASS_CLASS_NODE, token.getText());
-		n.addLabel(new NodeLabel(UMLMetaType.CLASS_NODE_LABEL, token.getText()));
-		parent.add(n);
-		return n;
-	}
+    /**
+     * Create node from token
+     * @param parent parent
+     * @param token node token
+     * @return new node
+     */
+    Node createNode(Graph parent, Token token, UMLMetaType nodeType, UMLMetaType labelType) {
+        Node n = new Node(nodeType, token.getText());
+        n.addLabel(new NodeLabel(labelType, token.getText()));
+        parent.add(n);
+        return n;
+    }
 
-	@Override
-	public Graph createGraph() {
-		return new Graph(UMLMetaType.CLASS_GRAPH);
-	}
+    public Node createClassNode(Graph parent, Token token) {
+        return createNode(parent, token, UMLMetaType.CLASS_CLASS_NODE, UMLMetaType.CLASS_CLASS_NODE_LABEL);
+    }
+
+    public Node createInterfaceNode(Graph parent, Token token) {
+        return createNode(parent, token, UMLMetaType.CLASS_INTERFACE_NODE, UMLMetaType.CLASS_INTERFACE_NODE_LABEL);
+    }
+
+    @Override
+    public Graph createGraph() {
+        return new Graph(UMLMetaType.CLASS_GRAPH);
+    }
 
 }

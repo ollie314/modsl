@@ -38,10 +38,13 @@ collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=ID (EDGEOP ids+=ID '.' mds+=ID)
 classDiagram 
 	@init { graph = classFactory.createGraph();  }
 	@after { graph.accept(new NodeRefVisitor()); }
-	: 'class' 'diagram'? ID '{' classStatement* '}' { graph.setName($ID.text); };
+	: 'class' 'diagram'? ID '{' (classStatement | interfaceStatement)* '}' { graph.setName($ID.text); };
 
-classStatement: id=ID ';' 
-	{ classFactory.createNode(graph, $id); }; 
+classStatement:	'class' id=ID ';' 
+	{ classFactory.createClassNode(graph, $id); }; 
+
+interfaceStatement:	'interface' id=ID ';' 
+	{ classFactory.createInterfaceNode(graph, $id); }; 
 
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;
