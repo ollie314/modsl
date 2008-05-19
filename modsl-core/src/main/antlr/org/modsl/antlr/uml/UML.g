@@ -23,6 +23,7 @@ options {
 	protected Deque<Graph> nodes = new LinkedList<Graph>();
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 	protected UMLClassFactory classFactory = new UMLClassFactory();
+	protected Node curNode;
 }
 
 diagram : classDiagram | collabDiagram;
@@ -40,11 +41,14 @@ classDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: 'class' 'diagram'? ID '{' (classStatement | interfaceStatement)* '}' { graph.setName($ID.text); };
 
-classStatement:	'class' id=ID ';' 
-	{ classFactory.createClassNode(graph, $id); }; 
+classStatement:	'class' id=ID '{' classElementStatement* '}'
+	{ curNode = classFactory.createClassNode(graph, $id); }; 
 
-interfaceStatement:	'interface' id=ID ';' 
-	{ classFactory.createInterfaceNode(graph, $id); }; 
+interfaceStatement:	'interface' id=ID '{' classElementStatement* '}'  
+	{ curNode = classFactory.createInterfaceNode(graph, $id); }; 
+
+classElementStatement: id=ID ';' 
+	{ classFactory.createNodeElement(curNode, UMLMetaType.CLASS_VAR_NODE_LABEL, $id); };
 
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;
