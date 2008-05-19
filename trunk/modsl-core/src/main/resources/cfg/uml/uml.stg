@@ -11,7 +11,6 @@ $root_in(graph)$
 <style type="text/css"><![CDATA[ 
 	text.collabgraph { font-family: $decor.meta.COLLAB_GRAPH.config.ft.name$; font-size: $decor.meta.COLLAB_GRAPH.config.ft.size$px; }
 	rect.collabnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
-	line.collabnode { stroke: black; stroke-width: 1px; }	
 	text.collabnodelabel { fill: black; font-family: $decor.meta.COLLAB_NODE_LABEL.config.ft.name$; font-size: $decor.meta.COLLAB_NODE_LABEL.config.ft.size$px; }
 	line.collabnodelabel { stroke: black; stroke-width: 1px; }	
 	line.collabedge, path.collabedge { fill:none; stroke: dimgrey; stroke-width: 1px; }
@@ -51,7 +50,19 @@ COLLAB_GRAPH_out(graph, decor) ::= <<
 $root_out(graph)$
 >>
 
-DUMMY_EDGE_in(edge, decor) ::= <<
+//
+// Class diagram templates
+//
 
-<line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="dummyedge"/>
+CLASS_GRAPH_in(graph, decor) ::= <<
+$root_in(graph)$
+<!-- $graph.name$: class diagram -->
+<defs>
+<style type="text/css"><![CDATA[ 
+	text.classgraph { font-family: $decor.meta.CLASS_GRAPH.config.ft.name$; font-size: $decor.meta.CLASS_GRAPH.config.ft.size$px; }
+	rect.classnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
+	line.classnode { stroke: midnightblue; stroke-width: 1px; }	
+]]></style>
+</defs>
+
 >>

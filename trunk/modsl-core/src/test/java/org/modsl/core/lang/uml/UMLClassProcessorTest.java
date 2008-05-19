@@ -31,6 +31,11 @@ public class UMLClassProcessorTest extends AbstractUMLTest {
         process("class diagram c0 { }");
     }
 
+    @Test
+    public void process1() throws Exception {
+        process("class diagram c1 { class1; }");
+    }
+
     private void process(String s) throws RecognitionException, IOException {
         String result = processor.process(s);//, new Pt(640, 480));
         svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());
