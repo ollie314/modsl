@@ -51,6 +51,10 @@ public class UMLClassFactory extends AbstractUMLFactory {
         return createNode(parent, token, UMLMetaType.CLASS_INTERFACE_NODE, UMLMetaType.CLASS_INTERFACE_NODE_LABEL);
     }
 
+    public void createNodeElement(Node parent, UMLMetaType type, Token token) {
+        parent.addLabel(new NodeLabel(type, token.getText()));
+    }
+
     @Override
     public Graph createGraph() {
         return new Graph(UMLMetaType.CLASS_GRAPH);
