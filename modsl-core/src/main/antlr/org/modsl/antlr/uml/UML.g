@@ -25,7 +25,7 @@ options {
 	protected UMLClassFactory classFactory = new UMLClassFactory();
 }
 
-diagram : collabDiagram;
+diagram : collabDiagram | classDiagram;
 
 collabDiagram 
 	@init { graph = collabFactory.createGraph();  }
@@ -34,6 +34,14 @@ collabDiagram
 
 collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=ID (EDGEOP ids+=ID '.' mds+=ID)* ';' 
 	{ collabFactory.createEdges(graph, $ids, $mds); }; 
+
+classDiagram 
+	@init { graph = classFactory.createGraph();  }
+	@after { graph.accept(new NodeRefVisitor()); }
+	: 'class' 'diagram'? ID '{' classStatement* '}' { graph.setName($ID.text); };
+
+classStatement: id=ID ';' 
+	{ classFactory.createNode(graph, $id); }; 
 
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;
