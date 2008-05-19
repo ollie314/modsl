@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
+import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.SVGCollector;
 
 public class UMLClassProcessorTest extends AbstractUMLTest {
@@ -37,7 +38,7 @@ public class UMLClassProcessorTest extends AbstractUMLTest {
     }
 
     private void process(String s) throws RecognitionException, IOException {
-        String result = processor.process(s);//, new Pt(640, 480));
+        String result = processor.process(s, new Pt(640, 480));
         svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());
     }
 
