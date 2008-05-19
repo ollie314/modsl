@@ -30,89 +30,95 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  */
 public class Node extends AbstractBox<Graph> {
 
-    private static int counter = 0;
+	private static int counter = 0;
 
-    /**
-     * List of connected edges
-     */
-    Set<Edge> connectedEdges = new HashSet<Edge>();
+	/**
+	 * List of connected edges
+	 */
+	Set<Edge> connectedEdges = new HashSet<Edge>();
 
-    /**
-     * Labels
-     */
-    List<NodeLabel> labels = new LinkedList<NodeLabel>();
+	/**
+	 * Labels
+	 */
+	List<NodeLabel> labels = new LinkedList<NodeLabel>();
 
-    /**
-     * Create new
-     * @param type type
-     * @param name name
-     */
-    public Node(MetaType type, String name) {
-        super(type, name);
-        this.index = counter++;
-    }
+	/**
+	 * Create new
+	 * @param type type
+	 * @param name name
+	 */
+	public Node(MetaType type, String name) {
+		super(type, name);
+		this.index = counter++;
+	}
 
-    @Override
-    public void accept(AbstractVisitor visitor) {
-        visitor.in(this);
-        for (NodeLabel l : labels) {
-            l.accept(visitor);
-        }
-        visitor.out(this);
-    }
+	@Override
+	public void accept(AbstractVisitor visitor) {
+		visitor.in(this);
+		for (NodeLabel l : labels) {
+			l.accept(visitor);
+		}
+		visitor.out(this);
+	}
 
-    protected boolean addConnectedEdge(Edge edge) {
-        return connectedEdges.add(edge);
-    }
+	protected boolean addConnectedEdge(Edge edge) {
+		return connectedEdges.add(edge);
+	}
 
-    public void addLabel(NodeLabel label) {
-        labels.add(label);
-        label.setParent(this);
-    }
+	public void addLabel(NodeLabel label) {
+		labels.add(label);
+		label.setParent(this);
+	}
 
-    public int getInDegree() {
-        return getInEdges().size();
-    }
+	public int getInDegree() {
+		return getInEdges().size();
+	}
 
-    public List<Edge> getInEdges() {
-        List<Edge> ins = new LinkedList<Edge>();
-        for (Edge e : connectedEdges) {
-            if (e.getNode2().equals(this)) {
-                ins.add(e);
-            }
-        }
-        return ins;
-    }
+	public List<Edge> getInEdges() {
+		List<Edge> ins = new LinkedList<Edge>();
+		for (Edge e : connectedEdges) {
+			if (e.getNode2().equals(this)) {
+				ins.add(e);
+			}
+		}
+		return ins;
+	}
 
-    public List<NodeLabel> getLabels() {
-        return labels;
-    }
+	public List<NodeLabel> getLabels() {
+		return labels;
+	}
 
-    public int getOutDegree() {
-        return getOutEdges().size();
-    }
+	public int getOutDegree() {
+		return getOutEdges().size();
+	}
 
-    public List<Edge> getOutEdges() {
-        List<Edge> ins = new LinkedList<Edge>();
-        for (Edge e : connectedEdges) {
-            if (e.getNode1().equals(this)) {
-                ins.add(e);
-            }
-        }
-        return ins;
-    }
+	public List<Edge> getOutEdges() {
+		List<Edge> ins = new LinkedList<Edge>();
+		for (Edge e : connectedEdges) {
+			if (e.getNode1().equals(this)) {
+				ins.add(e);
+			}
+		}
+		return ins;
+	}
 
-    public boolean isConnectedTo(AbstractBox<?> b) {
-        for (Edge e : connectedEdges) {
-            if (e.getDistance(this, b) == 1) {
-                return true;
-            }
-        }
-        return false;
-    }
+	public boolean isConnectedTo(AbstractBox<?> b) {
+		for (Edge e : connectedEdges) {
+			if (e.getDistance(this, b) == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    protected boolean removeConnectedEdge(Edge edge) {
-        return connectedEdges.remove(edge);
-    }
+	protected boolean removeConnectedEdge(Edge edge) {
+		return connectedEdges.remove(edge);
+	}
+
+	public void addLabels(List<NodeLabel> labels) {
+		for (NodeLabel l : labels) {
+			addLabel(l);
+		}
+	}
 
 }

@@ -24,6 +24,7 @@ options {
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 	protected UMLClassFactory classFactory = new UMLClassFactory();
 	protected Node curNode;
+	protected List<NodeLabel> curElements = new LinkedList<NodeLabel>();
 }
 
 diagram : classDiagram | collabDiagram;
@@ -42,13 +43,13 @@ classDiagram
 	: 'class' 'diagram'? ID '{' (classStatement | interfaceStatement)* '}' { graph.setName($ID.text); };
 
 classStatement:	'class' id=ID '{' classElementStatement* '}'
-	{ curNode = classFactory.createClassNode(graph, $id); }; 
+	{ curNode = classFactory.createClassNode(graph, $id, curElements); curElements.clear(); }; 
 
 interfaceStatement:	'interface' id=ID '{' classElementStatement* '}'  
-	{ curNode = classFactory.createInterfaceNode(graph, $id); }; 
+	{ curNode = classFactory.createInterfaceNode(graph, $id, curElements); curElements.clear(); }; 
 
 classElementStatement: id=ID ';' 
-	{ classFactory.createNodeElement(curNode, UMLMetaType.CLASS_VAR_NODE_LABEL, $id); };
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $id)); };
 
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;
