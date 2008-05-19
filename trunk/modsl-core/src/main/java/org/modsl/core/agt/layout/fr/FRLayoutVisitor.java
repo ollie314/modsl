@@ -61,7 +61,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
     public void apply(Graph graph) {
 
         this.graph = graph;
-        this.req = graph.getReqSize();
+        this.req = getOrEsimateGraphReqSize();
 
         random = new Random(graph.getName().hashCode());
         graph.randomize(random);
@@ -137,6 +137,24 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
             delta.randomize(random, new Pt(1d, 1d));
         }
         return delta;
+    }
+
+    Pt getOrEsimateGraphReqSize() {
+        if (graph.getReqSize().equals(new Pt(0d, 0d))) {
+            double area = 0d;
+            double gr = (1d + sqrt(5d)) / 2d;
+            for (Node n : graph.getNodes()) {
+                area += n.getSize().x * n.getSize().y;
+            }
+            double h = sqrt(area * 4d / gr) + 1d;
+            double w = gr * h + 1d;
+            Pt rs = new Pt(w, h);
+            graph.setReqSize(rs);
+            return rs;
+        } else {
+            return graph.getReqSize();
+        }
+
     }
 
     void moveVertexes() {
