@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml;
+package org.modsl.core.lang.uml.factory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +25,8 @@ import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
+import org.modsl.core.lang.uml.AbstractUMLFactory;
+import org.modsl.core.lang.uml.UMLMetaType;
 
 /**
  * Responsible for supporting the grammar when new abstract graph tree elements

@@ -13,6 +13,7 @@ options {
 	import org.modsl.core.agt.model.*;
 	import org.modsl.core.agt.visitor.*;
 	import org.modsl.core.lang.uml.*;
+	import org.modsl.core.lang.uml.factory.*;
 	import java.util.Deque;
 	import java.util.LinkedList;
 }
