@@ -66,3 +66,18 @@ $root_in(graph)$
 </defs>
 
 >>
+
+CLASS_CLASS_NODE_in(node, decor) ::= <<
+
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="classnode"/>
+>>
+
+CLASS_INTERFACE_NODE_in(node, decor) ::= <<
+
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="classnode"/>
+>>
+
+CLASS_GRAPH_out(graph, decor) ::= <<
+
+$root_out(graph)$
+>>
