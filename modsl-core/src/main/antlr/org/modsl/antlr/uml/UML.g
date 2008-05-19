@@ -48,8 +48,13 @@ classStatement:	'class' id=ID '{' classElementStatement* '}'
 interfaceStatement:	'interface' id=ID '{' classElementStatement* '}'  
 	{ curNode = classFactory.createInterfaceNode(graph, $id, curElements); curElements.clear(); }; 
 
-classElementStatement: id=ID ';' 
+classElementStatement: varClassElementStatement | staticVarClassElementStatement;
+
+varClassElementStatement: id=ID ';' 
 	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $id)); };
+
+staticVarClassElementStatement: 'static' id=ID ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL, $id)); };
 
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;
