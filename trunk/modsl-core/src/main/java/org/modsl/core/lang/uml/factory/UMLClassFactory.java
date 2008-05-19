@@ -14,12 +14,14 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml;
+package org.modsl.core.lang.uml.factory;
 
 import org.antlr.runtime.Token;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
+import org.modsl.core.lang.uml.AbstractUMLFactory;
+import org.modsl.core.lang.uml.UMLMetaType;
 
 /**
  * Responsible for supporting the grammar when new abstract graph tree elements
