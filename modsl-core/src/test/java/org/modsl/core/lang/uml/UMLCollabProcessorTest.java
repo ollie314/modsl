@@ -23,9 +23,9 @@ import org.junit.Test;
 import org.modsl.core.lang.SVGCollector;
 import org.modsl.core.utils.Utils;
 
-public class UMLProcessorTest extends AbstractUMLTest {
+public class UMLCollabProcessorTest extends AbstractUMLTest {
 
-    protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml");
+    protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml_collab");
 
     @Test
     public void process0() throws Exception {
