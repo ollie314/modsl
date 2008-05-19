@@ -22,7 +22,6 @@ import org.antlr.runtime.Lexer;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.basic.BasicLexer;
 import org.modsl.antlr.basic.BasicParser;
-import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
 import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
@@ -32,50 +31,50 @@ import org.modsl.core.cfg.AbstractProcessor;
 
 public class BasicProcessor extends AbstractProcessor<BasicParser> {
 
-	@Override
-	protected Lexer getLexer(ANTLRStringStream input) {
-		return new BasicLexer(input);
-	}
+    @Override
+    protected Lexer getLexer(ANTLRStringStream input) {
+        return new BasicLexer(input);
+    }
 
-	@Override
-	protected String getName() {
-		return "basic";
-	}
+    @Override
+    protected String getName() {
+        return "basic";
+    }
 
-	@Override
-	protected BasicParser getParser(CommonTokenStream tokens) {
-		return new BasicParser(tokens);
-	}
+    @Override
+    protected BasicParser getParser(CommonTokenStream tokens) {
+        return new BasicParser(tokens);
+    }
 
-	@Override
-	protected String getPath() {
-		return "cfg/basic:cfg";
-	}
+    @Override
+    protected String getPath() {
+        return "cfg/basic:cfg";
+    }
 
-	@Override
-	protected Graph getGraph() {
-		return parser.graph;
-	}
+    @Override
+    protected Graph getGraph() {
+        return parser.graph;
+    }
 
-	@Override
-	protected void runParser() throws RecognitionException {
-		parser.graph();
-	}
+    @Override
+    protected void runParser() throws RecognitionException {
+        parser.graph();
+    }
 
-	@Override
-	public void initLayouts() {
-		addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(BasicMetaType.NODE));
+    @Override
+    public void initLayouts() {
+        addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(BasicMetaType.NODE));
         addLayoutVisitor(new FRLayoutVisitor(BasicMetaType.GRAPH));
-		addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(BasicMetaType.NODE));
-	}
+        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(BasicMetaType.NODE));
+    }
 
-	@Override
-	public void initDecorators() {
-		BasicMetaType.GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(BasicMetaType.class));
-	}
+    @Override
+    public void initDecorators() {
+        //
+    }
 
-	@Override
-	protected Class<? extends MetaType> getMetaTypeClass() {
-		return BasicMetaType.class;
-	}
+    @Override
+    protected Class<? extends MetaType> getMetaTypeClass() {
+        return BasicMetaType.class;
+    }
 }

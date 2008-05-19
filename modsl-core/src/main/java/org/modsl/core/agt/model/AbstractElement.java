@@ -16,6 +16,9 @@
 
 package org.modsl.core.agt.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
@@ -46,6 +49,11 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
      * Index
      */
     int index = -1;
+
+    /**
+     * Meta type map for convenient access in the templates
+     */
+    protected Map<String, Object> metaTypeMap;
 
     /**
      * Create new
@@ -85,6 +93,21 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
      */
     public int getIndex() {
         return index;
+    }
+
+    /**
+     * Convenience method for string template access to the meta-type map
+     * @return meta type map
+     */
+    public Map<String, Object> getMeta() {
+        if (metaTypeMap == null) {
+            Object[] mta = type.getClass().getEnumConstants();
+            metaTypeMap = new HashMap<String, Object>(mta.length);
+            for (Object mt : mta) {
+                metaTypeMap.put(mt.toString(), mt);
+            }
+        }
+        return metaTypeMap;
     }
 
     /**
@@ -138,7 +161,7 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
     public void setParent(P parent) {
         this.parent = parent;
     }
-
+    
     /**
      * Set meta type
      * @param type
@@ -151,5 +174,6 @@ public abstract class AbstractElement<P extends AbstractElement<?>> {
     public String toString() {
         return name + ":" + type;
     }
+
 
 }

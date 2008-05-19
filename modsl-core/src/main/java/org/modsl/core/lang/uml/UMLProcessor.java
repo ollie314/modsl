@@ -22,7 +22,6 @@ import org.antlr.runtime.Lexer;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
-import org.modsl.core.agt.decor.MetaTypeMapDecorator;
 import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
 import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
@@ -68,7 +67,15 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 
     @Override
     public void initDecorators() {
-        UMLMetaType.COLLAB_GRAPH.getConfig().setDecorator(new MetaTypeMapDecorator(UMLMetaType.class));
+        initCollabDecorators();
+        initClassDecorators();
+    }
+
+    private void initClassDecorators() {
+        //
+    }
+
+    private void initCollabDecorators() {
         UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
     }
 

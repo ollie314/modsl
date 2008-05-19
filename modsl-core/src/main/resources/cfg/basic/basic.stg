@@ -4,9 +4,9 @@ GRAPH_in(graph, decor) ::= <<
 $root_in(graph)$
 <!-- $node.name$: basic graph -->
 <style type="text/css"><![CDATA[ 
-	text.graph { font-family: $decor.meta.GRAPH.config.ft.name$; font-size: $decor.meta.GRAPH.config.ft.size$px; }
+	text.graph { font-family: $graph.meta.GRAPH.config.ft.name$; font-size: $graph.meta.GRAPH.config.ft.size$px; }
 	rect.node { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75;	}	
-	text.nodelabel { fill: black; font-family: $decor.meta.NODE_LABEL.config.ft.name$; font-size: $decor.meta.NODE_LABEL.config.ft.size$px; }
+	text.nodelabel { fill: black; font-family: $graph.meta.NODE_LABEL.config.ft.name$; font-size: $graph.meta.NODE_LABEL.config.ft.size$px; }
 	line.edge { stroke: dimgrey; stroke-width: 1px; }
 ]]></style>
 
