@@ -16,6 +16,8 @@
 
 package org.modsl.core.lang.uml.factory;
 
+import java.util.List;
+
 import org.antlr.runtime.Token;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
@@ -30,34 +32,35 @@ import org.modsl.core.lang.uml.UMLMetaType;
  */
 public class UMLClassFactory extends AbstractUMLFactory {
 
-    /**
-     * Create node from token
-     * @param parent parent
-     * @param token node token
-     * @return new node
-     */
-    Node createNode(Graph parent, Token token, UMLMetaType nodeType, UMLMetaType labelType) {
-        Node n = new Node(nodeType, token.getText());
-        n.addLabel(new NodeLabel(labelType, token.getText()));
-        parent.add(n);
-        return n;
-    }
+	/**
+	 * Create node from token
+	 * @param parent parent
+	 * @param token node token
+	 * @return new node
+	 */
+	Node createNode(Graph parent, Token token, UMLMetaType nodeType, UMLMetaType labelType, List<NodeLabel> elements) {
+		Node n = new Node(nodeType, token.getText());
+		n.addLabel(new NodeLabel(labelType, token.getText()));
+		n.addLabels(elements);
+		parent.add(n);
+		return n;
+	}
 
-    public Node createClassNode(Graph parent, Token token) {
-        return createNode(parent, token, UMLMetaType.CLASS_CLASS_NODE, UMLMetaType.CLASS_CLASS_NODE_LABEL);
-    }
+	public Node createClassNode(Graph parent, Token token, List<NodeLabel> elements) {
+		return createNode(parent, token, UMLMetaType.CLASS_CLASS_NODE, UMLMetaType.CLASS_CLASS_NODE_LABEL, elements);
+	}
 
-    public Node createInterfaceNode(Graph parent, Token token) {
-        return createNode(parent, token, UMLMetaType.CLASS_INTERFACE_NODE, UMLMetaType.CLASS_INTERFACE_NODE_LABEL);
-    }
+	public Node createInterfaceNode(Graph parent, Token token, List<NodeLabel> elements) {
+		return createNode(parent, token, UMLMetaType.CLASS_INTERFACE_NODE, UMLMetaType.CLASS_INTERFACE_NODE_LABEL, elements);
+	}
 
-    public void createNodeElement(Node parent, UMLMetaType type, Token token) {
-        parent.addLabel(new NodeLabel(type, token.getText()));
-    }
+	public NodeLabel createNodeElement(UMLMetaType type, Token token) {
+		return new NodeLabel(type, token.getText());
+	}
 
-    @Override
-    public Graph createGraph() {
-        return new Graph(UMLMetaType.CLASS_GRAPH);
-    }
+	@Override
+	public Graph createGraph() {
+		return new Graph(UMLMetaType.CLASS_GRAPH);
+	}
 
 }
