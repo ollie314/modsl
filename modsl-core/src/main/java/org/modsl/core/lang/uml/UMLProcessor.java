@@ -63,7 +63,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 
     @Override
     protected void runParser() throws RecognitionException {
-        parser.collabDiagram();
+        parser.diagram();
     }
 
     @Override

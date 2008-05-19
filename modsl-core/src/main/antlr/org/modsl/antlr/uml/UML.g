@@ -25,7 +25,7 @@ options {
 	protected UMLClassFactory classFactory = new UMLClassFactory();
 }
 
-diagram : collabDiagram | classDiagram;
+diagram : classDiagram | collabDiagram;
 
 collabDiagram 
 	@init { graph = collabFactory.createGraph();  }
