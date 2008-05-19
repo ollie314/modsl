@@ -155,6 +155,7 @@ public abstract class AbstractProcessor<S extends Parser> {
         for (AbstractLayoutVisitor layout : layoutVisitors) {
             graph.accept(layout);
         }
+        graph.rescale();
         graph.accept(getStringTemplateVisitor());
         return getStringTemplateVisitor().toString();
     }
