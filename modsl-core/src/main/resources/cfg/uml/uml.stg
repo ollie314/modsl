@@ -9,13 +9,13 @@ $root_in(graph)$
 <!-- $graph.name$: collaboration diagram -->
 <defs>
 <style type="text/css"><![CDATA[ 
-	text.collabgraph { font-family: $graph.meta.COLLAB_GRAPH.config.ft.name$; font-size: $graph.meta.COLLAB_GRAPH.config.ft.size$px; }
-	rect.collabnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
-	text.collabnodelabel { fill: black; font-family: $graph.meta.COLLAB_NODE_LABEL.config.ft.name$; font-size: $graph.meta.COLLAB_NODE_LABEL.config.ft.size$px; }
-	line.collabnodelabel { stroke: black; stroke-width: 1px; }	
-	line.collabedge, path.collabedge { fill:none; stroke: dimgrey; stroke-width: 1px; }
-	text.collabedgelabel { fill: black; font-family: $graph.meta.COLLAB_EDGE_LABEL.config.ft.name$; font-size: $graph.meta.COLLAB_EDGE_LABEL.config.ft.size$px; }
-	rect.collabedgelabel { fill: white; stroke: white; stroke-width: 1px; opacity: 1; }	
+	text.collab_graph { font-family: $graph.meta.COLLAB_GRAPH.config.ft.name$; font-size: $graph.meta.COLLAB_GRAPH.config.ft.size$px; }
+	rect.collab_node { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
+	text.collab_nodelabel { fill: black; font-family: $graph.meta.COLLAB_NODE_LABEL.config.ft.name$; font-size: $graph.meta.COLLAB_NODE_LABEL.config.ft.size$px; }
+	line.collab_nodelabel { stroke: black; stroke-width: 1px; }	
+	line.collab_edge, path.collab_edge { fill:none; stroke: dimgrey; stroke-width: 1px; }
+	text.collab_edgelabel { fill: black; font-family: $graph.meta.COLLAB_EDGE_LABEL.config.ft.name$; font-size: $graph.meta.COLLAB_EDGE_LABEL.config.ft.size$px; }
+	rect.collab_edgelabel { fill: white; stroke: white; stroke-width: 1px; opacity: 1; }	
 ]]></style>
 </defs>
 
@@ -23,26 +23,26 @@ $root_in(graph)$
 
 COLLAB_NODE_in(node, decor) ::= <<
 
-<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="collabnode"/>
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="collab_node"/>
 >>
 
 COLLAB_NODE_LABEL_in(label, decor) ::= <<
 
-<line x1="$label.underline1.x$" y1="$label.underline1.y$" x2="$label.underline2.x$" y2="$label.underline2.y$" class="collabnodelabel"/>
-<text x="$label.textPos.x$" y="$label.textPos.y$" class="collabnodelabel">$label.name$</text>
+<line x1="$label.underline1.x$" y1="$label.underline1.y$" x2="$label.underline2.x$" y2="$label.underline2.y$" class="collab_nodelabel"/>
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="collab_nodelabel">$label.name$</text>
 >>
 
 COLLAB_EDGE_in(edge, decor) ::= <<
 
-<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|Q$b.pos.x$,$b.pos.y$ }$ $edge.node2Port.x$,$edge.node2Port.y$" class="collabedge"/>
-<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collabedge"/>
-<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collabedge"/>
+<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|Q$b.pos.x$,$b.pos.y$ }$ $edge.node2Port.x$,$edge.node2Port.y$" class="collab_edge"/>
+<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collab_edge"/>
+<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="collab_edge"/>
 >>
 
 COLLAB_EDGE_LABEL_in(label, decor) ::= <<
 
-<rect x="$label.pos.x$" y="$label.pos.y$" width="$label.size.x$" height="$label.size.y$" class="collabedgelabel"/>
-<text x="$label.textPos.x$" y="$label.textPos.y$" class="collabedgelabel">$label.name$</text>
+<rect x="$label.pos.x$" y="$label.pos.y$" width="$label.size.x$" height="$label.size.y$" class="collab_edgelabel"/>
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="collab_edgelabel">$label.name$</text>
 >>
 
 COLLAB_GRAPH_out(graph, decor) ::= <<
@@ -59,9 +59,13 @@ $root_in(graph)$
 <!-- $graph.name$: class diagram -->
 <defs>
 <style type="text/css"><![CDATA[ 
-	text.classgraph { font-family: $graph.meta.CLASS_GRAPH.config.ft.name$; font-size: $graph.meta.CLASS_GRAPH.config.ft.size$px; }
-	rect.classnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
-	line.classnode { stroke: midnightblue; stroke-width: 1px; }	
+	text.class_graph { font-family: $graph.meta.CLASS_GRAPH.config.ft.name$; font-size: $graph.meta.CLASS_GRAPH.config.ft.size$px; }
+	rect.class_classnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
+	line.class_classnode { stroke: midnightblue; stroke-width: 1px; }
+	text.class_classnodelabel { fill: black; font-family: $graph.meta.CLASS_CLASS_NODE_LABEL.config.ft.name$; font-size: $graph.meta.CLASS_CLASS_NODE_LABEL.config.ft.size$px; }
+	rect.class_interfacenode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
+	line.class_interfacenode { stroke: midnightblue; stroke-width: 1px; }
+	text.class_interfacenodelabel { fill: black; font-family: $graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft.name$; font-size: $graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft.size$px; font-style: italic; }
 ]]></style>
 </defs>
 
@@ -69,12 +73,22 @@ $root_in(graph)$
 
 CLASS_CLASS_NODE_in(node, decor) ::= <<
 
-<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="classnode"/>
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="class_classnode"/>
+>>
+
+CLASS_CLASS_NODE_LABEL_in(label, decor) ::= <<
+
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="class_nodelabel">$label.name$</text>
 >>
 
 CLASS_INTERFACE_NODE_in(node, decor) ::= <<
 
-<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="classnode"/>
+<rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="class_interfacenode"/>
+>>
+
+CLASS_INTERFACE_NODE_LABEL_in(label, decor) ::= <<
+
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="class_interfacenodelabel">$label.name$</text>
 >>
 
 CLASS_GRAPH_out(graph, decor) ::= <<
