@@ -89,6 +89,8 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
         addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
         addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
         addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.CLASS_GRAPH));
+        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
+        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
     }
 
     private void initCollabLayouts() {

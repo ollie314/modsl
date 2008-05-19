@@ -78,7 +78,7 @@ CLASS_CLASS_NODE_in(node, decor) ::= <<
 
 CLASS_CLASS_NODE_LABEL_in(label, decor) ::= <<
 
-<text x="$label.textPos.x$" y="$label.textPos.y$" class="class_nodelabel">$label.name$</text>
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="class_classnodelabel">$label.name$</text>
 >>
 
 CLASS_INTERFACE_NODE_in(node, decor) ::= <<
