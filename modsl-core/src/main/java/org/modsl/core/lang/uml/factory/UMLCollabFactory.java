@@ -25,7 +25,6 @@ import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
-import org.modsl.core.lang.uml.AbstractUMLFactory;
 import org.modsl.core.lang.uml.UMLMetaType;
 
 /**
