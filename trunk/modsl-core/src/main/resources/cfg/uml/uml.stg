@@ -137,11 +137,19 @@ $root_in(graph)$
 		font-family: $graph.meta.CLASS_STATIC_VAR_NODE_LABEL.config.ft.name$; 
 		font-size: $graph.meta.CLASS_STATIC_VAR_NODE_LABEL.config.ft.size$px; 
 	}
+	line.staticvarnodelabel { 
+		stroke: black; 
+		stroke-width: 1px; 
+	}	
 	text.staticmethodnodelabel { 
 		fill: black; 
 		font-family: $graph.meta.CLASS_STATIC_METHOD_NODE_LABEL.config.ft.name$; 
 		font-size: $graph.meta.CLASS_STATIC_METHOD_NODE_LABEL.config.ft.size$px; 
 	}
+	line.staticmethodnodelabel { 
+		stroke: black; 
+		stroke-width: 1px; 
+	}	
 ]]></style>
 </defs>
 
@@ -179,11 +187,15 @@ CLASS_METHOD_NODE_LABEL_in(label, decor) ::= <<
 
 CLASS_STATIC_VAR_NODE_LABEL_in(label, decor) ::= <<
 
+<line x1="$label.underline1.x$" y1="$label.underline1.y$" x2="$label.underline2.x$" y2="$label.underline2.y$" 
+	class="staticvarnodelabel"/>
 <text x="$label.textPos.x$" y="$label.textPos.y$" class="staticvarnodelabel">$label.name$</text>
 >>
 
 CLASS_STATIC_METHOD_NODE_LABEL_in(label, decor) ::= <<
 
+<line x1="$label.underline1.x$" y1="$label.underline1.y$" x2="$label.underline2.x$" y2="$label.underline2.y$" 
+	class="staticmethodnodelabel"/>
 <text x="$label.textPos.x$" y="$label.textPos.y$" class="staticmethodnodelabel">$label.name$</text>
 >>
 
