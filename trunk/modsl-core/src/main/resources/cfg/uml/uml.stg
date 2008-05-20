@@ -174,17 +174,17 @@ CLASS_VAR_NODE_LABEL_in(label, decor) ::= <<
 
 CLASS_METHOD_NODE_LABEL_in(label, decor) ::= <<
 
-<text x="$label.textPos.x$" y="$label.textPos.y$" class="varnodelabel">$label.name$</text>
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="methodnodelabel">$label.name$</text>
 >>
 
 CLASS_STATIC_VAR_NODE_LABEL_in(label, decor) ::= <<
 
-<text x="$label.textPos.x$" y="$label.textPos.y$" class="varnodelabel">$label.name$</text>
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="staticvarnodelabel">$label.name$</text>
 >>
 
 CLASS_STATIC_METHOD_NODE_LABEL_in(label, decor) ::= <<
 
-<text x="$label.textPos.x$" y="$label.textPos.y$" class="varnodelabel">$label.name$</text>
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="staticmethodnodelabel">$label.name$</text>
 >>
 
 CLASS_GRAPH_out(graph, decor) ::= <<
