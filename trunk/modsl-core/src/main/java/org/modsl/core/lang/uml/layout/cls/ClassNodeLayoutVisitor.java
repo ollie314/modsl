@@ -16,6 +16,8 @@
 
 package org.modsl.core.lang.uml.layout.cls;
 
+import static java.lang.Math.max;
+
 import java.util.List;
 
 import org.modsl.core.agt.common.FontTransform;
@@ -31,24 +33,67 @@ import org.modsl.core.lang.uml.UMLMetaType;
  */
 public class ClassNodeLayoutVisitor extends SimpleNodeLabelSizeLayoutVisitor {
 
-	public ClassNodeLayoutVisitor(MetaType type) {
-		super(type);
-	}
+    public ClassNodeLayoutVisitor(MetaType type) {
+        super(type);
+    }
 
-	@Override
-	public void apply(Node node) {
-		FontTransform ft = node.getType().getConfig().getFontTransform();
-		List<NodeLabel> labels = node.getLabels(UMLMetaType.CLASS_CLASS_NODE_LABEL);
-		if (labels.isEmpty()) {
-			labels = node.getLabels(UMLMetaType.CLASS_INTERFACE_NODE_LABEL);
-		}
-		NodeLabel hl = labels.get(0);
-		int i = 0;
-		for (NodeLabel label : node.getLabels()) {
-			label.getOffset().x = ft.getLeftPadding();
-			label.getOffset().y = ft.getExtPosition(i++);
-		}
-		node.setSize(ft.getExtStringWidth(hl.getName()), ft.getExtHeight(1));
-	}
+    @Override
+    public void apply(Node node) {
+
+        FontTransform ftn = node.getType().getConfig().getFontTransform();
+        FontTransform ftv = UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFontTransform();
+        FontTransform ftm = UMLMetaType.CLASS_METHOD_NODE_LABEL.getConfig().getFontTransform();
+
+        NodeLabel hl = getHeaderLabel(node);
+        List<NodeLabel> vls = node.getLabels(UMLMetaType.CLASS_VAR_NODE_LABEL);
+        List<NodeLabel> mls = node.getLabels(UMLMetaType.CLASS_METHOD_NODE_LABEL);
+
+        double maxExtStringWidth = ftn.getExtStringWidth(hl.getName());
+        double maxExtHeight = ftn.getExtHeight(1);
+
+        double varAreaY = maxExtHeight;
+        for (int i = 0; i < vls.size(); i++) {
+            NodeLabel l = vls.get(i);
+            l.getOffset().x = ftv.getLeftPadding();
+            l.getOffset().y = varAreaY + ftv.getExtPosition(i);
+            maxExtStringWidth = max(maxExtStringWidth, ftv.getLeftPadding() + l.getSize().x + ftv.getRightPadding());
+            maxExtHeight = l.getOffset().y + ftv.getHeight();
+        }
+
+        double methodAreaY;
+        if (vls.size() > 0) {
+            maxExtHeight += ftv.getBottomPadding();
+            methodAreaY = maxExtHeight;
+        } else {
+            methodAreaY = varAreaY;
+        }
+
+        for (int i = 0; i < mls.size(); i++) {
+            NodeLabel l = mls.get(i);
+            l.getOffset().x = ftm.getLeftPadding();
+            l.getOffset().y = methodAreaY + ftm.getExtPosition(i);
+            maxExtStringWidth = max(maxExtStringWidth, ftm.getLeftPadding() + l.getSize().x + ftm.getRightPadding());
+            maxExtHeight = l.getOffset().y + ftm.getHeight();
+        }
+
+        if (mls.size() > 0) {
+            maxExtHeight += ftm.getBottomPadding();
+        }
+
+        if (mls.size() == 0 && mls.size() == 0) {
+            maxExtHeight += ftn.getSize();
+        }
+
+        node.setSize(maxExtStringWidth, maxExtHeight);
+
+    }
+
+    NodeLabel getHeaderLabel(Node node) {
+        List<NodeLabel> ls = node.getLabels(UMLMetaType.CLASS_CLASS_NODE_LABEL);
+        if (ls.isEmpty()) {
+            ls = node.getLabels(UMLMetaType.CLASS_INTERFACE_NODE_LABEL);
+        }
+        return ls.get(0);
+    }
 
 }

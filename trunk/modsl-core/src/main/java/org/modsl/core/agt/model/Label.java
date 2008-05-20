@@ -41,4 +41,10 @@ abstract class Label<P extends AbstractElement<?>> extends AbstractBox<P> {
     public Pt getUnderline2() {
         return new Pt(getTextPos().x + ft.getStringWidth(name), getTextPos().y + 2);
     }
+
+    @Override
+    public Pt getSize() {
+        return new Pt(ft.getStringWidth(getName()), ft.getHeight());
+    }
+
 }
