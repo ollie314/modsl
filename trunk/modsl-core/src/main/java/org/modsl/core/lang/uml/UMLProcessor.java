@@ -27,9 +27,10 @@ import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
+import org.modsl.core.lang.uml.decorator.cls.ClassNodeDecorator;
 import org.modsl.core.lang.uml.decorator.collab.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
-import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayout;
+import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
 
 public class UMLProcessor extends AbstractProcessor<UMLParser> {
@@ -71,7 +72,8 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
     }
 
     private void initClassDecorators() {
-        //
+        UMLMetaType.CLASS_CLASS_NODE.getConfig().setDecorator(new ClassNodeDecorator());
+        UMLMetaType.CLASS_INTERFACE_NODE.getConfig().setDecorator(new ClassNodeDecorator());
     }
 
     private void initCollabDecorators() {
@@ -95,7 +97,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
         addLayoutVisitor(new CollabNodeLayoutVisitor(UMLMetaType.COLLAB_NODE));
         addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
         //addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
-        addLayoutVisitor(new CollabEdgeLabelLayout(UMLMetaType.COLLAB_GRAPH));
+        addLayoutVisitor(new CollabEdgeLabelLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
     }
 
     @Override
