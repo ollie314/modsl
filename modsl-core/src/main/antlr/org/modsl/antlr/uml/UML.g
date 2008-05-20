@@ -61,7 +61,7 @@ methodClassElementStatement: MID ';'
 	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_METHOD_NODE_LABEL, $MID)); };
 
 staticMethodClassElementStatement: 'static' MID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $MID)); };
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL, $MID)); };
 
 MID: ID '(' (ID (',' ID)*)? ')';
 EDGEOP: '->';
