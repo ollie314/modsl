@@ -36,7 +36,7 @@ public class UMLGrammarTest extends AbstractUMLTest {
 	public void edges() throws RecognitionException {
 		// Node<UMLMetaType> root = processor.parse("collab ge { n1->n2.m1();
 		// n2->n3.m2()->n4; }");
-	    Graph graph = processor.parse("collab ge { n1->:n2.m2; n3:n4->n5.m5->:n6.m6(); }");
+	    Graph graph = processor.parse("collab ge { n1->:n2.m2(); n3:n4->n5.m5()->:n6.m6(); }");
 //		log.debug(new ToStringVisitor<UMLMetaType>().toString(root));
 		//assertEquals(3, root.getNodes().size());
 		//assertEquals(0, root.getEdges().size());
