@@ -131,4 +131,9 @@ public class Node extends AbstractBox<Graph> {
 		}
 	}
 
+    @Override
+    public String toString() {
+        return super.toString() + " " + labels;
+    }
+
 }

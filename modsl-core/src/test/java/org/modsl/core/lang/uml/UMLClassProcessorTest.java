@@ -38,22 +38,22 @@ public class UMLClassProcessorTest extends AbstractUMLTest {
 
     @Test
     public void process1cv() throws Exception {
-        process("class diagram c1c { class class1 { var1; } }");
+        process("class diagram c1cv { class class1 { var1; } }");
     }
 
     @Test
     public void process1cm() throws Exception {
-        process("class diagram c1c { class class1 { method1(); } }");
+        process("class diagram c1cm { class class1 { method1(); } }");
     }
 
     @Test
     public void process1cvm() throws Exception {
-        process("class diagram c1c { class class1 { v1; m1(); v2; m2(); v3; m3(); } }");
+        process("class diagram c1cvm { class class1 { v1; m1(); v2; m2(); v3; m3(); } }");
     }
 
     @Test
     public void process1cvmss() throws Exception {
-        process("class diagram c1c { class class1 { var1; static var2; method1(); static method2(); } }");
+        process("class diagram c1cvmss { class class1 { var1; static var2; method1(); static method2(); } }");
     }
 
     @Test
