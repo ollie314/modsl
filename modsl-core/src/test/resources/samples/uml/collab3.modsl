@@ -1,6 +1,6 @@
 collaboration ModSL3 { 
 	processor->lexer.tokenStream(); 
-	processor->parser.graph(tokenStream):graph; 
+	processor->parser.graph(tokenStream); 
 	processor->nodeLayoutVisitor.accept(graph);
 	processor->sugiyamaLayoutVisitor.accept(graph);
 	sugiyamaLayoutVisitor->node.setPos();

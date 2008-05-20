@@ -33,7 +33,7 @@ public class UMLClassProcessorTest extends AbstractUMLTest {
 
     @Test
     public void process1c() throws Exception {
-        process("class diagram c1c { class class1 { var1;} }");
+        process("class diagram c1c { class class1 { var1; method2(); } }");
     }
 
     @Test

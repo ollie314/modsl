@@ -34,7 +34,7 @@ collabDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { graph.setName($ID.text); };
 
-collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=ID (EDGEOP ids+=ID '.' mds+=ID)* ';' 
+collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=MID (EDGEOP ids+=ID '.' mds+=MID)* ';' 
 	{ collabFactory.createEdges(graph, $ids, $mds); }; 
 
 classDiagram 
@@ -42,29 +42,30 @@ classDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: 'class' 'diagram'? ID '{' (classStatement | interfaceStatement)* '}' { graph.setName($ID.text); };
 
-classStatement:	'class' id=ID '{' classElementStatement* '}'
-	{ curNode = classFactory.createClassNode(graph, $id, curElements); curElements.clear(); }; 
+classStatement:	'class' ID '{' classElementStatement* '}'
+	{ curNode = classFactory.createClassNode(graph, $ID, curElements); curElements.clear(); }; 
 
-interfaceStatement:	'interface' id=ID '{' classElementStatement* '}'  
-	{ curNode = classFactory.createInterfaceNode(graph, $id, curElements); curElements.clear(); }; 
+interfaceStatement:	'interface' ID '{' classElementStatement* '}'  
+	{ curNode = classFactory.createInterfaceNode(graph, $ID, curElements); curElements.clear(); }; 
 
 classElementStatement: varClassElementStatement | staticVarClassElementStatement 
 	| methodClassElementStatement | staticMethodClassElementStatement;
 
-varClassElementStatement: id=ID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $id)); };
+varClassElementStatement: ID ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $ID)); };
 
-staticVarClassElementStatement: 'static' id=ID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL, $id)); };
+staticVarClassElementStatement: 'static' ID ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL, $ID)); };
 
-methodClassElementStatement: id=ID '(' ps+=ID? (',' ps+=ID)* ')' ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $id)); };
+methodClassElementStatement: MID ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_METHOD_NODE_LABEL, $MID)); };
 
-staticMethodClassElementStatement: 'static' id=ID '(' ps+=ID? (',' ps+=ID)* ')' ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $id)); };
+staticMethodClassElementStatement: 'static' MID ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $MID)); };
 
+MID: ID '(' (ID (',' ID)*)? ')';
 EDGEOP: '->';
-ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '(' | ')' | '[' | ']')*;
+ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '[' | ']')*;
 fragment INT : '0'..'9'+ ;
 WS: (' ' | '\t' | NEWLINE)+ { skip(); };
 fragment NEWLINE:'\r'? '\n';
