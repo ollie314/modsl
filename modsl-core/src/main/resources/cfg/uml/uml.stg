@@ -9,13 +9,41 @@ $root_in(graph)$
 <!-- $graph.name$: collaboration diagram -->
 <defs>
 <style type="text/css"><![CDATA[ 
-	text.graph { font-family: $graph.meta.COLLAB_GRAPH.config.ft.name$; font-size: $graph.meta.COLLAB_GRAPH.config.ft.size$px; }
-	rect.node { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
-	text.nodelabel { fill: black; font-family: $graph.meta.COLLAB_NODE_LABEL.config.ft.name$; font-size: $graph.meta.COLLAB_NODE_LABEL.config.ft.size$px; }
-	line.nodelabel { stroke: black; stroke-width: 1px; }	
-	line.edge, path.edge { fill:none; stroke: dimgrey; stroke-width: 1px; }
-	text.edgelabel { fill: black; font-family: $graph.meta.COLLAB_EDGE_LABEL.config.ft.name$; font-size: $graph.meta.COLLAB_EDGE_LABEL.config.ft.size$px; }
-	rect.edgelabel { fill: white; stroke: white; stroke-width: 1px; opacity: 1; }	
+	text.graph { 
+		font-family: $graph.meta.COLLAB_GRAPH.config.ft.name$; 
+		font-size: $graph.meta.COLLAB_GRAPH.config.ft.size$px; 
+	}
+	rect.node { 
+		fill: url(#root_gradient); 
+		stroke: midnightblue; 
+		stroke-width: 1px; 
+		opacity: 0.75; 
+	}	
+	text.nodelabel { 
+		fill: black; 
+		font-family: $graph.meta.COLLAB_NODE_LABEL.config.ft.name$; 
+		font-size: $graph.meta.COLLAB_NODE_LABEL.config.ft.size$px; 
+	}
+	line.nodelabel { 
+		stroke: black; 
+		stroke-width: 1px; 
+	}	
+	line.edge, path.edge { 
+		fill:none; 
+		stroke: dimgrey; 
+		stroke-width: 1px; 
+	}
+	text.edgelabel { 
+		fill: black; 
+		font-family: $graph.meta.COLLAB_EDGE_LABEL.config.ft.name$; 
+		font-size: $graph.meta.COLLAB_EDGE_LABEL.config.ft.size$px; 
+	}
+	rect.edgelabel { 
+		fill: white; 
+		stroke: white; 
+		stroke-width: 1px; 
+		opacity: 1; 
+	}	
 ]]></style>
 </defs>
 
@@ -59,13 +87,61 @@ $root_in(graph)$
 <!-- $graph.name$: class diagram -->
 <defs>
 <style type="text/css"><![CDATA[ 
-	text.graph { font-family: $graph.meta.CLASS_GRAPH.config.ft.name$; font-size: $graph.meta.CLASS_GRAPH.config.ft.size$px; }
-	rect.classnode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
-	line.classnode { stroke: midnightblue; stroke-width: 1px; }
-	text.classnodelabel { fill: black; font-family: $graph.meta.CLASS_CLASS_NODE_LABEL.config.ft.name$; font-size: $graph.meta.CLASS_CLASS_NODE_LABEL.config.ft.size$px; }
-	rect.interfacenode { fill: url(#root_gradient); stroke: midnightblue; stroke-width: 1px; opacity: 0.75; }	
-	line.interfacenode { stroke: midnightblue; stroke-width: 1px; }
-	text.interfacenodelabel { fill: black; font-family: $graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft.name$; font-size: $graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft.size$px; font-style: italic; }
+	text.graph { 
+		font-family: $graph.meta.CLASS_GRAPH.config.ft.name$; 
+		font-size: $graph.meta.CLASS_GRAPH.config.ft.size$px; 
+	}
+	rect.classnode { 
+		fill: url(#root_gradient); 
+		stroke: midnightblue; 
+		stroke-width: 1px; 
+		opacity: 0.75; 
+	}	
+	line.classnode { 
+		stroke: midnightblue; 
+		stroke-width: 1px; 
+	}
+	text.classnodelabel { 
+		fill: black; 
+		font-family: $graph.meta.CLASS_CLASS_NODE_LABEL.config.ft.name$; 
+		font-size: $graph.meta.CLASS_CLASS_NODE_LABEL.config.ft.size$px; 
+	}
+	rect.interfacenode { 
+		fill: url(#root_gradient); 
+		stroke: midnightblue; 
+		stroke-width: 1px; 
+		opacity: 0.75; 
+	}	
+	line.interfacenode { 
+		stroke: midnightblue; 
+		stroke-width: 1px; 
+	}
+	text.interfacenodelabel { 
+		fill: black; 
+		font-family: $graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft.name$; 
+		font-size: $graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft.size$px; 
+		font-style: italic; 
+	}
+	text.varnodelabel { 
+		fill: black; 
+		font-family: $graph.meta.CLASS_VAR_NODE_LABEL.config.ft.name$; 
+		font-size: $graph.meta.CLASS_VAR_NODE_LABEL.config.ft.size$px; 
+	}
+	text.methodnodelabel { 
+		fill: black; 
+		font-family: $graph.meta.CLASS_METHOD_NODE_LABEL.config.ft.name$; 
+		font-size: $graph.meta.CLASS_METHOD_NODE_LABEL.config.ft.size$px; 
+	}
+	text.staticvarnodelabel { 
+		fill: black; 
+		font-family: $graph.meta.CLASS_STATIC_VAR_NODE_LABEL.config.ft.name$; 
+		font-size: $graph.meta.CLASS_STATIC_VAR_NODE_LABEL.config.ft.size$px; 
+	}
+	text.staticmethodnodelabel { 
+		fill: black; 
+		font-family: $graph.meta.CLASS_STATIC_METHOD_NODE_LABEL.config.ft.name$; 
+		font-size: $graph.meta.CLASS_STATIC_METHOD_NODE_LABEL.config.ft.size$px; 
+	}
 ]]></style>
 </defs>
 
@@ -89,6 +165,26 @@ CLASS_INTERFACE_NODE_in(node, decor) ::= <<
 CLASS_INTERFACE_NODE_LABEL_in(label, decor) ::= <<
 
 <text x="$label.textPos.x$" y="$label.textPos.y$" class="interfacenodelabel">$label.name$</text>
+>>
+
+CLASS_VAR_NODE_LABEL_in(label, decor) ::= <<
+
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="varnodelabel">$label.name$</text>
+>>
+
+CLASS_METHOD_NODE_LABEL_in(label, decor) ::= <<
+
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="varnodelabel">$label.name$</text>
+>>
+
+CLASS_STATIC_VAR_NODE_LABEL_in(label, decor) ::= <<
+
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="varnodelabel">$label.name$</text>
+>>
+
+CLASS_STATIC_METHOD_NODE_LABEL_in(label, decor) ::= <<
+
+<text x="$label.textPos.x$" y="$label.textPos.y$" class="varnodelabel">$label.name$</text>
 >>
 
 CLASS_GRAPH_out(graph, decor) ::= <<
