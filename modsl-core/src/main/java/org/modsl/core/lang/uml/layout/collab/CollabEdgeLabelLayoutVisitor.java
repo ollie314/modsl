@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
@@ -31,9 +30,9 @@ import org.modsl.core.agt.model.MetaType;
  * Edge label placement
  * @author avishnyakov
  */
-public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor {
+public class CollabEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
 
-    public CollabEdgeLabelLayout(MetaType type) {
+    public CollabEdgeLabelLayoutVisitor(MetaType type) {
         super(type);
     }
 
