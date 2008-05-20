@@ -16,6 +16,8 @@
 
 package org.modsl.core.agt.model;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,106 +32,110 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  */
 public class Node extends AbstractBox<Graph> {
 
-	private static int counter = 0;
+    private static int counter = 0;
 
-	/**
-	 * List of connected edges
-	 */
-	Set<Edge> connectedEdges = new HashSet<Edge>();
+    /**
+     * List of connected edges
+     */
+    Set<Edge> connectedEdges = new HashSet<Edge>();
 
-	/**
-	 * Labels
-	 */
-	List<NodeLabel> labels = new LinkedList<NodeLabel>();
+    /**
+     * Labels
+     */
+    List<NodeLabel> labels = new LinkedList<NodeLabel>();
 
-	/**
-	 * Create new
-	 * @param type type
-	 * @param name name
-	 */
-	public Node(MetaType type, String name) {
-		super(type, name);
-		this.index = counter++;
-	}
+    /**
+     * Create new
+     * @param type type
+     * @param name name
+     */
+    public Node(MetaType type, String name) {
+        super(type, name);
+        this.index = counter++;
+    }
 
-	@Override
-	public void accept(AbstractVisitor visitor) {
-		visitor.in(this);
-		for (NodeLabel l : labels) {
-			l.accept(visitor);
-		}
-		visitor.out(this);
-	}
+    @Override
+    public void accept(AbstractVisitor visitor) {
+        visitor.in(this);
+        for (NodeLabel l : labels) {
+            l.accept(visitor);
+        }
+        visitor.out(this);
+    }
 
-	protected boolean addConnectedEdge(Edge edge) {
-		return connectedEdges.add(edge);
-	}
+    protected boolean addConnectedEdge(Edge edge) {
+        return connectedEdges.add(edge);
+    }
 
-	public void addLabel(NodeLabel label) {
-		labels.add(label);
-		label.setParent(this);
-	}
+    public void addLabel(NodeLabel label) {
+        labels.add(label);
+        label.setParent(this);
+    }
 
-	public int getInDegree() {
-		return getInEdges().size();
-	}
+    public int getInDegree() {
+        return getInEdges().size();
+    }
 
-	public List<Edge> getInEdges() {
-		List<Edge> ins = new LinkedList<Edge>();
-		for (Edge e : connectedEdges) {
-			if (e.getNode2().equals(this)) {
-				ins.add(e);
-			}
-		}
-		return ins;
-	}
+    public List<Edge> getInEdges() {
+        List<Edge> ins = new LinkedList<Edge>();
+        for (Edge e : connectedEdges) {
+            if (e.getNode2().equals(this)) {
+                ins.add(e);
+            }
+        }
+        return ins;
+    }
 
-	public List<NodeLabel> getLabels() {
-		return labels;
-	}
-	
-	public List<NodeLabel> getLabels(MetaType mt) {
-		List<NodeLabel> ls = new LinkedList<NodeLabel>();
-		for (NodeLabel l : labels ) {
-			if (l.getType().equals(mt)) {
-				ls.add(l);
-			}
-		}
-		return ls;
-	}
+    public List<NodeLabel> getLabels() {
+        return labels;
+    }
 
-	public int getOutDegree() {
-		return getOutEdges().size();
-	}
+    public List<NodeLabel> getLabels(MetaType mt) {
+        return getLabels(Arrays.asList(new MetaType[] { mt }));
+    }
 
-	public List<Edge> getOutEdges() {
-		List<Edge> ins = new LinkedList<Edge>();
-		for (Edge e : connectedEdges) {
-			if (e.getNode1().equals(this)) {
-				ins.add(e);
-			}
-		}
-		return ins;
-	}
+    public List<NodeLabel> getLabels(Collection<MetaType> mts) {
+        List<NodeLabel> ls = new LinkedList<NodeLabel>();
+        for (NodeLabel l : labels) {
+            if (mts.contains(l.getType())) {
+                ls.add(l);
+            }
+        }
+        return ls;
+    }
 
-	public boolean isConnectedTo(AbstractBox<?> b) {
-		for (Edge e : connectedEdges) {
-			if (e.getDistance(this, b) == 1) {
-				return true;
-			}
-		}
-		return false;
-	}
+    public int getOutDegree() {
+        return getOutEdges().size();
+    }
 
-	protected boolean removeConnectedEdge(Edge edge) {
-		return connectedEdges.remove(edge);
-	}
+    public List<Edge> getOutEdges() {
+        List<Edge> ins = new LinkedList<Edge>();
+        for (Edge e : connectedEdges) {
+            if (e.getNode1().equals(this)) {
+                ins.add(e);
+            }
+        }
+        return ins;
+    }
 
-	public void addLabels(List<NodeLabel> labels) {
-		for (NodeLabel l : labels) {
-			addLabel(l);
-		}
-	}
+    public boolean isConnectedTo(AbstractBox<?> b) {
+        for (Edge e : connectedEdges) {
+            if (e.getDistance(this, b) == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean removeConnectedEdge(Edge edge) {
+        return connectedEdges.remove(edge);
+    }
+
+    public void addLabels(List<NodeLabel> labels) {
+        for (NodeLabel l : labels) {
+            addLabel(l);
+        }
+    }
 
     @Override
     public String toString() {
