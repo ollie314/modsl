@@ -25,9 +25,9 @@ import org.modsl.core.agt.model.NodeLabel;
  * Does simple node size calculation based on node labels' height and width.
  * @author avishnyakov
  */
-public class SimpleNodeLabelSizeLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
+public class SimpleNodeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
 
-    public SimpleNodeLabelSizeLayoutVisitor(MetaType type) {
+    public SimpleNodeLabelLayoutVisitor(MetaType type) {
         super(type);
     }
 
@@ -40,6 +40,7 @@ public class SimpleNodeLabelSizeLayoutVisitor extends AbstractNonConfigurableLay
             NodeLabel label = node.getLabels().get(0);
             FontTransform ft = label.getType().getConfig().getFontTransform();
             node.setSize(ft.getExtStringWidth(label.getName()), ft.getExtHeight(1));
+            label.setOffset(ft.getLeftPadding(), ft.getExtPosition(0));
         }
     }
 

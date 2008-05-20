@@ -17,7 +17,7 @@
 package org.modsl.core.lang.uml.layout.collab;
 
 import org.modsl.core.agt.common.FontTransform;
-import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
+import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
@@ -25,16 +25,17 @@ import org.modsl.core.agt.model.Node;
  * Does simple node size calculation based on node's text height and width.
  * @author avishnyakov
  */
-public class CollabNodeLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
+public class CollabNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 
-	public CollabNodeLayoutVisitor(MetaType type) {
-		super(type);
-	}
+    public CollabNodeLayoutVisitor(MetaType type) {
+        super(type);
+    }
 
-	@Override
-	public void apply(Node node) {
-		FontTransform ft = node.getType().getConfig().getFontTransform();
-		node.getSize().y += ft.getBottomPadding();
-	}
+    @Override
+    public void apply(Node node) {
+        super.apply(node);
+        FontTransform ft = node.getType().getConfig().getFontTransform();
+        node.getSize().y += ft.getBottomPadding();
+    }
 
 }
