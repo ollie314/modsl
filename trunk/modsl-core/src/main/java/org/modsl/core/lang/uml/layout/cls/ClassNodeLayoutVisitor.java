@@ -18,6 +18,7 @@ package org.modsl.core.lang.uml.layout.cls;
 
 import static java.lang.Math.max;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.modsl.core.agt.common.FontTransform;
@@ -92,15 +93,13 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
     }
 
     List<NodeLabel> getMethodLabels(Node node) {
-        List<NodeLabel> ls = node.getLabels(UMLMetaType.CLASS_METHOD_NODE_LABEL);
-        ls.addAll(node.getLabels(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL));
-        return ls;
+        return node.getLabels(Arrays.asList(new MetaType[] { UMLMetaType.CLASS_METHOD_NODE_LABEL,
+                UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL }));
     }
 
     List<NodeLabel> getVarLabels(Node node) {
-        List<NodeLabel> ls = node.getLabels(UMLMetaType.CLASS_VAR_NODE_LABEL);
-        ls.addAll(node.getLabels(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL));
-        return ls;
+        return node.getLabels(Arrays.asList(new MetaType[] { UMLMetaType.CLASS_VAR_NODE_LABEL,
+                UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL }));
     }
 
     NodeLabel getHeaderLabel(Node node) {
