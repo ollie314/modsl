@@ -14,27 +14,41 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.layout.collab;
+package org.modsl.core.lang.uml.layout.cls;
+
+import java.util.List;
 
 import org.modsl.core.agt.common.FontTransform;
-import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
+import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.NodeLabel;
+import org.modsl.core.lang.uml.UMLMetaType;
 
 /**
- * Does simple node size calculation based on node's text height and width.
+ * Node size calculation based on node's text height and width.
  * @author avishnyakov
  */
-public class CollabNodeLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
+public class ClassNodeLayoutVisitor extends SimpleNodeLabelSizeLayoutVisitor {
 
-	public CollabNodeLayoutVisitor(MetaType type) {
+	public ClassNodeLayoutVisitor(MetaType type) {
 		super(type);
 	}
 
 	@Override
 	public void apply(Node node) {
 		FontTransform ft = node.getType().getConfig().getFontTransform();
-		node.getSize().y += ft.getBottomPadding();
+		List<NodeLabel> labels = node.getLabels(UMLMetaType.CLASS_CLASS_NODE_LABEL);
+		if (labels.isEmpty()) {
+			labels = node.getLabels(UMLMetaType.CLASS_INTERFACE_NODE_LABEL);
+		}
+		NodeLabel hl = labels.get(0);
+		int i = 0;
+		for (NodeLabel label : node.getLabels()) {
+			label.getOffset().x = ft.getLeftPadding();
+			label.getOffset().y = ft.getExtPosition(i++);
+		}
+		node.setSize(ft.getExtStringWidth(hl.getName()), ft.getExtHeight(1));
 	}
 
 }

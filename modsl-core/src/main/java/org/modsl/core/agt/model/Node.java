@@ -87,6 +87,16 @@ public class Node extends AbstractBox<Graph> {
 	public List<NodeLabel> getLabels() {
 		return labels;
 	}
+	
+	public List<NodeLabel> getLabels(MetaType mt) {
+		List<NodeLabel> ls = new LinkedList<NodeLabel>();
+		for (NodeLabel l : labels ) {
+			if (l.getType().equals(mt)) {
+				ls.add(l);
+			}
+		}
+		return ls;
+	}
 
 	public int getOutDegree() {
 		return getOutEdges().size();
