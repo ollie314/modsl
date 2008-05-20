@@ -20,7 +20,6 @@ import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
-import org.modsl.core.agt.model.Pt;
 
 /**
  * Does simple node size calculation based on node labels' height and width.
