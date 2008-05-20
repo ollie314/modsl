@@ -53,7 +53,7 @@ public class ClassNodeDecorator extends AbstractDecorator<Node> {
         if (vls.isEmpty() || mls.isEmpty()) {
             return hl;
         } else {
-            return hl.incBy(0d, UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFt().getExtHeight(vls.size()) + 2);
+            return hl.incBy(0d, UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFt().getExtHeight(vls.size()) + 1);
         }
     }
 
