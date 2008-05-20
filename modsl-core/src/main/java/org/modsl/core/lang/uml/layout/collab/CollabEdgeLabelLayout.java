@@ -48,8 +48,6 @@ public class CollabEdgeLabelLayout extends AbstractNonConfigurableLayoutVisitor 
 
         for (EdgeLabel label : labels) {
             Edge edge = label.getParent();
-            FontTransform ft = edge.getType().getConfig().getFt();
-            label.setSize(ft.getStringWidth(edge.getName()), ft.getHeight());
             label.setAnchor1(edge.getLastBend());
             label.setAnchor2(edge.getNode2());
             label.setOffset(0d, 0d);

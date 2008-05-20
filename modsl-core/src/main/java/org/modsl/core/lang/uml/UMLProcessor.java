@@ -30,6 +30,7 @@ import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
 import org.modsl.core.lang.uml.decorator.collab.CollabEdgeDecorator;
+import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayout;
 import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
 
@@ -86,20 +87,18 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
     }
 
     private void initClassLayouts() {
-        addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
-        addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
+        addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
+        addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
         addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.CLASS_GRAPH));
-        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
-        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
     }
 
     private void initCollabLayouts() {
         //addLayoutVisitor(new CollabNodeWeightVisitor(UMLMetaType.COLLAB_NODE));
         addLayoutVisitor(new CollabNodeLayoutVisitor(UMLMetaType.COLLAB_NODE));
+        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.COLLAB_NODE));
         addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
         //addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
         addLayoutVisitor(new CollabEdgeLabelLayout(UMLMetaType.COLLAB_GRAPH));
-        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.COLLAB_NODE));
     }
 
     @Override
