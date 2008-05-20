@@ -170,6 +170,8 @@ CLASS_CLASS_NODE_LABEL_in(label, decor) ::= <<
 CLASS_INTERFACE_NODE_in(node, decor) ::= <<
 
 <rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="interfacenode"/>
+<line x1="$decor.headerLine1.x$" y1="$decor.headerLine1.y$" x2="$decor.headerLine2.x$" y2="$decor.headerLine2.y$" class="interfacenode"/>
+<line x1="$decor.vLine1.x$" y1="$decor.vLine1.y$" x2="$decor.vLine2.x$" y2="$decor.vLine2.y$" class="interfacenode"/>
 >>
 
 CLASS_INTERFACE_NODE_LABEL_in(label, decor) ::= <<

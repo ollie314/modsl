@@ -52,10 +52,10 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
         FontTransform ftv = UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFontTransform();
         List<NodeLabel> vls = getVarLabels(node);
 
-        double vary = nodeSize.y;
+        double var_y = nodeSize.y;
         for (int i = 0; i < vls.size(); i++) {
             NodeLabel l = vls.get(i);
-            l.setOffset(ftv.getLeftPadding(), vary + ftv.getExtPosition(i));
+            l.setOffset(ftv.getLeftPadding(), var_y + ftv.getExtPosition(i));
             nodeSize.x = max(nodeSize.x, ftv.getLeftPadding() + l.getSize().x + ftv.getRightPadding());
             nodeSize.y = l.getOffset().y + ftv.getHeight();
         }
@@ -64,17 +64,17 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
         FontTransform ftm = UMLMetaType.CLASS_METHOD_NODE_LABEL.getConfig().getFontTransform();
         List<NodeLabel> mls = getMethodLabels(node);
 
-        double methody;
+        double method_y;
         if (vls.size() > 0) {
             nodeSize.y += ftv.getBottomPadding();
-            methody = nodeSize.y;
+            method_y = nodeSize.y;
         } else {
-            methody = vary;
+            method_y = var_y;
         }
 
         for (int i = 0; i < mls.size(); i++) {
             NodeLabel l = mls.get(i);
-            l.setOffset(ftm.getLeftPadding(), methody + ftm.getExtPosition(i));
+            l.setOffset(ftm.getLeftPadding(), method_y + ftm.getExtPosition(i));
             nodeSize.x = max(nodeSize.x, ftm.getLeftPadding() + l.getSize().x + ftm.getRightPadding());
             nodeSize.y = l.getOffset().y + ftm.getHeight();
         }
@@ -84,7 +84,7 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
             nodeSize.y += ftm.getBottomPadding();
         }
 
-        if (mls.size() == 0 && mls.size() == 0) {
+        if (vls.size() == 0 && mls.size() == 0) {
             nodeSize.y += ftn.getSize();
         }
 
