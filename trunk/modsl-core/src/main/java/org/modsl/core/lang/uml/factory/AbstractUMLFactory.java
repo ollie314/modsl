@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.lang.uml;
+package org.modsl.core.lang.uml.factory;
 
 import org.modsl.core.lang.ElementFactory;
 
