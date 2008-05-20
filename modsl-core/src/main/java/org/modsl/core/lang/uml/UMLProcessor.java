@@ -22,8 +22,6 @@ import org.antlr.runtime.Lexer;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
-import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
-import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
@@ -95,7 +93,6 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
     private void initCollabLayouts() {
         //addLayoutVisitor(new CollabNodeWeightVisitor(UMLMetaType.COLLAB_NODE));
         addLayoutVisitor(new CollabNodeLayoutVisitor(UMLMetaType.COLLAB_NODE));
-        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(UMLMetaType.COLLAB_NODE));
         addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
         //addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
         addLayoutVisitor(new CollabEdgeLabelLayout(UMLMetaType.COLLAB_GRAPH));

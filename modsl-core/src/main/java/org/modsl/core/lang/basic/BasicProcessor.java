@@ -22,8 +22,7 @@ import org.antlr.runtime.Lexer;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.basic.BasicLexer;
 import org.modsl.antlr.basic.BasicParser;
-import org.modsl.core.agt.layout.SimpleNodeLabelPosLayoutVisitor;
-import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
+import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
@@ -63,9 +62,8 @@ public class BasicProcessor extends AbstractProcessor<BasicParser> {
 
     @Override
     public void initLayouts() {
-        addLayoutVisitor(new SimpleNodeLabelSizeLayoutVisitor(BasicMetaType.NODE));
+        addLayoutVisitor(new SimpleNodeLabelLayoutVisitor(BasicMetaType.NODE));
         addLayoutVisitor(new FRLayoutVisitor(BasicMetaType.GRAPH));
-        addLayoutVisitor(new SimpleNodeLabelPosLayoutVisitor(BasicMetaType.NODE));
     }
 
     @Override

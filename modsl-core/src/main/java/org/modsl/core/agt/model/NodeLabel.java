@@ -25,4 +25,9 @@ public class NodeLabel extends Label<Node> {
         return getParent().getPos().plus(offset);
     }
 
+    public void setOffset(double x, double y) {
+        this.offset.x = x;
+        this.offset.y = y;
+    }
+
 }

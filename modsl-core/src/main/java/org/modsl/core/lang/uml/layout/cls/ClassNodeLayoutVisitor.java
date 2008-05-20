@@ -21,7 +21,7 @@ import static java.lang.Math.max;
 import java.util.List;
 
 import org.modsl.core.agt.common.FontTransform;
-import org.modsl.core.agt.layout.SimpleNodeLabelSizeLayoutVisitor;
+import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
@@ -31,7 +31,7 @@ import org.modsl.core.lang.uml.UMLMetaType;
  * Node size calculation based on node's text height and width.
  * @author avishnyakov
  */
-public class ClassNodeLayoutVisitor extends SimpleNodeLabelSizeLayoutVisitor {
+public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 
     public ClassNodeLayoutVisitor(MetaType type) {
         super(type);
@@ -40,42 +40,46 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelSizeLayoutVisitor {
     @Override
     public void apply(Node node) {
 
+        // header
         FontTransform ftn = node.getType().getConfig().getFontTransform();
-        FontTransform ftv = UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFontTransform();
-        FontTransform ftm = UMLMetaType.CLASS_METHOD_NODE_LABEL.getConfig().getFontTransform();
-
         NodeLabel hl = getHeaderLabel(node);
-        List<NodeLabel> vls = node.getLabels(UMLMetaType.CLASS_VAR_NODE_LABEL);
-        List<NodeLabel> mls = node.getLabels(UMLMetaType.CLASS_METHOD_NODE_LABEL);
-
+        hl.setOffset(ftn.getLeftPadding(), ftn.getTopPadding());
+        
         double maxExtStringWidth = ftn.getExtStringWidth(hl.getName());
         double maxExtHeight = ftn.getExtHeight(1);
 
-        double varAreaY = maxExtHeight;
+        // vars
+        FontTransform ftv = UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFontTransform();
+        List<NodeLabel> vls = node.getLabels(UMLMetaType.CLASS_VAR_NODE_LABEL);
+
+        double vary = maxExtHeight;
         for (int i = 0; i < vls.size(); i++) {
             NodeLabel l = vls.get(i);
-            l.getOffset().x = ftv.getLeftPadding();
-            l.getOffset().y = varAreaY + ftv.getExtPosition(i);
+            l.setOffset(ftv.getLeftPadding(), vary + ftv.getExtPosition(i));
             maxExtStringWidth = max(maxExtStringWidth, ftv.getLeftPadding() + l.getSize().x + ftv.getRightPadding());
             maxExtHeight = l.getOffset().y + ftv.getHeight();
         }
 
-        double methodAreaY;
+        // methods
+        FontTransform ftm = UMLMetaType.CLASS_METHOD_NODE_LABEL.getConfig().getFontTransform();
+        List<NodeLabel> mls = node.getLabels(UMLMetaType.CLASS_METHOD_NODE_LABEL);
+        
+        double methody;
         if (vls.size() > 0) {
             maxExtHeight += ftv.getBottomPadding();
-            methodAreaY = maxExtHeight;
+            methody = maxExtHeight;
         } else {
-            methodAreaY = varAreaY;
+            methody = vary;
         }
 
         for (int i = 0; i < mls.size(); i++) {
             NodeLabel l = mls.get(i);
-            l.getOffset().x = ftm.getLeftPadding();
-            l.getOffset().y = methodAreaY + ftm.getExtPosition(i);
+            l.setOffset(ftm.getLeftPadding(), methody + ftm.getExtPosition(i));
             maxExtStringWidth = max(maxExtStringWidth, ftm.getLeftPadding() + l.getSize().x + ftm.getRightPadding());
             maxExtHeight = l.getOffset().y + ftm.getHeight();
         }
 
+        // final node size adjustments
         if (mls.size() > 0) {
             maxExtHeight += ftm.getBottomPadding();
         }
