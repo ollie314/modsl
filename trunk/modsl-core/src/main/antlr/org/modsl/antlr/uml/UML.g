@@ -71,7 +71,7 @@ methodClassElementStmt: method ';'
 staticMethodClassElementStmt: 'static' method ';' 
 	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL, $method.text)); };
 
-aggStmt: from=multiplicity EDGEOP to=multiplicity '(' ID ')'
+aggStmt: from=multiplicity EDGEOP to=multiplicity '(' ID ')' ';'
 	{ curAggs.add($from.text); curAggs.add($to.text); curAggs.add($ID.text); };
 
 method: ID '(' (ID (',' ID)*)? ')';
@@ -82,6 +82,6 @@ multibound: '*' | ID | INT;
 
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '[' | ']')*;
-fragment INT : '0'..'9'+ ;
+INT : '0'..'9'+ ;
 WS: (' ' | '\t' | NEWLINE)+ { skip(); };
 fragment NEWLINE:'\r'? '\n';

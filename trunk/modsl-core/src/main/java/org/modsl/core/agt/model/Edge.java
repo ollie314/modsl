@@ -18,6 +18,8 @@ package org.modsl.core.agt.model;
 
 import static java.lang.Math.abs;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -193,6 +195,20 @@ public class Edge extends AbstractElement<Graph> {
         return labels;
     }
 
+    public List<EdgeLabel> getLabels(Collection<MetaType> mts) {
+        List<EdgeLabel> ls = new LinkedList<EdgeLabel>();
+        for (EdgeLabel l : labels) {
+            if (mts.contains(l.getType())) {
+                ls.add(l);
+            }
+        }
+        return ls;
+    }
+
+    public List<EdgeLabel> getLabels(MetaType mt) {
+        return getLabels(Arrays.asList(new MetaType[] { mt }));
+    }
+
     /**
      * @return get last bend before the node 2 (will return node 1 if there are
      * no bends)
@@ -315,9 +331,8 @@ public class Edge extends AbstractElement<Graph> {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-" + bends.size() + "-"
-                + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
-    }
-
+	public String toString() {
+		return super.toString() + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-" + bends.size() + "-"
+				+ (node2 == null ? "*" + node2Name : node2.getName()) + ")";
+	}
 }
