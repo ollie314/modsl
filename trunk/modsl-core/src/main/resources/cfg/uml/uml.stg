@@ -129,7 +129,7 @@ $root_in(graph)$
 	}
 	line.staticvarnodelabel { 
 		stroke: black; 
-		stroke-width: 1px; 
+		stroke-width: 0.75px; 
 	}	
 	text.staticmethodnodelabel { 
 		fill: black; 
@@ -137,7 +137,7 @@ $root_in(graph)$
 	}
 	line.staticmethodnodelabel { 
 		stroke: black; 
-		stroke-width: 1px; 
+		stroke-width: 0.75px; 
 	}	
 	line.extendsedge, line.implementsedge  { 
 		fill:none; 
@@ -213,7 +213,7 @@ CLASS_EXTENDS_EDGE_in(edge, decor) ::= <<
 CLASS_IMPLEMENTS_EDGE_in(edge, decor) ::= <<
 
 <line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$decor.arrowMiddle.x$" y2="$decor.arrowMiddle.y$" class="implementsedge" style="stroke-dasharray:5,3;"/>
-<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="extendsedge"/>
-<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="extendsedge"/>
-<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$decor.arrowRight.x$" y2="$decor.arrowRight.y$" class="extendsedge"/>
+<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="implementsedge"/>
+<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="implementsedge"/>
+<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$decor.arrowRight.x$" y2="$decor.arrowRight.y$" class="implementsedge"/>
 >>
