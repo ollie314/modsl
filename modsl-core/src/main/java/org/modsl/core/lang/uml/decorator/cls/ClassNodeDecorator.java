@@ -41,7 +41,7 @@ public class ClassNodeDecorator extends AbstractDecorator<Node> {
     }
 
     public Pt getHeaderLine1() {
-        return new Pt(element.getPos().x, element.getType().getConfig().getFt().getExtHeight(1) + 2);
+        return new Pt(element.getPos().x, element.getPos().y + element.getType().getConfig().getFt().getExtHeight(1) + 1);
     }
 
     public Pt getHeaderLine2() {
@@ -53,7 +53,7 @@ public class ClassNodeDecorator extends AbstractDecorator<Node> {
         if (vls.isEmpty() || mls.isEmpty()) {
             return hl;
         } else {
-            return hl.incBy(0d, UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFt().getExtHeight(vls.size()) + 1);
+            return hl.incBy(0d, UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFt().getExtHeight(vls.size()));
         }
     }
 
