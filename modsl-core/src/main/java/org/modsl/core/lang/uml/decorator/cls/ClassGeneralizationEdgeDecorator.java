@@ -26,7 +26,7 @@ import org.modsl.core.agt.model.Pt;
 
 abstract public class ClassGeneralizationEdgeDecorator extends AbstractDecorator<Edge> {
 
-    double arrowAngle = PI / 4d;
+    double arrowAngle = PI / 3.5d;
     double arrowLength;
 
     /**
