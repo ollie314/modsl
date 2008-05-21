@@ -34,8 +34,9 @@ collabDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { graph.setName($ID.text); };
 
-collabStatement: ids+=ID EDGEOP ids+=ID '.' mds+=MID (EDGEOP ids+=ID '.' mds+=MID)* ';' 
-	{ collabFactory.createEdges(graph, $ids, $mds); }; 
+collabStatement: ID collab2Statement+ { curNode = collabFactory.createNode(graph, $ID.text); };
+
+collab2Statement: EDGEOP ID '.' method { curNode = collabFactory.createEdge(graph, curNode, $ID.text, $method.text); }; 
 
 classDiagram 
 	@init { graph = classFactory.createGraph();  }
@@ -52,18 +53,19 @@ classElementStatement: varClassElementStatement | staticVarClassElementStatement
 	| methodClassElementStatement | staticMethodClassElementStatement;
 
 varClassElementStatement: ID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $ID)); };
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $ID.text)); };
 
 staticVarClassElementStatement: 'static' ID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL, $ID)); };
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL, $ID.text)); };
 
-methodClassElementStatement: MID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_METHOD_NODE_LABEL, $MID)); };
+methodClassElementStatement: method ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_METHOD_NODE_LABEL, $method.text)); };
 
-staticMethodClassElementStatement: 'static' MID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL, $MID)); };
+staticMethodClassElementStatement: 'static' method ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL, $method.text)); };
 
-MID: ID '(' (ID (',' ID)*)? ')';
+method: ID '(' (ID (',' ID)*)? ')';
+
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '[' | ']')*;
 fragment INT : '0'..'9'+ ;
