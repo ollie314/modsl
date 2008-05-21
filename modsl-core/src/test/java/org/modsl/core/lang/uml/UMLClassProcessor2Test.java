@@ -27,11 +27,17 @@ public class UMLClassProcessor2Test extends AbstractUMLTest {
     protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml_class2");
 
     @Test
-    public void process2() throws Exception {
-        process("class diagram c2 { class c1 extends c2 implements i1, i2 { v1; m1(p1); m2(p2); } "
+    public void process2g() throws Exception {
+        process("class diagram c2g { class c1 extends c2 implements i1, i2 { v1; m1(p1); m2(p2); } "
                 + " interface i1 { m1(p1); } interface i2 { m2(p2); } class c2 {} }");
     }
 
+    @Test
+    public void process2a() throws Exception {
+        process("class diagram c2a { class c1 { v1; m1(p1); m2(p2); 1->*(c2); 0..1->n..m(c3); } "
+                + " class c2 { m1(p1); 1->1(c3); } class c3 { m2(p2); } }");
+    }
+    
     private void process(String s) throws RecognitionException, IOException {
         String result = processor.process(s);
         svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());
