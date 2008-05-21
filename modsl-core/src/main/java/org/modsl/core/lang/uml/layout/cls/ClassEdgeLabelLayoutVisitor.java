@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.layout.collab;
+package org.modsl.core.lang.uml.layout.cls;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,20 +25,26 @@ import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.lang.uml.UMLMetaType;
 
 /**
  * Edge label placement
  * @author avishnyakov
  */
-public class CollabEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
+public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
 
-    public CollabEdgeLabelLayoutVisitor(MetaType type) {
+    public ClassEdgeLabelLayoutVisitor(MetaType type) {
         super(type);
     }
 
     @Override
-    public void apply(final Graph graph) {
+    public void apply(Edge edge) {
+    	
+    	EdgeLabel from = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL).get(0);
+    	
+    	EdgeLabel to = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_TO_EDGE_LABEL).get(0); 
 
+    	/*
         List<EdgeLabel> labels = graph.getEdgeLabels();
 
         if (labels.isEmpty()) {
@@ -84,7 +90,28 @@ public class CollabEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutV
                 last = label;
             }
         }
-
+*/
     }
 
 }
+
+/*
+ *
+ *   public Pt getMidPoint(Edge edge, double offs) {
+        Node n1 = edge.getNode1();
+        Node n2 = edge.getNode2();
+        double ratio = 1d / 2d;
+        //double ratio = 1d * n1.getOutDegree() / (n1.getOutDegree() + n2.getInDegree());
+        ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO
+        AbstractBox<?> b1 = n1;
+        AbstractBox<?> b2 = n2;
+        if (edge.getBends().size() > 0) {
+            if (n1.getOutDegree() > n2.getInDegree()) {
+                b1 = edge.getLastBend();
+            } else {
+                b2 = edge.getFirstBend();
+            }
+        }
+        return b1.getCtrPos().plus(b2.getCtrPos().minus(b1.getCtrPos()).mulBy(ratio));
+    }
+*/
