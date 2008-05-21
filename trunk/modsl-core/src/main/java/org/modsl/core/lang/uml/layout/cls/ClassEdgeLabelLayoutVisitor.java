@@ -41,6 +41,11 @@ public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVi
     public void apply(Edge edge) {
     	
     	EdgeLabel from = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL).get(0);
+
+        from.setPlacement(EdgeLabel.Placement.ANCHOR1);
+    	from.setAnchor1(edge.getNode1());
+        from.setAnchor2(edge.getNode2());
+        from.setOffset(0d, 0d);
     	
     	EdgeLabel to = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_TO_EDGE_LABEL).get(0); 
 

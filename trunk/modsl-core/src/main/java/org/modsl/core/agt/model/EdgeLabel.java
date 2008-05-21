@@ -20,52 +20,74 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
 
 public class EdgeLabel extends Label<Edge> {
 
-    AbstractBox<?> anchor1;
-    AbstractBox<?> anchor2;
+	public static enum Placement {
+		MID, ANCHOR1, ANCHOR2;
+	}
 
-    Pt offset = new Pt(0d, 0d);
+	AbstractBox<?> anchor1;
 
-    public EdgeLabel(MetaType type, String name) {
-        super(type, name);
-    }
+	AbstractBox<?> anchor2;
 
-    @Override
-    public void accept(AbstractVisitor visitor) {
-        visitor.in(this);
-        visitor.out(this);
-    }
+	Pt offset = new Pt(0d, 0d);
 
-    public AbstractBox<?> getAnchor1() {
-        return anchor1;
-    }
+	Placement placement = Placement.MID;
 
-    public AbstractBox<?> getAnchor2() {
-        return anchor2;
-    }
+	public EdgeLabel(MetaType type, String name) {
+		super(type, name);
+	}
 
-    public Pt getOffset() {
-        return offset;
-    }
+	@Override
+	public void accept(AbstractVisitor visitor) {
+		visitor.in(this);
+		visitor.out(this);
+	}
 
-    @Override
-    public Pt getPos() {
-        Pt mid = anchor1.getCtrPos().plus(anchor2.getCtrPos().minus(anchor1.getCtrPos()).mulBy(0.5d));
-        mid.incBy(new Pt(offset.y / anchor1.tan(anchor2), offset.y));
-        mid.decBy(new Pt(getSize().x / 2d, getSize().y / 2d));
-        return mid;
-    }
+	public AbstractBox<?> getAnchor1() {
+		return anchor1;
+	}
 
-    public void setAnchor1(AbstractBox<?> anchor1) {
-        this.anchor1 = anchor1;
-    }
+	public AbstractBox<?> getAnchor2() {
+		return anchor2;
+	}
 
-    public void setAnchor2(AbstractBox<?> anchor2) {
-        this.anchor2 = anchor2;
-    }
+	public Pt getOffset() {
+		return offset;
+	}
 
-    public void setOffset(double x, double y) {
-        this.offset.x = x;
-        this.offset.y = y;
-    }
+	public Placement getPlacement() {
+		return placement;
+	}
+
+	@Override
+	public Pt getPos() {
+		switch (placement) {
+		case MID:
+			Pt[] ports = anchor1.getPorts(anchor2);
+			Pt mid = ports[0].plus(ports[1].minus(ports[0]).mulBy(0.5d));
+			// Pt mid =
+			// anchor1.getCtrPos().plus(anchor2.getCtrPos().minus(anchor1.getCtrPos()).mulBy(0.5d));
+			mid.incBy(new Pt(offset.y / anchor1.tan(anchor2), offset.y));
+			mid.decBy(new Pt(getSize().x / 2d, getSize().y / 2d));
+			return mid;
+		}
+		return null;
+	}
+
+	public void setAnchor1(AbstractBox<?> anchor1) {
+		this.anchor1 = anchor1;
+	}
+
+	public void setAnchor2(AbstractBox<?> anchor2) {
+		this.anchor2 = anchor2;
+	}
+
+	public void setOffset(double x, double y) {
+		this.offset.x = x;
+		this.offset.y = y;
+	}
+
+	public void setPlacement(Placement placement) {
+		this.placement = placement;
+	}
 
 }

@@ -47,6 +47,7 @@ public class CollabEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutV
 
         for (EdgeLabel label : labels) {
             Edge edge = label.getParent();
+            label.setPlacement(EdgeLabel.Placement.MID);
             label.setAnchor1(edge.getLastBend());
             label.setAnchor2(edge.getNode2());
             label.setOffset(0d, 0d);
