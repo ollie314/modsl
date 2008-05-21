@@ -46,6 +46,11 @@ $root_in(graph)$
 
 >>
 
+COLLAB_GRAPH_out(graph, decor) ::= <<
+
+$root_out(graph)$
+>>
+
 COLLAB_NODE_in(node, decor) ::= <<
 
 <rect x="$node.pos.x$" y="$node.pos.y$" width="$node.size.x$" height="$node.size.y$" rx="2" class="node"/>
@@ -68,11 +73,6 @@ COLLAB_EDGE_LABEL_in(label, decor) ::= <<
 
 <rect x="$label.pos.x$" y="$label.pos.y$" width="$label.size.x$" height="$label.size.y$" class="edgelabel"/>
 <text x="$label.textPos.x$" y="$label.textPos.y$" class="edgelabel">$label.name$</text>
->>
-
-COLLAB_GRAPH_out(graph, decor) ::= <<
-
-$root_out(graph)$
 >>
 
 //
@@ -139,9 +139,19 @@ $root_in(graph)$
 		stroke: black; 
 		stroke-width: 1px; 
 	}	
+	line.extendsedge { 
+		fill:none; 
+		stroke: dimgrey; 
+		stroke-width: 1px; 
+	}
 ]]></style>
 </defs>
 
+>>
+
+CLASS_GRAPH_out(graph, decor) ::= <<
+
+$root_out(graph)$
 >>
 
 CLASS_CLASS_NODE_in(node, decor) ::= <<
@@ -192,7 +202,11 @@ CLASS_STATIC_METHOD_NODE_LABEL_in(label, decor) ::= <<
 <text x="$label.textPos.x$" y="$label.textPos.y$" class="staticmethodnodelabel">$label.name$</text>
 >>
 
-CLASS_GRAPH_out(graph, decor) ::= <<
+CLASS_EXTENDS_EDGE_in(edge, decor) ::= <<
 
-$root_out(graph)$
+<line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$decor.arrowMiddle.x$" y2="$decor.arrowMiddle.y$" class="extendsedge"/>
+<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="extendsedge"/>
+<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="extendsedge"/>
+<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$decor.arrowRight.x$" y2="$decor.arrowRight.y$" class="extendsedge"/>
 >>
+
