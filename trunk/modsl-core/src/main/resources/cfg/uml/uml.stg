@@ -10,8 +10,7 @@ $root_in(graph)$
 <defs>
 <style type="text/css"><![CDATA[ 
 	text.graph { 
-		font-family: $graph.meta.COLLAB_GRAPH.config.ft.name$; 
-		font-size: $graph.meta.COLLAB_GRAPH.config.ft.size$px; 
+		$font_def(graph.meta.COLLAB_GRAPH.config.ft)$ 
 	}
 	rect.node { 
 		fill: url(#root_gradient); 
@@ -20,9 +19,8 @@ $root_in(graph)$
 		opacity: 0.75; 
 	}	
 	text.nodelabel { 
-		fill: black; 
-		font-family: $graph.meta.COLLAB_NODE_LABEL.config.ft.name$; 
-		font-size: $graph.meta.COLLAB_NODE_LABEL.config.ft.size$px; 
+		fill: black;
+		$font_def(graph.meta.COLLAB_NODE_LABEL.config.ft)$ 
 	}
 	line.nodelabel { 
 		stroke: black; 
@@ -35,8 +33,7 @@ $root_in(graph)$
 	}
 	text.edgelabel { 
 		fill: black; 
-		font-family: $graph.meta.COLLAB_EDGE_LABEL.config.ft.name$; 
-		font-size: $graph.meta.COLLAB_EDGE_LABEL.config.ft.size$px; 
+		$font_def(graph.meta.COLLAB_EDGE_LABEL.config.ft)$ 
 	}
 	rect.edgelabel { 
 		fill: white; 
@@ -88,8 +85,7 @@ $root_in(graph)$
 <defs>
 <style type="text/css"><![CDATA[ 
 	text.graph { 
-		font-family: $graph.meta.CLASS_GRAPH.config.ft.name$; 
-		font-size: $graph.meta.CLASS_GRAPH.config.ft.size$px; 
+		$font_def(graph.meta.CLASS_GRAPH.config.ft)$ 
 	}
 	rect.classnode { 
 		fill: url(#root_gradient); 
@@ -103,8 +99,7 @@ $root_in(graph)$
 	}
 	text.classnodelabel { 
 		fill: black; 
-		font-family: $graph.meta.CLASS_CLASS_NODE_LABEL.config.ft.name$; 
-		font-size: $graph.meta.CLASS_CLASS_NODE_LABEL.config.ft.size$px; 
+		$font_def(graph.meta.CLASS_CLASS_NODE_LABEL.config.ft)$ 
 	}
 	rect.interfacenode { 
 		fill: url(#root_gradient); 
@@ -118,24 +113,19 @@ $root_in(graph)$
 	}
 	text.interfacenodelabel { 
 		fill: black; 
-		font-family: $graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft.name$; 
-		font-size: $graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft.size$px; 
-		font-style: italic; 
+		$font_def(graph.meta.CLASS_INTERFACE_NODE_LABEL.config.ft)$ 
 	}
 	text.varnodelabel { 
 		fill: black; 
-		font-family: $graph.meta.CLASS_VAR_NODE_LABEL.config.ft.name$; 
-		font-size: $graph.meta.CLASS_VAR_NODE_LABEL.config.ft.size$px; 
+		$font_def(graph.meta.CLASS_VAR_NODE_LABEL.config.ft)$ 
 	}
 	text.methodnodelabel { 
 		fill: black; 
-		font-family: $graph.meta.CLASS_METHOD_NODE_LABEL.config.ft.name$; 
-		font-size: $graph.meta.CLASS_METHOD_NODE_LABEL.config.ft.size$px; 
+		$font_def(graph.meta.CLASS_METHOD_NODE_LABEL.config.ft)$ 
 	}
 	text.staticvarnodelabel { 
 		fill: black; 
-		font-family: $graph.meta.CLASS_STATIC_VAR_NODE_LABEL.config.ft.name$; 
-		font-size: $graph.meta.CLASS_STATIC_VAR_NODE_LABEL.config.ft.size$px; 
+		$font_def(graph.meta.CLASS_STATIC_VAR_NODE_LABEL.config.ft)$ 
 	}
 	line.staticvarnodelabel { 
 		stroke: black; 
@@ -143,8 +133,7 @@ $root_in(graph)$
 	}	
 	text.staticmethodnodelabel { 
 		fill: black; 
-		font-family: $graph.meta.CLASS_STATIC_METHOD_NODE_LABEL.config.ft.name$; 
-		font-size: $graph.meta.CLASS_STATIC_METHOD_NODE_LABEL.config.ft.size$px; 
+		$font_def(graph.meta.CLASS_STATIC_METHOD_NODE_LABEL.config.ft)$ 
 	}
 	line.staticmethodnodelabel { 
 		stroke: black; 

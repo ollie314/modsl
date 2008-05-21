@@ -18,15 +18,21 @@ package org.modsl.core.agt.model;
 
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Font;
+
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.modsl.core.agt.common.FontTransform;
 
 public class FontTransformTest {
 
+	Logger log = Logger.getLogger(getClass());
+
 	@Test
 	public void fontMetrics() {
-		FontTransform fts = new FontTransform("Serif", 12);
-		assertTrue(fts.getStringWidth("test") > 0d);
+		FontTransform fts = new FontTransform("Serif", 12, Font.PLAIN);
+		assertTrue(fts.getStringWidth("test") > 17);
+		fts = new FontTransform("Serif", 12, Font.BOLD);
+		assertTrue(fts.getStringWidth("test") > 18);
 	}
-
 }

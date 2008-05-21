@@ -16,48 +16,61 @@
 
 package org.modsl.core.cfg;
 
+import java.awt.Font;
+
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 
 public class FontTransformLoader extends PropLoader {
 
-    protected Class<? extends MetaType> metaTypeClass;
+	protected Class<? extends MetaType> metaTypeClass;
 
-    public FontTransformLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
-        super(path, name, true);
-        this.metaTypeClass = metaTypeClass;
-    }
+	public FontTransformLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
+		super(path, name, true);
+		this.metaTypeClass = metaTypeClass;
+	}
 
-    public void load() {
-    	super.load();
-        String name = "serif";
-        String size = "12";
-        for (MetaType mt : metaTypeClass.getEnumConstants()) {
-            String n = getProp(mt.toString() + ".name");
-            if (n == null) {
-                n = name;
-            } else {
-                name = n;
-            }
-            String s = getProp(mt.toString() + ".size");
-            if (s == null) {
-                s = size;
-            } else {
-                size = s;
-            }
-            FontTransform ft = new FontTransform(n, Integer.parseInt(s));
-            mt.getConfig().setFontTransform(ft);
-        }
-    }
+	public void load() {
+		super.load();
+		String name = "serif";
+		String size = "12";
+		for (MetaType mt : metaTypeClass.getEnumConstants()) {
+			String n = getProp(mt.toString() + ".name");
+			if (n == null) {
+				n = name;
+			} else {
+				name = n;
+			}
+			String s = getProp(mt.toString() + ".size");
+			if (s == null) {
+				s = size;
+			} else {
+				size = s;
+			}
+			String t = getProp(mt.toString() + ".style");
+			int style = 0;
+			if (t != null) {
+				t = t.toUpperCase();
+				if (t.indexOf("BOLD") > -1) {
+					style += Font.BOLD;
+				}
+				if (t.indexOf("ITALIC") > -1) {
+					style += Font.ITALIC;
+				}
+			}
+			FontTransform ft = new FontTransform(n, Integer.parseInt(s), style);
+			mt.getConfig().setFontTransform(ft);
+		}
+	}
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder(name);
-        sb.append(" [");
-        for (MetaType mt : metaTypeClass.getEnumConstants()) {
-            sb.append(mt.toString()).append(":").append(mt.getConfig().getFontTransform()).append(" ");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append("]");
-        return sb.toString();
-    }
+	public String toString() {
+		StringBuilder sb = new StringBuilder(name);
+		sb.append(" [");
+		for (MetaType mt : metaTypeClass.getEnumConstants()) {
+			sb.append(mt.toString()).append(":").append(mt.getConfig().getFontTransform()).append(" ");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		sb.append("]");
+		return sb.toString();
+	}
 }
