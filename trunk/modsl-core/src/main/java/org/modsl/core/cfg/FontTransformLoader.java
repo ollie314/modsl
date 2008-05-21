@@ -34,6 +34,7 @@ public class FontTransformLoader extends PropLoader {
 		super.load();
 		String name = "serif";
 		String size = "12";
+		int style = 0;
 		for (MetaType mt : metaTypeClass.getEnumConstants()) {
 			String n = getProp(mt.toString() + ".name");
 			if (n == null) {
@@ -48,14 +49,14 @@ public class FontTransformLoader extends PropLoader {
 				size = s;
 			}
 			String t = getProp(mt.toString() + ".style");
-			int style = 0;
 			if (t != null) {
+				style = 0;
 				t = t.toUpperCase();
 				if (t.indexOf("BOLD") > -1) {
-					style += Font.BOLD;
+					style |= Font.BOLD;
 				}
 				if (t.indexOf("ITALIC") > -1) {
-					style += Font.ITALIC;
+					style |= Font.ITALIC;
 				}
 			}
 			FontTransform ft = new FontTransform(n, Integer.parseInt(s), style);
