@@ -60,15 +60,19 @@ public class EdgeLabel extends Label<Edge> {
 
 	@Override
 	public Pt getPos() {
+		Pt[] ports = anchor1.getPorts(anchor2);
 		switch (placement) {
 		case MID:
-			Pt[] ports = anchor1.getPorts(anchor2);
 			Pt mid = ports[0].plus(ports[1].minus(ports[0]).mulBy(0.5d));
 			// Pt mid =
 			// anchor1.getCtrPos().plus(anchor2.getCtrPos().minus(anchor1.getCtrPos()).mulBy(0.5d));
 			mid.incBy(new Pt(offset.y / anchor1.tan(anchor2), offset.y));
 			mid.decBy(new Pt(getSize().x / 2d, getSize().y / 2d));
 			return mid;
+		case ANCHOR1:
+			return ports[0].incBy(offset);
+		case ANCHOR2:
+			return ports[1].decBy(offset);
 		}
 		return null;
 	}
