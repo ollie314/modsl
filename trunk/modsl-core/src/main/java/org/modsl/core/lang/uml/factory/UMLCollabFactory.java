@@ -16,7 +16,7 @@
 
 package org.modsl.core.lang.uml.factory;
 
-import java.util.Deque;
+import java.util.LinkedList;
 
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
@@ -32,41 +32,49 @@ import org.modsl.core.lang.uml.UMLMetaType;
  */
 public class UMLCollabFactory extends AbstractUMLFactory {
 
-	protected int edgeCounter = 1;
+    int edgeCounter = 1;
 
-	public Node createEdge(Graph parent, String from, String meth, Node toNode) {
-		Node fromNode = createNode_internal(parent, from);
-		String label = (edgeCounter++) + ":" + meth;
-		Edge e = new Edge(UMLMetaType.COLLAB_EDGE, label, fromNode, toNode);
-		e.addLabel(new EdgeLabel(UMLMetaType.COLLAB_EDGE_LABEL, label));
-		parent.add(e);
-		return fromNode;
-	}
-
-	@Override
-	public Graph createGraph() {
-		return new Graph(UMLMetaType.COLLAB_GRAPH);
-	}
-
-	private Node createNode_internal(Graph parent, String txt) {
-		Node n = new Node(UMLMetaType.COLLAB_NODE, txt);
-		n.addLabel(new NodeLabel(UMLMetaType.COLLAB_NODE_LABEL, txt));
-		parent.add(n);
-		return n;
-	}
-
-	public Node createNode(Graph parent, String txt) {
-		Node n = parent.getNode(txt);
-		if (n == null) {
-			return createNode_internal(parent, txt);
-		} else {
-			return n;
-		}
-	}
-
-    public void createEdges(Graph graph, Deque<String> collabEdges) {
-        // TODO Auto-generated method stub
-        
+    void createEdge(Graph parent, Node fromNode, Node toNode, String meth) {
+        String label = (edgeCounter++) + ":" + meth;
+        Edge e = new Edge(UMLMetaType.COLLAB_EDGE, label, fromNode, toNode);
+        e.addLabel(new EdgeLabel(UMLMetaType.COLLAB_EDGE_LABEL, label));
+        parent.add(e);
     }
 
+    @Override
+    public Graph createGraph() {
+        return new Graph(UMLMetaType.COLLAB_GRAPH);
+    }
+
+    Node createNode_internal(Graph parent, String txt) {
+        Node n = new Node(UMLMetaType.COLLAB_NODE, txt);
+        n.addLabel(new NodeLabel(UMLMetaType.COLLAB_NODE_LABEL, txt));
+        parent.add(n);
+        return n;
+    }
+
+    Node createNode(Graph parent, String txt) {
+        Node n = parent.getNode(txt);
+        if (n == null) {
+            return createNode_internal(parent, txt);
+        } else {
+            return n;
+        }
+    }
+
+    public void createEdges(Graph graph, LinkedList<String> collabEdges) {
+        Node prevNode = null;
+        int i = 0;
+        while (i < collabEdges.size()) {
+            if (prevNode == null) {
+                prevNode = createNode(graph, collabEdges.get(i++));
+            } else {
+                String meth = collabEdges.get(i++);
+                String name = collabEdges.get(i++);
+                Node n = createNode(graph, name);
+                createEdge(graph, prevNode, n, meth);
+                prevNode = n;
+            }
+        }
+    }
 }

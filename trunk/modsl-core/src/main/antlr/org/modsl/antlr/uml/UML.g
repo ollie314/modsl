@@ -24,7 +24,7 @@ options {
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 	protected UMLClassFactory classFactory = new UMLClassFactory();
 	protected List<NodeLabel> curElements = new LinkedList<NodeLabel>();
-	protected Deque<String> collabEdges = new LinkedList<String>();
+	protected LinkedList<String> collabEdges = new LinkedList<String>();
 }
 
 diagram : classDiagram | collabDiagram;
@@ -34,12 +34,12 @@ collabDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { graph.setName($ID.text); };
 
-collabStatement: ID collab2Statement+  
+collabStatement: ID collab2Statement+ ';'  
 	{ collabEdges.addFirst($ID.text); collabFactory.createEdges(graph, collabEdges); collabEdges.clear(); };
 	//collabFactory.createNode(graph, $ID.text); curMethod = $method.text;
 
 collab2Statement: EDGEOP ID '.' method  
-	{ collabEdges.addFirst($ID.text); collabEdges.addFirst($method.text); };
+	{ collabEdges.add($method.text); collabEdges.add($ID.text); };
 	// curNode = collabFactory.createEdge(graph, $ID.text, curMethod, curNode); curMethod = $method.text; 
 
 classDiagram 
