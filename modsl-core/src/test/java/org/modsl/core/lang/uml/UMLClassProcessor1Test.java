@@ -22,9 +22,9 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.modsl.core.lang.SVGCollector;
 
-public class UMLClassProcessorTest extends AbstractUMLTest {
+public class UMLClassProcessor1Test extends AbstractUMLTest {
 
-    protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml_class");
+    protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml_class1");
 
     @Test
     public void process0() throws Exception {
@@ -64,11 +64,6 @@ public class UMLClassProcessorTest extends AbstractUMLTest {
     @Test
     public void process1mp() throws Exception {
         process("class diagram c1mp { class class1 { m1(p1,     p2, p3); } }");
-    }
-
-    @Test
-    public void process2() throws Exception {
-        process("class diagram c2 { class c1 implements i1 { v1; m1(p1); } interface i1 { m1(p1); } }");
     }
 
     private void process(String s) throws RecognitionException, IOException {
