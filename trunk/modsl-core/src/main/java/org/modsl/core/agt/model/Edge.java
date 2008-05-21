@@ -81,6 +81,14 @@ public class Edge extends AbstractElement<Graph> {
         this.node2.addConnectedEdge(this);
     }
 
+    public Edge(MetaType type, Node node1, String node2name) {
+        super(type);
+        this.index = counter++;
+        this.node1 = node1;
+        this.node1.addConnectedEdge(this);
+        this.node2Name = node2name;
+    }
+
     /**
      * Create new
      * @param type type
@@ -263,9 +271,11 @@ public class Edge extends AbstractElement<Graph> {
     public void setNode1(Node n1) {
         if (node1 != null && !node1.equals(n1)) {
             node1.removeConnectedEdge(this);
-            node1 = n1;
+        }
+        node1 = n1;
+        if (node1 != null && !node1.equals(n1)) {
             node1.addConnectedEdge(this);
-            for (EdgeLabel label:labels) {
+            for (EdgeLabel label : labels) {
                 label.setAnchor1(node1);
             }
         }
@@ -278,9 +288,11 @@ public class Edge extends AbstractElement<Graph> {
     public void setNode2(Node n2) {
         if (node2 != null && !node2.equals(n2)) {
             node2.removeConnectedEdge(this);
-            node2 = n2;
+        }
+        node2 = n2;
+        if (node2 != null && !node2.equals(n2)) {
             node2.addConnectedEdge(this);
-            for (EdgeLabel label:labels) {
+            for (EdgeLabel label : labels) {
                 label.setAnchor2(node2);
             }
         }
