@@ -32,7 +32,7 @@ public class UMLClassProcessor2Test extends AbstractUMLTest {
                 + " interface i1 { m1(p1); } interface i2 { m2(p2); } class c2 {} }");
     }
 
-    //@Test
+    @Test
     public void process2a() throws Exception {
         process("class diagram c2a { class c1 { v1; m1(p1); m2(p2); 1->*(c2); 0..1->n..m(c3); } "
                 + " class c2 { m1(p1); 1->1(c3); } class c3 { m2(p2); } }");

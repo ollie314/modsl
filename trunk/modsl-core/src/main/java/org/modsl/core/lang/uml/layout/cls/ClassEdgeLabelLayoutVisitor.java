@@ -49,6 +49,11 @@ public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVi
     	
     	EdgeLabel to = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_TO_EDGE_LABEL).get(0); 
 
+        to.setPlacement(EdgeLabel.Placement.ANCHOR2);
+    	to.setAnchor1(edge.getNode1());
+        to.setAnchor2(edge.getNode2());
+        to.setOffset(0d, 0d);
+    	
     	/*
         List<EdgeLabel> labels = graph.getEdgeLabels();
 
