@@ -23,9 +23,8 @@ options {
 	protected Deque<Graph> nodes = new LinkedList<Graph>();
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 	protected UMLClassFactory classFactory = new UMLClassFactory();
-	protected Node curNode;
 	protected List<NodeLabel> curElements = new LinkedList<NodeLabel>();
-	String curMethod;
+	protected Deque<String> collabEdges = new LinkedList<String>();
 }
 
 diagram : classDiagram | collabDiagram;
@@ -35,11 +34,13 @@ collabDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { graph.setName($ID.text); };
 
-collabStatement: collab2Statement+ ID '.' method 
-	{ collabFactory.createNode(graph, $ID.text); curMethod = $method.text; };
+collabStatement: ID collab2Statement+  
+	{ collabEdges.addFirst($ID.text); collabFactory.createEdges(graph, collabEdges); collabEdges.clear(); };
+	//collabFactory.createNode(graph, $ID.text); curMethod = $method.text;
 
-collab2Statement: ID ('.' method)? EDGEOP 
-	{ curNode = collabFactory.createEdge(graph, $ID.text, curMethod, curNode); curMethod = $method.text; }; 
+collab2Statement: EDGEOP ID '.' method  
+	{ collabEdges.addFirst($ID.text); collabEdges.addFirst($method.text); };
+	// curNode = collabFactory.createEdge(graph, $ID.text, curMethod, curNode); curMethod = $method.text; 
 
 classDiagram 
 	@init { graph = classFactory.createGraph();  }
@@ -47,10 +48,10 @@ classDiagram
 	: 'class' 'diagram'? ID '{' (classStatement | interfaceStatement)* '}' { graph.setName($ID.text); };
 
 classStatement:	'class' ID '{' classElementStatement* '}'
-	{ curNode = classFactory.createClassNode(graph, $ID, curElements); curElements.clear(); }; 
+	{ classFactory.createClassNode(graph, $ID, curElements); curElements.clear(); }; 
 
 interfaceStatement:	'interface' ID '{' classElementStatement* '}'  
-	{ curNode = classFactory.createInterfaceNode(graph, $ID, curElements); curElements.clear(); }; 
+	{ classFactory.createInterfaceNode(graph, $ID, curElements); curElements.clear(); }; 
 
 classElementStatement: varClassElementStatement | staticVarClassElementStatement 
 	| methodClassElementStatement | staticMethodClassElementStatement;
