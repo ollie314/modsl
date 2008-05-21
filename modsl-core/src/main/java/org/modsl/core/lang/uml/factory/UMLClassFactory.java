@@ -33,7 +33,7 @@ import org.modsl.core.lang.uml.UMLMetaType;
 public class UMLClassFactory extends AbstractUMLFactory {
 
     void createNode(Graph parent, Token token, UMLMetaType nodeType, UMLMetaType labelType, List<NodeLabel> elements,
-            List<Token> extendTokens) {
+            List<Token> extendTokens, List<Token> implementTokens) {
 
         Node n = new Node(nodeType, token.getText());
 
@@ -47,15 +47,25 @@ public class UMLClassFactory extends AbstractUMLFactory {
                 parent.add(e);
             }
         }
+        
+        if (implementTokens != null) {
+            for (Token itoken : implementTokens) {
+                Edge e = new Edge(UMLMetaType.CLASS_IMPLEMENTS_EDGE, n, itoken.getText());
+                parent.add(e);
+            }
+        }
 
     }
 
-    public void createClassNode(Graph parent, Token token, List<NodeLabel> elements, List<Token> extendTokens) {
-        createNode(parent, token, UMLMetaType.CLASS_CLASS_NODE, UMLMetaType.CLASS_CLASS_NODE_LABEL, elements, extendTokens);
+    public void createClassNode(Graph parent, Token token, List<NodeLabel> elements, List<Token> extendTokens,
+            List<Token> implementTokens) {
+        createNode(parent, token, UMLMetaType.CLASS_CLASS_NODE, UMLMetaType.CLASS_CLASS_NODE_LABEL, elements, extendTokens,
+                implementTokens);
     }
 
     public void createInterfaceNode(Graph parent, Token token, List<NodeLabel> elements, List<Token> extendTokens) {
-        createNode(parent, token, UMLMetaType.CLASS_INTERFACE_NODE, UMLMetaType.CLASS_INTERFACE_NODE_LABEL, elements, extendTokens);
+        createNode(parent, token, UMLMetaType.CLASS_INTERFACE_NODE, UMLMetaType.CLASS_INTERFACE_NODE_LABEL, elements, extendTokens,
+                null);
     }
 
     public NodeLabel createNodeElement(UMLMetaType type, String text) {

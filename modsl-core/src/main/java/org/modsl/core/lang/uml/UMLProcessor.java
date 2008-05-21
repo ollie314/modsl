@@ -28,6 +28,7 @@ import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
 import org.modsl.core.lang.uml.decorator.cls.ClassExtendsEdgeDecorator;
+import org.modsl.core.lang.uml.decorator.cls.ClassImplementsEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.cls.ClassNodeDecorator;
 import org.modsl.core.lang.uml.decorator.collab.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
@@ -76,6 +77,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
         UMLMetaType.CLASS_CLASS_NODE.getConfig().setDecorator(new ClassNodeDecorator());
         UMLMetaType.CLASS_INTERFACE_NODE.getConfig().setDecorator(new ClassNodeDecorator());
         UMLMetaType.CLASS_EXTENDS_EDGE.getConfig().setDecorator(new ClassExtendsEdgeDecorator());
+        UMLMetaType.CLASS_IMPLEMENTS_EDGE.getConfig().setDecorator(new ClassImplementsEdgeDecorator());
     }
 
     private void initCollabDecorators() {

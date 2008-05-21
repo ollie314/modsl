@@ -45,14 +45,12 @@ classDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: 'class' 'diagram'? ID '{' (classStmt | interfaceStmt)* '}' { graph.setName($ID.text); };
 
-classStmt:	'class' id=ID 
-	('extends' eid+=ID (',' eid+=ID)*)* ('implements' eid+=ID (',' eid+=ID)*)* 
+classStmt: 'class' id=ID 
+	('extends' eid+=ID (',' eid+=ID)*)? ('implements' iid+=ID (',' iid+=ID)*)? 
 	'{' classElementStmt* '}'
-	{ classFactory.createClassNode(graph, $id, curElements, $eid); curElements.clear(); }; 
+	{ classFactory.createClassNode(graph, $id, curElements, $eid, $iid); curElements.clear(); }; 
 
-interfaceStmt:	'interface' id=ID 
-	('extends' eid+=ID (',' eid+=ID)*)* ('implements' eid+=ID (',' eid+=ID)*)* 
-	'{' classElementStmt* '}'  
+interfaceStmt: 'interface' id=ID ('extends' eid+=ID (',' eid+=ID)*)? '{' classElementStmt* '}'  
 	{ classFactory.createInterfaceNode(graph, $id, curElements, $eid); curElements.clear(); }; 
 
 classElementStmt: varClassElementStmt | staticVarClassElementStmt 

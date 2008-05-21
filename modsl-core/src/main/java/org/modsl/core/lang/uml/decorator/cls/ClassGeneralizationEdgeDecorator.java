@@ -23,18 +23,11 @@ import static java.lang.Math.sin;
 import org.modsl.core.agt.decor.AbstractDecorator;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.lang.uml.UMLMetaType;
 
-public class ClassExtendsEdgeDecorator extends AbstractDecorator<Edge> {
+abstract public class ClassGeneralizationEdgeDecorator extends AbstractDecorator<Edge> {
 
     double arrowAngle = PI / 4d;
     double arrowLength;
-
-    @Override
-    public void decorate(Edge element) {
-        super.decorate(element);
-        arrowLength = UMLMetaType.CLASS_EXTENDS_EDGE.getConfig().getFt().getArrowLength();
-    }
 
     /**
      * @return position of the left arrow's side
