@@ -16,6 +16,8 @@
 
 package org.modsl.core.lang.uml.factory;
 
+import java.util.Deque;
+
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
@@ -61,5 +63,10 @@ public class UMLCollabFactory extends AbstractUMLFactory {
 			return n;
 		}
 	}
+
+    public void createEdges(Graph graph, Deque<String> collabEdges) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
