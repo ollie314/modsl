@@ -18,3 +18,11 @@ root_out(graph) ::= <<
 </svg>
 
 >>
+
+font_def(ft) ::= <<
+font-family: $ft.name$; 
+font-size: $ft.size$px; 
+font-style: $ft.cssStyle$; 
+font-weight: $ft.cssWeight$; 
+>>
+
