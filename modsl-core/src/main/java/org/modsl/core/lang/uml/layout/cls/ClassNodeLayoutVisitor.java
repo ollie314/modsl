@@ -35,79 +35,79 @@ import org.modsl.core.lang.uml.UMLMetaType;
  */
 public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 
-    public ClassNodeLayoutVisitor(MetaType type) {
-        super(type);
-    }
+	public ClassNodeLayoutVisitor(MetaType type) {
+		super(type);
+	}
 
-    @Override
-    public void apply(Node node) {
+	@Override
+	public void apply(Node node) {
 
-        FontTransform ftn = node.getType().getConfig().getFontTransform();
-        NodeLabel hl = getHeaderLabel(node);
-        hl.setOffset(ftn.getLeftPadding(), ftn.getTopPadding());
+		NodeLabel hl = getHeaderLabel(node);
+		FontTransform fth = hl.getType().getConfig().getFontTransform();
+		hl.setOffset(fth.getLeftPadding(), fth.getTopPadding());
 
-        Pt nodeSize = new Pt(ftn.getExtStringWidth(hl.getName()), ftn.getExtHeight(1));
+		Pt nodeSize = new Pt(fth.getExtStringWidth(hl.getName()), fth.getExtHeight(1));
 
-        // vars
-        FontTransform ftv = UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFontTransform();
-        List<NodeLabel> vls = getVarLabels(node);
+		// vars
+		FontTransform ftv = UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFontTransform();
+		List<NodeLabel> vls = getVarLabels(node);
 
-        double var_y = nodeSize.y;
-        for (int i = 0; i < vls.size(); i++) {
-            NodeLabel l = vls.get(i);
-            l.setOffset(ftv.getLeftPadding(), var_y + ftv.getExtPosition(i));
-            nodeSize.x = max(nodeSize.x, ftv.getLeftPadding() + l.getSize().x + ftv.getRightPadding());
-            nodeSize.y = l.getOffset().y + ftv.getHeight();
-        }
+		double var_y = nodeSize.y;
+		for (int i = 0; i < vls.size(); i++) {
+			NodeLabel l = vls.get(i);
+			l.setOffset(ftv.getLeftPadding(), var_y + ftv.getExtPosition(i));
+			nodeSize.x = max(nodeSize.x, ftv.getLeftPadding() + l.getSize().x + ftv.getRightPadding());
+			nodeSize.y = l.getOffset().y + ftv.getHeight();
+		}
 
-        // methods
-        FontTransform ftm = UMLMetaType.CLASS_METHOD_NODE_LABEL.getConfig().getFontTransform();
-        List<NodeLabel> mls = getMethodLabels(node);
+		// methods
+		FontTransform ftm = UMLMetaType.CLASS_METHOD_NODE_LABEL.getConfig().getFontTransform();
+		List<NodeLabel> mls = getMethodLabels(node);
 
-        double method_y;
-        if (vls.size() > 0) {
-            nodeSize.y += ftv.getBottomPadding();
-            method_y = nodeSize.y;
-        } else {
-            method_y = var_y;
-        }
+		double method_y;
+		if (vls.size() > 0) {
+			nodeSize.y += ftv.getBottomPadding();
+			method_y = nodeSize.y;
+		} else {
+			method_y = var_y;
+		}
 
-        for (int i = 0; i < mls.size(); i++) {
-            NodeLabel l = mls.get(i);
-            l.setOffset(ftm.getLeftPadding(), method_y + ftm.getExtPosition(i));
-            nodeSize.x = max(nodeSize.x, ftm.getLeftPadding() + l.getSize().x + ftm.getRightPadding());
-            nodeSize.y = l.getOffset().y + ftm.getHeight();
-        }
+		for (int i = 0; i < mls.size(); i++) {
+			NodeLabel l = mls.get(i);
+			l.setOffset(ftm.getLeftPadding(), method_y + ftm.getExtPosition(i));
+			nodeSize.x = max(nodeSize.x, ftm.getLeftPadding() + l.getSize().x + ftm.getRightPadding());
+			nodeSize.y = l.getOffset().y + ftm.getHeight();
+		}
 
-        // final node size adjustments
-        if (mls.size() > 0) {
-            nodeSize.y += ftm.getBottomPadding();
-        }
+		// final node size adjustments
+		if (mls.size() > 0) {
+			nodeSize.y += ftm.getBottomPadding();
+		}
 
-        if (vls.size() == 0 && mls.size() == 0) {
-            nodeSize.y += ftn.getSize();
-        }
+		if (vls.size() == 0 && mls.size() == 0) {
+			nodeSize.y += fth.getSize();
+		}
 
-        node.setSize(nodeSize.x, nodeSize.y);
+		node.setSize(nodeSize.x, nodeSize.y);
 
-    }
+	}
 
-    List<NodeLabel> getMethodLabels(Node node) {
-        return node.getLabels(Arrays.asList(new MetaType[] { UMLMetaType.CLASS_METHOD_NODE_LABEL,
-                UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL }));
-    }
+	List<NodeLabel> getMethodLabels(Node node) {
+		return node.getLabels(Arrays.asList(new MetaType[] { UMLMetaType.CLASS_METHOD_NODE_LABEL,
+				UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL }));
+	}
 
-    List<NodeLabel> getVarLabels(Node node) {
-        return node.getLabels(Arrays.asList(new MetaType[] { UMLMetaType.CLASS_VAR_NODE_LABEL,
-                UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL }));
-    }
+	List<NodeLabel> getVarLabels(Node node) {
+		return node.getLabels(Arrays.asList(new MetaType[] { UMLMetaType.CLASS_VAR_NODE_LABEL,
+				UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL }));
+	}
 
-    NodeLabel getHeaderLabel(Node node) {
-        List<NodeLabel> ls = node.getLabels(UMLMetaType.CLASS_CLASS_NODE_LABEL);
-        if (ls.isEmpty()) {
-            ls = node.getLabels(UMLMetaType.CLASS_INTERFACE_NODE_LABEL);
-        }
-        return ls.get(0);
-    }
+	NodeLabel getHeaderLabel(Node node) {
+		List<NodeLabel> ls = node.getLabels(UMLMetaType.CLASS_CLASS_NODE_LABEL);
+		if (ls.isEmpty()) {
+			ls = node.getLabels(UMLMetaType.CLASS_INTERFACE_NODE_LABEL);
+		}
+		return ls.get(0);
+	}
 
 }

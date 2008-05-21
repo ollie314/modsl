@@ -207,7 +207,7 @@ public class FontTransform {
 	 * @return string width in pixels if rendered with given fond style and size
 	 */
 	public int getStringWidth(String str) {
-		return (int) (fontMetrics.stringWidth(str) * ((style & Font.BOLD) > 0 ? 1.5d : 1d));
+		return fontMetrics.stringWidth(str);
 	}
 
 	public int getStyle() {
