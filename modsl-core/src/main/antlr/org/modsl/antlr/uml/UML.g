@@ -25,6 +25,7 @@ options {
 	protected UMLClassFactory classFactory = new UMLClassFactory();
 	protected Node curNode;
 	protected List<NodeLabel> curElements = new LinkedList<NodeLabel>();
+	String curMethod;
 }
 
 diagram : classDiagram | collabDiagram;
@@ -34,9 +35,11 @@ collabDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStatement* '}' { graph.setName($ID.text); };
 
-collabStatement: ID collab2Statement+ { curNode = collabFactory.createNode(graph, $ID.text); };
+collabStatement: collab2Statement+ ID '.' method 
+	{ collabFactory.createNode(graph, $ID.text); curMethod = $method.text; };
 
-collab2Statement: EDGEOP ID '.' method { curNode = collabFactory.createEdge(graph, curNode, $ID.text, $method.text); }; 
+collab2Statement: ID ('.' method)? EDGEOP 
+	{ curNode = collabFactory.createEdge(graph, $ID.text, curMethod, curNode); curMethod = $method.text; }; 
 
 classDiagram 
 	@init { graph = classFactory.createGraph();  }

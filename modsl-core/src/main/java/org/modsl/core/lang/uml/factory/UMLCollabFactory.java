@@ -32,13 +32,13 @@ public class UMLCollabFactory extends AbstractUMLFactory {
 
 	protected int edgeCounter = 1;
 
-	public Node createEdge(Graph parent, Node fromNode, String to, String meth) {
-		Node toNode = createNode_internal(parent, to);
+	public Node createEdge(Graph parent, String from, String meth, Node toNode) {
+		Node fromNode = createNode_internal(parent, from);
 		String label = (edgeCounter++) + ":" + meth;
 		Edge e = new Edge(UMLMetaType.COLLAB_EDGE, label, fromNode, toNode);
 		e.addLabel(new EdgeLabel(UMLMetaType.COLLAB_EDGE_LABEL, label));
 		parent.add(e);
-		return toNode;
+		return fromNode;
 	}
 
 	@Override
