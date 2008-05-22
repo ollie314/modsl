@@ -20,6 +20,7 @@ import static java.lang.Math.abs;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -289,7 +290,7 @@ public class Edge extends AbstractElement<Graph> {
             node1.removeConnectedEdge(this);
         }
         node1 = n1;
-        if (node1 != null && !node1.equals(n1)) {
+        if (node1 != null) {
             node1.addConnectedEdge(this);
             for (EdgeLabel label : labels) {
                 label.setAnchor1(node1);
@@ -306,7 +307,7 @@ public class Edge extends AbstractElement<Graph> {
             node2.removeConnectedEdge(this);
         }
         node2 = n2;
-        if (node2 != null && !node2.equals(n2)) {
+        if (node2 != null) {
             node2.addConnectedEdge(this);
             for (EdgeLabel label : labels) {
                 label.setAnchor2(node2);
@@ -332,6 +333,7 @@ public class Edge extends AbstractElement<Graph> {
         String tnn = node1Name;
         node1Name = node2Name;
         node2Name = tnn;
+        Collections.reverse(bends);
     }
 
     @Override

@@ -18,7 +18,7 @@ package org.modsl.core.agt.model;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
-public class GraphLabel extends Label<Graph> {
+public class GraphLabel extends AbstractLabel<Graph> {
 
     Pt offset = new Pt(0d, 0d);
 

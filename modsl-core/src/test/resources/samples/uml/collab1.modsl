@@ -1,0 +1,10 @@
+collaboration sample2 { 
+	Main->Lexer.tokenize();
+	Main->Parser.parse();
+	Main->GraphLayout.apply();
+	GraphLayout->SugiyamaLayout.apply();
+	Main->StringTemplate.renderSvg(); 
+	StringTemplate->TemplateGroup.load();
+	StringTemplate->AttributeMap.create();
+	StringTemplate->Graph.visitNodes();
+}

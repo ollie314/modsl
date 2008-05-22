@@ -38,16 +38,24 @@ public class UMLClassProcessor2Test extends AbstractUMLTest {
         process("class diagram c2a { class c1 { v1; m1(p1); m2(p2); 1->*(c2); 0..1->n..m(c3); } "
                 + " class c2 { m1(p1); 1->1(c3); } class c3 extends i1 { m2(p2); 1..*->1(c4); }  class c4 {} interface i1{} } ");
     }
-    
+
+    @Test
+    public void process2b() throws Exception {
+        process("class diagram c2b { class AbstractBox { size; pos; getSize(); getPos(); } class AbstractLabel extends AbstractBox { name; getTextPos(); } "
+                + "class NodeLabel extends AbstractLabel { offset; getOffset(); } class GraphLabel extends AbstractLabel {}"
+                + " class EdgeLabel extends AbstractLabel { anchor1; anchor2; offset; getAnchor1(); getAnchor2(); getOffset(); } } ");
+    }
+
     @Test
     public void process3() throws RecognitionException, IOException {
         process(Utils.fromFile("samples/uml/class_self.modsl"));
     }
-    
+
     @Test
     public void process3noagg() throws RecognitionException, IOException {
         process(Utils.fromFile("samples/uml/class_self_noagg.modsl"));
     }
+
     private void process(String s) throws RecognitionException, IOException {
         String result = processor.process(s);
         svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());

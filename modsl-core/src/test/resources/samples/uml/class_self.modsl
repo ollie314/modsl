@@ -7,32 +7,15 @@ class diagram self {
 		pos; disp; size;
 	}
 	class Edge extends AbstractElement {
-		labels;
-		1->2(Node);
-		1->*(Bend);
-		1->*(EdgeLabel);
+		labels;	bends; node1; node2;
 	}
 	class Bend extends AbstractBox {
 	}
 	class Graph extends AbstractBox {
-		reqSize;
-		1->*(GraphLabel);
-		1->*(Edge);
+		reqSize; labels; 1->*(Edge);
 		1->*(Node);
 	}
-	class Label extends AbstractBox {
-	}
-	class EdgeLabel extends Label {
-		anchor1; anchor2; offset;
-	}
-	class NodeLabel extends Label {
-		offset;
-	}
-	class GraphLabel extends Label {
-		offset;
-	}
 	class Node extends AbstractBox {
-		connectedEdges; 
-		1->*(NodeLabel);
-	}
+		connectedEdges; labels;
+	}	
 }

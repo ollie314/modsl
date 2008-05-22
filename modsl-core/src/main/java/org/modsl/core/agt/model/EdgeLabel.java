@@ -18,7 +18,7 @@ package org.modsl.core.agt.model;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
-public class EdgeLabel extends Label<Edge> {
+public class EdgeLabel extends AbstractLabel<Edge> {
 
     public static enum Placement {
         MID, ANCHOR1, ANCHOR2;

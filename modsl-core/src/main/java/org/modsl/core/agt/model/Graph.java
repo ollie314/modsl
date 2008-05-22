@@ -300,7 +300,7 @@ public class Graph extends AbstractBox<Graph> {
 
     public void randomize(Random random) {
         for (Node n : nodes) {
-            n.getPos().randomize(random, size);
+            n.getPos().randomize(random, reqSize);
         }
     }
 
