@@ -67,6 +67,11 @@ public class UMLCollabProcessorTest extends AbstractUMLTest {
     public void process3() throws RecognitionException, IOException {
         process(Utils.fromFile("samples/uml/collab3.modsl"));
     }
+    
+    @Test
+    public void process1f() throws RecognitionException, IOException {
+        process(Utils.fromFile("samples/uml/collab1.modsl"));
+    }
 
     private void process(String s) throws RecognitionException, IOException {
         String result = processor.process(s);//, new Pt(640, 480));

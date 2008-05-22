@@ -18,7 +18,7 @@ package org.modsl.core.agt.model;
 
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
-public class NodeLabel extends Label<Node> {
+public class NodeLabel extends AbstractLabel<Node> {
 
     Pt offset = new Pt(0d, 0d);
 

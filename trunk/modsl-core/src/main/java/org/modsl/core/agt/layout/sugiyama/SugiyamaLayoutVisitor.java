@@ -89,7 +89,7 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         for (Node n : sorted) {
             lmap.put(n, 0);
         }
-        int h = 0;
+        int h = 1;
         for (Node n1 : sorted) {
             for (Edge out : n1.getOutEdges()) {
                 Node n2 = out.getNode2();

@@ -144,9 +144,9 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
             double area = 0d;
             double gr = (1d + sqrt(5d)) / 2d;
             for (Node n : graph.getNodes()) {
-                area += n.getSize().x * n.getSize().y;
+                area += (n.getSize().x +30d) * (n.getSize().y+20d);
             }
-            double h = sqrt(area * 3d * Math.log(graph.getEdges().size()) / gr) + 1d;
+            double h = sqrt(area * 2d * Math.log(graph.getEdges().size()) / gr) + 1d;
             double w = gr * h + 1d;
             Pt rs = new Pt(w, h);
             graph.setReqSize(rs);
