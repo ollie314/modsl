@@ -1,0 +1,35 @@
+class diagram self {
+	class AbstractElement {
+		name; parent; type;
+		accept(AbstractVisitor);
+	} 
+	class AbstractBox extends AbstractElement {
+		pos; disp; size;
+	}
+	class Edge extends AbstractElement {
+		bends; labels;
+		1->2(Node);
+	}
+	class Bend extends AbstractBox {
+	}
+	class Graph extends AbstractBox {
+		reqSize;
+		1->*(GraphLabel);
+		1->*(Edge);
+		1->*(Node);
+	}
+	class Label extends AbstractBox {
+	}
+	class EdgeLabel extends Label {
+		anchor1; anchor2; offset;
+	}
+	class NodeLabel extends Label {
+		offset;
+	}
+	class GraphLabel extends Label {
+		offset;
+	}
+	class Node extends AbstractBox {
+		connectedEdges; labels;
+	}
+}

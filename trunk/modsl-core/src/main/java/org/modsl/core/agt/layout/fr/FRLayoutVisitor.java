@@ -88,7 +88,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
     void attraction() {
         for (Edge e : graph.getEdges()) {
-            Pt delta = getDelta(e.getNode1(), e.getNode2());
+            Pt delta = getCtrDelta(e.getNode1(), e.getNode2());
             double dl = delta.lenSafe();
             Pt f = delta.div(dl).mult(attractionForce(dl));
             e.getNode1().getDisp().decBy(f);
@@ -128,17 +128,17 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
     @Override
     public String getConfigName() {
-        return "fr2_layout";
+        return "fr_layout";
     }
 
-    Pt getDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
-        Pt delta = n1.getPortDelta(n2);
-        if (delta.len() < Pt.EPSILON) { // || Double.isNaN(delta.len())) {
+    Pt getCtrDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
+        Pt delta = n1.getCtrPos().minus(n2.getCtrPos());
+        if (delta.len() < Pt.EPSILON) { 
             delta.randomize(random, new Pt(1d, 1d));
         }
         return delta;
     }
-
+    
     Pt getOrEsimateGraphReqSize() {
         if (graph.getReqSize().equals(new Pt(0d, 0d))) {
             double area = 0d;
@@ -146,7 +146,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
             for (Node n : graph.getNodes()) {
                 area += n.getSize().x * n.getSize().y;
             }
-            double w = sqrt(area * 6d / gr) + 1d;
+            double w = sqrt(area * 12d / gr) + 1d;
             double h = gr * w + 1d;
             Pt rs = new Pt(w, h);
             graph.setReqSize(rs);
@@ -155,6 +155,14 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
             return graph.getReqSize();
         }
 
+    }
+
+    Pt getPortDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
+        Pt delta = n1.getPortDelta(n2);
+        if (delta.len() < Pt.EPSILON) { 
+            delta.randomize(random, new Pt(1d, 1d));
+        }
+        return delta;
     }
 
     void moveVertexes() {
@@ -177,7 +185,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
         for (Node n1 : graph.getNodes()) {
             for (Node n2 : graph.getNodes()) {
                 if (n1 != n2) {
-                    Pt delta = getDelta(n1, n2);
+                    Pt delta = getPortDelta(n1, n2);
                     double dl = delta.lenSafe();
                     Pt f = delta.div(dl).mult(repulsionForce(dl));
                     n1.getDisp().incBy(f);
