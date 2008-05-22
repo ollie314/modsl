@@ -35,9 +35,9 @@ public class UMLClassProcessor2Test extends AbstractUMLTest {
     @Test
     public void process2a() throws Exception {
         process("class diagram c2a { class c1 { v1; m1(p1); m2(p2); 1->*(c2); 0..1->n..m(c3); } "
-                + " class c2 { m1(p1); 1->1(c3); } class c3 { m2(p2); } }");
+                + " class c2 { m1(p1); 1->1(c3); } class c3 extends i1 { m2(p2); 1..*->1(c4); }  class c4 {} interface i1{} } ");
     }
-    
+
     private void process(String s) throws RecognitionException, IOException {
         String result = processor.process(s);
         svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());

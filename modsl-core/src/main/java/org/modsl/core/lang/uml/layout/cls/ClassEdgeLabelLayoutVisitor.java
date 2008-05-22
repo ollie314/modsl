@@ -39,7 +39,6 @@ public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVi
     @Override
     public void apply(Edge edge) {
 
-        double arrowAngle = PI / 4d;
         double arrowLength = UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL.getConfig().getFt().getArrowLength();
 
         EdgeLabel from = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL).get(0);
@@ -47,14 +46,14 @@ public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVi
         from.setPlacement(EdgeLabel.Placement.ANCHOR1);
         from.setAnchor1(edge.getNode1());
         from.setAnchor2(edge.getNode2());
-        from.setOffset(arrowLength); // * 1.1d
+        from.setOffset(arrowLength);
 
         EdgeLabel to = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_TO_EDGE_LABEL).get(0);
 
         to.setPlacement(EdgeLabel.Placement.ANCHOR2);
         to.setAnchor1(edge.getNode1());
         to.setAnchor2(edge.getNode2());
-        to.setOffset(arrowLength); //  * 1.75d
+        to.setOffset(arrowLength); 
 
     }
 

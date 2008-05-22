@@ -73,6 +73,12 @@ public class Pt {
         return this;
     }
 
+    public Pt decBy(double x, double y) {
+        this.x -= x;
+        this.y -= y;
+        return this;
+    }
+
     /**
      * Decrements this instance by given value.
      * 
@@ -276,5 +282,5 @@ public class Pt {
         x = 0d;
         y = 0d;
     }
-    
+
 }

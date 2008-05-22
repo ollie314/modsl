@@ -49,7 +49,11 @@ classDiagram
 classStmt: 'class' id=ID 
 	('extends' eid+=ID (',' eid+=ID)*)? ('implements' iid+=ID (',' iid+=ID)*)? 
 	'{' classElementStmt* '}'
-	{ classFactory.createClassNode(graph, $id, curElements, $eid, $iid, curAggs); curElements.clear(); }; 
+	{ 	
+		classFactory.createClassNode(graph, $id, curElements, $eid, $iid, curAggs); 
+		curElements.clear(); 
+		curAggs.clear(); 
+	}; 
 
 interfaceStmt: 'interface' id=ID ('extends' eid+=ID (',' eid+=ID)*)? '{' interfaceElementStmt* '}'  
 	{ classFactory.createInterfaceNode(graph, $id, curElements, $eid); curElements.clear(); }; 
