@@ -18,26 +18,33 @@ public abstract class AbstractArrowEdgeDecorator extends AbstractDecorator<Edge>
         super.decorate(parent);
     }
 
+    abstract protected double getArrowAngle();
+
     /**
      * @return position of the left arrow's side
      */
     public Pt getArrowLeft() {
-        double alpha = element.angle2() - getArrowAngle() / 2d;
-        return new Pt(element.getNode2Port().x - getArrowLength() * cos(alpha), element.getNode2Port().y - getArrowLength()
-                * sin(alpha));
+        return getOffsetPoint(element.angle2() - getArrowAngle() / 2d, getArrowLength()); 
     }
 
+    abstract protected double getArrowLength();
+
+    /**
+     * @return position of the middle point of the arrow
+     */
+    public Pt getArrowMiddle() {
+        return getOffsetPoint(element.angle2(), getArrowLength() * cos(getArrowAngle() / 2d));
+    }
+    
     /**
      * @return position of the right arrow's side
      */
     public Pt getArrowRight() {
-        double alpha = element.angle2() + getArrowAngle() / 2d;
-        return new Pt(element.getNode2Port().x - getArrowLength() * cos(alpha), element.getNode2Port().y - getArrowLength()
-                * sin(alpha));
+        return getOffsetPoint(element.angle2() + getArrowAngle() / 2d, getArrowLength()); 
     }
 
-    abstract protected double getArrowAngle();
-
-    abstract protected double getArrowLength();
+    protected Pt getOffsetPoint(double alpha, double len) {
+        return new Pt(element.getNode2Port().x - len * cos(alpha), element.getNode2Port().y - len * sin(alpha));
+    }
 
 }

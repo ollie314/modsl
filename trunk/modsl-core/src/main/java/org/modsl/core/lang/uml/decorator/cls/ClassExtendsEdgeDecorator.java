@@ -16,15 +16,13 @@
 
 package org.modsl.core.lang.uml.decorator.cls;
 
-import org.modsl.core.agt.model.Edge;
 import org.modsl.core.lang.uml.UMLMetaType;
 
 public class ClassExtendsEdgeDecorator extends ClassGeneralizationEdgeDecorator {
 
     @Override
-    public void decorate(Edge element) {
-        super.decorate(element);
-        arrowLength = UMLMetaType.CLASS_EXTENDS_EDGE.getConfig().getFt().getArrowLength();
+    protected double getArrowLength() {
+        return UMLMetaType.CLASS_EXTENDS_EDGE.getConfig().getFt().getArrowLength();
     }
-    
+
 }
