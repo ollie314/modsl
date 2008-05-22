@@ -35,11 +35,11 @@ collabDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStmt* '}' { graph.setName($ID.text); };
 
-collabStmt: ID collab2Stmt+ ';'  
-	{ collabEdges.addFirst($ID.text); collabFactory.createEdges(graph, collabEdges); collabEdges.clear(); };
+collabStmt: objInstance collab2Stmt+ ';'  
+	{ collabEdges.addFirst($objInstance.text); collabFactory.createEdges(graph, collabEdges); collabEdges.clear(); };
 
-collab2Stmt: EDGEOP ID '.' method  
-	{ collabEdges.add($method.text); collabEdges.add($ID.text); };
+collab2Stmt: EDGEOP objInstance '.' method  
+	{ collabEdges.add($method.text); collabEdges.add($objInstance.text); };
 
 classDiagram 
 	@init { graph = classFactory.createGraph();  }
@@ -63,11 +63,11 @@ classElementStmt: varClassElementStmt | staticVarClassElementStmt
 
 interfaceElementStmt: methodClassElementStmt | staticMethodClassElementStmt;
 
-varClassElementStmt: ID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $ID.text)); };
+varClassElementStmt: var ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_VAR_NODE_LABEL, $var.text)); };
 
-staticVarClassElementStmt: 'static' ID ';' 
-	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL, $ID.text)); };
+staticVarClassElementStmt: 'static' var ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL, $var.text)); };
 
 methodClassElementStmt: method ';' 
 	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_METHOD_NODE_LABEL, $method.text)); };
@@ -78,14 +78,18 @@ staticMethodClassElementStmt: 'static' method ';'
 aggStmt: from=multiplicity EDGEOP to=multiplicity '(' ID ')' ';'
 	{ curAggs.add($from.text); curAggs.add($to.text); curAggs.add($ID.text); };
 
-method: ID '(' (ID (',' ID)*)? ')';
+var: ID (':' ID)?;
+
+objInstance: ID? ':' ID | ID;
+
+method: ID '(' (ID (',' ID)*)? ')' (':' ID)?;
 
 multiplicity: multibound ('..' multibound)?;
 
 multibound: '*' | ID | INT;
 
 EDGEOP: '->';
-ID: ('_' | 'a'..'z' | 'A'..'Z' | ':') (INT | '_' | 'a'..'z' |'A'..'Z' | ':' | '[' | ']')*;
+ID: ('_' | 'a'..'z' | 'A'..'Z') (INT | '_' | 'a'..'z' |'A'..'Z' | '[' | ']')*;
 INT : '0'..'9'+ ;
 WS: (' ' | '\t' | NEWLINE)+ { skip(); };
 fragment NEWLINE:'\r'? '\n';
