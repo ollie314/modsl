@@ -29,8 +29,8 @@ public class UMLClassProcessor2Test extends AbstractUMLTest {
 
     @Test
     public void process2g() throws Exception {
-        process("class diagram c2g { class c1 extends c2 implements i1, i2 { v1; m1(p1); m2(p2); } "
-                + " interface i1 { m1(p1); } interface i2 { m2(p2); } class c2 {} }");
+        process("class diagram c2g { class c1 extends c2 implements i1, i2 { v1:String; m1(p1):Date; m2(p2):Date; } "
+                + " interface i1 { m1(p1):List; } interface i2 { m2(p2); } class c2 {} }");
     }
 
     @Test
