@@ -96,6 +96,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
     private void initClassLayouts() {
         addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
         addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
+        //addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.CLASS_GRAPH));
         addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.CLASS_GRAPH));
         addLayoutVisitor(new ClassEdgeLabelLayoutVisitor(UMLMetaType.CLASS_AGGREGATION_EDGE));
     }
