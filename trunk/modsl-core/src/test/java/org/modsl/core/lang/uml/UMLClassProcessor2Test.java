@@ -43,7 +43,11 @@ public class UMLClassProcessor2Test extends AbstractUMLTest {
     public void process3() throws RecognitionException, IOException {
         process(Utils.fromFile("samples/uml/class_self.modsl"));
     }
-
+    
+    @Test
+    public void process3noagg() throws RecognitionException, IOException {
+        process(Utils.fromFile("samples/uml/class_self_noagg.modsl"));
+    }
     private void process(String s) throws RecognitionException, IOException {
         String result = processor.process(s);
         svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());
