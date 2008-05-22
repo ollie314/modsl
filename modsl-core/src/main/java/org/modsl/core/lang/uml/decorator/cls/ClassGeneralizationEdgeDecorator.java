@@ -17,41 +17,14 @@
 package org.modsl.core.lang.uml.decorator.cls;
 
 import static java.lang.Math.PI;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
 
-import org.modsl.core.agt.decor.AbstractDecorator;
-import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.Pt;
+import org.modsl.core.lang.uml.decorator.AbstractArrowEdgeDecorator;
 
-abstract public class ClassGeneralizationEdgeDecorator extends AbstractDecorator<Edge> {
+public abstract class ClassGeneralizationEdgeDecorator extends AbstractArrowEdgeDecorator {
 
-    double arrowAngle = PI / 3.5d;
-    double arrowLength;
-
-    /**
-     * @return position of the left arrow's side
-     */
-    public Pt getArrowLeft() {
-        return getOffsetPoint(element.angle2() - arrowAngle / 2d, arrowLength);
-    }
-
-    /**
-     * @return position of the right arrow's side
-     */
-    public Pt getArrowRight() {
-        return getOffsetPoint(element.angle2() + arrowAngle / 2d, arrowLength);
-    }
-
-    /**
-     * @return position of the middle point of the arrow
-     */
-    public Pt getArrowMiddle() {
-        return getOffsetPoint(element.angle2(), arrowLength * cos(arrowAngle / 2d));
-    }
-
-    Pt getOffsetPoint(double alpha, double len) {
-        return new Pt(element.getNode2Port().x - len * cos(alpha), element.getNode2Port().y - len * sin(alpha));
+    @Override
+    protected double getArrowAngle() {
+        return PI / 3.5d;
     }
 
 }
