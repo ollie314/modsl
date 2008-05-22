@@ -46,17 +46,18 @@ classDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: 'class' 'diagram'? ID '{' (classStmt | interfaceStmt)* '}' { graph.setName($ID.text); };
 
-classStmt: 'class' id=ID 
+classStmt: 'class' id=ID ('<' gid+=ID (',' gid+=ID)* '>')?
 	('extends' eid+=ID (',' eid+=ID)*)? ('implements' iid+=ID (',' iid+=ID)*)? 
 	'{' classElementStmt* '}'
 	{ 	
-		classFactory.createClassNode(graph, $id, curElements, $eid, $iid, curAggs); 
+		classFactory.createClassNode(graph, $id, $gid, curElements, $eid, $iid, curAggs); 
 		curElements.clear(); 
 		curAggs.clear(); 
 	}; 
 
-interfaceStmt: 'interface' id=ID ('extends' eid+=ID (',' eid+=ID)*)? '{' interfaceElementStmt* '}'  
-	{ classFactory.createInterfaceNode(graph, $id, curElements, $eid); curElements.clear(); }; 
+interfaceStmt: 'interface' id=ID ('<' gid+=ID (',' gid+=ID)* '>')? 
+	('extends' eid+=ID (',' eid+=ID)*)? '{' interfaceElementStmt* '}'  
+	{ classFactory.createInterfaceNode(graph, $id, $gid, curElements, $eid); curElements.clear(); }; 
 
 classElementStmt: varClassElementStmt | staticVarClassElementStmt 
 	| methodClassElementStmt | staticMethodClassElementStmt | aggStmt;
