@@ -17,39 +17,20 @@
 package org.modsl.core.lang.uml.decorator.collab;
 
 import static java.lang.Math.PI;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
 
-import org.modsl.core.agt.decor.AbstractDecorator;
-import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.uml.UMLMetaType;
+import org.modsl.core.lang.uml.decorator.AbstractArrowEdgeDecorator;
 
-public class CollabEdgeDecorator extends AbstractDecorator<Edge> {
-
-    double arrowAngle = PI / 5d;
-    double arrowLength;
+public class CollabEdgeDecorator extends AbstractArrowEdgeDecorator {
 
     @Override
-    public void decorate(Edge parent) {
-        super.decorate(parent);
-        arrowLength = UMLMetaType.COLLAB_EDGE.getConfig().getFontTransform().getArrowLength();
+    protected double getArrowAngle() {
+        return PI / 5d;
     }
 
-    /**
-     * @return position of the left arrow's side
-     */
-    public Pt getArrowLeft() {
-        double alpha = element.angle2() - arrowAngle / 2d;
-        return new Pt(element.getNode2Port().x - arrowLength * cos(alpha), element.getNode2Port().y - arrowLength * sin(alpha));
-    }
-
-    /**
-     * @return position of the right arrow's side
-     */
-    public Pt getArrowRight() {
-        double alpha = element.angle2() + arrowAngle / 2d;
-        return new Pt(element.getNode2Port().x - arrowLength * cos(alpha), element.getNode2Port().y - arrowLength * sin(alpha));
+    @Override
+    protected double getArrowLength() {
+        return UMLMetaType.COLLAB_EDGE.getConfig().getFt().getArrowLength();
     }
 
 }
