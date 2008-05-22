@@ -17,6 +17,7 @@
 package org.modsl.core.agt.layout.fr;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.log10;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
@@ -146,8 +147,8 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
             for (Node n : graph.getNodes()) {
                 area += n.getSize().x * n.getSize().y;
             }
-            double w = sqrt(area * 12d / gr) + 1d;
-            double h = gr * w + 1d;
+            double h = sqrt(area * 3d * Math.log(graph.getEdges().size())/ gr)  + 1d;
+            double w = gr * h + 1d;
             Pt rs = new Pt(w, h);
             graph.setReqSize(rs);
             return rs;

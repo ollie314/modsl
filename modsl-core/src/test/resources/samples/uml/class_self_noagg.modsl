@@ -1,4 +1,4 @@
-class diagram self {
+class diagram self_na {
 	class AbstractElement {
 		name; parent; type;
 		accept(AbstractVisitor);
@@ -7,18 +7,12 @@ class diagram self {
 		pos; disp; size;
 	}
 	class Edge extends AbstractElement {
-		labels;
-		1->2(Node);
-		1->*(Bend);
-		1->*(EdgeLabel);
+		labels; nodes; bends;
 	}
 	class Bend extends AbstractBox {
 	}
 	class Graph extends AbstractBox {
-		reqSize;
-		1->*(GraphLabel);
-		1->*(Edge);
-		1->*(Node);
+		reqSize; nodes; edges; labels;
 	}
 	class Label extends AbstractBox {
 	}
@@ -32,7 +26,6 @@ class diagram self {
 		offset;
 	}
 	class Node extends AbstractBox {
-		connectedEdges; 
-		1->*(NodeLabel);
+		connectedEdges; labels; 
 	}
 }
