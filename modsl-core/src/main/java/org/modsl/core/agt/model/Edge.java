@@ -320,19 +320,23 @@ public class Edge extends AbstractElement<Graph> {
      */
     public void setReverted(boolean r) {
         if (reverted != r) {
-            Node tn = node1;
-            node1 = node2;
-            node2 = tn;
-            String tnn = node1Name;
-            node1Name = node2Name;
-            node2Name = tnn;
+            revert();
             reverted = r;
         }
     }
 
+    public void revert() {
+        Node tn = node1;
+        node1 = node2;
+        node2 = tn;
+        String tnn = node1Name;
+        node1Name = node2Name;
+        node2Name = tnn;
+    }
+
     @Override
-	public String toString() {
-		return super.toString() + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-" + bends.size() + "-"
-				+ (node2 == null ? "*" + node2Name : node2.getName()) + ")";
-	}
+    public String toString() {
+        return super.toString() + "(" + (node1 == null ? "*" + node1Name : node1.getName()) + "-" + bends.size() + "-"
+                + (node2 == null ? "*" + node2Name : node2.getName()) + ")";
+    }
 }

@@ -34,6 +34,7 @@ import org.modsl.core.lang.uml.decorator.cls.ClassNodeDecorator;
 import org.modsl.core.lang.uml.decorator.collab.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.layout.cls.ClassEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
+import org.modsl.core.lang.uml.layout.cls.ClassRevertGenEdgeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
 
@@ -95,8 +96,12 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 
     private void initClassLayouts() {
         addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
-        addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
-        //addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.CLASS_GRAPH));
+        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
+        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor(UMLMetaType.CLASS_EXTENDS_EDGE));
+        //addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
+        addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.CLASS_GRAPH));
+        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
+        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor(UMLMetaType.CLASS_EXTENDS_EDGE));
         addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.CLASS_GRAPH));
         addLayoutVisitor(new ClassEdgeLabelLayoutVisitor(UMLMetaType.CLASS_AGGREGATION_EDGE));
     }
