@@ -17,7 +17,6 @@
 package org.modsl.core.agt.layout.fr;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.log10;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
@@ -134,12 +133,12 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
     Pt getCtrDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
         Pt delta = n1.getCtrPos().minus(n2.getCtrPos());
-        if (delta.len() < Pt.EPSILON) { 
+        if (delta.len() < Pt.EPSILON) {
             delta.randomize(random, new Pt(1d, 1d));
         }
         return delta;
     }
-    
+
     Pt getOrEsimateGraphReqSize() {
         if (graph.getReqSize().equals(new Pt(0d, 0d))) {
             double area = 0d;
@@ -147,7 +146,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
             for (Node n : graph.getNodes()) {
                 area += n.getSize().x * n.getSize().y;
             }
-            double h = sqrt(area * 3d * Math.log(graph.getEdges().size())/ gr)  + 1d;
+            double h = sqrt(area * 3d * Math.log(graph.getEdges().size()) / gr) + 1d;
             double w = gr * h + 1d;
             Pt rs = new Pt(w, h);
             graph.setReqSize(rs);
@@ -160,7 +159,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
     Pt getPortDelta(AbstractBox<?> n1, AbstractBox<?> n2) {
         Pt delta = n1.getPortDelta(n2);
-        if (delta.len() < Pt.EPSILON) { 
+        if (delta.len() < Pt.EPSILON) {
             delta.randomize(random, new Pt(1d, 1d));
         }
         return delta;
