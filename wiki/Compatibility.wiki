@@ -3,4 +3,4 @@
    * No support for filters in 2.x
 
 === IE/Adobe SVG ===
-  * SVG CSS parser fails on selector names which include underscores
+  * SVG CSS parser fails when selector names include underscores
