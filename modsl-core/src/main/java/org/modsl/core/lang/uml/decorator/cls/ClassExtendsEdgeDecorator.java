@@ -18,7 +18,7 @@ package org.modsl.core.lang.uml.decorator.cls;
 
 import org.modsl.core.lang.uml.UMLMetaType;
 
-public class ClassExtendsEdgeDecorator extends ClassGeneralizationEdgeDecorator {
+public class ClassExtendsEdgeDecorator extends AbstractClassGeneralizationEdgeDecorator {
 
     @Override
     protected double getArrowLength() {

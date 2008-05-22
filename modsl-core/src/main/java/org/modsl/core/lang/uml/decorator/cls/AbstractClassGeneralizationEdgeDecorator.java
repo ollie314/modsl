@@ -20,7 +20,7 @@ import static java.lang.Math.PI;
 
 import org.modsl.core.lang.uml.decorator.AbstractArrowEdgeDecorator;
 
-public abstract class ClassGeneralizationEdgeDecorator extends AbstractArrowEdgeDecorator {
+public abstract class AbstractClassGeneralizationEdgeDecorator extends AbstractArrowEdgeDecorator {
 
     @Override
     protected double getArrowAngle() {
