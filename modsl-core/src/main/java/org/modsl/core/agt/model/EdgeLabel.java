@@ -25,10 +25,9 @@ public class EdgeLabel extends Label<Edge> {
 	}
 
 	AbstractBox<?> anchor1;
-
 	AbstractBox<?> anchor2;
 
-	Pt offset = new Pt(0d, 0d);
+	double offset = 0d;
 
 	Placement placement = Placement.MID;
 
@@ -50,7 +49,7 @@ public class EdgeLabel extends Label<Edge> {
 		return anchor2;
 	}
 
-	public Pt getOffset() {
+	public double getOffset() {
 		return offset;
 	}
 
@@ -64,15 +63,13 @@ public class EdgeLabel extends Label<Edge> {
 		switch (placement) {
 		case MID:
 			Pt mid = ports[0].plus(ports[1].minus(ports[0]).mulBy(0.5d));
-			// Pt mid =
-			// anchor1.getCtrPos().plus(anchor2.getCtrPos().minus(anchor1.getCtrPos()).mulBy(0.5d));
-			mid.incBy(new Pt(offset.y / anchor1.tan(anchor2), offset.y));
+			mid.incBy(new Pt(offset / anchor1.tan(anchor2), offset));
 			mid.decBy(new Pt(getSize().x / 2d, getSize().y / 2d));
 			return mid;
 		case ANCHOR1:
-			return ports[0].incBy(offset);
+			return ports[0].incBy(offset * anchor1.cos(anchor2), offset * anchor1.sin(anchor2));
 		case ANCHOR2:
-			return ports[1].decBy(offset);
+            return ports[1].incBy(offset * anchor2.cos(anchor1), offset * anchor2.sin(anchor1));
 		}
 		return null;
 	}
@@ -85,9 +82,8 @@ public class EdgeLabel extends Label<Edge> {
 		this.anchor2 = anchor2;
 	}
 
-	public void setOffset(double x, double y) {
-		this.offset.x = x;
-		this.offset.y = y;
+	public void setOffset(double offset) {
+		this.offset = offset;
 	}
 
 	public void setPlacement(Placement placement) {

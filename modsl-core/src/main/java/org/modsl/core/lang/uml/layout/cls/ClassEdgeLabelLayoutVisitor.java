@@ -16,14 +16,12 @@
 
 package org.modsl.core.lang.uml.layout.cls;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import static java.lang.Math.PI;
+import static java.lang.Math.cos;
 
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
-import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.lang.uml.UMLMetaType;
 
@@ -33,95 +31,31 @@ import org.modsl.core.lang.uml.UMLMetaType;
  */
 public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
 
+    
     public ClassEdgeLabelLayoutVisitor(MetaType type) {
         super(type);
     }
 
     @Override
     public void apply(Edge edge) {
-    	
-    	EdgeLabel from = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL).get(0);
+
+        double arrowAngle = PI / 4d;
+        double arrowLength = UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL.getConfig().getFt().getArrowLength();
+
+        EdgeLabel from = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL).get(0);
 
         from.setPlacement(EdgeLabel.Placement.ANCHOR1);
-    	from.setAnchor1(edge.getNode1());
+        from.setAnchor1(edge.getNode1());
         from.setAnchor2(edge.getNode2());
-        from.setOffset(0d, 0d);
-    	
-    	EdgeLabel to = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_TO_EDGE_LABEL).get(0); 
+        from.setOffset(arrowLength); // * 1.1d
+
+        EdgeLabel to = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_TO_EDGE_LABEL).get(0);
 
         to.setPlacement(EdgeLabel.Placement.ANCHOR2);
-    	to.setAnchor1(edge.getNode1());
+        to.setAnchor1(edge.getNode1());
         to.setAnchor2(edge.getNode2());
-        to.setOffset(0d, 0d);
-    	
-    	/*
-        List<EdgeLabel> labels = graph.getEdgeLabels();
+        to.setOffset(arrowLength); //  * 1.75d
 
-        if (labels.isEmpty()) {
-            return;
-        }
-
-        for (EdgeLabel label : labels) {
-            Edge edge = label.getParent();
-            label.setAnchor1(edge.getLastBend());
-            label.setAnchor2(edge.getNode2());
-            label.setOffset(0d, 0d);
-        }
-
-        Collections.sort(labels, new Comparator<EdgeLabel>() {
-
-            public int compare(EdgeLabel l1, EdgeLabel l2) {
-                return ind(l1) - ind(l2);
-            }
-
-            protected int ind(EdgeLabel l) {
-                return (int) (l.getPos().y * l.getPos().y + l.getPos().x);
-            }
-
-        });
-
-        //log.debug(labels);
-
-        EdgeLabel last = null;
-        EdgeLabel beforeLast = null;
-        for (EdgeLabel label : labels) {
-            if (last == null) {
-                last = labels.get(0);
-            } else {
-                double offset = 0d;
-                if (last.overlaps(label)) {
-                    offset = label.getSize().y + 1;
-                }
-                if (beforeLast != null && beforeLast.overlaps(label)) {
-                    offset = -label.getSize().y - 1;
-                }
-                label.setOffset(0d, offset);
-                beforeLast = last;
-                last = label;
-            }
-        }
-*/
     }
 
 }
-
-/*
- *
- *   public Pt getMidPoint(Edge edge, double offs) {
-        Node n1 = edge.getNode1();
-        Node n2 = edge.getNode2();
-        double ratio = 1d / 2d;
-        //double ratio = 1d * n1.getOutDegree() / (n1.getOutDegree() + n2.getInDegree());
-        ratio = min(2d / 3d, max(ratio, 1d / 3d)); // TODO
-        AbstractBox<?> b1 = n1;
-        AbstractBox<?> b2 = n2;
-        if (edge.getBends().size() > 0) {
-            if (n1.getOutDegree() > n2.getInDegree()) {
-                b1 = edge.getLastBend();
-            } else {
-                b2 = edge.getFirstBend();
-            }
-        }
-        return b1.getCtrPos().plus(b2.getCtrPos().minus(b1.getCtrPos()).mulBy(ratio));
-    }
-*/
