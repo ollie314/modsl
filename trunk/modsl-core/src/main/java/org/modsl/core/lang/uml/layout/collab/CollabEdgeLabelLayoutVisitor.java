@@ -50,7 +50,7 @@ public class CollabEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutV
             label.setPlacement(EdgeLabel.Placement.MID);
             label.setAnchor1(edge.getLastBend());
             label.setAnchor2(edge.getNode2());
-            label.setOffset(0d, 0d);
+            label.setOffset(0d);
         }
 
         Collections.sort(labels, new Comparator<EdgeLabel>() {
@@ -80,7 +80,7 @@ public class CollabEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutV
                 if (beforeLast != null && beforeLast.overlaps(label)) {
                     offset = -label.getSize().y - 1;
                 }
-                label.setOffset(0d, offset);
+                label.setOffset(offset);
                 beforeLast = last;
                 last = label;
             }

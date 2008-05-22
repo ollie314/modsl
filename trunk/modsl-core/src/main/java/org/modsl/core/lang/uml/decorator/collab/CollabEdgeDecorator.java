@@ -27,9 +27,8 @@ import org.modsl.core.lang.uml.UMLMetaType;
 
 public class CollabEdgeDecorator extends AbstractDecorator<Edge> {
 
-    protected double arrowAngle = PI / 5d;
-
-    protected double arrowLength;
+    double arrowAngle = PI / 5d;
+    double arrowLength;
 
     @Override
     public void decorate(Edge parent) {
