@@ -16,9 +16,6 @@
 
 package org.modsl.core.lang.uml.layout.cls;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.cos;
-
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
@@ -31,7 +28,6 @@ import org.modsl.core.lang.uml.UMLMetaType;
  */
 public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
 
-    
     public ClassEdgeLabelLayoutVisitor(MetaType type) {
         super(type);
     }
@@ -53,7 +49,7 @@ public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVi
         to.setPlacement(EdgeLabel.Placement.ANCHOR2);
         to.setAnchor1(edge.getNode1());
         to.setAnchor2(edge.getNode2());
-        to.setOffset(arrowLength); 
+        to.setOffset(arrowLength * 2d);
 
     }
 

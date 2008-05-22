@@ -27,6 +27,7 @@ import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.AbstractProcessor;
+import org.modsl.core.lang.uml.decorator.cls.ClassAggregationEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.cls.ClassExtendsEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.cls.ClassImplementsEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.cls.ClassNodeDecorator;
@@ -38,77 +39,78 @@ import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
 
 public class UMLProcessor extends AbstractProcessor<UMLParser> {
 
-	@Override
-	protected Lexer getLexer(ANTLRStringStream input) {
-		return new UMLLexer(input);
-	}
+    @Override
+    protected Lexer getLexer(ANTLRStringStream input) {
+        return new UMLLexer(input);
+    }
 
-	@Override
-	protected String getName() {
-		return "uml";
-	}
+    @Override
+    protected String getName() {
+        return "uml";
+    }
 
-	@Override
-	protected UMLParser getParser(CommonTokenStream tokens) {
-		return new UMLParser(tokens);
-	}
+    @Override
+    protected UMLParser getParser(CommonTokenStream tokens) {
+        return new UMLParser(tokens);
+    }
 
-	@Override
-	protected String getPath() {
-		return "cfg/uml:cfg";
-	}
+    @Override
+    protected String getPath() {
+        return "cfg/uml:cfg";
+    }
 
-	@Override
-	protected Graph getGraph() {
-		return parser.graph;
-	}
+    @Override
+    protected Graph getGraph() {
+        return parser.graph;
+    }
 
-	@Override
-	protected void runParser() throws RecognitionException {
-		parser.diagram();
-	}
+    @Override
+    protected void runParser() throws RecognitionException {
+        parser.diagram();
+    }
 
-	@Override
-	public void initDecorators() {
-		initCollabDecorators();
-		initClassDecorators();
-	}
+    @Override
+    public void initDecorators() {
+        initCollabDecorators();
+        initClassDecorators();
+    }
 
-	private void initClassDecorators() {
-		UMLMetaType.CLASS_CLASS_NODE.getConfig().setDecorator(new ClassNodeDecorator());
-		UMLMetaType.CLASS_INTERFACE_NODE.getConfig().setDecorator(new ClassNodeDecorator());
-		UMLMetaType.CLASS_EXTENDS_EDGE.getConfig().setDecorator(new ClassExtendsEdgeDecorator());
-		UMLMetaType.CLASS_IMPLEMENTS_EDGE.getConfig().setDecorator(new ClassImplementsEdgeDecorator());
-	}
+    private void initClassDecorators() {
+        UMLMetaType.CLASS_CLASS_NODE.getConfig().setDecorator(new ClassNodeDecorator());
+        UMLMetaType.CLASS_INTERFACE_NODE.getConfig().setDecorator(new ClassNodeDecorator());
+        UMLMetaType.CLASS_EXTENDS_EDGE.getConfig().setDecorator(new ClassExtendsEdgeDecorator());
+        UMLMetaType.CLASS_IMPLEMENTS_EDGE.getConfig().setDecorator(new ClassImplementsEdgeDecorator());
+        UMLMetaType.CLASS_AGGREGATION_EDGE.getConfig().setDecorator(new ClassAggregationEdgeDecorator());
+    }
 
-	private void initCollabDecorators() {
-		UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
-	}
+    private void initCollabDecorators() {
+        UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
+    }
 
-	@Override
-	public void initLayouts() {
-		initCollabLayouts();
-		initClassLayouts();
-	}
+    @Override
+    public void initLayouts() {
+        initCollabLayouts();
+        initClassLayouts();
+    }
 
-	private void initClassLayouts() {
-		addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
-		addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
-		addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.CLASS_GRAPH));
-		addLayoutVisitor(new ClassEdgeLabelLayoutVisitor(UMLMetaType.CLASS_AGGREGATION_EDGE));
-	}
+    private void initClassLayouts() {
+        addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
+        addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
+        addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.CLASS_GRAPH));
+        addLayoutVisitor(new ClassEdgeLabelLayoutVisitor(UMLMetaType.CLASS_AGGREGATION_EDGE));
+    }
 
-	private void initCollabLayouts() {
-		// addLayoutVisitor(new
-		// CollabNodeWeightVisitor(UMLMetaType.COLLAB_NODE));
-		addLayoutVisitor(new CollabNodeLayoutVisitor(UMLMetaType.COLLAB_NODE));
-		addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
-		// addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
-		addLayoutVisitor(new CollabEdgeLabelLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
-	}
+    private void initCollabLayouts() {
+        // addLayoutVisitor(new
+        // CollabNodeWeightVisitor(UMLMetaType.COLLAB_NODE));
+        addLayoutVisitor(new CollabNodeLayoutVisitor(UMLMetaType.COLLAB_NODE));
+        addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
+        // addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
+        addLayoutVisitor(new CollabEdgeLabelLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
+    }
 
-	@Override
-	protected Class<? extends MetaType> getMetaTypeClass() {
-		return UMLMetaType.class;
-	}
+    @Override
+    protected Class<? extends MetaType> getMetaTypeClass() {
+        return UMLMetaType.class;
+    }
 }

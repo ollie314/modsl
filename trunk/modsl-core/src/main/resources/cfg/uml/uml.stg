@@ -231,6 +231,8 @@ CLASS_IMPLEMENTS_EDGE_in(edge, decor) ::= <<
 CLASS_AGGREGATION_EDGE_in(edge, decor) ::= <<
 
 <line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="aggregationedge"/>
+<line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="aggregationedge"/>
+<line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="aggregationedge"/>
 >>
 
 CLASS_MULTIPLICITY_FROM_EDGE_LABEL_in(label, decor) ::= <<
