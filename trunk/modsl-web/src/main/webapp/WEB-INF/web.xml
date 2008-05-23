@@ -4,7 +4,7 @@
 
     <servlet>
         <servlet-name>uml_ws</servlet-name>
-        <servlet-class>org.modsl.web.WebServiceServlet</servlet-class>
+        <servlet-class>org.modsl.web.UMLWebServiceServlet</servlet-class>
     </servlet>
 
     <servlet>

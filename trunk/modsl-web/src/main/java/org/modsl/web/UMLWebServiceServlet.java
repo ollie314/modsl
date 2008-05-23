@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class WebServiceServlet extends HttpServlet {
+public class UMLWebServiceServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1205487030102067812L;
 
