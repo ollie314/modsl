@@ -13,7 +13,14 @@ diagram graphics as SVG.
 <b>UML text-to-diagram</b>
 <p>
 <textarea name="script" rows="16" cols="64">
-enter your UML script here
+class diagram MyDiagram (width:200, height:200) { 
+	interface MyInterface { 
+		method1(); 
+	} 
+	class MyClass implements MyInterface { 
+		var1; var2; method1(); method2(); 
+	}
+} 
 </textarea>
 <br/>
 <input type="submit" value="Show Diagram">
