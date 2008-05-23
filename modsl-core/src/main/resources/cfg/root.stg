@@ -11,7 +11,7 @@ root_in(graph) ::= <<
 		<stop offset="100%" style="stop-color:lightsteelblue;stop-opacity:1"/>
 	</linearGradient>
 </defs>
-<text x="5" y="10" font-style="Tahoma" font-size="8" color="dimgrey">
+<text x="$graph.statusLine.x$" y="$graph.statusLine.y$" font-style="Tahoma" font-size="8" color="grey">
 	ModSL ~ http://www.modsl.org
 </text>
 >>
