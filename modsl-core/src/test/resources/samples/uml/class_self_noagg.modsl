@@ -1,3 +1,6 @@
+/*
+ Class diagram example
+ */
 class diagram self_na {
 	class AbstractElement {
 		name; parent; type; index;

@@ -77,6 +77,11 @@ public class Graph extends AbstractBox<Graph> {
      */
     double rightPadding;
 
+    /**
+     * Processing attributes
+     */
+    Map<String, String> procAttrs = new HashMap<String, String>();
+
     public Graph(MetaType type) {
         super(type);
         this.index = counter++;
@@ -121,6 +126,10 @@ public class Graph extends AbstractBox<Graph> {
         child.parent = this;
         nodes.add(child);
         nodeMap.put(child.getName(), child);
+    }
+
+    public void addProcAttr(String key, String value) {
+        procAttrs.put(key, value);
     }
 
     /**
@@ -185,6 +194,10 @@ public class Graph extends AbstractBox<Graph> {
      */
     public List<Node> getNodes() {
         return nodes;
+    }
+
+    public Map<String, String> getProcAttrs() {
+        return procAttrs;
     }
 
     /**
@@ -369,11 +382,9 @@ public class Graph extends AbstractBox<Graph> {
         }
     }
 
-    /**
-     * @param reqSize size requested by client (if any)
-     */
-    public void setReqSize(Pt reqSize) {
-        this.reqSize = reqSize;
+    public void setReqSize(double x, double y) {
+        this.reqSize.x = x;
+        this.reqSize.y = y;
     }
 
 }

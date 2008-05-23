@@ -46,7 +46,7 @@ public class FRLayoutVisitorTest {
         n2 = new Node(TMetaType.NODE, "n2");
         e1_2 = new Edge(TMetaType.EDGE, n1, n2);
 
-        graph.setReqSize(new Pt(100d, 100d));
+        graph.setReqSize(100d, 100d);
         graph.add(n1);
         n1.setSize(10d, 10d);
         graph.add(n2);

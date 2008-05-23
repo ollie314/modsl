@@ -32,12 +32,12 @@ diagram : classDiagram | collabDiagram;
 
 collabDiagram 
 	@init { graph = collabFactory.createGraph();  }
-	@after { graph.accept(new NodeRefVisitor()); }
+	@after { graph.accept(new NodeRefVisitor()); graph.accept(new ProcAttrVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
 
 procAttributes: '(' procAttr (',' procAttr)* ')';
 
-procAttr: ID ':' INT | STRING;
+procAttr: key=ID ':' v=INT { graph.addProcAttr($key.text, $v.text); };
 
 collabStmt: objInstance collab2Stmt+ ';'  
 	{ collabEdges.addFirst($objInstance.text); collabFactory.createEdges(graph, collabEdges); collabEdges.clear(); };
@@ -47,7 +47,7 @@ collab2Stmt: EDGEOP objInstance '.' method
 
 classDiagram 
 	@init { graph = classFactory.createGraph();  }
-	@after { graph.accept(new NodeRefVisitor()); }
+	@after { graph.accept(new NodeRefVisitor()); graph.accept(new ProcAttrVisitor()); }
 	: 'class' 'diagram'? ID procAttributes? '{' (classStmt | interfaceStmt)* '}' { graph.setName($ID.text); };
 
 classStmt: 'class' id=ID ('<' gid+=ID (',' gid+=ID)* '>')?
@@ -93,7 +93,9 @@ multiplicity: multibound ('..' multibound)?;
 
 multibound: '*' | ID | INT;
 
-STRING: '"' .* '"';
+ML_COMMENT: '/*' .* '*/' { skip(); };
+SL_COMMENT: '//' .* NEWLINE { skip(); };
+
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z') (INT | '_' | 'a'..'z' |'A'..'Z' | '[' | ']')*;
 INT : '0'..'9'+ ;
