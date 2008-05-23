@@ -7,9 +7,19 @@
         <servlet-class>org.modsl.web.WebServiceServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>uml_ws_jsp</servlet-name>
+        <jsp-file>/uml.jsp</jsp-file>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>uml_ws</servlet-name>
         <url-pattern>/uml</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>uml_ws_jsp</servlet-name>
+        <url-pattern>/umlj</url-pattern>
     </servlet-mapping>
 
 </web-app>
