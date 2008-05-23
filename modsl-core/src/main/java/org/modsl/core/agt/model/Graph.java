@@ -139,6 +139,10 @@ public class Graph extends AbstractBox<Graph> {
         return getSize().x * getSize().y;
     }
 
+    public double getBottomPadding() {
+        return bottomPadding;
+    }
+
     /**
      * @param index
      * @return edge by index
@@ -171,6 +175,10 @@ public class Graph extends AbstractBox<Graph> {
 
     public List<GraphLabel> getLabels() {
         return labels;
+    }
+
+    public double getLeftPadding() {
+        return leftPadding;
     }
 
     /**
@@ -207,6 +215,10 @@ public class Graph extends AbstractBox<Graph> {
         return reqSize;
     }
 
+    public double getRightPadding() {
+        return rightPadding;
+    }
+
     /**
      * @return sum of all edge lengths
      */
@@ -216,6 +228,10 @@ public class Graph extends AbstractBox<Graph> {
             len += e.getLength();
         }
         return len;
+    }
+
+    public double getTopPadding() {
+        return topPadding;
     }
 
     /**
@@ -377,7 +393,7 @@ public class Graph extends AbstractBox<Graph> {
         if (ft != null) {
             leftPadding = ft.getLeftPadding();
             rightPadding = ft.getRightPadding();
-            topPadding = ft.getTopPadding();
+            topPadding = ft.getTopPadding() + 12;
             bottomPadding = ft.getBottomPadding();
         }
     }

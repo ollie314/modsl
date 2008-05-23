@@ -47,7 +47,7 @@ public class RootAGTModelTest extends AbstractAGTModelTest {
         assertEquals(1000d, graph.getSize().x, Pt.EPSILON);
         assertEquals(1000d, graph.getSize().y, Pt.EPSILON);
         assertEquals(800d, n2.getPos().x, 7d);
-        assertEquals(0d, n2.getPos().y, 5d);
+        assertEquals(graph.getTopPadding(), n2.getPos().y, 2d);
         assertEquals(0d, n4.getPos().x, 6d);
         assertEquals(800d, n4.getPos().y, 7d);
         assertEquals(400d, n5.getPos().x, 5d);

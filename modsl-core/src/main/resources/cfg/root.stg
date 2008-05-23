@@ -11,6 +11,9 @@ root_in(graph) ::= <<
 		<stop offset="100%" style="stop-color:lightsteelblue;stop-opacity:1"/>
 	</linearGradient>
 </defs>
+<text x="5" y="10" font-style="Tahoma" font-size="8" color="dimgrey">
+	ModSL ~ http://www.modsl.org
+</text>
 >>
 
 root_out(graph) ::= <<
@@ -25,4 +28,3 @@ font-size: $ft.size$px;
 font-style: $ft.cssStyle$; 
 font-weight: $ft.cssWeight$; 
 >>
-
