@@ -1,3 +1,4 @@
+// Collaboration diagram example
 collaboration ModSL3 { 
 	processor->lexer.tokenStream(); 
 	processor->parser.graph(tokenStream); 

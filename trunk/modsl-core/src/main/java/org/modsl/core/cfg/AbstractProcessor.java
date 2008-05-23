@@ -170,7 +170,7 @@ public abstract class AbstractProcessor<S extends Parser> {
      */
     public String process(String s, Pt reqSize) throws RecognitionException {
         Graph graph = parse(s);
-        graph.setReqSize(reqSize);
+        graph.setReqSize(reqSize.x, reqSize.y);
         for (AbstractLayoutVisitor layout : layoutVisitors) {
             graph.accept(layout);
         }
