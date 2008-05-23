@@ -33,7 +33,11 @@ diagram : classDiagram | collabDiagram;
 collabDiagram 
 	@init { graph = collabFactory.createGraph();  }
 	@after { graph.accept(new NodeRefVisitor()); }
-	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID '{' collabStmt* '}' { graph.setName($ID.text); };
+	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
+
+procAttributes: '(' procAttr (',' procAttr)* ')';
+
+procAttr: ID ':' INT | STRING;
 
 collabStmt: objInstance collab2Stmt+ ';'  
 	{ collabEdges.addFirst($objInstance.text); collabFactory.createEdges(graph, collabEdges); collabEdges.clear(); };
@@ -44,7 +48,7 @@ collab2Stmt: EDGEOP objInstance '.' method
 classDiagram 
 	@init { graph = classFactory.createGraph();  }
 	@after { graph.accept(new NodeRefVisitor()); }
-	: 'class' 'diagram'? ID '{' (classStmt | interfaceStmt)* '}' { graph.setName($ID.text); };
+	: 'class' 'diagram'? ID procAttributes? '{' (classStmt | interfaceStmt)* '}' { graph.setName($ID.text); };
 
 classStmt: 'class' id=ID ('<' gid+=ID (',' gid+=ID)* '>')?
 	('extends' eid+=ID (',' eid+=ID)*)? ('implements' iid+=ID (',' iid+=ID)*)? 
@@ -89,6 +93,7 @@ multiplicity: multibound ('..' multibound)?;
 
 multibound: '*' | ID | INT;
 
+STRING: '"' .* '"';
 EDGEOP: '->';
 ID: ('_' | 'a'..'z' | 'A'..'Z') (INT | '_' | 'a'..'z' |'A'..'Z' | '[' | ']')*;
 INT : '0'..'9'+ ;
