@@ -250,6 +250,10 @@ public class Pt {
         return new Pt(k * x, k * y);
     }
 
+    public Pt plus(double x, double y) {
+        return new Pt(this.x + x, this.y + y);
+    }
+
     /**
      * Adds p to this instance and returns the result as a new instance
      * 

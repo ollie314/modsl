@@ -19,6 +19,7 @@ package org.modsl.core.agt.model;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+import java.awt.Font;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,6 +82,8 @@ public class Graph extends AbstractBox<Graph> {
      * Processing attributes
      */
     Map<String, String> procAttrs = new HashMap<String, String>();
+
+    FontTransform statusFt = new FontTransform("Tahoma", 8, Font.PLAIN);
 
     public Graph(MetaType type) {
         super(type);
@@ -393,14 +396,18 @@ public class Graph extends AbstractBox<Graph> {
         if (ft != null) {
             leftPadding = ft.getLeftPadding();
             rightPadding = ft.getRightPadding();
-            topPadding = ft.getTopPadding() + 12;
-            bottomPadding = ft.getBottomPadding();
+            topPadding = ft.getTopPadding();
+            bottomPadding = ft.getBottomPadding() + statusFt.getExtHeight(1);
         }
     }
 
     public void setReqSize(double x, double y) {
         this.reqSize.x = x;
         this.reqSize.y = y;
+    }
+
+    public Pt getStatusLine() {
+        return new Pt(statusFt.getLeftPadding(), getSize().y - statusFt.getExtHeight(1) + statusFt.getExtBaseline(0));
     }
 
 }
