@@ -151,10 +151,10 @@ public class PropLoader {
 			if (is == null) {
 				return;
 			}
-			BufferedReader r = new BufferedReader(new InputStreamReader(is));
+			InputStreamReader isr = new InputStreamReader(is);
 			Properties p = new Properties();
-			p.load(r);
-			r.close();
+			p.load(isr);
+			isr.close();
 			for (Map.Entry<Object, Object> me : p.entrySet()) {
 				props.put((String) me.getKey(), (String) me.getValue());
 			}
