@@ -19,6 +19,12 @@
             <artifactId>modsl-core</artifactId>
             <version>0.4-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>modsl-web</finalName>
