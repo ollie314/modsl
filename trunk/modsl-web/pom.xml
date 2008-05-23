@@ -26,4 +26,32 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <configuration>
+                    <header>license-header.txt</header>
+                    <failIfMissing>true</failIfMissing>
+                    <includes>
+                        <include>src/main/java/**</include>
+                        <include>src/test/java/**</include>
+                    </includes>
+                    <excludes>
+                        <exclude>target/**</exclude>
+                        <exclude>.clover/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
