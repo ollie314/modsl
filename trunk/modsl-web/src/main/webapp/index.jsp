@@ -13,13 +13,16 @@ diagram graphics as SVG.
 <b>UML text-to-diagram</b>
 <p>
 <textarea name="script" rows="16" cols="64">
-class diagram MyDiagram (width:200, height:200) { 
+class diagram MyDiagram (width:320, height:160) { 
 	interface MyInterface { 
 		method1(); 
 	} 
-	class MyClass implements MyInterface { 
+	class MyClass1 implements MyInterface { 
 		var1; var2; method1(); method2(); 
 	}
+	class MyClass2 implements MyInterface { 
+		method1();  
+	}	
 } 
 </textarea>
 <br/>
