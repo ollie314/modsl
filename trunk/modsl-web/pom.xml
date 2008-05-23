@@ -5,8 +5,20 @@
     <artifactId>modsl-web</artifactId>
     <packaging>war</packaging>
     <version>0.1-SNAPSHOT</version>
-    <name>modsl-web Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+    <name>modsl-web</name>
+    <url>http://www.modsl.org</url>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>mc-release</id>
+            <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
