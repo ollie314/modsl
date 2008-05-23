@@ -43,7 +43,6 @@ import org.modsl.core.agt.visitor.StringTemplateVisitor;
  */
 public abstract class AbstractProcessor<S extends Parser> {
 
-    private StringTemplateVisitor stringTemplateVisitor;
     private List<AbstractLayoutVisitor> layoutVisitors = new LinkedList<AbstractLayoutVisitor>();
 
     protected Lexer lexer;
@@ -98,7 +97,7 @@ public abstract class AbstractProcessor<S extends Parser> {
      * not likely that subclasses will need to override this.
      */
     protected AbstractVisitor getStringTemplateVisitor() {
-        return stringTemplateVisitor;
+        return new StringTemplateVisitor(getPath(), getName(), getRefreshInterval());
     }
 
     /**
@@ -115,7 +114,6 @@ public abstract class AbstractProcessor<S extends Parser> {
             }
         }
         new FontTransformLoader(getPath(), getName(), getMetaTypeClass()).load();
-        stringTemplateVisitor = new StringTemplateVisitor(getPath(), getName(), getRefreshInterval());
     }
 
     /**
@@ -156,8 +154,9 @@ public abstract class AbstractProcessor<S extends Parser> {
             graph.accept(layout);
         }
         graph.rescale();
-        graph.accept(getStringTemplateVisitor());
-        return getStringTemplateVisitor().toString();
+        AbstractVisitor stv = getStringTemplateVisitor();
+        graph.accept(stv);
+        return stv.toString();
     }
 
     /**
@@ -175,8 +174,9 @@ public abstract class AbstractProcessor<S extends Parser> {
             graph.accept(layout);
         }
         graph.rescale(graph.getReqSize());
-        graph.accept(getStringTemplateVisitor());
-        return getStringTemplateVisitor().toString();
+        AbstractVisitor stv = getStringTemplateVisitor();
+        graph.accept(stv);
+        return stv.toString();
     }
 
     /**
