@@ -26,7 +26,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <build>
-        <finalName>modsl-web</finalName>
-    </build>
 </project>
