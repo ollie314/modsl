@@ -34,13 +34,13 @@ import org.apache.log4j.Logger;
  */
 public class PropLoader {
 
-	protected final Logger log = Logger.getLogger(getClass());
+	Logger log = Logger.getLogger(getClass());
 
-	protected Map<String, String> props = new HashMap<String, String>();
-	protected List<String> dirs = new ArrayList<String>();
+	Map<String, String> props = new HashMap<String, String>();
+	List<String> dirs = new ArrayList<String>();
 
-	protected String name;
-	protected boolean optional;
+	String name;
+	boolean optional;
 
 	/**
 	 * Create new
@@ -55,7 +55,7 @@ public class PropLoader {
 
 	/**
 	 * @param key
-	 * @return booolean property
+	 * @return boolean property
 	 */
 	protected boolean getBooleanProp(String key) {
 		return Boolean.parseBoolean(getMandatoryProp(key));
