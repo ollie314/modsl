@@ -41,7 +41,6 @@ public class UMLCollabFactory extends AbstractUMLFactory {
         parent.add(e);
     }
 
-    @Override
     public Graph createGraph() {
         return new Graph(UMLMetaType.COLLAB_GRAPH);
     }

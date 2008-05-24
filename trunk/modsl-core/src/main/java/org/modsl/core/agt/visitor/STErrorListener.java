@@ -26,12 +26,10 @@ public class STErrorListener implements StringTemplateErrorListener {
 
     protected Logger log = Logger.getLogger(getClass());
 
-    @Override
     public void error(String m, Throwable t) {
         log.error(m, t);
     }
 
-    @Override
     public void warning(String m) {
         log.warn(m);
     }

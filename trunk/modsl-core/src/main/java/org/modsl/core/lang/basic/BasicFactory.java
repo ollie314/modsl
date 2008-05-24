@@ -96,7 +96,6 @@ public class BasicFactory implements ElementFactory {
         }
     }
 
-    @Override
     public Graph createGraph() {
         return new Graph(BasicMetaType.GRAPH);
     }
