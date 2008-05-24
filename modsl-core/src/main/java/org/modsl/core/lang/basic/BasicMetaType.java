@@ -29,7 +29,6 @@ public enum BasicMetaType implements MetaType {
 
 	protected MetaTypeConfig config = new MetaTypeConfig();
 
-	@Override
 	public MetaTypeConfig getConfig() {
 		return config;
 	}

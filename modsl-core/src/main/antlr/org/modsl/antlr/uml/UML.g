@@ -14,13 +14,12 @@ options {
 	import org.modsl.core.agt.visitor.*;
 	import org.modsl.core.lang.uml.*;
 	import org.modsl.core.lang.uml.factory.*;
-	import java.util.Deque;
 	import java.util.LinkedList;
 }
 
 @parser::members {
 	public Graph graph;
-	protected Deque<Graph> nodes = new LinkedList<Graph>();
+	protected LinkedList<Graph> nodes = new LinkedList<Graph>();
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
 	protected UMLClassFactory classFactory = new UMLClassFactory();
 	protected List<NodeLabel> curElements = new LinkedList<NodeLabel>();

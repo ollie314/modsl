@@ -90,7 +90,6 @@ public class UMLClassFactory extends AbstractUMLFactory {
         return new NodeLabel(type, text);
     }
 
-    @Override
     public Graph createGraph() {
         return new Graph(UMLMetaType.CLASS_GRAPH);
     }
