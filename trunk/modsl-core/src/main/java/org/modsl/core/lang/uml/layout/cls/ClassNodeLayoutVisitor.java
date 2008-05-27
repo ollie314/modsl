@@ -43,6 +43,8 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 	public void apply(Node node) {
 
 		NodeLabel hl = getHeaderLabel(node);
+        log.debug("Setting offset for " + hl);
+
 		FontTransform fth = hl.getType().getConfig().getFontTransform();
 		hl.setOffset(fth.getLeftPadding(), fth.getTopPadding());
 
@@ -58,6 +60,7 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 			l.setOffset(ftv.getLeftPadding(), var_y + ftv.getExtPosition(i));
 			nodeSize.x = max(nodeSize.x, ftv.getLeftPadding() + l.getSize().x + ftv.getRightPadding());
 			nodeSize.y = l.getOffset().y + ftv.getHeight();
+			log.debug("Setting offset for " + l);
 		}
 
 		// methods
@@ -77,6 +80,7 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 			l.setOffset(ftm.getLeftPadding(), method_y + ftm.getExtPosition(i));
 			nodeSize.x = max(nodeSize.x, ftm.getLeftPadding() + l.getSize().x + ftm.getRightPadding());
 			nodeSize.y = l.getOffset().y + ftm.getHeight();
+            log.debug("Setting offset for " + l);
 		}
 
 		// final node size adjustments
