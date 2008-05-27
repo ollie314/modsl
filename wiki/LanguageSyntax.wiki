@@ -28,6 +28,11 @@ Some notes:
 Sample:
 {{{
 collaboration diagram MyDiagram { 
-   MyClass1:MyObject1->MyClass2:MyObject2.method1():o6->:o2.m10(); :o3->o2.m11(); 
+   MyClass1:MyObject1->MyClass2:MyObject2.method1();
+   MyClass2:MyObject2->:MyObject3.method2()->:MyObject4.method3(); 
 }
 }}}
+
+Notes:
+   * In Class:Object notation the class name is optional.
+   * Multiple calls can be chained together, such as `obj_a->obj_b->obj_c`
