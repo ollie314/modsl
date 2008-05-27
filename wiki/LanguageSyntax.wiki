@@ -3,7 +3,7 @@
 === Overview ===
 Currently ModSL supports a subset of the UML class and collaboration diagram.
 
-=== Class Diagram ===
+=== Class Diagrams ===
 Sample:
 {{{
 class diagram MyDiagram (width:640, height:480) { 
@@ -23,3 +23,11 @@ class diagram MyDiagram (width:640, height:480) {
 Some notes:
    * The word "diagram" in the diagram definition is optional.
    * Width and height are optional. Without width and height specified the layout algorithm will try to determine the best diagram size based on the number of nodes and edges.
+
+=== Collaboration Diagrams ===
+Sample:
+{{{
+collaboration diagram MyDiagram { 
+   MyClass1:MyObject1->MyClass2:MyObject2.method1():o6->:o2.m10(); :o3->o2.m11(); 
+}
+}}}
