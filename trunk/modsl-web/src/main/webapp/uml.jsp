@@ -6,6 +6,8 @@
 	}
 %><%
 	String input = request.getParameter("script");
-	String svg = processor.process(input);
-	out.write(svg);
+	if (input.length() < 2048) {
+		String svg = processor.process(input);
+		out.write(svg);
+	}
 %>
