@@ -1,13 +1,21 @@
 #summary ModSL diagram language syntax
 
-= Introduction =
+=== Overview ===
+Currently ModSL supports a subset of the UML class and collaboration diagram.
 
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+=== Class Diagram ===
+Sample:
+{{{
+class diagram MyDiagram (width:320, height:160) { 
+   interface MyInterface { 
+      method1(); 
+   } 
+   class MyClass1 implements MyInterface { 
+      var1; var2; method1(); method2(); 
+   }
+   class MyClass2 implements MyInterface { 
+      method1();
+      1->0..n(MyClass1);
+   }	
+} 
+}}}
