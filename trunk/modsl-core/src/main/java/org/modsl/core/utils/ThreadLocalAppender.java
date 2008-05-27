@@ -6,7 +6,7 @@ import org.apache.log4j.spi.LoggingEvent;
 public class ThreadLocalAppender extends AppenderSkeleton {
 
     protected void append(LoggingEvent event) {
-        ThreadLocalContainer.get().logMessages.add(event.getRenderedMessage());
+        ThreadLocalContainer.get().addLogMessage(event.getRenderedMessage());
     }
 
     public boolean requiresLayout() {

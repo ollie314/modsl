@@ -169,7 +169,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
 
     @Override
     public void in(Graph graph) {
-        graph.setLogMessages(ThreadLocalContainer.get().logMessages);
+        graph.setLogMessages(ThreadLocalContainer.get().extractLogMessages());
         callTemplate(graph, SUFF_IN);
     }
 
