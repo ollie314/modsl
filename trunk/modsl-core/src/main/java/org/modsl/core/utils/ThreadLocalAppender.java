@@ -22,7 +22,7 @@ import org.apache.log4j.spi.LoggingEvent;
 public class ThreadLocalAppender extends AppenderSkeleton {
 
     protected void append(LoggingEvent event) {
-        ThreadLocalContainer.get().addLogMessage(event.getRenderedMessage());
+        ThreadLocalContainer.get().addLogMessage(layout.format(event));
     }
 
     public boolean requiresLayout() {
@@ -30,6 +30,12 @@ public class ThreadLocalAppender extends AppenderSkeleton {
     }
 
     public void close() {
+        ThreadLocalContainer.get().logMessages.clear();
+    }
+
+    @Override
+    public void activateOptions() {
+        super.activateOptions();
         ThreadLocalContainer.get().logMessages.clear();
     }
 
