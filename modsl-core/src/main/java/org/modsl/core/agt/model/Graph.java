@@ -83,7 +83,15 @@ public class Graph extends AbstractBox<Graph> {
      */
     Map<String, String> procAttrs = new HashMap<String, String>();
 
+    /**
+     * Status line
+     */
     FontTransform statusFt = new FontTransform("Tahoma", 8, Font.PLAIN);
+    
+    /**
+     * Log message container
+     */
+    List<String> logMessages;
 
     public Graph(MetaType type) {
         super(type);
@@ -184,6 +192,10 @@ public class Graph extends AbstractBox<Graph> {
         return leftPadding;
     }
 
+    public List<String> getLogMessages() {
+        return logMessages;
+    }
+
     /**
      * @param index
      * @return node by index
@@ -220,6 +232,10 @@ public class Graph extends AbstractBox<Graph> {
 
     public double getRightPadding() {
         return rightPadding;
+    }
+
+    public Pt getStatusLine() {
+        return new Pt(statusFt.getLeftPadding(), getSize().y - statusFt.getExtHeight(1) + statusFt.getExtBaseline(0));
     }
 
     /**
@@ -401,13 +417,13 @@ public class Graph extends AbstractBox<Graph> {
         }
     }
 
+    public void setLogMessages(List<String> logMessages) {
+        this.logMessages = logMessages;
+    }
+
     public void setReqSize(double x, double y) {
         this.reqSize.x = x;
         this.reqSize.y = y;
-    }
-
-    public Pt getStatusLine() {
-        return new Pt(statusFt.getLeftPadding(), getSize().y - statusFt.getExtHeight(1) + statusFt.getExtBaseline(0));
     }
 
 }
