@@ -5,8 +5,7 @@ root_in(graph) ::= <<
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
 <!-- LOG
-	$graph.logMessages; separator="\n"$
--->
+	$graph.logMessages$-->
 
 <svg xmlns="http://www.w3.org/2000/svg" width="$graph.size.x$" height="$graph.size.y$">
 <defs>
