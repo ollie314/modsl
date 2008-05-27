@@ -1,7 +1,7 @@
 #summary ModSL diagram language syntax
 
 === Overview ===
-Currently ModSL scripting language supports UML class and collaboration diagrams. Not all of the diagram features are supported.
+Currently ModSL scripting language supports UML class and collaboration diagrams. 
 
 === Class Diagrams ===
 Sample:
