@@ -4,6 +4,10 @@ root_in(graph) ::= <<
 <?xml version="1.0"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
+<!-- LOG
+	$graph.logMessages; separator="\n"$
+-->
+
 <svg xmlns="http://www.w3.org/2000/svg" width="$graph.size.x$" height="$graph.size.y$">
 <defs>
 	<linearGradient id="root_gradient" x1="30%" y1="0%" x2="100%" y2="100%">
