@@ -144,6 +144,14 @@ public class SugiyamaLayerStack {
         return m;
     }
 
+    double avgX(List<AbstractBox<?>> ln) {
+        double m = 0d;
+        for (AbstractBox<?> n : ln) {
+            m += n.getCtrPos().x;
+        }
+        return m / ln.size();
+    }
+
     void reduceCrossings() {
         for (int round = 0; round < maxSweeps; round++) {
             if (round % 2 == 0) {
@@ -190,40 +198,60 @@ public class SugiyamaLayerStack {
     }
 
     void xPos() {
+        for (int l = 0; l < layers.size(); l++) {
+            xPosPack(l);
+        }
         for (int l = 0; l < layers.size() - 1; l++) {
             xPosDown(l, l + 1);
         }
         for (int l = layers.size() - 1; l > 0; l--) {
             xPosUp(l, l - 1);
         }
+        /*for (int l = 0; l < layers.size() - 1; l++) {
+            xPosDown(l, l + 1);
+        }*/
+        /*for (int l = layers.size() - 1; l > 0; l--) {
+            xPosUp(l, l - 1);
+        }
         for (int l = 0; l < layers.size() - 1; l++) {
             xPosDown(l, l + 1);
-        }
+        }*/
     }
 
     void xPosDown(int staticIndex, int flexIndex) {
         List<AbstractBox<?>> flex = layers.get(flexIndex);
-        double offset = 0d;
-        for (AbstractBox<?> n : flex) {
+        for (int i = 0; i < flex.size(); i++) {
+            AbstractBox<?> n = flex.get(i);
+            double min = i > 0 ? flex.get(i - 1).getPos().x + flex.get(i - 1).getSize().x + xSeparation : -Double.MAX_VALUE;
+            double max = i < flex.size() - 1 ? flex.get(i + 1).getPos().x - xSeparation : Double.MAX_VALUE;
             List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
-            n.getPos().x = max(offset, maxX(neighbors) - n.getSize().x / 2d);
-            offset = n.getPos().x + n.getSize().x + xSeparation;
+            double avg = avgX(neighbors);
+            if (!Double.isNaN(avg)) {
+                n.getPos().x = min(max, max(min, avg - n.getSize().x / 2d));
+            }
         }
     }
 
     void xPosUp(int staticIndex, int flexIndex) {
         List<AbstractBox<?>> flex = layers.get(flexIndex);
-        double offset = Double.MAX_VALUE;
-        for (int i = flex.size() - 1; i >= 0; i--) {
+        for (int i = flex.size() - 1; i > -1; i--) {
             AbstractBox<?> n = flex.get(i);
+            double min = i > 0 ? flex.get(i - 1).getPos().x + flex.get(i - 1).getSize().x + xSeparation : -Double.MAX_VALUE;
+            double max = i < flex.size() - 1 ? flex.get(i + 1).getPos().x - xSeparation : Double.MAX_VALUE;
             List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
-            if (neighbors.isEmpty()) {
-                n.getPos().x = min(offset - n.getSize().x, n.getPos().x);
-                offset = Double.MAX_VALUE == offset ? n.getPos().x + n.getSize().x : offset;
-            } else {
-                n.getPos().x = min(offset, minX(neighbors) + n.getSize().x / 2d) - n.getSize().x;
+            double avg = avgX(neighbors);
+            if (!Double.isNaN(avg)) {
+                n.getPos().x = max(min, min(max, avg - n.getSize().x / 2d));
             }
-            offset = n.getPos().x - xSeparation;
+        }
+    }
+
+    void xPosPack(int flexIndex) {
+        List<AbstractBox<?>> flex = layers.get(flexIndex);
+        double offset = 0d;
+        for (AbstractBox<?> n : flex) {
+            n.getPos().x = offset;
+            offset = n.getPos().x + n.getSize().x + xSeparation;
         }
     }
 
@@ -282,4 +310,48 @@ public class SugiyamaLayerStack {
         //log.debug(staticLayer1 + "/" + staticLayer2 + "->" + flexLayer + " " + flex);
     }
 }
+
+
+-------------------
+
+
+   void xPos() {
+        for (int l = 0; l < layers.size() - 1; l++) {
+            xPosDown(l, l + 1);
+        }
+        for (int l = layers.size() - 1; l > 0; l--) {
+            xPosUp(l, l - 1);
+        }
+        for (int l = 0; l < layers.size() - 1; l++) {
+            xPosDown(l, l + 1);
+        }
+    }
+
+    void xPosDown(int staticIndex, int flexIndex) {
+        List<AbstractBox<?>> flex = layers.get(flexIndex);
+        double offset = 0d;
+        for (AbstractBox<?> n : flex) {
+            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
+            n.getPos().x = max(offset, maxX(neighbors) - n.getSize().x / 2d);
+            offset = n.getPos().x + n.getSize().x + xSeparation;
+        }
+    }
+
+    void xPosUp(int staticIndex, int flexIndex) {
+        List<AbstractBox<?>> flex = layers.get(flexIndex);
+        double offset = Double.MAX_VALUE;
+        for (int i = flex.size() - 1; i >= 0; i--) {
+            AbstractBox<?> n = flex.get(i);
+            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
+            if (neighbors.isEmpty()) {
+                n.getPos().x = min(offset - n.getSize().x, n.getPos().x);
+                offset = Double.MAX_VALUE == offset ? n.getPos().x + n.getSize().x : offset;
+            } else {
+                n.getPos().x = min(offset, minX(neighbors) + n.getSize().x / 2d) - n.getSize().x;
+            }
+            offset = n.getPos().x - xSeparation;
+        }
+    }
+
+
 */
