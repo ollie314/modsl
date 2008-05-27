@@ -30,6 +30,7 @@ import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.GraphLabel;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
+import org.modsl.core.utils.ThreadLocalContainer;
 
 /**
  * Renders abstract graph tree as a string using given string template
@@ -168,6 +169,7 @@ public class StringTemplateVisitor extends AbstractVisitor {
 
     @Override
     public void in(Graph graph) {
+        graph.setLogMessages(ThreadLocalContainer.get().logMessages);
         callTemplate(graph, SUFF_IN);
     }
 
