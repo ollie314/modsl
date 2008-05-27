@@ -6,9 +6,12 @@
 <h3>ModSL WebService Test Page</h3>
 <p/>
 This form allows you to test ModSL text-to-diagram capabilities online. 
-Please enter the diagram script in the text area below and click Submit. 
+Please enter the diagram script in the text area below and click [Submit]. 
 It will post the content of the script to http://ws.modsl.org/uml and return the resulting 
 diagram graphics as SVG.
+<p/>
+Here's a help page on the diagram script syntax: 
+<a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">http://code.google.com/p/modsl/wiki/LanguageSyntax</a>
 <form action="uml.jsp" method="post">
 <b>UML text-to-diagram</b>
 <p>
@@ -27,7 +30,7 @@ class diagram MyDiagram (width:320, height:160) {
 </textarea>
 <br/>
 <input type="submit" value="Show Diagram">
-</p> 
 </form>
+</p>
 </body>
 </html>
