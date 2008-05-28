@@ -26,7 +26,7 @@ import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.visitor.StringTemplateVisitor;
+import org.modsl.core.agt.render.StringTemplateVisitor;
 import org.modsl.core.utils.Utils;
 
 public class VisitorSTTest {

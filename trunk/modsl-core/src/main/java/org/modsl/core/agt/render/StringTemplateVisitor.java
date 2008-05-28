@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.visitor;
+package org.modsl.core.agt.render;
 
 import org.antlr.stringtemplate.CommonGroupLoader;
 import org.antlr.stringtemplate.StringTemplate;
@@ -30,6 +30,7 @@ import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.GraphLabel;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
+import org.modsl.core.agt.visitor.AbstractVisitor;
 import org.modsl.core.utils.ThreadLocalContainer;
 
 /**

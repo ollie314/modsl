@@ -14,12 +14,13 @@
  * the License.
  */
 
-package org.modsl.core.agt.visitor;
+package org.modsl.core.agt.render;
 
 import org.modsl.core.agt.model.AbstractBox;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
  * Pretty printer for abstract graph trees

@@ -26,7 +26,7 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.modsl.core.agt.visitor.STErrorListener;
+import org.modsl.core.agt.render.STErrorListener;
 
 public class DemoSTTest {
 

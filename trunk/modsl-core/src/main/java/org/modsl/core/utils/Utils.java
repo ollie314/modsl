@@ -17,6 +17,8 @@
 package org.modsl.core.utils;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,56 +32,68 @@ import java.util.regex.Pattern;
  */
 public class Utils {
 
-    /**
-     * Find # of occurences of the given pattern in the given string
-     * @param string
-     * @param pattern
-     * @return number of occurences
-     */
-    public static int matchCount(String string, String pattern) {
-        Matcher m = Pattern.compile(pattern).matcher(string);
-        int count = 0;
-        while (m.find()) {
-            count++;
-        }
-        return count;
-    }
+	/**
+	 * Read string from file
+	 * @param name file name
+	 * @return string
+	 * @throws IOException
+	 */
+	public static String fromFile(String name) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		InputStream is = cl.getResourceAsStream(name);
+		if (is == null) {
+			cl = Utils.class.getClassLoader();
+			is = cl.getResourceAsStream(name);
+		}
+		if (is == null) {
+			return "";
+		}
+		BufferedInputStream in = new BufferedInputStream(is);
+		int c;
+		while ((c = in.read()) != -1) {
+			sb.append((char) c);
+		}
+		in.close();
+		return sb.toString();
+	}
 
-    /**
-     * Write string to file
-     * @param fileName file name
-     * @param txt string to write to file
-     * @throws IOException
-     */
-    public static void toFile(String fileName, String txt) throws IOException {
-        PrintWriter pw = new PrintWriter(new FileWriter(fileName));
-        pw.print(txt);
-        pw.close();
-    }
+	/**
+	 * Find # of occurences of the given pattern in the given string
+	 * @param string
+	 * @param pattern
+	 * @return number of occurences
+	 */
+	public static int matchCount(String string, String pattern) {
+		Matcher m = Pattern.compile(pattern).matcher(string);
+		int count = 0;
+		while (m.find()) {
+			count++;
+		}
+		return count;
+	}
 
-    /**
-     * Read string from file
-     * @param name file name
-     * @return string
-     * @throws IOException
-     */
-    public static String fromFile(String name) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream is = cl.getResourceAsStream(name);
-        if (is == null) {
-            cl = Utils.class.getClassLoader();
-            is = cl.getResourceAsStream(name);
-        }
-        if (is == null) {
-            return "";
-        }
-        BufferedInputStream in = new BufferedInputStream(is);
-        int c;
-        while ((c = in.read()) != -1) {
-            sb.append((char) c);
-        }
-        in.close();
-        return sb.toString();
-    }
+	/**
+	 * Write byte array to file
+	 * @param fileName file name
+	 * @param bytes bytes to write
+	 * @throws IOException
+	 */
+	public static void toFile(String fileName, byte[] bytes) throws IOException {
+		FileOutputStream fos = new FileOutputStream(new File(fileName));
+		fos.write(bytes);
+		fos.close();
+	}
+
+	/**
+	 * Write string to file
+	 * @param fileName file name
+	 * @param txt string to write to file
+	 * @throws IOException
+	 */
+	public static void toFile(String fileName, String txt) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(fileName));
+		pw.print(txt);
+		pw.close();
+	}
 }
