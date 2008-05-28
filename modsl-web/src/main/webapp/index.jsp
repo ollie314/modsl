@@ -10,27 +10,27 @@ Please enter the diagram script in the text area below and click [Submit].
 It will post the content of the script to http://ws.modsl.org/uml and return the resulting 
 diagram graphics as SVG.
 <p/>
-Here's a help page on the diagram script syntax: 
-<a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">http://code.google.com/p/modsl/wiki/LanguageSyntax</a>
 <form action="uml" method="post">
 <b>UML text-to-diagram</b>
-<p>
+<p/>
 <textarea name="script" rows="16" cols="64">
-class diagram MyDiagram (width:320, height:160) { 
-	interface MyInterface { 
-		method1(); 
-	} 
-	class MyClass1 implements MyInterface { 
-		var1; var2; method1(); method2(); 
-	}
-	class MyClass2 implements MyInterface { 
-		method1();  
-	}	
+class diagram MyDiagram { 
+   interface MyInterface { 
+      method1(); 
+   } 
+   class MyClass1 implements MyInterface { 
+      var1; var2; method1(); method2(); 
+   }
+   class MyClass2 implements MyInterface { 
+      method1();  
+      1->0..n(MyClass1);
+   }	
 } 
 </textarea>
 <br/>
+<a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">Diagram Script Syntax Help</a>
+<p/>
 <input type="submit" value="Show Diagram">
 </form>
-</p>
 </body>
 </html>
