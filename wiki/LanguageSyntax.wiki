@@ -21,8 +21,8 @@ class diagram MyDiagram (width:640, height:480) {
 }}}
 
 Some notes:
-   * The word "diagram" in the diagram definition is optional.
-   * Width and height are optional. Without width and height specified the layout algorithm will try to determine the best diagram size based on the number of nodes and edges.
+   * The word `diagram` in the diagram definition is optional.
+   * `width` and `height` are optional. Without width and height specified the layout algorithm will try to determine the best diagram size based on the number of nodes and edges.
 
 === Collaboration Diagrams ===
 Sample:
