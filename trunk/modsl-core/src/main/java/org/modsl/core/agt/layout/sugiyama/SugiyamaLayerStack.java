@@ -188,7 +188,9 @@ public class SugiyamaLayerStack {
         for (int l = 0; l < layers.size() - 1; l++) {
             xPosDown(l, l + 1);
         }
-        xPosUp(1, 0);
+        for (int l = layers.size() - 1; l > 0; l--) {
+            xPosUp(l, l - 1);
+        }
     }
 
     void xPosDown(int staticIndex, int flexIndex) {
