@@ -34,5 +34,5 @@ collaboration diagram MyDiagram {
 }}}
 
 Notes:
-   * In Class:Object notation the class name is optional.
+   * In `Class:Object` notation the class name is optional. `Class:Object`, `:Object` and `Object` are all valid identifiers.
    * Multiple calls can be chained together, such as `obj_a->obj_b->obj_c`
