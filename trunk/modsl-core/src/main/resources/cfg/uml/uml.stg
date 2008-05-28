@@ -64,7 +64,7 @@ COLLAB_NODE_LABEL_in(label, decor) ::= <<
 
 COLLAB_EDGE_in(edge, decor) ::= <<
 
-<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|Q$b.pos.x$,$b.pos.y$ }$ $edge.node2Port.x$,$edge.node2Port.y$" class="edge"/>
+<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|L$b.pos.x$,$b.pos.y$ }$ $edge.node2Port.x$,$edge.node2Port.y$" class="edge"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="edge"/>
 <line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="edge"/>
 >>
@@ -216,7 +216,7 @@ CLASS_STATIC_METHOD_NODE_LABEL_in(label, decor) ::= <<
 CLASS_EXTENDS_EDGE_in(edge, decor) ::= <<
 
 <!-- <line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$decor.arrowMiddle.x$" y2="$decor.arrowMiddle.y$" class="extendsedge"/> -->
-<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|Q$b.pos.x$,$b.pos.y$ }$ $decor.arrowMiddle.x$,$decor.arrowMiddle.y$" class="extendsedge"/>
+<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|L$b.pos.x$,$b.pos.y$ }$ $decor.arrowMiddle.x$,$decor.arrowMiddle.y$" class="extendsedge"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="extendsedge"/>
 <line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="extendsedge"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$decor.arrowRight.x$" y2="$decor.arrowRight.y$" class="extendsedge"/>
@@ -225,7 +225,7 @@ CLASS_EXTENDS_EDGE_in(edge, decor) ::= <<
 CLASS_IMPLEMENTS_EDGE_in(edge, decor) ::= <<
 
 <!--<line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$decor.arrowMiddle.x$" y2="$decor.arrowMiddle.y$" class="implementsedge" style="stroke-dasharray:5,3;"/>-->
-<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|Q$b.pos.x$,$b.pos.y$ }$ $decor.arrowMiddle.x$,$decor.arrowMiddle.y$" class="implementsedge" style="stroke-dasharray:5,3;"/>
+<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|L$b.pos.x$,$b.pos.y$ }$ $decor.arrowMiddle.x$,$decor.arrowMiddle.y$" class="implementsedge" style="stroke-dasharray:5,3;"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="implementsedge"/>
 <line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="implementsedge"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$decor.arrowRight.x$" y2="$decor.arrowRight.y$" class="implementsedge"/>
@@ -234,7 +234,7 @@ CLASS_IMPLEMENTS_EDGE_in(edge, decor) ::= <<
 CLASS_AGGREGATION_EDGE_in(edge, decor) ::= <<
 
 <!--<line x1="$edge.node1Port.x$" y1="$edge.node1Port.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="aggregationedge"/>-->
-<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|Q$b.pos.x$,$b.pos.y$ }$ $edge.node2Port.x$,$edge.node2Port.y$" class="aggregationedge"/>
+<path d="M$edge.node1Port.x$,$edge.node1Port.y$ L$edge.node1Port.x$,$edge.node1Port.y$ $edge.bends:{b|L$b.pos.x$,$b.pos.y$ }$ $edge.node2Port.x$,$edge.node2Port.y$" class="aggregationedge"/>
 <line x1="$decor.arrowLeft.x$" y1="$decor.arrowLeft.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="aggregationedge"/>
 <line x1="$decor.arrowRight.x$" y1="$decor.arrowRight.y$" x2="$edge.node2Port.x$" y2="$edge.node2Port.y$" class="aggregationedge"/>
 >>

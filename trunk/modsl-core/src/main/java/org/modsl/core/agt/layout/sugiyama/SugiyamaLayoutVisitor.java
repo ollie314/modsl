@@ -104,7 +104,7 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
     }
 
     void removeCycles() {
-        List<Node> nodes = sortByOutDegree();
+        List<Node> nodes = sortByInMinusOutDegree();
         Set<Edge> removed = new HashSet<Edge>(graph.getEdges().size());
         for (Node n : nodes) {
             for (Edge in : new ArrayList<Edge>(n.getInEdges())) {
@@ -133,6 +133,16 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         Collections.sort(nodes, new Comparator<Node>() {
             public int compare(Node n1, Node n2) {
                 return n2.getOutDegree() - n1.getOutDegree();
+            }
+        });
+        return nodes;
+    }
+
+    List<Node> sortByInMinusOutDegree() {
+        List<Node> nodes = new ArrayList<Node>(graph.getNodes());
+        Collections.sort(nodes, new Comparator<Node>() {
+            public int compare(Node n1, Node n2) {
+                return (n1.getInDegree() * 2 - n1.getOutDegree()) - (n2.getInDegree() * 2 - n2.getOutDegree());
             }
         });
         return nodes;
