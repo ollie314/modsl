@@ -10,7 +10,7 @@ Please enter the diagram script in the text area below and click [Submit].
 It will post the content of the script to http://ws.modsl.org/uml and return the resulting 
 diagram graphics as SVG. 
 <p/>
-<form action="uml" method="post">
+<form action="uml" method="get">
 <b>UML text-to-diagram</b>
 <p/>
 <textarea name="script" rows="16" cols="64">
