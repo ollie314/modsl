@@ -12,7 +12,7 @@ diagram graphics as SVG.
 <p/>
 Here's a help page on the diagram script syntax: 
 <a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">http://code.google.com/p/modsl/wiki/LanguageSyntax</a>
-<form action="uml.jsp" method="post">
+<form action="uml" method="post">
 <b>UML text-to-diagram</b>
 <p>
 <textarea name="script" rows="16" cols="64">
