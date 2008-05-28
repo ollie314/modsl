@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.modsl.core.agt.model.Pt;
+import org.modsl.core.agt.visitor.AbstractVisitor;
 import org.modsl.core.utils.Utils;
 
 public class SVGCollector {

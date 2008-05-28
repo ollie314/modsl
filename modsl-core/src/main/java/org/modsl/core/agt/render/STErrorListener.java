@@ -14,8 +14,24 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.visitor;
+/**
+ * 
+ */
+package org.modsl.core.agt.render;
 
-public class Java2DRenderVisitor extends AbstractVisitor {
+import org.antlr.stringtemplate.StringTemplateErrorListener;
+import org.apache.log4j.Logger;
+
+public class STErrorListener implements StringTemplateErrorListener {
+
+    protected Logger log = Logger.getLogger(getClass());
+
+    public void error(String m, Throwable t) {
+        log.error(m, t);
+    }
+
+    public void warning(String m) {
+        log.warn(m);
+    }
 
 }

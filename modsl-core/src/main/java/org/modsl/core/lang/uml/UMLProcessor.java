@@ -22,7 +22,6 @@ import org.antlr.runtime.Lexer;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
-import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
