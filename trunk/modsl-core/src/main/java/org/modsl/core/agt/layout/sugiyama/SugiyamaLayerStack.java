@@ -128,22 +128,6 @@ public class SugiyamaLayerStack {
         return mh;
     }
 
-    double maxX(List<AbstractBox<?>> ln) {
-        double m = -Double.MAX_VALUE;
-        for (AbstractBox<?> n : ln) {
-            m = max(n.getCtrPos().x, m);
-        }
-        return m;
-    }
-
-    double minX(List<AbstractBox<?>> ln) {
-        double m = Double.MAX_VALUE;
-        for (AbstractBox<?> n : ln) {
-            m = min(n.getCtrPos().x, m);
-        }
-        return m;
-    }
-
     double avgX(List<AbstractBox<?>> ln) {
         double m = 0d;
         for (AbstractBox<?> n : ln) {
@@ -205,18 +189,6 @@ public class SugiyamaLayerStack {
             xPosDown(l, l + 1);
         }
         xPosUp(1, 0);
-        /*for (int l = layers.size() - 1; l > 0; l--) {
-            xPosUp(l, l - 1);
-        }*/
-        /*for (int l = 0; l < layers.size() - 1; l++) {
-            xPosDown(l, l + 1);
-        }*/
-        /*for (int l = layers.size() - 1; l > 0; l--) {
-            xPosUp(l, l - 1);
-        }
-        for (int l = 0; l < layers.size() - 1; l++) {
-            xPosDown(l, l + 1);
-        }*/
     }
 
     void xPosDown(int staticIndex, int flexIndex) {
@@ -224,7 +196,6 @@ public class SugiyamaLayerStack {
         for (int i = 0; i < flex.size(); i++) {
             AbstractBox<?> n = flex.get(i);
             double min = i > 0 ? flex.get(i - 1).getPos().x + flex.get(i - 1).getSize().x + xSeparation : -Double.MAX_VALUE;
-            double max = i < flex.size() - 1 ? flex.get(i + 1).getPos().x - xSeparation : Double.MAX_VALUE;
             List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
             double avg = avgX(neighbors);
             if (!Double.isNaN(avg)) {
@@ -233,20 +204,16 @@ public class SugiyamaLayerStack {
         }
     }
 
-    //                n.getPos().x = max(min, min(max, avg - n.getSize().x / 2d));
-
     void xPosUp(int staticIndex, int flexIndex) {
         List<AbstractBox<?>> flex = layers.get(flexIndex);
-        //        for (int i = 0; i < flex.size(); i++) {
         for (int i = flex.size() - 1; i > -1; i--) {
             AbstractBox<?> n = flex.get(i);
             double min = i > 0 ? flex.get(i - 1).getPos().x + flex.get(i - 1).getSize().x + xSeparation : -Double.MAX_VALUE;
-            double max = i < flex.size() - 1 ? flex.get(i + 1).getPos().x - xSeparation : Double.MAX_VALUE;
+            double max = i < flex.size() - 1 ? flex.get(i + 1).getPos().x - n.getSize().x - xSeparation : Double.MAX_VALUE;
             List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
             double avg = avgX(neighbors);
             if (!Double.isNaN(avg)) {
                 n.getPos().x = max(min, min(max, avg - n.getSize().x / 2d));
-                //n.getPos().x = max(min, avg - n.getSize().x / 2d);
             }
         }
     }
@@ -358,5 +325,34 @@ public class SugiyamaLayerStack {
         }
     }
 
+        for (int l = layers.size() - 1; l > 0; l--) {
+            xPosUp(l, l - 1);
+        }
+        for (int l = 0; l < layers.size() - 1; l++) {
+            xPosDown(l, l + 1);
+        }
+        for (int l = layers.size() - 1; l > 0; l--) {
+            xPosUp(l, l - 1);
+        }
+        for (int l = 0; l < layers.size() - 1; l++) {
+            xPosDown(l, l + 1);
+        }
+        
+        
+    double maxX(List<AbstractBox<?>> ln) {
+        double m = -Double.MAX_VALUE;
+        for (AbstractBox<?> n : ln) {
+            m = max(n.getCtrPos().x, m);
+        }
+        return m;
+    }
 
+    double minX(List<AbstractBox<?>> ln) {
+        double m = Double.MAX_VALUE;
+        for (AbstractBox<?> n : ln) {
+            m = min(n.getCtrPos().x, m);
+        }
+        return m;
+    }
+        
 */
