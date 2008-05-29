@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.modsl.core.lang.SVGCollector;
+import org.modsl.core.SVGCollector;
 import org.modsl.core.utils.Utils;
 
 public class UMLClassProcessor2PNGTest extends AbstractUMLTest {
