@@ -16,7 +16,6 @@
 
 package org.modsl.core.agt.layout;
 
-import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
@@ -35,8 +34,8 @@ public class SimpleNodeLabelLayoutVisitor extends AbstractNonConfigurableLayoutV
     @Override
     public void apply(Node node) {
         if (node.getLabels().isEmpty()) {
-            FontTransform ft = node.getType().getConfig().getFontTransform();
-            node.setSize(ft.getExtStringWidth(" "), ft.getExtHeight(1));
+            Style st = node.getType().getStyle();
+            node.setSize(st.getExtStringWidth(" "), st.getExtHeight(1));
         } else {
             NodeLabel label = node.getLabels().get(0);
             Style st = label.getType().getStyle();
