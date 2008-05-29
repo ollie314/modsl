@@ -20,6 +20,7 @@ import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
+import org.modsl.core.render.Style;
 
 /**
  * Does simple node size calculation based on node labels' height and width.
@@ -38,9 +39,9 @@ public class SimpleNodeLabelLayoutVisitor extends AbstractNonConfigurableLayoutV
             node.setSize(ft.getExtStringWidth(" "), ft.getExtHeight(1));
         } else {
             NodeLabel label = node.getLabels().get(0);
-            FontTransform ft = label.getType().getConfig().getFontTransform();
-            node.setSize(ft.getExtStringWidth(label.getName()), ft.getExtHeight(1));
-            label.setOffset(ft.getLeftPadding(), ft.getExtPosition(0));
+            Style st = label.getType().getStyle();
+            node.setSize(st.getExtStringWidth(label.getName()), st.getExtHeight(1));
+            label.setOffset(st.getLeftPadding(), st.getExtPosition(0));
         }
     }
 

@@ -55,7 +55,7 @@ public class Style implements Cloneable {
      * and the baseline
      */
     public int getBaseline() {
-        return fontMetrics.getAscent();
+        return getFontMetrics().getAscent();
     }
 
     /**
@@ -121,7 +121,7 @@ public class Style implements Cloneable {
      * @return font height
      */
     public int getFontHeight() {
-        return fontMetrics.getHeight();
+        return getFontMetrics().getHeight();
     }
 
     public FontMetrics getFontMetrics() {
@@ -182,14 +182,14 @@ public class Style implements Cloneable {
      * @return string width in pixels if rendered with given fond style and size
      */
     public int getStringWidth(String str) {
-        return fontMetrics.stringWidth(str);
+        return getFontMetrics().stringWidth(str);
     }
 
     /**
      * @return top padding in pixels for this font size
      */
     public int getTopPadding() {
-        return fontMetrics.getLeading() + 2;
+        return getFontMetrics().getLeading() + 2;
     }
 
     /**

@@ -52,11 +52,6 @@ public class FRLayoutVisitorTest {
         n2.setSize(10d, 10d);
         graph.add(e1_2);
 
-        layout.maxIterations = 100;
-        layout.tempMultiplier = 0.05d;
-        layout.attractionMultiplier = 0.75d;
-        layout.repulsionMultiplier = 0.75d;
-
     }
 
     @Test

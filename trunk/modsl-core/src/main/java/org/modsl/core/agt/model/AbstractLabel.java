@@ -16,22 +16,17 @@
 
 package org.modsl.core.agt.model;
 
-import org.modsl.core.agt.common.FontTransform;
-
 abstract class AbstractLabel<P extends AbstractElement<?>> extends AbstractBox<P> {
 
     static int counter = 0;
 
-    FontTransform ft;
-
     public AbstractLabel(MetaType type, String name) {
         super(type, name);
         this.index = counter++;
-        this.ft = getType().getConfig().getFt();
     }
 
     public Pt getTextPos() {
-        return getPos().plus(new Pt(0d, ft.getBaseline()));
+        return getPos().plus(new Pt(0d, getType().getStyle().getBaseline()));
     }
 
     public Pt getUnderline1() {
@@ -39,12 +34,12 @@ abstract class AbstractLabel<P extends AbstractElement<?>> extends AbstractBox<P
     }
 
     public Pt getUnderline2() {
-        return new Pt(getTextPos().x + ft.getStringWidth(name), getTextPos().y + 2);
+        return new Pt(getTextPos().x + getType().getStyle().getStringWidth(name), getTextPos().y + 2);
     }
 
     @Override
     public Pt getSize() {
-        return new Pt(ft.getStringWidth(getName()), ft.getHeight());
+        return new Pt(getType().getStyle().getStringWidth(getName()), getType().getStyle().getFontHeight());
     }
 
 }

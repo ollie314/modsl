@@ -41,13 +41,23 @@ import org.modsl.core.agt.model.Pt;
  */
 public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
-    @SuppressWarnings("unused")
+    // defaults
+    // maxIterations = 200
+    // tempMultiplier = 0.05 ? 0.03
+    // attractionMultiplier = 0.75
+    // repulsionMultiplier = 0.75
+    // repulsionMultiplier = 0.4
+
+    static final int MAX_ITER = 500;
+    static final double TEMP_MULTI = 0.1d;
+    static final double ATTR_MULTI = 0.5d;
+    static final double REP_MULTI = 0.75d;
+
     Logger log = Logger.getLogger(this.getClass());
 
     double temp, kForce, kAttraction, kRepulsion;
-    double tempMultiplier, attractionMultiplier, repulsionMultiplier;
     double minWeight = Double.MAX_VALUE, maxWeight = -Double.MAX_VALUE;
-    int maxIterations;
+
     Random random;
     Graph graph;
     Pt req;
@@ -68,12 +78,12 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
         //calcWeights();
 
-        temp = max((req.x + req.y) * tempMultiplier, Pt.EPSILON);
+        temp = max((req.x + req.y) * TEMP_MULTI, Pt.EPSILON);
         kForce = max(sqrt(req.x * req.y / graph.getNodes().size()), Pt.EPSILON);
-        kAttraction = attractionMultiplier * kForce;
-        kRepulsion = repulsionMultiplier * kForce;
+        kAttraction = ATTR_MULTI * kForce;
+        kRepulsion = REP_MULTI * kForce;
 
-        for (int iterCurrent = 0; iterCurrent < maxIterations; iterCurrent++) {
+        for (int iterCurrent = 0; iterCurrent < MAX_ITER; iterCurrent++) {
             zeroDisp();
             repulsion();
             attraction();
@@ -81,7 +91,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
             // bars();
             // grid();
             moveVertexes();
-            reduceTemperature(iterCurrent, maxIterations);
+            reduceTemperature(iterCurrent, MAX_ITER);
         }
 
     }
@@ -209,10 +219,7 @@ public class FRLayoutVisitor extends AbstractLayoutVisitor {
 
     @Override
     public void setLayoutConfig(Map<String, String> propMap) {
-        maxIterations = Integer.parseInt(propMap.get("maxIterations"));
-        tempMultiplier = Double.parseDouble(propMap.get("tempMultiplier"));
-        attractionMultiplier = Double.parseDouble(propMap.get("attractionMultiplier"));
-        repulsionMultiplier = Double.parseDouble(propMap.get("repulsionMultiplier"));
+        //
     }
 
     double weightAForce(double dist) {
