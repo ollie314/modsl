@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.lang;
+package org.modsl.core;
 
 import java.io.IOException;
 import java.util.LinkedList;

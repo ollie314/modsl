@@ -20,8 +20,8 @@ import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
+import org.modsl.core.ImageCollector;
 import org.modsl.core.agt.render.AbstractRenderVisitor;
-import org.modsl.core.lang.ImageCollector;
 import org.modsl.core.utils.Utils;
 
 public class UMLClassProcessor2Test extends AbstractUMLTest {
