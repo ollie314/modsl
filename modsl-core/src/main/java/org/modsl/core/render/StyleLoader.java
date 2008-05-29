@@ -60,8 +60,14 @@ public class StyleLoader {
             if ((p = propLoader.getProp(mt.toString() + ".fontColor")) != null) {
                 last.fontColor = decodeColor(p);
             }
+            if ((p = propLoader.getProp(mt.toString() + ".strokeColor")) != null) {
+                last.strokeColor = decodeColor(p);
+            }
             if ((p = propLoader.getProp(mt.toString() + ".strokeWidth")) != null) {
                 last.strokeWidth = Float.parseFloat(p);
+            }
+            if ((p = propLoader.getProp(mt.toString() + ".fillColor")) != null) {
+                last.fillColor = decodeColor(p);
             }
             mt.setStyle((Style) last.clone());
         }
