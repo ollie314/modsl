@@ -35,9 +35,9 @@ public class ImageCollector {
 		this.name = name;
 	}
 
-	public void collect(String graph, AbstractRenderVisitor rv, String ext) throws IOException {
+	public void collect(String graph, byte[] bytes, String ext) throws IOException {
 		String n = name + "_" + graph + "." + ext;
-		Utils.toFile(path + "/" + n, rv.getBytes());
+		Utils.toFile(path + "/" + n, bytes);
 		urls.add(n);
 		Utils.toFile(path + "/" + name + ".html", html());
 	}

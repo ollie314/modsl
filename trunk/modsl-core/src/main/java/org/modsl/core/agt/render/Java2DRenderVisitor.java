@@ -16,16 +16,59 @@
 
 package org.modsl.core.agt.render;
 
-
-
+import org.modsl.core.agt.model.Bend;
+import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.EdgeLabel;
+import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.GraphLabel;
+import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.model.NodeLabel;
 
 public class Java2DRenderVisitor extends AbstractRenderVisitor {
 
-	public Java2DRenderVisitor() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
+    public void in(Bend bend) {
+        // TODO Auto-generated method stub
+        super.in(bend);
+    }
+
+    @Override
+    public void in(Edge edge) {
+        // TODO Auto-generated method stub
+        super.in(edge);
+    }
+
+    @Override
+    public void in(EdgeLabel label) {
+        // TODO Auto-generated method stub
+        super.in(label);
+    }
+
+    @Override
+    public void in(Graph graph) {
+        // TODO Auto-generated method stub
+        super.in(graph);
+    }
+
+    @Override
+    public void in(GraphLabel label) {
+        // TODO Auto-generated method stub
+        super.in(label);
+    }
+
+    @Override
+    public void in(Node node) {
+        // TODO Auto-generated method stub
+        super.in(node);
+    }
+
+    @Override
+    public void in(NodeLabel label) {
+        // TODO Auto-generated method stub
+        super.in(label);
+    }
+
+    @Override
 	public byte[] getBytes() {
 		// TODO Auto-generated method stub
 		return null;

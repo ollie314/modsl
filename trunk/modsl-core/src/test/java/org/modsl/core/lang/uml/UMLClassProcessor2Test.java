@@ -58,8 +58,8 @@ public class UMLClassProcessor2Test extends AbstractUMLTest {
 	}
 
 	private void process(String s) throws RecognitionException, IOException {
-		AbstractRenderVisitor rv = processor.processToPng(s);
-		imageCollector.collect(processor.getGraph().getName(), rv, "png");
+		byte[] bytes = processor.processToPng(s);
+		imageCollector.collect(processor.getGraph().getName(), bytes, "png");
 	}
 
 }
