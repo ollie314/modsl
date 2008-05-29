@@ -46,7 +46,7 @@ public class BasicTranslatorTest extends AbstractModSLTest {
         AbstractRenderVisitor arv = new Java2DRenderVisitor();
         graph.accept(arv);
 
-        imageCollector.collect(graph.getName(), arv.getBytes(), "png");
+        imageCollector.collect(graph.getName(), arv.getImage(), "png");
 
     }
 

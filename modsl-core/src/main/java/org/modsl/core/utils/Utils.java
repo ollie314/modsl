@@ -74,18 +74,6 @@ public class Utils {
 	}
 
 	/**
-	 * Write byte array to file
-	 * @param fileName file name
-	 * @param bytes bytes to write
-	 * @throws IOException
-	 */
-	public static void toFile(String fileName, byte[] bytes) throws IOException {
-		FileOutputStream fos = new FileOutputStream(new File(fileName));
-		fos.write(bytes);
-		fos.close();
-	}
-
-	/**
 	 * Write string to file
 	 * @param fileName file name
 	 * @param txt string to write to file
