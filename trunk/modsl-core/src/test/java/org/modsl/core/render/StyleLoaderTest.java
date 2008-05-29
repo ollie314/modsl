@@ -16,19 +16,32 @@
 
 package org.modsl.core.render;
 
-import org.apache.log4j.Logger;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.modsl.core.AbstractModSLTest;
 import org.modsl.core.TMetaType;
-import org.modsl.core.render.StyleLoader;
 
 public class StyleLoaderTest extends AbstractModSLTest {
 
-    StyleLoader st = new StyleLoader();
+    StyleLoader stl = new StyleLoader();
     
+    public StyleLoaderTest() {
+        stl.load("test/props/style", "demo", TMetaType.class);
+    }
+
     @Test
-    public void load() {
-        st.load("test/props/ft", "demo", TMetaType.class);
+    public void fontStyle() {
+        assertEquals("Tahoma", TMetaType.GRAPH.getStyle().getFontName());
+        assertEquals("Tahoma", TMetaType.NODE.getStyle().getFontName());
+        assertEquals("Tahoma", TMetaType.EDGE.getStyle().getFontName());
+    }
+    
+    @Test 
+    public void fontSize() {
+        assertEquals(14, TMetaType.GRAPH.getStyle().getFontSize());
+        assertEquals(12, TMetaType.NODE.getStyle().getFontSize());
+        assertEquals(12, TMetaType.EDGE.getStyle().getFontSize());
     }
 
 }
