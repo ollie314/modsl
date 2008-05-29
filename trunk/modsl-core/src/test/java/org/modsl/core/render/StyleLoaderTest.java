@@ -18,6 +18,9 @@ package org.modsl.core.render;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import org.junit.Test;
 import org.modsl.core.AbstractModSLTest;
 import org.modsl.core.TMetaType;
@@ -25,23 +28,42 @@ import org.modsl.core.TMetaType;
 public class StyleLoaderTest extends AbstractModSLTest {
 
     StyleLoader stl = new StyleLoader();
-    
+
     public StyleLoaderTest() {
         stl.load("test/props/style", "demo", TMetaType.class);
     }
 
     @Test
-    public void fontStyle() {
+    public void fontName() {
         assertEquals("Tahoma", TMetaType.GRAPH.getStyle().getFontName());
         assertEquals("Tahoma", TMetaType.NODE.getStyle().getFontName());
         assertEquals("Tahoma", TMetaType.EDGE.getStyle().getFontName());
     }
-    
-    @Test 
+
+    @Test
     public void fontSize() {
         assertEquals(14, TMetaType.GRAPH.getStyle().getFontSize());
         assertEquals(12, TMetaType.NODE.getStyle().getFontSize());
         assertEquals(12, TMetaType.EDGE.getStyle().getFontSize());
+    }
+
+    @Test
+    public void fontStyle() {
+        assertEquals(Font.PLAIN, TMetaType.GRAPH.getStyle().getFontStyle());
+        assertEquals(Font.BOLD | Font.ITALIC, TMetaType.NODE.getStyle().getFontStyle());
+        assertEquals(Font.BOLD, TMetaType.EDGE.getStyle().getFontStyle());
+    }
+
+    @Test
+    public void fontColor() {
+        assertEquals(255, TMetaType.GRAPH.getStyle().getFillColor().getAlpha());
+        assertEquals(255, TMetaType.GRAPH.getStyle().getFillColor().getRed());
+        assertEquals(255, TMetaType.GRAPH.getStyle().getFillColor().getBlue());
+        assertEquals(255, TMetaType.GRAPH.getStyle().getFillColor().getGreen());
+        assertEquals(200, TMetaType.NODE.getStyle().getFillColor().getAlpha());
+        assertEquals(255, TMetaType.NODE.getStyle().getFillColor().getRed());
+        assertEquals(255, TMetaType.NODE.getStyle().getFillColor().getBlue());
+        assertEquals(255, TMetaType.NODE.getStyle().getFillColor().getGreen());
     }
 
 }
