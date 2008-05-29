@@ -18,7 +18,6 @@ package org.modsl.core.render;
 
 import static org.junit.Assert.assertEquals;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import org.junit.Test;
