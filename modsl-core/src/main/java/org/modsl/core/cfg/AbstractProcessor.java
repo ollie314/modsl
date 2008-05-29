@@ -32,6 +32,7 @@ import org.modsl.core.agt.render.AbstractRenderVisitor;
 import org.modsl.core.agt.render.Java2DRenderVisitor;
 import org.modsl.core.agt.render.StringTemplateVisitor;
 import org.modsl.core.agt.visitor.AbstractVisitor;
+import org.modsl.core.render.StyleLoader;
 
 /**
  * Combines all individual processing steps into a single unit. Individual

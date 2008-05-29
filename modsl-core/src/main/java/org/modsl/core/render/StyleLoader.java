@@ -14,18 +14,24 @@
  * the License.
  */
 
-package org.modsl.core.cfg;
+package org.modsl.core.render;
 
 import java.awt.Font;
 
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.cfg.PropLoader;
 
-public class FontTransformLoader extends PropLoader {
+/**
+ * Loads element styles from given (colon-separated) path for  
+ * @author avishnyakov
+ *
+ */
+public class StyleLoader extends PropLoader {
 
 	protected Class<? extends MetaType> metaTypeClass;
 
-	public FontTransformLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
+	public StyleLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
 		super(path, name, true);
 		this.metaTypeClass = metaTypeClass;
 	}
@@ -65,13 +71,13 @@ public class FontTransformLoader extends PropLoader {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder(name);
+		/*StringBuilder sb = new StringBuilder(name);
 		sb.append(" [");
 		for (MetaType mt : metaTypeClass.getEnumConstants()) {
 			sb.append(mt.toString()).append(":").append(mt.getConfig().getFontTransform()).append(" ");
 		}
 		sb.deleteCharAt(sb.length() - 1);
 		sb.append("]");
-		return sb.toString();
+		return sb.toString();*/return null;
 	}
 }
