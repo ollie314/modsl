@@ -16,9 +16,13 @@
 
 package org.modsl.core;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.modsl.core.utils.Utils;
 
@@ -34,9 +38,9 @@ public class ImageCollector {
         this.name = name;
     }
 
-    public void collect(String graph, byte[] bytes, String ext) throws IOException {
+    public void collect(String graph, BufferedImage image, String ext) throws IOException {
         String n = name + "_" + graph + "." + ext;
-        Utils.toFile(path + "/" + n, bytes);
+        ImageIO.write(image, "png", new File(path + "/" + n));
         urls.add(n);
         Utils.toFile(path + "/" + name + ".html", html());
     }

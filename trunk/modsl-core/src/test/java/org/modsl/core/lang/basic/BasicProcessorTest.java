@@ -16,6 +16,7 @@
 
 package org.modsl.core.lang.basic;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
@@ -56,8 +57,8 @@ public class BasicProcessorTest extends AbstractBasicTest {
     }
 
     void process(String s, Pt reqSize) throws RecognitionException, IOException {
-        byte[] bytes = processor.processToPng(s);
-        imageCollector.collect(processor.getGraph().getName(), bytes, "png");
+        BufferedImage image = processor.processToPng(s);
+        imageCollector.collect(processor.getGraph().getName(), image, "png");
     }
 
 }
