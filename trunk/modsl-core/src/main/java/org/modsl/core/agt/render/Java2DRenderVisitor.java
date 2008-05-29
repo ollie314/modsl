@@ -16,6 +16,8 @@
 
 package org.modsl.core.agt.render;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import org.modsl.core.agt.model.Bend;
@@ -28,51 +30,52 @@ import org.modsl.core.agt.model.NodeLabel;
 
 public class Java2DRenderVisitor extends AbstractRenderVisitor {
 
+    BufferedImage image;
+    Graphics g;
+
+    @Override
+    public BufferedImage getImage() {
+        return image;
+    }
+
     @Override
     public void in(Bend bend) {
-        // TODO Auto-generated method stub
-        super.in(bend);
     }
 
     @Override
     public void in(Edge edge) {
-        // TODO Auto-generated method stub
-        super.in(edge);
     }
 
     @Override
     public void in(EdgeLabel label) {
-        // TODO Auto-generated method stub
-        super.in(label);
     }
 
     @Override
     public void in(Graph graph) {
-        // TODO Auto-generated method stub
-        super.in(graph);
+
+        image = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
+        g = image.getGraphics();
+
+        g.setColor(Color.blue);
+        g.fillOval(0, 0, 199, 199);
+
     }
 
     @Override
     public void in(GraphLabel label) {
-        // TODO Auto-generated method stub
-        super.in(label);
     }
 
     @Override
     public void in(Node node) {
-        // TODO Auto-generated method stub
-        super.in(node);
     }
 
     @Override
     public void in(NodeLabel label) {
-        // TODO Auto-generated method stub
-        super.in(label);
     }
 
-    public BufferedImage getImage() {
-        // TODO Auto-generated method stub
-        return null;
+    @Override
+    public void out(Graph graph) {
+        g.dispose();
     }
 
 }
