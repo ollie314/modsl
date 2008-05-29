@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import org.modsl.core.agt.TMetaType;
+import org.modsl.core.TMetaType;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;

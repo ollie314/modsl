@@ -14,21 +14,21 @@
  * the License.
  */
 
-package org.modsl.core.cfg;
+package org.modsl.core.render;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.modsl.core.agt.TMetaType;
+import org.modsl.core.AbstractModSLTest;
+import org.modsl.core.TMetaType;
 import org.modsl.core.render.StyleLoader;
 
-public class FontTransformLoaderTest {
+public class StyleLoaderTest extends AbstractModSLTest {
 
-    protected Logger log = Logger.getLogger(getClass());
-
+    StyleLoader st = new StyleLoader();
+    
     @Test
     public void load() {
-        FontTransformLoader ftl = new FontTransformLoader("test/props/ft", "demo", TMetaType.class);
-        ftl.load();
+        st.load("test/props/ft", "demo", TMetaType.class);
     }
 
 }

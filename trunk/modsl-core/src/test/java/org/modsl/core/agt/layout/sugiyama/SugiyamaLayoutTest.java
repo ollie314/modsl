@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.modsl.core.agt.TMetaType;
+import org.modsl.core.TMetaType;
 import org.modsl.core.agt.model.AbstractAGTModelTest;
 import org.modsl.core.agt.model.Node;
 

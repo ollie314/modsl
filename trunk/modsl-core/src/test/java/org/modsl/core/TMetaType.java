@@ -13,28 +13,23 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-package org.modsl.core.lang.basic;
+package org.modsl.core;
 
 import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.render.Style;
 
-/**
- * Basic meta-types
- * @author AVishnyakov
- */
-public enum BasicMetaType implements MetaType {
+public enum TMetaType implements MetaType {
 
-	GRAPH, NODE, NODE_LABEL, EDGE;
+    GRAPH, NODE, EDGE;
 
-	MetaTypeConfig config = new MetaTypeConfig();
-	
-	Style style;
+    protected MetaTypeConfig config = new MetaTypeConfig();
+
+    Style style;
 
     public MetaTypeConfig getConfig() {
-		return config;
-	}
+        return config;
+    }
 
     public Style getStyle() {
         return style;

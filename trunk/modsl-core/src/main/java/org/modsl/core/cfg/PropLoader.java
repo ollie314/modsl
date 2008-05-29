@@ -45,6 +45,7 @@ public class PropLoader {
      * Create new
      * @param path
      * @param name
+     * @param optional if true the loader will ignore the missing configuration files
      */
     public PropLoader(String path, String name, boolean optional) {
         this.name = name;
@@ -54,59 +55,9 @@ public class PropLoader {
 
     /**
      * @param key
-     * @return boolean property
-     */
-    protected boolean getBooleanProp(String key) {
-        return Boolean.parseBoolean(getMandatoryProp(key));
-    }
-
-    /**
-     * @param key
-     * @return double property
-     */
-    protected double getDoubleProp(String key) {
-        return Double.parseDouble(getMandatoryProp(key));
-    }
-
-    /**
-     * @param key
-     * @return int property
-     */
-    protected int getIntegerProp(String key) {
-        return Integer.parseInt(getMandatoryProp(key));
-    }
-
-    /**
-     * @param key
      * @return String property
      */
-    protected String getMandatoryProp(String key) {
-        String v = getProp(key);
-        if (v == null) {
-            throw new ConfigException("Configuration property " + key + " not found @ path=" + dirs + ", name=" + name);
-        }
-        return v;
-    }
-
-    /**
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @return path
-     */
-    public String getPath() {
-        return dirs.toString();
-    }
-
-    /**
-     * @param key
-     * @return String property
-     */
-    protected String getProp(String key) {
+    public String getProp(String key) {
         String v = props.get(key);
         if (v != null) {
             v.trim();
