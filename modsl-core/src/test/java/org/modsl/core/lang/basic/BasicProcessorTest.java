@@ -21,11 +21,12 @@ import java.io.IOException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.lang.SVGCollector;
+import org.modsl.core.agt.render.AbstractRenderVisitor;
+import org.modsl.core.lang.ImageCollector;
 
 public class BasicProcessorTest extends AbstractBasicTest {
 
-    static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "basic");
+    static ImageCollector imageCollector = new ImageCollector("etc/png-out", "basic");
 
     @Test
     public void process1() throws Exception {
@@ -55,8 +56,8 @@ public class BasicProcessorTest extends AbstractBasicTest {
     }
 
     void process(String s, Pt reqSize) throws RecognitionException, IOException {
-        String result = processor.process(s, reqSize);
-        svgCollector.collect(processor.getGraph().getName(), result, reqSize);
+        byte[] bytes = processor.processToPng(s);
+        imageCollector.collect(processor.getGraph().getName(), bytes, "png");
     }
 
 }

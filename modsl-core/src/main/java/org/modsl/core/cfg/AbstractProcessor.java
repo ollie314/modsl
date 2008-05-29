@@ -167,15 +167,15 @@ public abstract class AbstractProcessor<S extends Parser> {
 	 * @return result
 	 * @throws RecognitionException
 	 */
-	public AbstractRenderVisitor processToPng(String s) throws RecognitionException {
+	public byte[] processToPng(String s) throws RecognitionException {
 		Graph graph = parse(s);
 		for (AbstractLayoutVisitor layout : layoutVisitors) {
 			graph.accept(layout);
 		}
 		graph.rescale();
-		AbstractRenderVisitor stv = getRenderVisitor();
-		graph.accept(stv);
-		return stv;
+		AbstractRenderVisitor arv = getRenderVisitor();
+		graph.accept(arv);
+		return arv.getBytes();
 	}
 
 	private AbstractRenderVisitor getRenderVisitor() {
