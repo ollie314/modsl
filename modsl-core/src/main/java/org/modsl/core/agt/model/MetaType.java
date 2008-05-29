@@ -17,6 +17,7 @@
 package org.modsl.core.agt.model;
 
 import org.modsl.core.agt.common.MetaTypeConfig;
+import org.modsl.core.render.Style;
 
 /**
  * Marker interface for all element meta types
@@ -28,5 +29,9 @@ public interface MetaType {
 	 * @return meta type config
 	 */
 	public MetaTypeConfig getConfig();
+
+    public void setStyle(Style style);
+    
+    public Style getStyle();
 
 }

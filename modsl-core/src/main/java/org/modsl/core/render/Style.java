@@ -36,10 +36,10 @@ public class Style implements Cloneable {
     int fontSize;
     int fontStyle;
     Color fontColor;
-    
-    float lineWidth;
-    Color lineColor;
-    
+
+    float strokeWidth;
+    Color strokeColor;
+
     Color fillColor;
 
     /**
@@ -157,17 +157,17 @@ public class Style implements Cloneable {
     }
 
     /**
-     * @return line color
+     * @return stroke color
      */
-    public Color getLineColor() {
-        return lineColor;
+    public Color getStrokeColor() {
+        return strokeColor;
     }
 
     /**
-     * @return line width
+     * @return stroke width
      */
-    public float getLineWidth() {
-        return lineWidth;
+    public float getStrokeWidth() {
+        return strokeWidth;
     }
 
     /**
@@ -204,4 +204,13 @@ public class Style implements Cloneable {
         return fontName + "-" + fontStyle + "." + fontSize;
     }
 
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+    
 }

@@ -18,6 +18,7 @@ package org.modsl.core.lang.dot;
 
 import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.render.Style;
 
 /**
  * Dot model meta-types
@@ -29,8 +30,18 @@ public enum DotMetaType implements MetaType {
 
 	protected MetaTypeConfig config = new MetaTypeConfig();
 
+	Style style;
+
 	public MetaTypeConfig getConfig() {
 		return config;
 	}
+
+    public Style getStyle() {
+        return style;
+    }
+
+    public void setStyle(Style style) {
+        this.style = style;
+    }
 
 }

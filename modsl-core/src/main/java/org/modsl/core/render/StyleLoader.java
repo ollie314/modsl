@@ -16,68 +16,76 @@
 
 package org.modsl.core.render;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.util.StringTokenizer;
 
-import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.PropLoader;
 
 /**
- * Loads element styles from given (colon-separated) path for  
+ * Loads element styles from given (colon-separated) path for
+ * 
  * @author avishnyakov
- *
  */
-public class StyleLoader extends PropLoader {
+public class StyleLoader {
 
-	protected Class<? extends MetaType> metaTypeClass;
+    PropLoader propLoader;
 
-	public StyleLoader(String path, String name, Class<? extends MetaType> metaTypeClass) {
-		super(path, name, true);
-		this.metaTypeClass = metaTypeClass;
-	}
+    public void load(String path, String name, Class<? extends MetaType> metaTypeClass) {
 
-	public void load() {
-		super.load();
-		String name = "serif";
-		String size = "12";
-		int style = 0;
-		for (MetaType mt : metaTypeClass.getEnumConstants()) {
-			String n = getProp(mt.toString() + ".name");
-			if (n == null) {
-				n = name;
-			} else {
-				name = n;
-			}
-			String s = getProp(mt.toString() + ".size");
-			if (s == null) {
-				s = size;
-			} else {
-				size = s;
-			}
-			String t = getProp(mt.toString() + ".style");
-			if (t != null) {
-				style = 0;
-				t = t.toUpperCase();
-				if (t.indexOf("BOLD") > -1) {
-					style |= Font.BOLD;
-				}
-				if (t.indexOf("ITALIC") > -1) {
-					style |= Font.ITALIC;
-				}
-			}
-			FontTransform ft = new FontTransform(n, Integer.parseInt(s), style);
-			mt.getConfig().setFontTransform(ft);
-		}
-	}
+        propLoader = new PropLoader(path, name, true);
+        propLoader.load();
 
-	public String toString() {
-		/*StringBuilder sb = new StringBuilder(name);
-		sb.append(" [");
-		for (MetaType mt : metaTypeClass.getEnumConstants()) {
-			sb.append(mt.toString()).append(":").append(mt.getConfig().getFontTransform()).append(" ");
-		}
-		sb.deleteCharAt(sb.length() - 1);
-		sb.append("]");
-		return sb.toString();*/return null;
-	}
+        Style last = new Style();
+        String p;
+
+        for (MetaType mt : metaTypeClass.getEnumConstants()) {
+            if ((p = propLoader.getProp(mt.toString() + ".fontName")) != null) {
+                last.fontName = p;
+            }
+            if ((p = propLoader.getProp(mt.toString() + ".fontSize")) != null) {
+                last.fontSize = Integer.parseInt(p);
+            }
+            if ((p = propLoader.getProp(mt.toString() + ".fontStyle")) != null) {
+                last.fontStyle = 0;
+                p = p.toUpperCase();
+                if (p.indexOf("BOLD") > -1) {
+                    last.fontStyle |= Font.BOLD;
+                }
+                if (p.indexOf("ITALIC") > -1) {
+                    last.fontStyle |= Font.ITALIC;
+                }
+            }
+            if ((p = propLoader.getProp(mt.toString() + ".fontColor")) != null) {
+                last.fontColor = decodeColor(p);
+            }
+            if ((p = propLoader.getProp(mt.toString() + ".strokeWidth")) != null) {
+                last.strokeWidth = Float.parseFloat(p);
+            }
+            mt.setStyle((Style) last.clone());
+        }
+
+    }
+
+    /**
+     * Decodes string r, g, b[, alpha] into a Color object
+     * @param string
+     * @return color object
+     */
+    Color decodeColor(String p) {
+        StringTokenizer st = new StringTokenizer(p, ",");
+        int[] d = new int[4];
+        int tokens = 0;
+        while (st.hasMoreTokens()) {
+            d[tokens] = Integer.parseInt(st.nextToken().trim());
+            tokens++;
+        }
+        if (tokens == 4) {
+            return new Color(d[0], d[1], d[2], d[3]);
+        } else {
+            return new Color(d[0], d[1], d[2]);
+        }
+    }
+
 }

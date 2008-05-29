@@ -18,6 +18,7 @@ package org.modsl.core.lang.uml;
 
 import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.MetaType;
+import org.modsl.core.render.Style;
 
 /**
  * UML meta-types
@@ -27,13 +28,13 @@ public enum UMLMetaType implements MetaType {
 
     // Collaboration
     COLLAB_GRAPH,
-    
+
     COLLAB_NODE,
     COLLAB_NODE_LABEL,
-    
+
     COLLAB_EDGE,
     COLLAB_EDGE_LABEL,
-   
+
     // Class
     CLASS_GRAPH,
 
@@ -45,10 +46,10 @@ public enum UMLMetaType implements MetaType {
     CLASS_METHOD_NODE_LABEL,
     CLASS_STATIC_VAR_NODE_LABEL,
     CLASS_STATIC_METHOD_NODE_LABEL,
-    
+
     CLASS_EXTENDS_EDGE,
     CLASS_IMPLEMENTS_EDGE,
-    
+
     CLASS_AGGREGATION_EDGE,
     CLASS_COMPOSITION_EDGE,
     CLASS_MULTIPLICITY_FROM_EDGE_LABEL,
@@ -56,8 +57,18 @@ public enum UMLMetaType implements MetaType {
 
     protected MetaTypeConfig config = new MetaTypeConfig();
 
+    Style style;
+
     public MetaTypeConfig getConfig() {
         return config;
+    }
+
+    public Style getStyle() {
+        return style;
+    }
+
+    public void setStyle(Style style) {
+        this.style = style;
     }
 
 }

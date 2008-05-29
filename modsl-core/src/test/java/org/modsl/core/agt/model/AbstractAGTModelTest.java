@@ -18,7 +18,7 @@ package org.modsl.core.agt.model;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.modsl.core.agt.TMetaType;
+import org.modsl.core.TMetaType;
 
 public abstract class AbstractAGTModelTest {
 
