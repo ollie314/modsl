@@ -14,10 +14,6 @@ public abstract class AbstractMetaTypeVisitor extends AbstractVisitor {
     protected Logger log = Logger.getLogger(getClass());
     protected MetaType type;
 
-    public AbstractMetaTypeVisitor(MetaType type) {
-        this.type = type;
-    }
-
     public void apply(Bend bend) {
         // to be overriden
     }
@@ -26,19 +22,19 @@ public abstract class AbstractMetaTypeVisitor extends AbstractVisitor {
         // to be overriden
     }
 
-    public void apply(Graph bend) {
-        // to be overriden
-    }
-
-    public void apply(NodeLabel bend) {
-        // to be overriden
-    }
-
     public void apply(EdgeLabel bend) {
         // to be overriden
     }
 
+    public void apply(Graph bend) {
+        // to be overriden
+    }
+
     public void apply(Node bend) {
+        // to be overriden
+    }
+
+    public void apply(NodeLabel bend) {
         // to be overriden
     }
 
@@ -57,9 +53,23 @@ public abstract class AbstractMetaTypeVisitor extends AbstractVisitor {
     }
 
     @Override
+    public void in(EdgeLabel label) {
+        if (type.equals(label.getType())) {
+            apply(label);
+        }
+    }
+
+    @Override
     public void in(Graph graph) {
         if (type.equals(graph.getType())) {
             apply(graph);
+        }
+    }
+
+    @Override
+    public void in(Node node) {
+        if (type.equals(node.getType())) {
+            apply(node);
         }
     }
 
@@ -70,18 +80,9 @@ public abstract class AbstractMetaTypeVisitor extends AbstractVisitor {
         }
     }
 
-    @Override
-    public void in(EdgeLabel label) {
-        if (type.equals(label.getType())) {
-            apply(label);
-        }
-    }
-
-    @Override
-    public void in(Node node) {
-        if (type.equals(node.getType())) {
-            apply(node);
-        }
+    public AbstractMetaTypeVisitor type(MetaType type) {
+        this.type = type;
+        return this;
     }
 
 }

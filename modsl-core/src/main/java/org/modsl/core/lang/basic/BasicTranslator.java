@@ -1,5 +1,6 @@
 package org.modsl.core.lang.basic;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -10,8 +11,6 @@ import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.render.AbstractRenderVisitor;
-import org.modsl.core.agt.render.Java2DRenderVisitor;
 
 public class BasicTranslator {
 
@@ -26,15 +25,19 @@ public class BasicTranslator {
 
         Graph graph = parser.graph;
 
-        graph.accept(new SimpleNodeLabelLayoutVisitor(BasicMetaType.NODE));
-        graph.accept(new FRLayoutVisitor(BasicMetaType.GRAPH));
+        graph.accept(new SimpleNodeLabelLayoutVisitor().type(BasicMetaType.NODE));
+        graph.accept(new FRLayoutVisitor().type(BasicMetaType.GRAPH));
 
         graph.rescale();
 
-        AbstractRenderVisitor arv = new Java2DRenderVisitor();
-        graph.accept(arv);
+        BufferedImage image = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
+        Graphics g = image.getGraphics();
+        
+        graph.accept(new BasicGraphRenderVisitor().graphics(g).type(BasicMetaType.GRAPH));
+        
+        g.dispose();
 
-        return arv.getImage();
+        return image;
     }
 
 }

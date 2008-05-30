@@ -95,28 +95,28 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
 
     private void initClassLayouts() {
         
-        addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_CLASS_NODE));
-        addLayoutVisitor(new ClassNodeLayoutVisitor(UMLMetaType.CLASS_INTERFACE_NODE));
+        addLayoutVisitor(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_CLASS_NODE));
+        addLayoutVisitor(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_INTERFACE_NODE));
         
-        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
-        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor(UMLMetaType.CLASS_EXTENDS_EDGE));
-        addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.CLASS_GRAPH));
-        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
-        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor(UMLMetaType.CLASS_EXTENDS_EDGE));
+        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
+        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
+        addLayoutVisitor(new SugiyamaLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
+        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
+        addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
         
-        //addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.CLASS_GRAPH));
+        //addLayoutVisitor(new FRLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
         
-        addLayoutVisitor(new ClassEdgeLabelLayoutVisitor(UMLMetaType.CLASS_AGGREGATION_EDGE));
+        addLayoutVisitor(new ClassEdgeLabelLayoutVisitor().type(UMLMetaType.CLASS_AGGREGATION_EDGE));
         
     }
 
     private void initCollabLayouts() {
         // addLayoutVisitor(new
-        // CollabNodeWeightVisitor(UMLMetaType.COLLAB_NODE));
-        addLayoutVisitor(new CollabNodeLayoutVisitor(UMLMetaType.COLLAB_NODE));
-        addLayoutVisitor(new SugiyamaLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
-        // addLayoutVisitor(new FRLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
-        addLayoutVisitor(new CollabEdgeLabelLayoutVisitor(UMLMetaType.COLLAB_GRAPH));
+        // CollabNodeWeightVisitor().type(UMLMetaType.COLLAB_NODE));
+        addLayoutVisitor(new CollabNodeLayoutVisitor().type(UMLMetaType.COLLAB_NODE));
+        addLayoutVisitor(new SugiyamaLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
+        // addLayoutVisitor(new FRLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
+        addLayoutVisitor(new CollabEdgeLabelLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
     }
 
     @Override

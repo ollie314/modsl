@@ -24,17 +24,12 @@ import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.model.MetaType;
 
 /**
  * Edge label placement
  * @author avishnyakov
  */
 public class CollabEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
-
-    public CollabEdgeLabelLayoutVisitor(MetaType type) {
-        super(type);
-    }
 
     @Override
     public void apply(final Graph graph) {

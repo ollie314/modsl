@@ -17,7 +17,6 @@
 package org.modsl.core.lang.uml.layout.collab;
 
 import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
-import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
 /**
@@ -25,10 +24,6 @@ import org.modsl.core.agt.model.Node;
  * @author avishnyakov
  */
 public class CollabNodeWeightVisitor extends SimpleNodeLabelLayoutVisitor {
-
-    public CollabNodeWeightVisitor(MetaType type) {
-        super(type);
-    }
 
     @Override
     public void apply(Node node) {

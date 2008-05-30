@@ -16,7 +16,6 @@
 
 package org.modsl.core.agt.layout;
 
-import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
 import org.modsl.core.render.Style;
@@ -26,10 +25,6 @@ import org.modsl.core.render.Style;
  * @author avishnyakov
  */
 public class SimpleNodeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
-
-    public SimpleNodeLabelLayoutVisitor(MetaType type) {
-        super(type);
-    }
 
     @Override
     public void apply(Node node) {

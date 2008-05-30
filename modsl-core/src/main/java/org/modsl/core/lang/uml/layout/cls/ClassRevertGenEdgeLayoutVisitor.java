@@ -18,13 +18,8 @@ package org.modsl.core.lang.uml.layout.cls;
 
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
-import org.modsl.core.agt.model.MetaType;
 
 public class ClassRevertGenEdgeLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
-
-    public ClassRevertGenEdgeLayoutVisitor(MetaType type) {
-        super(type);
-    }
 
     @Override
     public void apply(Edge edge) {
