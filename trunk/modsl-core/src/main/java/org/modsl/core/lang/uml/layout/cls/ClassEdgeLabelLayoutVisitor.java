@@ -19,7 +19,6 @@ package org.modsl.core.lang.uml.layout.cls;
 import org.modsl.core.agt.layout.AbstractNonConfigurableLayoutVisitor;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.EdgeLabel;
-import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.lang.uml.UMLMetaType;
 
 /**
@@ -27,10 +26,6 @@ import org.modsl.core.lang.uml.UMLMetaType;
  * @author avishnyakov
  */
 public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVisitor {
-
-    public ClassEdgeLabelLayoutVisitor(MetaType type) {
-        super(type);
-    }
 
     @Override
     public void apply(Edge edge) {

@@ -35,10 +35,6 @@ import org.modsl.core.lang.uml.UMLMetaType;
  */
 public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 
-	public ClassNodeLayoutVisitor(MetaType type) {
-		super(type);
-	}
-
 	@Override
 	public void apply(Node node) {
 

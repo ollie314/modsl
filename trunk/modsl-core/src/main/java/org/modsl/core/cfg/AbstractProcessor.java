@@ -29,8 +29,6 @@ import org.modsl.core.agt.layout.AbstractLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.agt.render.AbstractRenderVisitor;
-import org.modsl.core.agt.render.Java2DRenderVisitor;
 import org.modsl.core.agt.render.StringTemplateVisitor;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 
@@ -46,12 +44,12 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
  */
 public abstract class AbstractProcessor<S extends Parser> {
 
-    private List<AbstractLayoutVisitor> layoutVisitors = new LinkedList<AbstractLayoutVisitor>();
+    private List<AbstractVisitor> layoutVisitors = new LinkedList<AbstractVisitor>();
 
     protected Lexer lexer;
     protected S parser;
 
-    protected void addLayoutVisitor(AbstractLayoutVisitor layoutVisitor) {
+    protected void addLayoutVisitor(AbstractVisitor layoutVisitor) {
         layoutVisitors.add(layoutVisitor);
     }
 
@@ -109,7 +107,8 @@ public abstract class AbstractProcessor<S extends Parser> {
     public void init() {
         initLayouts();
         initDecorators();
-        for (AbstractLayoutVisitor lv : layoutVisitors) {
+        for (AbstractVisitor v : layoutVisitors) {
+            AbstractLayoutVisitor lv = (AbstractLayoutVisitor) v;
             if (lv.getConfigName() != null) {
                 PropLoader pl = new PropLoader(getPath(), lv.getConfigName(), false);
                 pl.load();
@@ -153,7 +152,7 @@ public abstract class AbstractProcessor<S extends Parser> {
      */
     public String process(String s) throws RecognitionException {
         Graph graph = parse(s);
-        for (AbstractLayoutVisitor layout : layoutVisitors) {
+        for (AbstractVisitor layout : layoutVisitors) {
             graph.accept(layout);
         }
         graph.rescale();
@@ -170,18 +169,13 @@ public abstract class AbstractProcessor<S extends Parser> {
      */
     public BufferedImage processToPng(String s) throws RecognitionException {
         Graph graph = parse(s);
-        for (AbstractLayoutVisitor layout : layoutVisitors) {
+        for (AbstractVisitor layout : layoutVisitors) {
             graph.accept(layout);
         }
         graph.rescale();
-        AbstractRenderVisitor arv = getRenderVisitor();
+        AbstractVisitor arv = null;//getRenderVisitor();
         graph.accept(arv);
-        return arv.getImage();
-    }
-
-    private AbstractRenderVisitor getRenderVisitor() {
-        return new Java2DRenderVisitor();// getPath(), getName(),
-        // getRefreshInterval());
+        return null;
     }
 
     /**
@@ -195,7 +189,7 @@ public abstract class AbstractProcessor<S extends Parser> {
     public String process(String s, Pt reqSize) throws RecognitionException {
         Graph graph = parse(s);
         graph.setReqSize(reqSize.x, reqSize.y);
-        for (AbstractLayoutVisitor layout : layoutVisitors) {
+        for (AbstractVisitor layout : layoutVisitors) {
             graph.accept(layout);
         }
         graph.rescale(graph.getReqSize());

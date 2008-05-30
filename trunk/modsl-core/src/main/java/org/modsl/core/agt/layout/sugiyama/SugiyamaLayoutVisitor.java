@@ -45,10 +45,6 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
     Graph graph;
     SugiyamaLayerStack stack = new SugiyamaLayerStack();
 
-    public SugiyamaLayoutVisitor(MetaType type) {
-        super(type);
-    }
-
     @Override
     public void apply(Graph graph) {
         this.graph = graph;

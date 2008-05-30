@@ -28,14 +28,6 @@ import org.modsl.core.agt.visitor.AbstractMetaTypeVisitor;
 public abstract class AbstractLayoutVisitor extends AbstractMetaTypeVisitor {
 
     /**
-     * New visitor for given meta-type
-     * @param type
-     */
-    public AbstractLayoutVisitor(MetaType type) {
-        super(type);
-    }
-
-    /**
      * @return configuration name (used to initialize this layout visitor)
      */
     public abstract String getConfigName();
