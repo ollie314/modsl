@@ -10,7 +10,7 @@ import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.render.image.BasicGraphRenderVisitor;
+import org.modsl.core.agt.render.image.GraphRenderVisitor;
 
 public class BasicTranslator {
 
@@ -32,7 +32,7 @@ public class BasicTranslator {
 
         BufferedImage img = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
         
-        graph.accept(new BasicGraphRenderVisitor().image(img).type(BasicMetaType.GRAPH));
+        graph.accept(new GraphRenderVisitor().image(img).type(BasicMetaType.GRAPH));
         
         img.getGraphics().dispose();
 
