@@ -23,8 +23,12 @@ options {
 
 graph 
 	@init{ graph = factory.createGraph(); }
-	@after { graph.accept(new NodeRefVisitor()); }
-	: 'graph' ID '{' statement* '}' { graph.setName($ID.text); };
+	@after { graph.accept(new NodeRefVisitor()); graph.accept(new ProcAttrVisitor()); }
+	: 'graph' ID procAttributes? '{' statement* '}' { graph.setName($ID.text); };
+
+procAttributes: '(' procAttr (',' procAttr)* ')';
+
+procAttr: key=ID ':' v=INT { graph.addProcAttr($key.text, $v.text); };
 
 statement: (nodeStatement | edgeStatement) ';';
 
@@ -33,7 +37,7 @@ nodeStatement : ID { Node n = factory.createNode(graph, $ID);  };
 edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* { factory.createEdges(graph, $ids); };
 
 EDGEOP: '->' | '--';
-ID: ('"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | '_' | 'a'..'z' |'A'..'Z')* | INT);
-fragment INT : '0'..'9'+ ;
+ID: '"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | '_' | 'a'..'z' |'A'..'Z')* ;
+INT : '0'..'9'+ ;
 NEWLINE:'\r'? '\n';
 WS: (' ' |'\t' | '\r' | '\n')+ { skip(); };
