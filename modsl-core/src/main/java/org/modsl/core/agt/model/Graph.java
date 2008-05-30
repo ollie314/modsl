@@ -403,7 +403,7 @@ public class Graph extends AbstractBox<Graph> {
             leftPadding = s.getLeftPadding();
             rightPadding = s.getRightPadding();
             topPadding = s.getTopPadding();
-            bottomPadding = s.getBottomPadding() + 10; // (c) line
+            bottomPadding = s.getBottomPadding() + 12; // (c) line
         }
     }
 
