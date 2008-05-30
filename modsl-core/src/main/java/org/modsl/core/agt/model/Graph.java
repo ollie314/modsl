@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.visitor.AbstractVisitor;
+import org.modsl.core.render.Style;
 
 public class Graph extends AbstractBox<Graph> {
 
@@ -398,12 +398,12 @@ public class Graph extends AbstractBox<Graph> {
      * (essentially based on the font size)
      */
     private void resetPaddings() {
-        FontTransform ft = type.getConfig().getFontTransform();
-        if (ft != null) {
-            leftPadding = ft.getLeftPadding();
-            rightPadding = ft.getRightPadding();
-            topPadding = ft.getTopPadding();
-            bottomPadding = ft.getBottomPadding() + 10; // (c) line
+        Style s = type.getStyle();
+        if (s != null) {
+            leftPadding = s.getLeftPadding();
+            rightPadding = s.getRightPadding();
+            topPadding = s.getTopPadding();
+            bottomPadding = s.getBottomPadding() + 10; // (c) line
         }
     }
 
