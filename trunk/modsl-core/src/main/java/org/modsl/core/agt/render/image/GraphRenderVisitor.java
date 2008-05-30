@@ -13,13 +13,11 @@ public class GraphRenderVisitor extends AbstractRenderVisitor {
         Style s = graph.getType().getStyle();
 
         RenderingHints rh = new RenderingHints(null);
-
         rh.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         rh.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         rh.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         g.setRenderingHints(rh);
-
         g.setColor(s.getFillColor());
         g.fillRect(0, 0, width, height);
 
@@ -29,5 +27,5 @@ public class GraphRenderVisitor extends AbstractRenderVisitor {
         g.drawString("ModSL ~ http://www.modsl.org", s.getLeftPadding(), height - s.getExtHeight(1) + s.getExtBaseline(0));
 
     }
-    
+
 }
