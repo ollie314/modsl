@@ -11,6 +11,7 @@ import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.render.image.GraphRenderVisitor;
+import org.modsl.core.agt.render.image.NodeLabelRenderVisitor;
 import org.modsl.core.agt.render.image.NodeRenderVisitor;
 
 public class BasicTranslator {
@@ -35,6 +36,7 @@ public class BasicTranslator {
 
         graph.accept(new GraphRenderVisitor().image(img).type(BasicMetaType.GRAPH));
         graph.accept(new NodeRenderVisitor().image(img).type(BasicMetaType.NODE));
+        graph.accept(new NodeLabelRenderVisitor().image(img).type(BasicMetaType.NODE_LABEL));
 
         img.getGraphics().dispose();
 
