@@ -5,7 +5,7 @@ import java.awt.RenderingHints;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.render.Style;
 
-public class BasicGraphRenderVisitor extends AbstractRenderVisitor {
+public class GraphRenderVisitor extends AbstractRenderVisitor {
 
     @Override
     public void apply(Graph graph) {
@@ -29,4 +29,5 @@ public class BasicGraphRenderVisitor extends AbstractRenderVisitor {
         g.drawString("ModSL ~ http://www.modsl.org", s.getLeftPadding(), height - s.getExtHeight(1) + s.getExtBaseline(0));
 
     }
+    
 }
