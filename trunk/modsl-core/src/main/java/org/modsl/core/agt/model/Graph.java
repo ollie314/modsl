@@ -27,7 +27,6 @@ import java.util.Random;
 
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.visitor.AbstractVisitor;
-import org.modsl.core.render.Style;
 
 public class Graph extends AbstractBox<Graph> {
 
