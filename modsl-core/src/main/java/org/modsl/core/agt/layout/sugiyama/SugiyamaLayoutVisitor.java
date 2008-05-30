@@ -119,9 +119,7 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
 
     @Override
     public void setLayoutConfig(Map<String, String> propMap) {
-        stack.maxSweeps = Integer.parseInt(propMap.get("maxSweeps"));
-        stack.xSeparation = Double.parseDouble(propMap.get("xSeparation"));
-        stack.ySeparation = Double.parseDouble(propMap.get("ySeparation"));
+        //
     }
 
     List<Node> sortByOutDegree() {

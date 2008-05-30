@@ -40,16 +40,26 @@ import org.modsl.core.agt.model.AbstractBox;
  */
 public class SugiyamaLayerStack {
 
+    static final int MAX_SWEEPS = 100;
+    static final double X_SEP = 33;
+    static final double Y_SEP = 75;
+    
     Logger log = Logger.getLogger(getClass());
-
-    int maxSweeps;
-    double xSeparation, ySeparation;
+    
     List<List<AbstractBox<?>>> layers;
     Map<AbstractBox<?>, Integer> nodeMap;
 
     void add(AbstractBox<?> n1, int layerIndex) {
         layers.get(layerIndex).add(n1);
         nodeMap.put(n1, layerIndex);
+    }
+
+    double avgX(List<AbstractBox<?>> ln) {
+        double m = 0d;
+        for (AbstractBox<?> n : ln) {
+            m += n.getCtrPos().x;
+        }
+        return m / ln.size();
     }
 
     int barycenter(List<AbstractBox<?>> ln) {
@@ -116,7 +126,7 @@ public class SugiyamaLayerStack {
                     n.getPos().y = offset;
                 }
             }
-            offset += maxh + ySeparation;
+            offset += maxh + Y_SEP;
         }
     }
 
@@ -128,16 +138,8 @@ public class SugiyamaLayerStack {
         return mh;
     }
 
-    double avgX(List<AbstractBox<?>> ln) {
-        double m = 0d;
-        for (AbstractBox<?> n : ln) {
-            m += n.getCtrPos().x;
-        }
-        return m / ln.size();
-    }
-
     void reduceCrossings() {
-        for (int round = 0; round < maxSweeps; round++) {
+        for (int round = 0; round < MAX_SWEEPS; round++) {
             if (round % 2 == 0) {
                 for (int l = 0; l < layers.size() - 1; l++) {
                     reduceCrossings2L(l, l + 1);
@@ -197,25 +199,11 @@ public class SugiyamaLayerStack {
         List<AbstractBox<?>> flex = layers.get(flexIndex);
         for (int i = 0; i < flex.size(); i++) {
             AbstractBox<?> n = flex.get(i);
-            double min = i > 0 ? flex.get(i - 1).getPos().x + flex.get(i - 1).getSize().x + xSeparation : -Double.MAX_VALUE;
+            double min = i > 0 ? flex.get(i - 1).getPos().x + flex.get(i - 1).getSize().x + X_SEP : -Double.MAX_VALUE;
             List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
             double avg = avgX(neighbors);
             if (!Double.isNaN(avg)) {
                 n.getPos().x = max(min, avg - n.getSize().x / 2d);
-            }
-        }
-    }
-
-    void xPosUp(int staticIndex, int flexIndex) {
-        List<AbstractBox<?>> flex = layers.get(flexIndex);
-        for (int i = flex.size() - 1; i > -1; i--) {
-            AbstractBox<?> n = flex.get(i);
-            double min = i > 0 ? flex.get(i - 1).getPos().x + flex.get(i - 1).getSize().x + xSeparation : -Double.MAX_VALUE;
-            double max = i < flex.size() - 1 ? flex.get(i + 1).getPos().x - n.getSize().x - xSeparation : Double.MAX_VALUE;
-            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
-            double avg = avgX(neighbors);
-            if (!Double.isNaN(avg)) {
-                n.getPos().x = max(min, min(max, avg - n.getSize().x / 2d));
             }
         }
     }
@@ -225,7 +213,21 @@ public class SugiyamaLayerStack {
         double offset = 0d;
         for (AbstractBox<?> n : flex) {
             n.getPos().x = offset;
-            offset = n.getPos().x + n.getSize().x + xSeparation;
+            offset = n.getPos().x + n.getSize().x + X_SEP;
+        }
+    }
+
+    void xPosUp(int staticIndex, int flexIndex) {
+        List<AbstractBox<?>> flex = layers.get(flexIndex);
+        for (int i = flex.size() - 1; i > -1; i--) {
+            AbstractBox<?> n = flex.get(i);
+            double min = i > 0 ? flex.get(i - 1).getPos().x + flex.get(i - 1).getSize().x + X_SEP : -Double.MAX_VALUE;
+            double max = i < flex.size() - 1 ? flex.get(i + 1).getPos().x - n.getSize().x - X_SEP : Double.MAX_VALUE;
+            List<AbstractBox<?>> neighbors = getConnectedTo(n, staticIndex);
+            double avg = avgX(neighbors);
+            if (!Double.isNaN(avg)) {
+                n.getPos().x = max(min, min(max, avg - n.getSize().x / 2d));
+            }
         }
     }
 
