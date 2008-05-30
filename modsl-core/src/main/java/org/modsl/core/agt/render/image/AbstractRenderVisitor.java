@@ -1,4 +1,4 @@
-package org.modsl.core.agt.render;
+package org.modsl.core.agt.render.image;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
