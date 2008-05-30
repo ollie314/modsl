@@ -107,14 +107,6 @@ public abstract class AbstractProcessor<S extends Parser> {
     public void init() {
         initLayouts();
         initDecorators();
-        for (AbstractVisitor v : layoutVisitors) {
-            AbstractLayoutVisitor lv = (AbstractLayoutVisitor) v;
-            if (lv.getConfigName() != null) {
-                PropLoader pl = new PropLoader(getPath(), lv.getConfigName(), false);
-                pl.load();
-                lv.setLayoutConfig(pl.getProps());
-            }
-        }
         new FontTransformLoader(getPath(), getName(), getMetaTypeClass()).load();
     }
 
