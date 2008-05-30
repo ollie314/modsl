@@ -18,7 +18,18 @@ import org.modsl.core.agt.render.image.NodeRenderVisitor;
 
 public class BasicTranslator {
 
-    public BufferedImage translate(String str) throws RecognitionException {
+    Graph layout(Graph graph) {
+        
+        graph.accept(new SimpleNodeLabelLayoutVisitor().type(BasicMetaType.NODE));
+        graph.accept(new FRLayoutVisitor().type(BasicMetaType.GRAPH));
+        
+        graph.rescale();
+        
+        return graph;
+        
+    }
+
+    public Graph parse(String str) throws RecognitionException {
 
         ANTLRStringStream input = new ANTLRStringStream(str);
         BasicLexer lexer = new BasicLexer(input);
@@ -27,12 +38,10 @@ public class BasicTranslator {
 
         parser.graph();
 
-        Graph graph = parser.graph;
+        return parser.graph;
+    }
 
-        graph.accept(new SimpleNodeLabelLayoutVisitor().type(BasicMetaType.NODE));
-        graph.accept(new FRLayoutVisitor().type(BasicMetaType.GRAPH));
-
-        graph.rescale();
+    BufferedImage render(Graph graph) {
 
         BufferedImage img = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = (Graphics2D) img.getGraphics();
@@ -47,6 +56,13 @@ public class BasicTranslator {
         img.getGraphics().dispose();
 
         return img;
+
+    }
+
+    public BufferedImage translate(String str) throws RecognitionException {
+        Graph graph = parse(str);
+        layout(graph);
+        return render(graph);
     }
 
 }
