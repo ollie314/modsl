@@ -26,7 +26,7 @@ public class BasicGrammarTest extends AbstractBasicTest {
 
 	@Test
 	public void graph() throws RecognitionException {
-		Graph graph = processor.parse("graph g {}");
+		Graph graph = translator.parse("graph g {}");
 		assertEquals("g", graph.getName());
 		assertEquals(null, graph.getParent());
 		assertEquals(0, graph.getNodes().size());
@@ -34,7 +34,7 @@ public class BasicGrammarTest extends AbstractBasicTest {
 
 	@Test
 	public void nodes() throws RecognitionException {
-		Graph graph = processor.parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
+		Graph graph = translator.parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
 		assertEquals(3, graph.getNodes().size());
 		assertEquals("stmt1", graph.getNodes().get(0).getName());
 		assertEquals("stmt1", graph.getNode("stmt1").getName());
@@ -46,7 +46,7 @@ public class BasicGrammarTest extends AbstractBasicTest {
 
 	@Test
 	public void edges() throws RecognitionException {
-		Graph graph = processor.parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
+		Graph graph = translator.parse("graph g { n0; n1; n1->n2; n3->n4->n5; n6->n7; }");
 		// log.debug(new ToStringVisitor().toString(root));
 		assertEquals(8, graph.getNodes().size());
 		assertEquals(4, graph.getEdges().size());
