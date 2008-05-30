@@ -19,7 +19,6 @@ package org.modsl.core.agt.model;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-import java.awt.Font;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +27,7 @@ import java.util.Random;
 
 import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.visitor.AbstractVisitor;
+import org.modsl.core.render.Style;
 
 public class Graph extends AbstractBox<Graph> {
 
@@ -83,11 +83,6 @@ public class Graph extends AbstractBox<Graph> {
      */
     Map<String, String> procAttrs = new HashMap<String, String>();
 
-    /**
-     * Status line
-     */
-    FontTransform statusFt = new FontTransform("Tahoma", 8, Font.PLAIN);
-    
     /**
      * Log message container
      */
@@ -232,10 +227,6 @@ public class Graph extends AbstractBox<Graph> {
 
     public double getRightPadding() {
         return rightPadding;
-    }
-
-    public Pt getStatusLine() {
-        return new Pt(statusFt.getLeftPadding(), getSize().y - statusFt.getExtHeight(1) + statusFt.getExtBaseline(0));
     }
 
     /**
@@ -413,7 +404,7 @@ public class Graph extends AbstractBox<Graph> {
             leftPadding = ft.getLeftPadding();
             rightPadding = ft.getRightPadding();
             topPadding = ft.getTopPadding();
-            bottomPadding = ft.getBottomPadding() + statusFt.getExtHeight(1);
+            bottomPadding = ft.getBottomPadding() + 10; // (c) line
         }
     }
 

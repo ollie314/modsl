@@ -17,6 +17,7 @@
 package org.modsl.core.render;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontMetrics;
 
 import org.apache.log4j.Logger;
@@ -31,6 +32,7 @@ public class Style implements Cloneable {
     Logger log = Logger.getLogger(getClass());
 
     FontMetrics fontMetrics;
+    Font font;
 
     String fontName;
     int fontSize;
@@ -41,6 +43,15 @@ public class Style implements Cloneable {
     Color strokeColor;
 
     Color fillColor;
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 
     /**
      * @return arrow length for this font size
@@ -116,6 +127,10 @@ public class Style implements Cloneable {
         return fillColor;
     }
 
+    public Color getFontColor() {
+        return fontColor;
+    }
+
     /**
      * @see java.awt.FontMetrics#getHeight()
      * @return font height
@@ -157,20 +172,6 @@ public class Style implements Cloneable {
     }
 
     /**
-     * @return stroke color
-     */
-    public Color getStrokeColor() {
-        return strokeColor;
-    }
-
-    /**
-     * @return stroke width
-     */
-    public float getStrokeWidth() {
-        return strokeWidth;
-    }
-
-    /**
      * @return right padding whitespace in pixels for this font size
      */
     public int getRightPadding() {
@@ -183,6 +184,20 @@ public class Style implements Cloneable {
      */
     public int getStringWidth(String str) {
         return getFontMetrics().stringWidth(str);
+    }
+
+    /**
+     * @return stroke color
+     */
+    public Color getStrokeColor() {
+        return strokeColor;
+    }
+
+    /**
+     * @return stroke width
+     */
+    public float getStrokeWidth() {
+        return strokeWidth;
     }
 
     /**
@@ -204,13 +219,11 @@ public class Style implements Cloneable {
         return fontName + "-" + fontStyle + "." + fontSize;
     }
 
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            return null;
+    public Font getFont() {
+        if (font == null) {
+            font = new Font(fontName, fontStyle, fontSize);
         }
+        return font;
     }
-    
+
 }
