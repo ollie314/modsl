@@ -11,6 +11,7 @@ import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.render.image.GraphRenderVisitor;
+import org.modsl.core.agt.render.image.NodeRenderVisitor;
 
 public class BasicTranslator {
 
@@ -30,10 +31,11 @@ public class BasicTranslator {
 
         graph.rescale();
 
-        BufferedImage img = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
-        
+        BufferedImage img = new BufferedImage((int) graph.getReqSize().x, (int) graph.getReqSize().y, BufferedImage.TYPE_INT_RGB);
+
         graph.accept(new GraphRenderVisitor().image(img).type(BasicMetaType.GRAPH));
-        
+        graph.accept(new NodeRenderVisitor().image(img).type(BasicMetaType.NODE));
+
         img.getGraphics().dispose();
 
         return img;
