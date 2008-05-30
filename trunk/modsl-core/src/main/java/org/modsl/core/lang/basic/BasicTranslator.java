@@ -1,6 +1,5 @@
 package org.modsl.core.lang.basic;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -30,14 +29,13 @@ public class BasicTranslator {
 
         graph.rescale();
 
-        BufferedImage image = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
-        Graphics g = image.getGraphics();
+        BufferedImage img = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
         
-        graph.accept(new BasicGraphRenderVisitor().graphics(g).type(BasicMetaType.GRAPH));
+        graph.accept(new BasicGraphRenderVisitor().image(img).type(BasicMetaType.GRAPH));
         
-        g.dispose();
+        img.getGraphics().dispose();
 
-        return image;
+        return img;
     }
 
 }
