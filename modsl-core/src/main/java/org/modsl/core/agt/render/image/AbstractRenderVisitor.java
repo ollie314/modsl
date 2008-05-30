@@ -8,14 +8,12 @@ import org.modsl.core.agt.visitor.AbstractMetaTypeVisitor;
 public abstract class AbstractRenderVisitor extends AbstractMetaTypeVisitor {
 
     protected Graphics2D g;
-    protected BufferedImage img;
     protected int width, height;
 
-    public AbstractRenderVisitor image(BufferedImage img) {
-        this.img = img;
-        this.g = (Graphics2D) img.getGraphics();
-        this.width = img.getWidth();
-        this.height = img.getHeight();
+    public AbstractRenderVisitor graphics(Graphics2D g, int width, int height) {
+        this.g = g;
+        this.width = width;
+        this.height = height;
         return this;
     }
 }
