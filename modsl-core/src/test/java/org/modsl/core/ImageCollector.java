@@ -28,10 +28,10 @@ import org.modsl.core.utils.Utils;
 
 public class ImageCollector {
 
-    protected List<String> urls = new LinkedList<String>();
+    List<String> urls = new LinkedList<String>();
 
-    private String name;
-    private String path;
+    String name;
+    String path;
 
     public ImageCollector(String path, String name) {
         this.path = path;

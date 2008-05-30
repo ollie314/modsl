@@ -18,23 +18,23 @@ public abstract class AbstractMetaTypeVisitor extends AbstractVisitor {
         // to be overriden
     }
 
-    public void apply(Edge bend) {
+    public void apply(Edge edge) {
         // to be overriden
     }
 
-    public void apply(EdgeLabel bend) {
+    public void apply(EdgeLabel edgeLabel) {
         // to be overriden
     }
 
-    public void apply(Graph bend) {
+    public void apply(Graph graph) {
         // to be overriden
     }
 
-    public void apply(Node bend) {
+    public void apply(Node node) {
         // to be overriden
     }
 
-    public void apply(NodeLabel bend) {
+    public void apply(NodeLabel nodeLabel) {
         // to be overriden
     }
 
