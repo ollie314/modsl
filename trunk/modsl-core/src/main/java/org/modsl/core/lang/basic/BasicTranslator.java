@@ -1,5 +1,6 @@
 package org.modsl.core.lang.basic;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -34,11 +35,14 @@ public class BasicTranslator {
         graph.rescale();
 
         BufferedImage img = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = (Graphics2D) img.getGraphics();
+        int w = img.getWidth();
+        int h = img.getHeight();
 
-        graph.accept(new GraphRenderVisitor().image(img).type(BasicMetaType.GRAPH));
-        graph.accept(new NodeRenderVisitor().image(img).type(BasicMetaType.NODE));
-        graph.accept(new NodeLabelRenderVisitor().image(img).type(BasicMetaType.NODE_LABEL));
-        graph.accept(new EdgeRenderVisitor().image(img).type(BasicMetaType.EDGE));
+        graph.accept(new GraphRenderVisitor().graphics(g, w, h).type(BasicMetaType.GRAPH));
+        graph.accept(new EdgeRenderVisitor().graphics(g, w, h).type(BasicMetaType.EDGE));
+        graph.accept(new NodeRenderVisitor().graphics(g, w, h).type(BasicMetaType.NODE));
+        graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(BasicMetaType.NODE_LABEL));
 
         img.getGraphics().dispose();
 
