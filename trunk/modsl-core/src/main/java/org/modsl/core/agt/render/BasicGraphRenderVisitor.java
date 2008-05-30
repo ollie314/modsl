@@ -1,4 +1,4 @@
-package org.modsl.core.lang.basic;
+package org.modsl.core.agt.render;
 
 import java.awt.RenderingHints;
 

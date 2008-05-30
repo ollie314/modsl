@@ -10,6 +10,7 @@ import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.render.BasicGraphRenderVisitor;
 
 public class BasicTranslator {
 
