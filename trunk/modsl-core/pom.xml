@@ -81,11 +81,10 @@
                         <phase>generate-sources</phase>
                         <configuration>
                             <tasks>
-                                <!-- A hack to silence the antlr3 "token file not found" nonsense -->
+                                <!-- A hack to silence the antlr3 "token file not found" error -->
                                 <delete dir="target/generated-sources/antlr/org/modsl/antlr" />
                                 <mkdir dir="target/generated-sources/antlr/org/modsl/antlr/basic" />
                                 <mkdir dir="target/generated-sources/antlr/org/modsl/antlr/uml" />
-                                <mkdir dir="target/generated-sources/antlr/org/modsl/antlr/dot" />
                             </tasks>
                         </configuration>
                         <goals>

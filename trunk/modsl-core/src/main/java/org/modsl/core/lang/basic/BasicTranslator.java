@@ -15,10 +15,11 @@ import org.modsl.core.agt.render.image.EdgeRenderVisitor;
 import org.modsl.core.agt.render.image.GraphRenderVisitor;
 import org.modsl.core.agt.render.image.NodeLabelRenderVisitor;
 import org.modsl.core.agt.render.image.NodeRenderVisitor;
+import org.modsl.core.lang.AbstractTranslator;
 
-public class BasicTranslator {
+public class BasicTranslator extends AbstractTranslator {
 
-    Graph layout(Graph graph) {
+    protected Graph layout(Graph graph) {
         
         graph.accept(new SimpleNodeLabelLayoutVisitor().type(BasicMetaType.NODE));
         graph.accept(new FRLayoutVisitor().type(BasicMetaType.GRAPH));
@@ -41,7 +42,7 @@ public class BasicTranslator {
         return parser.graph;
     }
 
-    BufferedImage render(Graph graph) {
+    protected BufferedImage render(Graph graph) {
 
         BufferedImage img = new BufferedImage((int) graph.getSize().x, (int) graph.getSize().y, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = (Graphics2D) img.getGraphics();
@@ -57,12 +58,6 @@ public class BasicTranslator {
 
         return img;
 
-    }
-
-    public BufferedImage translate(String str) throws RecognitionException {
-        Graph graph = parse(str);
-        layout(graph);
-        return render(graph);
     }
 
 }
