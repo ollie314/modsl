@@ -21,11 +21,17 @@ import java.io.IOException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.modsl.core.ImageCollector;
+import org.modsl.core.render.StyleLoader;
 import org.modsl.core.utils.Utils;
 
 public class UMLCollabTranslatorTest extends AbstractUMLTest {
 
     protected static ImageCollector ic = new ImageCollector("etc/png-out", "uml_collab");
+    
+    static {
+        StyleLoader stl = new StyleLoader();
+        stl.load("cfg/uml:cfg", "uml", UMLMetaType.class);
+    }
 
     @Test
     public void process0() throws Exception {
