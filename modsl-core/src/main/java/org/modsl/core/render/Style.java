@@ -19,6 +19,9 @@ package org.modsl.core.render;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.font.TextAttribute;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -128,9 +131,14 @@ public class Style implements Cloneable {
 		return fillColor;
 	}
 
-	public Font getFont() {
+	public synchronized Font getFont() {
 		if (font == null) {
 			font = new Font(fontName, fontStyle, fontSize);
+			if (underline) {
+				Map<TextAttribute, Object> attrs = new HashMap<TextAttribute, Object>();
+				attrs.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+				font = font.deriveFont(attrs);
+			}
 		}
 		return font;
 	}
@@ -147,7 +155,7 @@ public class Style implements Cloneable {
 		return getFontMetrics().getHeight();
 	}
 
-	public FontMetrics getFontMetrics() {
+	public synchronized FontMetrics getFontMetrics() {
 		if (fontMetrics == null) {
 			fontMetrics = HeadlessCanvas.getMetrics(fontName, fontSize, fontStyle);
 		}

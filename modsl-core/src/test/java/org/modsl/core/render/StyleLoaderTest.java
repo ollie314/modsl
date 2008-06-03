@@ -17,6 +17,7 @@
 package org.modsl.core.render;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Font;
 
@@ -51,6 +52,7 @@ public class StyleLoaderTest extends AbstractModSLTest {
         assertEquals(Font.PLAIN, TMetaType.GRAPH.getStyle().getFontStyle());
         assertEquals(Font.BOLD | Font.ITALIC, TMetaType.NODE.getStyle().getFontStyle());
         assertEquals(Font.BOLD, TMetaType.EDGE.getStyle().getFontStyle());
+        assertTrue(TMetaType.EDGE.getStyle().isUnderline());
     }
 
     @Test
