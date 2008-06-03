@@ -56,6 +56,9 @@ public class StyleLoader {
                 if (p.indexOf("ITALIC") > -1) {
                     last.fontStyle |= Font.ITALIC;
                 }
+                if (p.indexOf("UNDERLINE") > -1) {
+                    last.underline = true;
+                }
             }
             if ((p = propLoader.getProp(mt.toString() + ".fontColor")) != null) {
                 last.fontColor = decodeColor(p);
