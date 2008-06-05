@@ -18,12 +18,17 @@ package org.modsl.core.agt.render.image;
 
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Pt;
 import org.modsl.core.render.Style;
 
 public class EdgeRenderVisitor extends AbstractRenderVisitor {
 
     @Override
     public void apply(Edge e) {
+        draw(e, e.getNode2Port());
+    }
+
+    protected void draw(Edge e, Pt endpoint) {
         Style s = e.getType().getStyle();
         g.setColor(s.getStrokeColor());
         int cx = (int) e.getNode1Port().x;
@@ -35,6 +40,7 @@ public class EdgeRenderVisitor extends AbstractRenderVisitor {
             cx = nx;
             cy = ny;
         }
-        g.drawLine(cx, cy, (int) e.getNode2Port().x, (int) e.getNode2Port().y);
+        g.drawLine(cx, cy, (int) endpoint.x, (int) endpoint.y);
     }
+
 }
