@@ -20,7 +20,7 @@ import static java.lang.Math.PI;
 
 import org.modsl.core.lang.uml.UMLMetaType;
 
-public class CollabArrowEdgeRenderVisitor extends AbstractArrowEdgeRenderVisitor {
+public class ClassArrowEdgeRenderVisitor extends AbstractArrowEdgeRenderVisitor {
 
     @Override
     protected double getArrowAngle() {
