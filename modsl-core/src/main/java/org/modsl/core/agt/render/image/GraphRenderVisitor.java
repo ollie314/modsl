@@ -40,7 +40,7 @@ public class GraphRenderVisitor extends AbstractRenderVisitor {
         g.setFont(s.getFont());
         g.setColor(s.getFontColor());
 
-        g.drawString("ModSL ~ http://www.modsl.org", s.getLeftPadding(), height - s.getExtHeight(1) + s.getExtBaseline(0));
+        g.drawString("http://www.modsl.org", s.getLeftPadding(), height - s.getExtHeight(1) + s.getExtBaseline(0));
 
     }
 

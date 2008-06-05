@@ -36,6 +36,7 @@ import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassRevertGenEdgeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
+import org.modsl.core.lang.uml.render.image.CollabArrowEdgeRenderVisitor;
 
 public class UMLTranslator extends AbstractTranslator {
 
@@ -106,7 +107,7 @@ public class UMLTranslator extends AbstractTranslator {
         } else if (graph.getType().equals(UMLMetaType.COLLAB_GRAPH)) {
 
             graph.accept(new GraphRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_GRAPH));
-            graph.accept(new EdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_EDGE));
+            graph.accept(new CollabArrowEdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_EDGE));
             graph.accept(new NodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_NODE));
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_NODE_LABEL));
 
