@@ -27,11 +27,6 @@ import org.modsl.core.utils.Utils;
 public class UMLCollabTranslatorTest extends AbstractUMLTest {
 
     protected static ImageCollector ic = new ImageCollector("etc/png-out", "uml_collab");
-    
-    static {
-        StyleLoader stl = new StyleLoader();
-        stl.load("cfg/uml:cfg", "uml", UMLMetaType.class);
-    }
 
     @Test
     public void process0() throws Exception {
