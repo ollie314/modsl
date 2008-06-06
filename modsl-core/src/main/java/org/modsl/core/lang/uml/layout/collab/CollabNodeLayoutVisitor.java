@@ -16,7 +16,6 @@
 
 package org.modsl.core.lang.uml.layout.collab;
 
-import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.model.Node;
 
@@ -29,9 +28,7 @@ public class CollabNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
     @Override
     public void apply(Node node) {
         super.apply(node);
-        FontTransform ft = node.getType().getConfig().getFontTransform();
-        node.getSize().y += ft.getBottomPadding();
-        log.debug("Setting node size " + node);
+        node.getSize().y += node.getType().getStyle().getBottomPadding();
     }
 
 }

@@ -30,7 +30,6 @@ import org.modsl.core.lang.uml.decorator.cls.ClassAggregationEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.cls.ClassExtendsEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.cls.ClassImplementsEdgeDecorator;
 import org.modsl.core.lang.uml.decorator.cls.ClassNodeDecorator;
-import org.modsl.core.lang.uml.decorator.collab.CollabEdgeDecorator;
 import org.modsl.core.lang.uml.layout.cls.ClassEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassRevertGenEdgeLayoutVisitor;
@@ -84,7 +83,7 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
     }
 
     private void initCollabDecorators() {
-        UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
+        // UMLMetaType.COLLAB_EDGE.getConfig().setDecorator(new CollabEdgeDecorator());
     }
 
     @Override
@@ -94,20 +93,20 @@ public class UMLProcessor extends AbstractProcessor<UMLParser> {
     }
 
     private void initClassLayouts() {
-        
+
         addLayoutVisitor(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_CLASS_NODE));
         addLayoutVisitor(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_INTERFACE_NODE));
-        
+
         addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
         addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
         addLayoutVisitor(new SugiyamaLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
         addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
         addLayoutVisitor(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
-        
+
         //addLayoutVisitor(new FRLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
-        
+
         addLayoutVisitor(new ClassEdgeLabelLayoutVisitor().type(UMLMetaType.CLASS_AGGREGATION_EDGE));
-        
+
     }
 
     private void initCollabLayouts() {
