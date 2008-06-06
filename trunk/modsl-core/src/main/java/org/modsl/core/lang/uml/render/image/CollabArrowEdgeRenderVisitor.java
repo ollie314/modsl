@@ -37,8 +37,9 @@ public class CollabArrowEdgeRenderVisitor extends AbstractArrowEdgeRenderVisitor
         Style s = e.getType().getStyle();
 
         g.setColor(s.getFillColor());
-        g.fillRect((int) l.getPos().x, (int) l.getPos().y + 2, (int) l.getSize().x, (int) l.getSize().y - 2);
+        g.fillRect((int) l.getPos().x, (int) l.getPos().y, (int) l.getSize().x, (int) l.getSize().y);
 
+        g.setFont(s.getFont());
         g.setColor(s.getFontColor());
         g.drawString(l.getName(), (float) l.getTextPos().x, (float) l.getTextPos().y);
 
