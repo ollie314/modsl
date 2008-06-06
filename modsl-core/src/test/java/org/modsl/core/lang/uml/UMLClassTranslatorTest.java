@@ -16,59 +16,52 @@
 
 package org.modsl.core.lang.uml;
 
-import java.io.IOException;
-
-import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.modsl.core.SVGCollector;
+import org.modsl.core.ImageCollector;
 
-public class UMLClassProcessor1Test extends AbstractUMLTest {
+public class UMLClassTranslatorTest extends AbstractUMLTest {
 
-    protected static SVGCollector svgCollector = new SVGCollector("etc/svg-out", "uml_class1");
+    protected static ImageCollector ic = new ImageCollector("etc/png-out", "uml_class1");
 
     @Test
     public void process0() throws Exception {
-        process("class diagram c0 { }");
+        ic.collect("c0", translator.translate("class diagram c0 { }"), "png");
     }
 
     @Test
     public void process1c() throws Exception {
-        process("class diagram c1c { class class1 { } }");
+        ic.collect("c1c", translator.translate("class diagram c1c { class class1 { } }"), "png");
     }
 
     @Test
     public void process1cv() throws Exception {
-        process("class diagram c1cv { class class1 { var1; } }");
+        ic.collect("c1cv", translator.translate("class diagram c1cv { class class1 { var1; } }"), "png");
     }
 
     @Test
     public void process1cm() throws Exception {
-        process("class diagram c1cm { class class1 { method1(); } }");
+        ic.collect("c1cm", translator.translate("class diagram c1cm { class class1 { method1(); } }"), "png");
     }
 
     @Test
     public void process1cvm() throws Exception {
-        process("class diagram c1cvm { class class1 { v1; m1(); v2; m2(); v3; m3(); } }");
+        ic.collect("c1cvm", translator.translate("class diagram c1cvm { class class1 { v1; m1(); v2; m2(); v3; m3(); } }"), "png");
     }
 
     @Test
     public void process1cvmss() throws Exception {
-        process("class diagram c1cvmss { class class1 { var1; static var2; method1(); static method2(); } }");
+        ic.collect("c1cvmss", translator
+                .translate("class diagram c1cvmss { class class1 { var1; static var2; method1(); static method2(); } }"), "png");
     }
 
     @Test
     public void process1i() throws Exception {
-        process("class c1i { interface interface1 { } }");
+        ic.collect("c1i", translator.translate("class c1i { interface interface1 { } }"), "png");
     }
 
     @Test
     public void process1mp() throws Exception {
-        process("class diagram c1mp { class class1 { m1(p1,     p2, p3); } }");
-    }
-
-    private void process(String s) throws RecognitionException, IOException {
-        String result = processor.process(s);
-        svgCollector.collect(processor.getGraph().getName(), result, processor.getGraph().getSize());
+        ic.collect("c1mp", translator.translate("class diagram c1mp { class class1 { m1(p1,     p2, p3); } }"), "png");
     }
 
 }

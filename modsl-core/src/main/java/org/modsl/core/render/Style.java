@@ -19,9 +19,6 @@ package org.modsl.core.render;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.font.TextAttribute;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
