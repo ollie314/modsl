@@ -17,12 +17,18 @@
 package org.modsl.core.lang.uml;
 
 import org.modsl.core.AbstractModSLTest;
+import org.modsl.core.render.StyleLoader;
 
 public abstract class AbstractUMLTest extends AbstractModSLTest {
 
     protected UMLProcessor processor;
 
-    protected UMLTranslator translator = new UMLTranslator();
+    protected static UMLTranslator translator = new UMLTranslator();
+    
+    static {
+        StyleLoader stl = new StyleLoader();
+        stl.load("cfg/uml:cfg", "uml", UMLMetaType.class);
+    }
 
     public AbstractUMLTest() {
         processor = new UMLProcessor();
