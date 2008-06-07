@@ -21,13 +21,13 @@ import static java.lang.Math.max;
 import java.util.Arrays;
 import java.util.List;
 
-import org.modsl.core.agt.common.FontTransform;
 import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 import org.modsl.core.agt.model.NodeLabel;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.uml.UMLMetaType;
+import org.modsl.core.render.Style;
 
 /**
  * Node size calculation based on node's text height and width.
@@ -39,33 +39,33 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 	public void apply(Node node) {
 
 		NodeLabel hl = getHeaderLabel(node);
-        log.debug("Setting offset for " + hl);
+		log.debug("Setting offset for " + hl);
 
-		FontTransform fth = hl.getType().getConfig().getFontTransform();
-		hl.setOffset(fth.getLeftPadding(), fth.getTopPadding());
+		Style hs = hl.getType().getStyle();
+		hl.setOffset(hs.getLeftPadding(), hs.getTopPadding());
 
-		Pt nodeSize = new Pt(fth.getExtStringWidth(hl.getName()), fth.getExtHeight(1));
+		Pt nodeSize = new Pt(hs.getExtStringWidth(hl.getName()), hs.getExtHeight(1));
 
 		// vars
-		FontTransform ftv = UMLMetaType.CLASS_VAR_NODE_LABEL.getConfig().getFontTransform();
+		Style vs = UMLMetaType.CLASS_VAR_NODE_LABEL.getStyle();
 		List<NodeLabel> vls = getVarLabels(node);
 
 		double var_y = nodeSize.y;
 		for (int i = 0; i < vls.size(); i++) {
 			NodeLabel l = vls.get(i);
-			l.setOffset(ftv.getLeftPadding(), var_y + ftv.getExtPosition(i));
-			nodeSize.x = max(nodeSize.x, ftv.getLeftPadding() + l.getSize().x + ftv.getRightPadding());
-			nodeSize.y = l.getOffset().y + ftv.getHeight();
+			l.setOffset(vs.getLeftPadding(), var_y + vs.getExtPosition(i));
+			nodeSize.x = max(nodeSize.x, vs.getLeftPadding() + l.getSize().x + vs.getRightPadding());
+			nodeSize.y = l.getOffset().y + vs.getFontHeight();
 			log.debug("Setting offset for " + l);
 		}
 
 		// methods
-		FontTransform ftm = UMLMetaType.CLASS_METHOD_NODE_LABEL.getConfig().getFontTransform();
+		Style ms = UMLMetaType.CLASS_METHOD_NODE_LABEL.getStyle();
 		List<NodeLabel> mls = getMethodLabels(node);
 
 		double method_y;
 		if (vls.size() > 0) {
-			nodeSize.y += ftv.getBottomPadding();
+			nodeSize.y += vs.getBottomPadding();
 			method_y = nodeSize.y;
 		} else {
 			method_y = var_y;
@@ -73,19 +73,19 @@ public class ClassNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
 
 		for (int i = 0; i < mls.size(); i++) {
 			NodeLabel l = mls.get(i);
-			l.setOffset(ftm.getLeftPadding(), method_y + ftm.getExtPosition(i));
-			nodeSize.x = max(nodeSize.x, ftm.getLeftPadding() + l.getSize().x + ftm.getRightPadding());
-			nodeSize.y = l.getOffset().y + ftm.getHeight();
-            log.debug("Setting offset for " + l);
+			l.setOffset(ms.getLeftPadding(), method_y + ms.getExtPosition(i));
+			nodeSize.x = max(nodeSize.x, ms.getLeftPadding() + l.getSize().x + ms.getRightPadding());
+			nodeSize.y = l.getOffset().y + ms.getFontHeight();
+			log.debug("Setting offset for " + l);
 		}
 
 		// final node size adjustments
 		if (mls.size() > 0) {
-			nodeSize.y += ftm.getBottomPadding();
+			nodeSize.y += ms.getBottomPadding();
 		}
 
 		if (vls.size() == 0 && mls.size() == 0) {
-			nodeSize.y += fth.getSize();
+			nodeSize.y += hs.getFontSize();
 		}
 
 		node.setSize(nodeSize.x, nodeSize.y);
