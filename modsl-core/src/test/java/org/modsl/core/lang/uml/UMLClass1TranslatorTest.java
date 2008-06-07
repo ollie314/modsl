@@ -19,7 +19,7 @@ package org.modsl.core.lang.uml;
 import org.junit.Test;
 import org.modsl.core.ImageCollector;
 
-public class UMLClassTranslatorTest extends AbstractUMLTest {
+public class UMLClass1TranslatorTest extends AbstractUMLTest {
 
     protected static ImageCollector ic = new ImageCollector("etc/png-out", "uml_class1");
 
