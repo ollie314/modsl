@@ -49,6 +49,7 @@ public class StyleLoader {
             }
             if ((p = propLoader.getProp(mt.toString() + ".fontStyle")) != null) {
                 last.fontStyle = 0;
+                last.underline = false;
                 p = p.toUpperCase();
                 if (p.indexOf("BOLD") > -1) {
                     last.fontStyle |= Font.BOLD;
