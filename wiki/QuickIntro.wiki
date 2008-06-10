@@ -5,9 +5,17 @@
 import org.modsl.core.lang.uml;
 ...
 
-UMLProcessor processor = new UMLProcessor();
-processor.init();
+// init rendering styles 
+StyleLoader stl = new StyleLoader();
+stl.load("cfg/uml:cfg", "uml", UMLMetaType.class);
 
-String svg = processor.process("collab text { class1:object1->class2:object2.method2(); }");
-	
+// create thread-safe translator instance
+UMLTranslator translator = new UMLTranslator();
+
+// parse input and return BufferedImage result
+BufferedImage image = translator.translate("class diagram cd { class c { } }")
+
+// write the resulting image to disk as PNG file
+ImageIO.write(image, "png", "diagram.png");
+
 }}}
