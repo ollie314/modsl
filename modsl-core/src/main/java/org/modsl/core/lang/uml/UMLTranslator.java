@@ -37,6 +37,7 @@ import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassRevertGenEdgeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
+import org.modsl.core.lang.uml.render.image.ClassAggregateArrowEdgeRenderVisitor;
 import org.modsl.core.lang.uml.render.image.ClassNodeRenderVisitor;
 import org.modsl.core.lang.uml.render.image.CollabArrowEdgeRenderVisitor;
 
@@ -98,7 +99,7 @@ public class UMLTranslator extends AbstractTranslator {
 
             graph.accept(new EdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_EXTENDS_EDGE));
             graph.accept(new EdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
-            graph.accept(new EdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_AGGREGATION_EDGE));
+            graph.accept(new ClassAggregateArrowEdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_AGGREGATION_EDGE));
 
             graph.accept(new ClassNodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_CLASS_NODE));
             graph.accept(new ClassNodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_INTERFACE_NODE));
