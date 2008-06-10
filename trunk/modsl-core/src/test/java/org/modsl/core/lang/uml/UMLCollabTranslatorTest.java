@@ -21,7 +21,6 @@ import java.io.IOException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.modsl.core.ImageCollector;
-import org.modsl.core.render.StyleLoader;
 import org.modsl.core.utils.Utils;
 
 public class UMLCollabTranslatorTest extends AbstractUMLTest {
