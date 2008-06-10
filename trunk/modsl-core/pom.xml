@@ -5,7 +5,7 @@
     <groupId>org.modsl</groupId>
     <artifactId>modsl-core</artifactId>
     <packaging>jar</packaging>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.6-SNAPSHOT</version>
     <name>modsl-core</name>
     <url>http://www.modsl.org</url>
     <pluginRepositories>
