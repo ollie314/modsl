@@ -26,6 +26,7 @@ import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
 import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.render.image.EdgeLabelRenderVisitor;
 import org.modsl.core.agt.render.image.EdgeRenderVisitor;
 import org.modsl.core.agt.render.image.GraphRenderVisitor;
 import org.modsl.core.agt.render.image.NodeLabelRenderVisitor;
@@ -110,12 +111,16 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_METHOD_NODE_LABEL));
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL));
 
+            graph.accept(new EdgeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL));
+            graph.accept(new EdgeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_MULTIPLICITY_TO_EDGE_LABEL));
+
         } else if (graph.getType().equals(UMLMetaType.COLLAB_GRAPH)) {
 
             graph.accept(new GraphRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_GRAPH));
             graph.accept(new CollabArrowEdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_EDGE));
             graph.accept(new NodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_NODE));
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_NODE_LABEL));
+            graph.accept(new EdgeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_EDGE_LABEL));
 
         }
 
