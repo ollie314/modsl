@@ -15,7 +15,6 @@
  */
 package org.modsl.core;
 
-import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.render.Style;
 
@@ -23,13 +22,7 @@ public enum TMetaType implements MetaType {
 
     GRAPH, NODE, EDGE;
 
-    protected MetaTypeConfig config = new MetaTypeConfig();
-
     Style style;
-
-    public MetaTypeConfig getConfig() {
-        return config;
-    }
 
     public Style getStyle() {
         return style;
