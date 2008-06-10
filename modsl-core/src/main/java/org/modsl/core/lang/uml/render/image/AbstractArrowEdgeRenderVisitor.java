@@ -28,6 +28,7 @@ public abstract class AbstractArrowEdgeRenderVisitor extends EdgeRenderVisitor {
     @Override
     public void apply(Edge e) {
         super.apply(e);
+        g.setStroke(NORMAL_STROKE);
         drawSides(e);
     }
     

@@ -16,6 +16,8 @@
 
 package org.modsl.core.agt.render.image;
 
+import java.awt.BasicStroke;
+
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Pt;
@@ -23,8 +25,14 @@ import org.modsl.core.render.Style;
 
 public class EdgeRenderVisitor extends AbstractRenderVisitor {
 
+    protected static BasicStroke NORMAL_STROKE = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+
+    protected static BasicStroke DASHED_STROKE = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f,
+            new float[] { 10.0f, 5.0f }, 0.0f);
+
     @Override
     public void apply(Edge e) {
+        g.setStroke(NORMAL_STROKE);
         draw(e, e.getNode2Port());
     }
 

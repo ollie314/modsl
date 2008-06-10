@@ -26,8 +26,11 @@ public class ClassExtendsArrowEdgeRenderVisitor extends AbstractArrowEdgeRenderV
 
     @Override
     public void apply(Edge e) {
+        g.setStroke(NORMAL_STROKE);
         draw(e, getMidPoint(e));
+        g.setStroke(NORMAL_STROKE);
         drawSides(e);
+        g.setStroke(NORMAL_STROKE);
         drawButt(e);
     }
 
