@@ -23,7 +23,7 @@ public class ClassImplementsArrowEdgeRenderVisitor extends ClassExtendsArrowEdge
     @Override
     public void apply(Edge e) {
         g.setStroke(DASHED_STROKE);
-        draw(e, getMidPoint(e));
+        draw(e, e.getNode1Port(), getMidPoint(e));
         g.setStroke(NORMAL_STROKE);
         drawSides(e);
         g.setStroke(NORMAL_STROKE);
