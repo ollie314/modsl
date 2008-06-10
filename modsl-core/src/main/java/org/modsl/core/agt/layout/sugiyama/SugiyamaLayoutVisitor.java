@@ -33,7 +33,6 @@ import org.modsl.core.agt.layout.AbstractLayoutVisitor;
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.agt.model.Node;
 
 /**

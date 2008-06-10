@@ -14,24 +14,22 @@
  * limitations under the License. 
  */
 
-/**
- * 
- */
-package org.modsl.core.agt.render;
+package org.modsl.core.lang.uml.render;
 
-import org.antlr.stringtemplate.StringTemplateErrorListener;
-import org.apache.log4j.Logger;
+import static java.lang.Math.PI;
 
-public class STErrorListener implements StringTemplateErrorListener {
+import org.modsl.core.lang.uml.UMLMetaType;
 
-    protected Logger log = Logger.getLogger(getClass());
+public class ClassAggregateArrowEdgeRenderVisitor extends AbstractArrowEdgeRenderVisitor {
 
-    public void error(String m, Throwable t) {
-        log.error(m, t);
+    @Override
+    protected double getArrowAngle() {
+        return PI / 5d;
     }
 
-    public void warning(String m) {
-        log.warn(m);
+    @Override
+    protected double getArrowLength() {
+        return UMLMetaType.COLLAB_EDGE.getStyle().getArrowLength();
     }
 
 }

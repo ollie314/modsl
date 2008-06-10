@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.render.image;
+package org.modsl.core.lang.uml.render;
 
 import static java.lang.Math.PI;
 

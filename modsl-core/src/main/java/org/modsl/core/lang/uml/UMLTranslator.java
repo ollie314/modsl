@@ -26,21 +26,21 @@ import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
 import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.render.image.EdgeLabelRenderVisitor;
-import org.modsl.core.agt.render.image.GraphRenderVisitor;
-import org.modsl.core.agt.render.image.NodeLabelRenderVisitor;
-import org.modsl.core.agt.render.image.NodeRenderVisitor;
+import org.modsl.core.agt.render.EdgeLabelRenderVisitor;
+import org.modsl.core.agt.render.GraphRenderVisitor;
+import org.modsl.core.agt.render.NodeLabelRenderVisitor;
+import org.modsl.core.agt.render.NodeRenderVisitor;
 import org.modsl.core.lang.AbstractTranslator;
 import org.modsl.core.lang.uml.layout.cls.ClassEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassRevertGenEdgeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
-import org.modsl.core.lang.uml.render.image.ClassAggregateArrowEdgeRenderVisitor;
-import org.modsl.core.lang.uml.render.image.ClassExtendsArrowEdgeRenderVisitor;
-import org.modsl.core.lang.uml.render.image.ClassImplementsArrowEdgeRenderVisitor;
-import org.modsl.core.lang.uml.render.image.ClassNodeRenderVisitor;
-import org.modsl.core.lang.uml.render.image.CollabArrowEdgeRenderVisitor;
+import org.modsl.core.lang.uml.render.ClassAggregateArrowEdgeRenderVisitor;
+import org.modsl.core.lang.uml.render.ClassExtendsArrowEdgeRenderVisitor;
+import org.modsl.core.lang.uml.render.ClassImplementsArrowEdgeRenderVisitor;
+import org.modsl.core.lang.uml.render.ClassNodeRenderVisitor;
+import org.modsl.core.lang.uml.render.CollabArrowEdgeRenderVisitor;
 
 public class UMLTranslator extends AbstractTranslator {
 

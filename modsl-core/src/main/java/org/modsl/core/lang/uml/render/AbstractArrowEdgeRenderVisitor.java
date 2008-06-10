@@ -14,14 +14,14 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.lang.uml.render.image;
+package org.modsl.core.lang.uml.render;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Pt;
-import org.modsl.core.agt.render.image.EdgeRenderVisitor;
+import org.modsl.core.agt.render.EdgeRenderVisitor;
 
 public abstract class AbstractArrowEdgeRenderVisitor extends EdgeRenderVisitor {
 

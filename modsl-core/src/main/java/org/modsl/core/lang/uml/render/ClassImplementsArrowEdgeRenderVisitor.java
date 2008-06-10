@@ -14,25 +14,20 @@
  * the License.
  */
 
-package org.modsl.core.agt.render.image;
+package org.modsl.core.lang.uml.render;
 
-import org.modsl.core.agt.model.EdgeLabel;
-import org.modsl.core.render.Style;
+import org.modsl.core.agt.model.Edge;
 
-public class EdgeLabelRenderVisitor extends AbstractRenderVisitor {
+public class ClassImplementsArrowEdgeRenderVisitor extends ClassExtendsArrowEdgeRenderVisitor {
 
     @Override
-    public void apply(EdgeLabel label) {
-        
-        Style s = label.getType().getStyle();
-
-        g.setColor(s.getFillColor());
-        g.fillRect((int) label.getPos().x, (int) label.getPos().y, (int) label.getSize().x, (int) label.getSize().y);
-
-        g.setFont(s.getFont());
-        g.setColor(s.getFontColor());
-        g.drawString(label.getName(), (float) label.getTextPos().x, (float) label.getTextPos().y);
-        
+    public void apply(Edge e) {
+        g.setStroke(DASHED_STROKE);
+        draw(e, getMidPoint(e));
+        g.setStroke(NORMAL_STROKE);
+        drawSides(e);
+        g.setStroke(NORMAL_STROKE);
+        drawButt(e);
     }
 
 }
