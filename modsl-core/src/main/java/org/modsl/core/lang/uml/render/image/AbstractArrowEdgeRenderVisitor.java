@@ -38,8 +38,6 @@ public abstract class AbstractArrowEdgeRenderVisitor extends EdgeRenderVisitor {
         g.drawLine((int) offr.x, (int) offr.y, (int) e.getNode2Port().x, (int) e.getNode2Port().y);
     }
 
-    //return getOffsetPoint(element.angle2(), getArrowLength() * cos(getArrowAngle() / 2d));
-
     protected abstract double getArrowAngle();
 
     abstract protected double getArrowLength();
