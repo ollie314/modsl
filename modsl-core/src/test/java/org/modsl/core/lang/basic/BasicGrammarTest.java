@@ -34,14 +34,12 @@ public class BasicGrammarTest extends AbstractBasicTest {
 
 	@Test
 	public void nodes() throws RecognitionException {
-		Graph graph = translator.parse("graph g {\n stmt1; \n \"stmt2\"; 12345; \n }");
-		assertEquals(3, graph.getNodes().size());
+		Graph graph = translator.parse("graph g {\n stmt1; \n \"stmt2\"; \n }");
+		assertEquals(2, graph.getNodes().size());
 		assertEquals("stmt1", graph.getNodes().get(0).getName());
 		assertEquals("stmt1", graph.getNode("stmt1").getName());
 		assertEquals("\"stmt2\"", graph.getNodes().get(1).getName());
 		assertEquals("\"stmt2\"", graph.getNode("\"stmt2\"").getName());
-		assertEquals("12345", graph.getNodes().get(2).getName());
-		assertEquals("12345", graph.getNode("12345").getName());
 	}
 
 	@Test
