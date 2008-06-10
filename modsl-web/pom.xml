@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.modsl</groupId>
             <artifactId>modsl-core</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>0.6-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
