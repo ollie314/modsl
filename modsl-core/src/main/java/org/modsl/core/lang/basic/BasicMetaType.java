@@ -16,7 +16,6 @@
 
 package org.modsl.core.lang.basic;
 
-import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.render.Style;
 
@@ -26,15 +25,9 @@ import org.modsl.core.render.Style;
  */
 public enum BasicMetaType implements MetaType {
 
-	GRAPH, NODE, NODE_LABEL, EDGE;
+    GRAPH, NODE, NODE_LABEL, EDGE;
 
-	MetaTypeConfig config = new MetaTypeConfig();
-	
-	Style style;
-
-    public MetaTypeConfig getConfig() {
-		return config;
-	}
+    Style style;
 
     public Style getStyle() {
         return style;

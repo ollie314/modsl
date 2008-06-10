@@ -16,7 +16,6 @@
 
 package org.modsl.core.agt.model;
 
-import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.render.Style;
 
 /**
@@ -24,11 +23,6 @@ import org.modsl.core.render.Style;
  * @author AVishnyakov
  */
 public interface MetaType {
-
-	/**
-	 * @return meta type config
-	 */
-	public MetaTypeConfig getConfig();
 
     public void setStyle(Style style);
     

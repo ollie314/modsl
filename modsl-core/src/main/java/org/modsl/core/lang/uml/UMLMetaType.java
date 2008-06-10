@@ -16,7 +16,6 @@
 
 package org.modsl.core.lang.uml;
 
-import org.modsl.core.agt.common.MetaTypeConfig;
 import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.render.Style;
 
@@ -55,13 +54,7 @@ public enum UMLMetaType implements MetaType {
     CLASS_MULTIPLICITY_FROM_EDGE_LABEL,
     CLASS_MULTIPLICITY_TO_EDGE_LABEL;
 
-    protected MetaTypeConfig config = new MetaTypeConfig();
-
     Style style;
-
-    public MetaTypeConfig getConfig() {
-        return config;
-    }
 
     public Style getStyle() {
         return style;
