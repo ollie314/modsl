@@ -35,13 +35,13 @@ public class ClassExtendsArrowEdgeRenderVisitor extends AbstractArrowEdgeRenderV
     }
 
     void drawButt(Edge e) {
-        Pt offl = getOffsetPoint(e, e.angle2() - getArrowAngle() / 2d, getArrowLength());
-        Pt offr = getOffsetPoint(e, e.angle2() + getArrowAngle() / 2d, getArrowLength());
+        Pt offl = getOffsetPoint2(e, e.angle2() - getArrowAngle() / 2d, getArrowLength());
+        Pt offr = getOffsetPoint2(e, e.angle2() + getArrowAngle() / 2d, getArrowLength());
         g.drawLine((int) offl.x, (int) offl.y, (int) offr.x, (int) offr.y);
     }
 
     Pt getMidPoint(Edge e) {
-        return getOffsetPoint(e, e.angle2(), getArrowLength() * Math.cos(getArrowAngle() / 2d));
+        return getOffsetPoint2(e, e.angle2(), getArrowLength() * Math.cos(getArrowAngle() / 2d));
     }
 
     @Override

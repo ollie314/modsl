@@ -33,9 +33,9 @@ public abstract class AbstractArrowEdgeRenderVisitor extends EdgeRenderVisitor {
     }
     
     protected void drawSides(Edge e) {
-        Pt offl = getOffsetPoint(e, e.angle2() - getArrowAngle() / 2d, getArrowLength());
+        Pt offl = getOffsetPoint2(e, e.angle2() - getArrowAngle() / 2d, getArrowLength());
         g.drawLine((int) offl.x, (int) offl.y, (int) e.getNode2Port().x, (int) e.getNode2Port().y);
-        Pt offr = getOffsetPoint(e, e.angle2() + getArrowAngle() / 2d, getArrowLength());
+        Pt offr = getOffsetPoint2(e, e.angle2() + getArrowAngle() / 2d, getArrowLength());
         g.drawLine((int) offr.x, (int) offr.y, (int) e.getNode2Port().x, (int) e.getNode2Port().y);
     }
 
@@ -43,7 +43,11 @@ public abstract class AbstractArrowEdgeRenderVisitor extends EdgeRenderVisitor {
 
     abstract protected double getArrowLength();
 
-    protected Pt getOffsetPoint(Edge e, double alpha, double len) {
+    protected Pt getOffsetPoint1(Edge e, double alpha, double len) {
+        return new Pt(e.getNode1Port().x - len * cos(alpha), e.getNode1Port().y - len * sin(alpha));
+    }
+    
+    protected Pt getOffsetPoint2(Edge e, double alpha, double len) {
         return new Pt(e.getNode2Port().x - len * cos(alpha), e.getNode2Port().y - len * sin(alpha));
     }
 
