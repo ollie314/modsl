@@ -14,22 +14,25 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.render.image;
+package org.modsl.core.agt.render.image;
 
-import static java.lang.Math.PI;
+import org.modsl.core.agt.model.EdgeLabel;
+import org.modsl.core.render.Style;
 
-import org.modsl.core.lang.uml.UMLMetaType;
-
-public class CollabArrowEdgeRenderVisitor extends AbstractArrowEdgeRenderVisitor {
-
-    @Override
-    protected double getArrowAngle() {
-        return PI / 5d;
-    }
+public class EdgeLabelRenderVisitor extends AbstractRenderVisitor {
 
     @Override
-    protected double getArrowLength() {
-        return UMLMetaType.COLLAB_EDGE.getStyle().getArrowLength();
+    public void apply(EdgeLabel label) {
+        
+        Style s = label.getType().getStyle();
+
+        g.setColor(s.getFillColor());
+        g.fillRect((int) label.getPos().x, (int) label.getPos().y, (int) label.getSize().x, (int) label.getSize().y);
+
+        g.setFont(s.getFont());
+        g.setColor(s.getFontColor());
+        g.drawString(label.getName(), (float) label.getTextPos().x, (float) label.getTextPos().y);
+        
     }
 
 }
