@@ -49,11 +49,11 @@ classDiagram
 	@after { graph.accept(new NodeRefVisitor()); graph.accept(new ProcAttrVisitor()); }
 	: 'class' 'diagram'? ID procAttributes? '{' (classStmt | interfaceStmt)* '}' { graph.setName($ID.text); };
 
-classStmt: 'class' id=ID ('<' gid+=ID (',' gid+=ID)* '>')?
+classStmt: (abs='abstract')? 'class' id=ID ('<' gid+=ID (',' gid+=ID)* '>')?
 	('extends' eid+=ID (',' eid+=ID)*)? ('implements' iid+=ID (',' iid+=ID)*)? 
 	'{' classElementStmt* '}'
 	{ 	
-		classFactory.createClassNode(graph, $id, $gid, curElements, $eid, $iid, curAggs); 
+		classFactory.createClassNode(abs, graph, $id, $gid, curElements, $eid, $iid, curAggs); 
 		curElements.clear(); 
 		curAggs.clear(); 
 	}; 
