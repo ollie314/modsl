@@ -27,7 +27,6 @@ import org.modsl.antlr.uml.UMLParser;
 import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.render.image.EdgeLabelRenderVisitor;
-import org.modsl.core.agt.render.image.EdgeRenderVisitor;
 import org.modsl.core.agt.render.image.GraphRenderVisitor;
 import org.modsl.core.agt.render.image.NodeLabelRenderVisitor;
 import org.modsl.core.agt.render.image.NodeRenderVisitor;
@@ -38,6 +37,7 @@ import org.modsl.core.lang.uml.layout.cls.ClassRevertGenEdgeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabNodeLayoutVisitor;
 import org.modsl.core.lang.uml.render.image.ClassAggregateArrowEdgeRenderVisitor;
+import org.modsl.core.lang.uml.render.image.ClassExtendsArrowEdgeRenderVisitor;
 import org.modsl.core.lang.uml.render.image.ClassNodeRenderVisitor;
 import org.modsl.core.lang.uml.render.image.CollabArrowEdgeRenderVisitor;
 
@@ -97,8 +97,8 @@ public class UMLTranslator extends AbstractTranslator {
 
             graph.accept(new GraphRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_GRAPH));
 
-            graph.accept(new EdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_EXTENDS_EDGE));
-            graph.accept(new EdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
+            graph.accept(new ClassExtendsArrowEdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_EXTENDS_EDGE));
+            graph.accept(new ClassExtendsArrowEdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
             graph.accept(new ClassAggregateArrowEdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_AGGREGATION_EDGE));
 
             graph.accept(new ClassNodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_CLASS_NODE));
