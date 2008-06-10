@@ -27,7 +27,7 @@ public class ClassExtendsArrowEdgeRenderVisitor extends AbstractArrowEdgeRenderV
     @Override
     public void apply(Edge e) {
         g.setStroke(NORMAL_STROKE);
-        draw(e, getMidPoint(e));
+        draw(e, e.getNode1Port(), getMidPoint(e));
         g.setStroke(NORMAL_STROKE);
         drawSides(e);
         g.setStroke(NORMAL_STROKE);

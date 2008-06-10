@@ -33,14 +33,14 @@ public class EdgeRenderVisitor extends AbstractRenderVisitor {
     @Override
     public void apply(Edge e) {
         g.setStroke(NORMAL_STROKE);
-        draw(e, e.getNode2Port());
+        draw(e, e.getNode1Port(), e.getNode2Port());
     }
 
-    protected void draw(Edge e, Pt endpoint) {
+    protected void draw(Edge e, Pt startPoint, Pt endPoint) {
         Style s = e.getType().getStyle();
         g.setColor(s.getStrokeColor());
-        int cx = (int) e.getNode1Port().x;
-        int cy = (int) e.getNode1Port().y;
+        int cx = (int) startPoint.x;
+        int cy = (int) startPoint.y;
         for (Bend b : e.getBends()) {
             int nx = (int) b.getPos().x;
             int ny = (int) b.getPos().y;
@@ -48,7 +48,7 @@ public class EdgeRenderVisitor extends AbstractRenderVisitor {
             cx = nx;
             cy = ny;
         }
-        g.drawLine(cx, cy, (int) endpoint.x, (int) endpoint.y);
+        g.drawLine(cx, cy, (int) endPoint.x, (int) endPoint.y);
     }
 
 }
