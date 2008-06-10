@@ -49,6 +49,7 @@ public class UMLTranslator extends AbstractTranslator {
         if (graph.getType().equals(UMLMetaType.CLASS_GRAPH)) {
 
             graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_CLASS_NODE));
+            graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_ABSTRACT_CLASS_NODE));
             graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_INTERFACE_NODE));
 
             graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
@@ -103,14 +104,17 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new ClassAggregateArrowEdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_AGGREGATION_EDGE));
 
             graph.accept(new ClassNodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_CLASS_NODE));
+            graph.accept(new ClassNodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_ABSTRACT_CLASS_NODE));
             graph.accept(new ClassNodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_INTERFACE_NODE));
 
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_CLASS_NODE_LABEL));
+            graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_ABSTRACT_CLASS_NODE_LABEL));
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_INTERFACE_NODE_LABEL));
 
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_VAR_NODE_LABEL));
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL));
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_METHOD_NODE_LABEL));
+            graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_ABSTRACT_METHOD_NODE_LABEL));
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL));
 
             graph.accept(new EdgeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL));

@@ -61,11 +61,13 @@ public class UMLClassFactory extends AbstractUMLFactory {
 
     }
 
-    public void createClassNode(Graph parent, Token token, List<Token> genericTokens, List<NodeLabel> elements,
+    public void createClassNode(Token abs, Graph parent, Token token, List<Token> genericTokens, List<NodeLabel> elements,
             List<Token> extendTokens, List<Token> implementTokens, LinkedList<String> aggs) {
 
-        Node n = createNode(parent, token, genericTokens, UMLMetaType.CLASS_CLASS_NODE, UMLMetaType.CLASS_CLASS_NODE_LABEL,
-                elements, extendTokens, implementTokens);
+        UMLMetaType mt = (abs == null) ? UMLMetaType.CLASS_CLASS_NODE : UMLMetaType.CLASS_ABSTRACT_CLASS_NODE;
+        UMLMetaType mtl = (abs == null) ? UMLMetaType.CLASS_CLASS_NODE_LABEL : UMLMetaType.CLASS_ABSTRACT_CLASS_NODE_LABEL;
+
+        Node n = createNode(parent, token, genericTokens, mt, mtl, elements, extendTokens, implementTokens);
 
         int i = 0;
         while (i < aggs.size()) {
