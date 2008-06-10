@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.test.st.visitor;
+package org.modsl.test.render;
 
 import java.awt.Color;
 import java.awt.Graphics;

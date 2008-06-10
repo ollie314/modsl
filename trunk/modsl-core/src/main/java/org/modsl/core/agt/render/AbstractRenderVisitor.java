@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.render.image;
+package org.modsl.core.agt.render;
 
 import java.awt.Graphics2D;
 

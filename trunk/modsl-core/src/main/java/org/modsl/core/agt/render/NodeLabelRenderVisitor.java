@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.render.image;
+package org.modsl.core.agt.render;
 
 import org.modsl.core.agt.model.NodeLabel;
 import org.modsl.core.render.Style;

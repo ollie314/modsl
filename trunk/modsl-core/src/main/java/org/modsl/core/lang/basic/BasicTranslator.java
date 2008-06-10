@@ -27,10 +27,10 @@ import org.modsl.antlr.basic.BasicParser;
 import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
-import org.modsl.core.agt.render.image.EdgeRenderVisitor;
-import org.modsl.core.agt.render.image.GraphRenderVisitor;
-import org.modsl.core.agt.render.image.NodeLabelRenderVisitor;
-import org.modsl.core.agt.render.image.NodeRenderVisitor;
+import org.modsl.core.agt.render.EdgeRenderVisitor;
+import org.modsl.core.agt.render.GraphRenderVisitor;
+import org.modsl.core.agt.render.NodeLabelRenderVisitor;
+import org.modsl.core.agt.render.NodeRenderVisitor;
 import org.modsl.core.lang.AbstractTranslator;
 
 public class BasicTranslator extends AbstractTranslator {
