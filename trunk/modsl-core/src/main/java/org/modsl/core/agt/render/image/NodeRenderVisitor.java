@@ -35,4 +35,5 @@ public class NodeRenderVisitor extends AbstractRenderVisitor {
         g.setColor(s.getStrokeColor());
         g.drawRoundRect((int) node.getPos().x, (int) node.getPos().y, (int) node.getSize().x, (int) node.getSize().y, 4, 4);
     }
+    
 }
