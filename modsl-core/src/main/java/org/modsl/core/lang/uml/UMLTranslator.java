@@ -105,6 +105,11 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_CLASS_NODE_LABEL));
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_INTERFACE_NODE_LABEL));
 
+            graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_VAR_NODE_LABEL));
+            graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_STATIC_VAR_NODE_LABEL));
+            graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_METHOD_NODE_LABEL));
+            graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL));
+
         } else if (graph.getType().equals(UMLMetaType.COLLAB_GRAPH)) {
 
             graph.accept(new GraphRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_GRAPH));

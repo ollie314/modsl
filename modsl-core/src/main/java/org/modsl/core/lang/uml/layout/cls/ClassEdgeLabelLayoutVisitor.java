@@ -30,7 +30,7 @@ public class ClassEdgeLabelLayoutVisitor extends AbstractNonConfigurableLayoutVi
     @Override
     public void apply(Edge edge) {
 
-        double arrowLength = UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL.getConfig().getFt().getArrowLength();
+        double arrowLength = UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL.getStyle().getArrowLength();
 
         EdgeLabel from = edge.getLabels(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL).get(0);
 
