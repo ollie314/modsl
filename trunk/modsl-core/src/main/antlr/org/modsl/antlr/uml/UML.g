@@ -63,7 +63,7 @@ interfaceStmt: 'interface' id=ID ('<' gid+=ID (',' gid+=ID)* '>')?
 	{ classFactory.createInterfaceNode(graph, $id, $gid, curElements, $eid); curElements.clear(); }; 
 
 classElementStmt: varClassElementStmt | staticVarClassElementStmt 
-	| methodClassElementStmt | staticMethodClassElementStmt | aggStmt;
+	| methodClassElementStmt | abstractMethodClassElementStmt | staticMethodClassElementStmt | aggStmt;
 
 interfaceElementStmt: methodClassElementStmt | staticMethodClassElementStmt;
 
@@ -76,17 +76,20 @@ staticVarClassElementStmt: 'static' var ';'
 methodClassElementStmt: method ';' 
 	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_METHOD_NODE_LABEL, $method.text)); };
 
+abstractMethodClassElementStmt: 'abstract' method ';' 
+	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_ABSTRACT_METHOD_NODE_LABEL, $method.text)); };
+
 staticMethodClassElementStmt: 'static' method ';' 
 	{ curElements.add(classFactory.createNodeElement(UMLMetaType.CLASS_STATIC_METHOD_NODE_LABEL, $method.text)); };
 
 aggStmt: from=multiplicity EDGEOP to=multiplicity '(' ID ')' ';'
 	{ curAggs.add($from.text); curAggs.add($to.text); curAggs.add($ID.text); };
 
-var: ID (':' ID)?;
+var: ('-' | '+' | '#' )? ID (':' ID)?;
 
 objInstance: ID? ':' ID | ID;
 
-method: ID '(' (ID (',' ID)*)? ')' (':' ID)?;
+method: ('-' | '+' | '#' )? ID '(' (ID (',' ID)*)? ')' (':' ID)?;
 
 multiplicity: multibound ('..' multibound)?;
 
