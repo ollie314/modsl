@@ -1,13 +1,17 @@
-<%@ page contentType="image/svg+xml"%><%@ page import="org.modsl.core.lang.uml.*"%><%!
-	UMLProcessor processor;
+<%@ 
+	page contentType="image/png"
+%><%@ 
+	page import="org.modsl.core.lang.uml.*, org.modsl.core.render.*, java.awt.*, java.awt.image.*, javax.imageio.*"
+%><%!
+	UMLTranslator translator;
 	public void jspInit() {
-		processor = new UMLProcessor();
-		processor.init();   
+		StyleLoader stl = new StyleLoader();
+        stl.load("cfg/uml:cfg", "uml", UMLMetaType.class);
+		translator = new UMLTranslator();
 	}
 %><%
 	String input = request.getParameter("script");
 	if (input.length() < 2048) {
-		String svg = processor.process(input);
-		out.write(svg);
+		ImageIO.write(translator.translate(input), "png", response.getOutputStream());
 	}
 %>
