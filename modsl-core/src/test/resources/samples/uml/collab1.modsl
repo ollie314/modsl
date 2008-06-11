@@ -3,8 +3,8 @@ collaboration sample2 {
 	Main->Parser.parse();
 	Main->GraphLayout.apply();
 	GraphLayout->SugiyamaLayout.apply();
-	Main->StringTemplate.renderSvg(); 
-	StringTemplate->TemplateGroup.load();
-	StringTemplate->AttributeMap.create();
-	StringTemplate->Graph.visitNodes();
+	GraphLayout->NodeLabelLayout.apply();
+	GraphLayout->EdgeLabelLayout.apply();
+	Main->RenderVisitor.apply(graph); 
+	RenderVisitor->Graph.visit();
 }
