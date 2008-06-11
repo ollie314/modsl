@@ -3,6 +3,7 @@
 {{{
 
 import org.modsl.core.lang.uml;
+import org.modsl.core.render;
 ...
 
 // init rendering style configuration (application startup)
