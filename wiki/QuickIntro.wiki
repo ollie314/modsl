@@ -5,7 +5,7 @@
 import org.modsl.core.lang.uml;
 ...
 
-// init rendering styles 
+// init rendering style configuration (application startup)
 StyleLoader stl = new StyleLoader();
 stl.load("cfg/uml:cfg", "uml", UMLMetaType.class);
 
