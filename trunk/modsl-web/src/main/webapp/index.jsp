@@ -6,26 +6,35 @@
 <h3>ModSL WebService Test Page</h3>
 <p/>
 This form allows you to test ModSL text-to-diagram capabilities online. 
-Please enter diagram script into the text area below and click [Submit]. 
-It will post the content of the script to <b>http://ws.modsl.org/uml</b> and return the resulting 
-diagram graphics as PNG. 
+Enter diagram script into the text area below and click &lt;Render Diagram&gt;. 
+It will post the content of the script to <b>http://ws.modsl.org/uml</b> web service and return the resulting 
+diagram graphics as PNG file. 
 <p/>
 <form action="uml" method="get">
 <b>UML text-to-diagram</b>
 <p/>
-<textarea name="script" rows="16" cols="64">
-class diagram MyDiagram { 
-   interface MyInterface { 
-      method1(); 
+<textarea name="script" rows="24" cols="64">
+class diagram Sample {
+   abstract class AbstractElement {
+      name; parent; type;
+      abstract accept(AbstractVisitor);
    } 
-   class MyClass1 implements MyInterface { 
-      var1; var2; method1(); method2(); 
+   abstract class AbstractBox extends AbstractElement {
+      pos; disp; size;
    }
-   class MyClass2 implements MyInterface { 
-      method1();  
-      1->0..n(MyClass1);
+   class Edge extends AbstractElement {
+      labels; bends; node1; node2;
+   }
+   class Bend extends AbstractBox {}
+   class Graph extends AbstractBox {
+      reqSize; labels; 
+      1->*(Edge);
+      1->*(Node);
+   }
+   class Node extends AbstractBox {
+      connectedEdges; labels;
    }	
-} 
+}
 </textarea>
 <br/>
 <a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">Diagram Script Syntax Help</a>
