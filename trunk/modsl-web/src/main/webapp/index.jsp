@@ -14,6 +14,8 @@ diagram graphics as PNG file.
 <p/>
 <form action="uml" method="get">
 <b>UML text-to-diagram</b><br/>
+<table cellspacing=0 cellpadding=0 border=0>
+<tr><td class="tbld">
 <textarea name="script" rows="24" cols="64">
 class diagram Sample {
    abstract class AbstractElement {
@@ -37,9 +39,15 @@ class diagram Sample {
    }	
 }
 </textarea>
-<br/>
-<a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">Diagram Script Syntax Help</a>
-&nbsp; &nbsp; (2 Kbytes script size limit)
+</td><td class="tbld">
+<div class="hlp">
+<a href="http://code.google.com/p/modsl">ModSL project page</a>
+</div>
+<div class="hlp">
+<a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">Diagram script syntax help</a>
+</div>
+</td></tr></table>
+(this public webservice limits script size to 2 Kbytes)
 <p/>
 <input type="submit" value="Render Diagram">
 </form>
