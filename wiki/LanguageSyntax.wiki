@@ -58,4 +58,4 @@ Notes:
          * `:Object.method()`
          * `Class:Object.method()`
    * Multiple calls/messages can be chained together, such as `obj_a->obj_b->obj_c`
-   * Multiple calls between the same pair of entities is not supported yet (i.e. `a->b.c(); a->b.d();` will fail)
+   * Multiple calls between the same pair of entities is not supported yet (i.e. `{ a->b.c(); a->b.d(); }` will fail)
