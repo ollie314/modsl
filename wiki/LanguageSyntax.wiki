@@ -6,7 +6,7 @@ Currently ModSL scripting language supports UML class and collaboration diagrams
 === Class Diagrams ===
 Sample:
 {{{
-class diagram MyDiagram (width:640, height:480) { 
+class diagram MyDiagram { 
    interface MyInterface { 
       method1(); 
    } 
@@ -36,8 +36,7 @@ Notes:
      * `implements`
      * `n->m` (aggregation). Multiplicity on either end can be a number, `*`, single character or a range like `1..n` 
    * The word `diagram` in the diagram definition is optional.
-   * `width` and `height` are optional. Without the width and height specified the layout algorithm will try to determine the best diagram size based on the number of nodes and edges.
-
+  
 === Collaboration Diagrams ===
 Sample:
 {{{
