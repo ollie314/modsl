@@ -8,13 +8,13 @@ Sample:
 {{{
 class diagram MyDiagram { 
    interface MyInterface { 
-      method1(); 
+      +method1(p1,p2):void; 
    } 
    abstract class MyClass1 implements MyInterface { 
-      var1; var2; method1(); abstract method2(); 
+      var1; var2; +method1(p1,p2):void; abstract method2(); 
    }
    class MyClass2 implements MyInterface { 
-      static method1();
+      static method1(parameter1):Date;
       1->0..n(MyClass1);
    }	
 } 
@@ -28,9 +28,13 @@ Notes:
    * Supported elements:
      * `var`
      * `static var`
-     * `method()`
+     * `method()` with optional parameters and return type: `method(p1,p2):String`
      * `abstract method()`
      * `static method`
+   * Supported visibility modifiers:
+     * `-` (private)
+     * `#` (protected)
+     * `+` (public)
    * Supported relationship operations:
      * `extends`
      * `implements`
