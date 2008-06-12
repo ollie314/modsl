@@ -1,8 +1,8 @@
 body {
-  font-family: arial, sans-serif;
-  font-size: 83%;
-  background: #fff;
-  margin: 10px 10px 10px 10px;
+	font-family: arial, sans-serif;
+	font-size: 100%;
+	background: #fff;
+	margin: 10px 10px 10px 10px;
 }
 
 .hdr {
@@ -15,6 +15,18 @@ body {
 }
 
 .bdy {
+	font-size: 83%;
 	margin: 4px; 
 	padding: 2px;
+}
+
+.hlp {
+	background-color: #e5ecf9;
+	font-size: 83%;
+	margin: 4px; 
+	padding: 10px;
+}
+
+.tbld {
+	vertical-align: top;
 }
