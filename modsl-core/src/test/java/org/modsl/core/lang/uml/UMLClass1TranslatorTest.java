@@ -61,7 +61,7 @@ public class UMLClass1TranslatorTest extends AbstractUMLTest {
 
     @Test
     public void process1mp() throws Exception {
-        ic.collect("c1mp", translator.translate("class diagram c1mp { class class1 { m1(p1,     p2, p3); } }"), "png");
+        ic.collect("c1mp", translator.translate("class diagram c1mp { class class1 { #m1(p1,     p2, p3):void; } }"), "png");
     }
 
 }
