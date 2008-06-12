@@ -1,18 +1,19 @@
 <html>
 <head>
 <title>ModSL WebService Home</title>
+<link type="text/css" rel="stylesheet" href="modsl.css" />
 </head>
 <body>
-<h3>ModSL WebService Test Page</h3>
+<div class="hdr">ModSL WebService Home</div>
 <p/>
+<div class="bdy">
 This form allows you to test ModSL text-to-diagram capabilities online. 
 Enter diagram script into the text area below and click &lt;Render Diagram&gt;. 
 It will post the content of the script to <b>http://ws.modsl.org/uml</b> web service and return the resulting 
 diagram graphics as PNG file. 
 <p/>
 <form action="uml" method="get">
-<b>UML text-to-diagram</b>
-<p/>
+<b>UML text-to-diagram</b><br/>
 <textarea name="script" rows="24" cols="64">
 class diagram Sample {
    abstract class AbstractElement {
@@ -42,5 +43,6 @@ class diagram Sample {
 <p/>
 <input type="submit" value="Render Diagram">
 </form>
+</div>
 </body>
 </html>

@@ -1,0 +1,20 @@
+body {
+  font-family: arial, sans-serif;
+  font-size: 83%;
+  background: #fff;
+  margin: 10px 10px 10px 10px;
+}
+
+.hdr {
+	background-color: #e5ecf9;
+	border-top: 1px solid #3366cc;
+	font-weight: bold; 
+	font-size: 110%;
+	margin: 4px; 
+	padding: 2px;
+}
+
+.bdy {
+	margin: 4px; 
+	padding: 2px;
+}
