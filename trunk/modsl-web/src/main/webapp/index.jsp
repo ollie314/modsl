@@ -7,7 +7,7 @@
 <p/>
 This form allows you to test ModSL text-to-diagram capabilities online. 
 Please enter diagram script into the text area below and click [Submit]. 
-It will post the content of the script to http://ws.modsl.org/uml and return the resulting 
+It will post the content of the script to <b>http://ws.modsl.org/uml</b> and return the resulting 
 diagram graphics as PNG. 
 <p/>
 <form action="uml" method="get">
@@ -29,9 +29,9 @@ class diagram MyDiagram {
 </textarea>
 <br/>
 <a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">Diagram Script Syntax Help</a>
-&nbsp; &nbsp; (public webservice limits script size to 2 Kbytes)
+&nbsp; &nbsp; (2 Kbytes script size limit)
 <p/>
-<input type="submit" value="Show Diagram">
+<input type="submit" value="Render Diagram">
 </form>
 </body>
 </html>
