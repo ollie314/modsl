@@ -10,11 +10,11 @@ class diagram MyDiagram (width:640, height:480) {
    interface MyInterface { 
       method1(); 
    } 
-   class MyClass1 implements MyInterface { 
-      var1; var2; method1(); method2(); 
+   abstract class MyClass1 implements MyInterface { 
+      var1; var2; method1(); abstract method2(); 
    }
    class MyClass2 implements MyInterface { 
-      method1();
+      static method1();
       1->0..n(MyClass1);
    }	
 } 
@@ -22,7 +22,21 @@ class diagram MyDiagram (width:640, height:480) {
 
 Some notes:
    * The word `diagram` in the diagram definition is optional.
-   * `width` and `height` are optional. Without width and height specified the layout algorithm will try to determine the best diagram size based on the number of nodes and edges.
+   * `width` and `height` are optional. Without the width and height specified the layout algorithm will try to determine the best diagram size based on the number of nodes and edges.
+   * The following entities are supported:
+      * `class'
+      * 'abstract class`
+      * 'interfrace'
+   * Supported elements:
+     * `var`
+     * `static var`
+     * `method()`
+     * `abstract method()`
+     * `static method`
+   * Supported relationship operations:
+     * `extends`
+     * `implements`
+     * `n->m` (aggregation). Multiplicity on either end can be a number, `*`, single character or a range like `1..n` 
 
 === Collaboration Diagrams ===
 Sample:
