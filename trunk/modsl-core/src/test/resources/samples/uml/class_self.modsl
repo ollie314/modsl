@@ -1,9 +1,9 @@
 class diagram self {
-	class AbstractElement {
+	abstract class AbstractElement {
 		name; parent; type;
-		accept(AbstractVisitor);
+		abstract accept(AbstractVisitor);
 	} 
-	class AbstractBox extends AbstractElement {
+	abstract class AbstractBox extends AbstractElement {
 		pos; disp; size;
 	}
 	class Edge extends AbstractElement {

@@ -54,7 +54,7 @@ public class UMLClass2TranslatorTest extends AbstractUMLTest {
 				.collect(
 						"c2b",
 						translator
-								.translate("class diagram c2b { class AbstractBox { size; pos; getSize(); getPos(); } class AbstractLabel extends AbstractBox { name; getTextPos(); } "
+								.translate("class diagram c2b { abstract class AbstractBox { size; pos; getSize(); getPos(); } class AbstractLabel extends AbstractBox { name; getTextPos(); } "
 										+ "class NodeLabel extends AbstractLabel { offset; getOffset(); } class GraphLabel extends AbstractLabel {}"
 										+ " class EdgeLabel extends AbstractLabel { anchor1; anchor2; offset; getAnchor1(); getAnchor2(); getOffset(); } } "),
 						"png");
