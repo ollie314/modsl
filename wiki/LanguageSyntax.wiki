@@ -20,13 +20,11 @@ class diagram MyDiagram (width:640, height:480) {
 } 
 }}}
 
-Some notes:
-   * The word `diagram` in the diagram definition is optional.
-   * `width` and `height` are optional. Without the width and height specified the layout algorithm will try to determine the best diagram size based on the number of nodes and edges.
+Notes:
    * The following entities are supported:
-      * `class'
-      * 'abstract class`
-      * 'interfrace'
+      * `class`
+      * `abstract class`
+      * `interfrace`
    * Supported elements:
      * `var`
      * `static var`
@@ -37,6 +35,8 @@ Some notes:
      * `extends`
      * `implements`
      * `n->m` (aggregation). Multiplicity on either end can be a number, `*`, single character or a range like `1..n` 
+   * The word `diagram` in the diagram definition is optional.
+   * `width` and `height` are optional. Without the width and height specified the layout algorithm will try to determine the best diagram size based on the number of nodes and edges.
 
 === Collaboration Diagrams ===
 Sample:
@@ -48,5 +48,14 @@ collaboration diagram MyDiagram {
 }}}
 
 Notes:
-   * In `Class:Object` notation the class name is optional. `Class:Object`, `:Object` and `Object` are all valid identifiers.
-   * Multiple calls can be chained together, such as `obj_a->obj_b->obj_c`
+   * The following entities are supported:
+      * Caller (left side):
+         * `Object`
+         * `:Object`
+         * `Class:Object`
+      * Callee (right side):
+         * `Object.method()`
+         * `:Object.method()`
+         * `Class:Object.method()`
+   * Multiple calls/messages can be chained together, such as `obj_a->obj_b->obj_c`
+   * Multiple calls between the same pair of entities is not supported yet (i.e. `a->b.c(); a->b.d();` will fail)
