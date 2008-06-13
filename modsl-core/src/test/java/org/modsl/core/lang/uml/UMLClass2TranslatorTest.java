@@ -43,7 +43,7 @@ public class UMLClass2TranslatorTest extends AbstractUMLTest {
 				.collect(
 						"c2a",
 						translator
-								.translate("class diagram c2a (width:240, height:400) { class c1 { v1; m1(p1); m2(p2); 1->*(c2); 0..1->n..m(c3); } "
+								.translate("class diagram c2a (width:240, height:400, layout:\"free\") { class c1 { v1; m1(p1); m2(p2); 1->*(c2); 0..1->n..m(c3); } "
 										+ " class c2 { m1(p1); 1->1(c3); } class c3 extends i1 { m2(p2); 1..*->1(c4); }  class c4 {} interface i1{} } "),
 						"png");
 	}

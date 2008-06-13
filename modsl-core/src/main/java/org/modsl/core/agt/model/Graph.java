@@ -30,394 +30,395 @@ import org.modsl.core.render.Style;
 
 public class Graph extends AbstractBox<Graph> {
 
-	private static int counter = 0;
+    private static int counter = 0;
 
-	/**
-	 * List of children nodes
-	 */
-	List<Node> nodes = new LinkedList<Node>();
+    /**
+     * List of children nodes
+     */
+    List<Node> nodes = new LinkedList<Node>();
 
-	/**
-	 * Labels
-	 */
-	List<GraphLabel> labels = new LinkedList<GraphLabel>();
+    /**
+     * Labels
+     */
+    List<GraphLabel> labels = new LinkedList<GraphLabel>();
 
-	/**
-	 * Map of children nodes {name->node}
-	 */
-	Map<String, Node> nodeMap = new HashMap<String, Node>();
+    /**
+     * Map of children nodes {name->node}
+     */
+    Map<String, Node> nodeMap = new HashMap<String, Node>();
 
-	/**
-	 * List of children edges
-	 */
-	List<Edge> edges = new LinkedList<Edge>();
+    /**
+     * List of children edges
+     */
+    List<Edge> edges = new LinkedList<Edge>();
 
-	/**
-	 * This element's requested size
-	 */
-	Pt reqSize = new Pt();
+    /**
+     * This element's requested size
+     */
+    Pt reqSize = new Pt();
 
-	/**
-	 * Top padding
-	 */
-	double topPadding = 0d;
+    /**
+     * Top padding
+     */
+    double topPadding = 0d;
 
-	/**
-	 * Bottom padding
-	 */
-	double bottomPadding;
+    /**
+     * Bottom padding
+     */
+    double bottomPadding;
 
-	/**
-	 * Left padding
-	 */
-	double leftPadding;
+    /**
+     * Left padding
+     */
+    double leftPadding;
 
-	/**
-	 * Right padding
-	 */
-	double rightPadding;
+    /**
+     * Right padding
+     */
+    double rightPadding;
 
-	/**
-	 * Processing attributes
-	 */
-	Map<String, String> procAttrs = new HashMap<String, String>();
+    /**
+     * Log message container
+     */
+    List<String> logMessages;
 
-	/**
-	 * Log message container
-	 */
-	List<String> logMessages;
+    public Graph(MetaType type) {
+        super(type);
+        this.index = counter++;
+        resetPaddings();
+    }
 
-	public Graph(MetaType type) {
-		super(type);
-		this.index = counter++;
-		resetPaddings();
-	}
+    public Graph(MetaType type, String name) {
+        super(type, name);
+        resetPaddings();
+        this.index = counter++;
+    }
 
-	public Graph(MetaType type, String name) {
-		super(type, name);
-		resetPaddings();
-		this.index = counter++;
-	}
+    @Override
+    public void accept(AbstractVisitor visitor) {
+        visitor.in(this);
+        for (Edge e : edges) {
+            e.accept(visitor);
+        }
+        for (Node n : nodes) {
+            n.accept(visitor);
+        }
+        for (GraphLabel l : getLabels()) {
+            l.accept(visitor);
+        }
+        visitor.out(this);
+    }
 
-	@Override
-	public void accept(AbstractVisitor visitor) {
-		visitor.in(this);
-		for (Edge e : edges) {
-			e.accept(visitor);
-		}
-		for (Node n : nodes) {
-			n.accept(visitor);
-		}
-		for (GraphLabel l : getLabels()) {
-			l.accept(visitor);
-		}
-		visitor.out(this);
-	}
+    /**
+     * Add child edge
+     * @param child
+     */
+    public void add(Edge child) {
+        child.parent = this;
+        edges.add(child);
+    }
 
-	/**
-	 * Add child edge
-	 * @param child
-	 */
-	public void add(Edge child) {
-		child.parent = this;
-		edges.add(child);
-	}
+    /**
+     * Add child node
+     * @param child
+     */
+    public void add(Node child) {
+        child.parent = this;
+        nodes.add(child);
+        nodeMap.put(child.getName(), child);
+    }
 
-	/**
-	 * Add child node
-	 * @param child
-	 */
-	public void add(Node child) {
-		child.parent = this;
-		nodes.add(child);
-		nodeMap.put(child.getName(), child);
-	}
+    public void addProcAttr(String key, String value) {
+        if (value.startsWith("\"")) {
+            value = value.substring(1, value.length() - 1);
+        }
+        if ("width".equals(key)) {
+            reqSize.x = Integer.parseInt(value);
+        } else if
+        ("height".equals(key)) {
+            reqSize.y = Integer.parseInt(value);
+        } else if("layout".equals(key)) {
+            //reqLayout = value;
+        } 
+    }
 
-	public void addProcAttr(String key, String value) {
-		procAttrs.put(key, value);
-	}
+    /**
+     * @return node's area in pixels^2
+     */
+    public double getArea() {
+        return getSize().x * getSize().y;
+    }
 
-	/**
-	 * @return node's area in pixels^2
-	 */
-	public double getArea() {
-		return getSize().x * getSize().y;
-	}
+    public double getBottomPadding() {
+        return bottomPadding;
+    }
 
-	public double getBottomPadding() {
-		return bottomPadding;
-	}
+    /**
+     * @param index
+     * @return edge by index
+     */
+    public Edge getEdge(int index) {
+        return edges.get(index);
+    }
 
-	/**
-	 * @param index
-	 * @return edge by index
-	 */
-	public Edge getEdge(int index) {
-		return edges.get(index);
-	}
+    /**
+     * @return all edge labels
+     */
+    public List<EdgeLabel> getEdgeLabels() {
+        List<EdgeLabel> l = new LinkedList<EdgeLabel>();
+        for (Edge e : edges) {
+            l.addAll(e.getLabels());
+        }
+        return l;
+    }
 
-	/**
-	 * @return all edge labels
-	 */
-	public List<EdgeLabel> getEdgeLabels() {
-		List<EdgeLabel> l = new LinkedList<EdgeLabel>();
-		for (Edge e : edges) {
-			l.addAll(e.getLabels());
-		}
-		return l;
-	}
+    /**
+     * @return children edge list
+     */
+    public List<Edge> getEdges() {
+        return edges;
+    }
 
-	/**
-	 * @return children edge list
-	 */
-	public List<Edge> getEdges() {
-		return edges;
-	}
+    private Pt getExtraPadding() {
+        return new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1);
+    }
 
-	private Pt getExtraPadding() {
-		return new Pt(leftPadding + rightPadding + 1, topPadding + bottomPadding + 1);
-	}
+    public List<GraphLabel> getLabels() {
+        return labels;
+    }
 
-	public List<GraphLabel> getLabels() {
-		return labels;
-	}
+    public double getLeftPadding() {
+        return leftPadding;
+    }
 
-	public double getLeftPadding() {
-		return leftPadding;
-	}
+    public List<String> getLogMessages() {
+        return logMessages;
+    }
 
-	public List<String> getLogMessages() {
-		return logMessages;
-	}
+    /**
+     * @param index
+     * @return node by index
+     */
+    public Node getNode(int index) {
+        return nodes.get(index);
+    }
 
-	/**
-	 * @param index
-	 * @return node by index
-	 */
-	public Node getNode(int index) {
-		return nodes.get(index);
-	}
+    /**
+     * @param key
+     * @return node by it's name
+     */
+    public Node getNode(String key) {
+        return nodeMap.get(key);
+    }
 
-	/**
-	 * @param key
-	 * @return node by it's name
-	 */
-	public Node getNode(String key) {
-		return nodeMap.get(key);
-	}
+    /**
+     * @return children node list
+     */
+    public List<Node> getNodes() {
+        return nodes;
+    }
 
-	/**
-	 * @return children node list
-	 */
-	public List<Node> getNodes() {
-		return nodes;
-	}
+    /**
+     * @return size requested by the client
+     */
+    public Pt getReqSize() {
+        return reqSize;
+    }
 
-	public Map<String, String> getProcAttrs() {
-		return procAttrs;
-	}
+    public double getRightPadding() {
+        return rightPadding;
+    }
 
-	/**
-	 * @return size requested by the client
-	 */
-	public Pt getReqSize() {
-		return reqSize;
-	}
+    /**
+     * @return sum of all edge lengths
+     */
+    public double getSumChildEdgeLengths() {
+        double len = 0d;
+        for (Edge e : edges) {
+            len += e.getLength();
+        }
+        return len;
+    }
 
-	public double getRightPadding() {
-		return rightPadding;
-	}
+    public double getTopPadding() {
+        return topPadding;
+    }
 
-	/**
-	 * @return sum of all edge lengths
-	 */
-	public double getSumChildEdgeLengths() {
-		double len = 0d;
-		for (Edge e : edges) {
-			len += e.getLength();
-		}
-		return len;
-	}
+    /**
+     * @return max position
+     */
+    public Pt maxPos() {
+        MinMaxVisitor mmv = new MinMaxVisitor(new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE)) {
+            @Override
+            void apply(AbstractBox<?> b) {
+                p.x = max(p.x, b.getPos().x);
+                p.y = max(p.y, b.getPos().y);
+            }
+        };
+        accept(mmv);
+        return mmv.p;
+    }
 
-	public double getTopPadding() {
-		return topPadding;
-	}
+    /**
+     * Bottom right corner's (x, y)
+     * @return max (x, y)
+     */
+    public Pt maxPt() {
+        MinMaxVisitor mmv = new MinMaxVisitor(new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE)) {
+            @Override
+            void apply(AbstractBox<?> b) {
+                p.x = max(p.x, b.getPos().x + b.getSize().x);
+                p.y = max(p.y, b.getPos().y + b.getSize().y);
+            }
+        };
+        accept(mmv);
+        return mmv.p;
+    }
 
-	/**
-	 * @return max position
-	 */
-	public Pt maxPos() {
-		MinMaxVisitor mmv = new MinMaxVisitor(new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE)) {
-			@Override
-			void apply(AbstractBox<?> b) {
-				p.x = max(p.x, b.getPos().x);
-				p.y = max(p.y, b.getPos().y);
-			}
-		};
-		accept(mmv);
-		return mmv.p;
-	}
+    /**
+     * @return node with max x (the rightmost one, including it's size)
+     */
+    public AbstractBox<?> maxXBox() {
+        MinMaxVisitor mmv = new MinMaxVisitor() {
+            @Override
+            void apply(AbstractBox<?> b) {
+                box = box == null ? b : (box.getPos().x + box.getSize().x < b.getPos().x + b.getSize().x ? b : box);
+            }
+        };
+        accept(mmv);
+        return mmv.box;
+    }
 
-	/**
-	 * Bottom right corner's (x, y)
-	 * @return max (x, y)
-	 */
-	public Pt maxPt() {
-		MinMaxVisitor mmv = new MinMaxVisitor(new Pt(-Double.MAX_VALUE, -Double.MAX_VALUE)) {
-			@Override
-			void apply(AbstractBox<?> b) {
-				p.x = max(p.x, b.getPos().x + b.getSize().x);
-				p.y = max(p.y, b.getPos().y + b.getSize().y);
-			}
-		};
-		accept(mmv);
-		return mmv.p;
-	}
+    /**
+     * @return node with max y (the lowest one, including it's size)
+     */
+    public AbstractBox<?> maxYBox() {
+        MinMaxVisitor mmv = new MinMaxVisitor() {
+            @Override
+            void apply(AbstractBox<?> b) {
+                box = box == null ? b : (box.getPos().y + box.getSize().y < b.getPos().y + b.getSize().y ? b : box);
+            }
+        };
+        accept(mmv);
+        return mmv.box;
+    }
 
-	/**
-	 * @return node with max x (the rightmost one, including it's size)
-	 */
-	public AbstractBox<?> maxXBox() {
-		MinMaxVisitor mmv = new MinMaxVisitor() {
-			@Override
-			void apply(AbstractBox<?> b) {
-				box = box == null ? b : (box.getPos().x + box.getSize().x < b.getPos().x + b.getSize().x ? b : box);
-			}
-		};
-		accept(mmv);
-		return mmv.box;
-	}
+    public Pt minPos() {
+        return minPt();
+    }
 
-	/**
-	 * @return node with max y (the lowest one, including it's size)
-	 */
-	public AbstractBox<?> maxYBox() {
-		MinMaxVisitor mmv = new MinMaxVisitor() {
-			@Override
-			void apply(AbstractBox<?> b) {
-				box = box == null ? b : (box.getPos().y + box.getSize().y < b.getPos().y + b.getSize().y ? b : box);
-			}
-		};
-		accept(mmv);
-		return mmv.box;
-	}
+    /**
+     * Top left corner's (x, y). Can be different from 0, 0 depending on the
+     * nodes' positions
+     * @return min (x, y)
+     */
+    public Pt minPt() {
+        MinMaxVisitor mmv = new MinMaxVisitor(new Pt(Double.MAX_VALUE, Double.MAX_VALUE)) {
+            @Override
+            void apply(AbstractBox<?> b) {
+                p.x = min(p.x, b.getPos().x);
+                p.y = min(p.y, b.getPos().y);
+            }
+        };
+        accept(mmv);
+        return mmv.p;
+    }
 
-	public Pt minPos() {
-		return minPt();
-	}
+    /**
+     * Shift (x, y) on all vertexes to bring min(x, y) to (0, 0)
+     */
+    public void normalize() {
+        MinMaxVisitor mmv = new MinMaxVisitor(minPt()) {
+            @Override
+            void apply(AbstractBox<?> b) {
+                b.getPos().decBy(p);
+            }
+        };
+        accept(mmv);
+    }
 
-	/**
-	 * Top left corner's (x, y). Can be different from 0, 0 depending on the
-	 * nodes' positions
-	 * @return min (x, y)
-	 */
-	public Pt minPt() {
-		MinMaxVisitor mmv = new MinMaxVisitor(new Pt(Double.MAX_VALUE, Double.MAX_VALUE)) {
-			@Override
-			void apply(AbstractBox<?> b) {
-				p.x = min(p.x, b.getPos().x);
-				p.y = min(p.y, b.getPos().y);
-			}
-		};
-		accept(mmv);
-		return mmv.p;
-	}
+    public void randomize(Random random) {
+        for (Node n : nodes) {
+            n.getPos().randomize(random, reqSize);
+        }
+    }
 
-	/**
-	 * Shift (x, y) on all vertexes to bring min(x, y) to (0, 0)
-	 */
-	public void normalize() {
-		MinMaxVisitor mmv = new MinMaxVisitor(minPt()) {
-			@Override
-			void apply(AbstractBox<?> b) {
-				b.getPos().decBy(p);
-			}
-		};
-		accept(mmv);
-	}
+    /**
+     * Recalculates and sets size of this (non-normalized) graph to true size of
+     * the non-normalized graph
+     */
+    public void recalcSize() {
+        if (nodes.isEmpty()) {
+            size = new Pt(1d, 1d);
+        } else {
+            size = maxPt().decBy(minPt());
+        }
+    }
 
-	public void randomize(Random random) {
-		for (Node n : nodes) {
-			n.getPos().randomize(random, reqSize);
-		}
-	}
+    /**
+     * Rescale/normalize diagram to it's current content, add paddings
+     * @param newSize new size
+     */
+    public void rescale() {
+        recalcSize();
+        rescale(getSize().plus(getExtraPadding()));
+    }
 
-	/**
-	 * Recalculates and sets size of this (non-normalized) graph to true size of
-	 * the non-normalized graph
-	 */
-	public void recalcSize() {
-		if (nodes.isEmpty()) {
-			size = new Pt(1d, 1d);
-		} else {
-			size = maxPt().decBy(minPt());
-		}
-	}
+    /**
+     * Rescale diagram to the given size
+     * @param newSize new size
+     */
+    public void rescale(Pt newSize) {
 
-	/**
-	 * Rescale/normalize diagram to it's current content, add paddings
-	 * @param newSize new size
-	 */
-	public void rescale() {
-		recalcSize();
-		rescale(getSize().plus(getExtraPadding()));
-	}
+        if (nodes.isEmpty()) {
+            return;
+        }
 
-	/**
-	 * Rescale diagram to the given size
-	 * @param newSize new size
-	 */
-	public void rescale(Pt newSize) {
+        normalize();
+        recalcSize();
 
-		if (nodes.isEmpty()) {
-			return;
-		}
+        AbstractBox<?> maxXBox = maxXBox();
+        AbstractBox<?> maxYBox = maxYBox();
 
-		normalize();
-		recalcSize();
+        Pt maxXYSize = new Pt(maxXBox.getSize().x, maxYBox.getSize().y);
 
-		AbstractBox<?> maxXBox = maxXBox();
-		AbstractBox<?> maxYBox = maxYBox();
+        final Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
+        final Pt sizeExt = getSize().minus(maxXYSize).max(1d, 1d);
+        final Pt topLeft = new Pt(leftPadding, topPadding);
 
-		Pt maxXYSize = new Pt(maxXBox.getSize().x, maxYBox.getSize().y);
+        MinMaxVisitor mmv = new MinMaxVisitor() {
+            @Override
+            void apply(AbstractBox<?> b) {
+                b.getPos().mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
+            }
+        };
+        accept(mmv);
 
-		final Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
-		final Pt sizeExt = getSize().minus(maxXYSize).max(1d, 1d);
-		final Pt topLeft = new Pt(leftPadding, topPadding);
+        size = new Pt(newSize);
 
-		MinMaxVisitor mmv = new MinMaxVisitor() {
-			@Override
-			void apply(AbstractBox<?> b) {
-				b.getPos().mulBy(newSizeExt).divBy(sizeExt).incBy(topLeft);
-			}
-		};
-		accept(mmv);
+    }
 
-		size = new Pt(newSize);
+    /**
+     * Resets paddings to the values dictated by font transform object
+     * (essentially based on the font size)
+     */
+    private void resetPaddings() {
+        Style s = type.getStyle();
+        if (s != null) {
+            leftPadding = s.getLeftPadding();
+            rightPadding = s.getRightPadding();
+            topPadding = s.getTopPadding();
+            bottomPadding = s.getBottomPadding() + 12; // (c) line
+        }
+    }
 
-	}
+    public void setLogMessages(List<String> logMessages) {
+        this.logMessages = logMessages;
+    }
 
-	/**
-	 * Resets paddings to the values dictated by font transform object
-	 * (essentially based on the font size)
-	 */
-	private void resetPaddings() {
-		Style s = type.getStyle();
-		if (s != null) {
-			leftPadding = s.getLeftPadding();
-			rightPadding = s.getRightPadding();
-			topPadding = s.getTopPadding();
-			bottomPadding = s.getBottomPadding() + 12; // (c) line
-		}
-	}
-
-	public void setLogMessages(List<String> logMessages) {
-		this.logMessages = logMessages;
-	}
-
-	public void setReqSize(double x, double y) {
-		this.reqSize.x = x;
-		this.reqSize.y = y;
-	}
+    public void setReqSize(double x, double y) {
+        this.reqSize.x = x;
+        this.reqSize.y = y;
+    }
 
 }

@@ -23,7 +23,7 @@ options {
 
 graph 
 	@init{ graph = factory.createGraph(); }
-	@after { graph.accept(new NodeRefVisitor()); graph.accept(new ProcAttrVisitor()); }
+	@after { graph.accept(new NodeRefVisitor()); }
 	: 'graph' ID procAttributes? '{' statement* '}' { graph.setName($ID.text); };
 
 procAttributes: '(' procAttr (',' procAttr)* ')';
