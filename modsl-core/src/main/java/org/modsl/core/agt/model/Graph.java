@@ -82,6 +82,11 @@ public class Graph extends AbstractBox<Graph> {
      */
     List<String> logMessages;
 
+    /**
+     * Requested layout type
+     */
+    String reqLayout;
+
     public Graph(MetaType type) {
         super(type);
         this.index = counter++;
@@ -138,7 +143,7 @@ public class Graph extends AbstractBox<Graph> {
         ("height".equals(key)) {
             reqSize.y = Integer.parseInt(value);
         } else if("layout".equals(key)) {
-            //reqLayout = value;
+            reqLayout = value;
         } 
     }
 
@@ -419,6 +424,10 @@ public class Graph extends AbstractBox<Graph> {
     public void setReqSize(double x, double y) {
         this.reqSize.x = x;
         this.reqSize.y = y;
+    }
+
+    public String getReqLayout() {
+        return reqLayout;
     }
 
 }
