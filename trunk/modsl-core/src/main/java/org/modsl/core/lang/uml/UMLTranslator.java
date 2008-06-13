@@ -24,6 +24,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
+import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.render.EdgeLabelRenderVisitor;
@@ -52,20 +53,26 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_ABSTRACT_CLASS_NODE));
             graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_INTERFACE_NODE));
 
-            graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
-            graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
-            graph.accept(new SugiyamaLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
-            graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
-            graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
-
-            //addLayoutVisitor(new FRLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
+            if ("free".equals(graph.getReqLayout())) {
+                graph.accept(new FRLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
+            } else {
+                graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
+                graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
+                graph.accept(new SugiyamaLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
+                graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
+                graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
+            }
 
             graph.accept(new ClassEdgeLabelLayoutVisitor().type(UMLMetaType.CLASS_AGGREGATION_EDGE));
 
         } else if (graph.getType().equals(UMLMetaType.COLLAB_GRAPH)) {
 
             graph.accept(new CollabNodeLayoutVisitor().type(UMLMetaType.COLLAB_NODE));
-            graph.accept(new SugiyamaLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
+            if ("free".equals(graph.getReqLayout())) {
+                graph.accept(new FRLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
+            } else {
+                graph.accept(new SugiyamaLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
+            }
             graph.accept(new CollabEdgeLabelLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
 
         }
