@@ -39,6 +39,8 @@ class diagram Sample {
    }	
 }
 </textarea>
+<br/>
+<div class="btns">(this public webservice limits script size to 2 Kbytes)<p/></div>
 </td><td class="tbld">
 <div class="hlp">
 <a href="http://code.google.com/p/modsl">ModSL project page</a>
@@ -46,12 +48,13 @@ class diagram Sample {
 <div class="hlp">
 <a href="http://code.google.com/p/modsl/wiki/LanguageSyntax">Diagram script syntax help</a>
 </div>
-</td></tr></table>
-(this public webservice limits script size to 2 Kbytes)
-<p/>
-<input type="submit" value="Render Diagram">
+</td></tr>
+<tr><td class="btns">
+<input type="submit" value="Render Diagram">&nbsp;&nbsp;&nbsp;<input type="reset">
 </form>
 </div>
+</td><td></td></tr>
+</table>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
