@@ -62,34 +62,4 @@ public class FRLayoutVisitorTest {
         // log.debug(new ToStringVisitor().toString(graph));
     }
 
-    @Test
-    public void barsv() {
-        /*layout.bars.add(new Bar(true, 0, 0d));
-        n1.setIndex(0);
-        layout.bars.add(new Bar(true, 100, 0d));
-        n2.setIndex(1);
-        layout.in(graph);*/
-        // log.debug(new ToStringVisitor().toString(graph));
-    }
-
-    @Test
-    public void barsh() {
-       /* layout.bars.add(new Bar(false, 0, 0d));
-        n1.setIndex(0);
-        layout.bars.add(new Bar(false, 100, 0d));
-        n2.setIndex(1);
-        layout.in(graph);*/
-        // log.debug(new ToStringVisitor().toString(graph));
-    }
-
-    @Test
-    public void weight() {
-        double w = 1d;
-        for (Node n : graph.getNodes()) {
-            n.setWeight(w++);
-        }
-        layout.in(graph);
-        //log.debug(new ToStringVisitor().toString(graph));
-    }
-
 }
