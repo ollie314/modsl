@@ -29,52 +29,49 @@ public class UMLCollabTranslatorTest extends AbstractUMLTest {
 
     @Test
     public void process0() throws Exception {
-        ic.collect("coll0", translator.translate("collab coll0 { }"), "png");
+        ic.collect("coll0", translator.translate("collab coll0 { }"));
     }
 
     @Test
     public void process25() throws Exception {
-        ic.collect("coll25", translator.translate("collab coll25 { c1:o1->c2:o2.m2()->c3:o3.m3()->c1:o1.m4(); }"),
-                "png");
+        ic.collect("coll25", translator.translate("collab coll25 { c1:o1->c2:o2.m2()->c3:o3.m3()->c1:o1.m4(); }"));
     }
 
     @Test
     public void process35() throws Exception {
-        ic.collect("coll35", translator.translate("collab coll35 { o1->o2.m2()->o3.m3(); o1->o4.m4()->o3.m3(); }"),
-                "png");
+        ic.collect("coll35", translator.translate("collab coll35 { o1->o2.m2()->o3.m3(); o1->o4.m4()->o3.m3(); }"));
     }
 
     @Test
     public void process7() throws Exception {
         ic.collect("coll7", translator
-                .translate("collab coll7 { ooo1->ooo2.m2()->ooo3.m3()->ooo4.m4()->ooo5.m5()->ooo6.m6()->ooo7.m7(); }"), "png");
+                .translate("collab coll7 { ooo1->ooo2.m2()->ooo3.m3()->ooo4.m4()->ooo5.m5()->ooo6.m6()->ooo7.m7(); }"));
     }
 
     @Test
     public void process20() throws Exception {
-        ic.collect("coll20", translator.translate("collab coll20 { o1->o2.m2(); }"), "png");
+        ic.collect("coll20", translator.translate("collab coll20 { o1->o2.m2(); }"));
     }
 
     @Test
     public void process30() throws Exception {
-        ic.collect("coll30", translator.translate("collab coll30 { o1->o2.m2()->o3.m3(); o4->o3.m3(); }"), "png");
+        ic.collect("coll30", translator.translate("collab coll30 { o1->o2.m2()->o3.m3(); o4->o3.m3(); }"));
     }
 
     @Test
     public void process2() throws RecognitionException, IOException {
-        ic.collect("coll2", translator
-                .translate("collab coll2 { :o1->:o2.m2(); :o1->:o3.m3(); :o2->:o4.m4(); :o2->:o5.m5();"
-                        + " :o3->:o6.m6(); :o3->:o7.m7(); :o6->:o7.m8(); :o1->:o6.m9(); :o6->:o2.m10(); :o3->o2.m11(); }"), "png");
+        ic.collect("coll2", translator.translate("collab coll2 { :o1->:o2.m2(); :o1->:o3.m3(); :o2->:o4.m4(); :o2->:o5.m5();"
+                + " :o3->:o6.m6(); :o3->:o7.m7(); :o6->:o7.m8(); :o1->:o6.m9(); :o6->:o2.m10(); :o3->o2.m11(); }"));
     }
 
     @Test
     public void process3() throws RecognitionException, IOException {
-        ic.collect("coll3", translator.translate(Utils.fromFile("samples/uml/collab3.modsl")), "png");
+        ic.collect("coll3", translator.translate(Utils.fromFile("samples/uml/collab3.modsl")));
     }
 
     @Test
     public void process1f() throws RecognitionException, IOException {
-        ic.collect("coll1", translator.translate(Utils.fromFile("samples/uml/collab1.modsl")), "png");
+        ic.collect("coll1", translator.translate(Utils.fromFile("samples/uml/collab1.modsl")));
     }
 
 }

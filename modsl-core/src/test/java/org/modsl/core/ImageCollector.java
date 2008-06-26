@@ -28,6 +28,8 @@ import org.modsl.core.utils.Utils;
 
 public class ImageCollector {
 
+    static final String IMG_TYPE = "png";
+    
     List<String> urls = new LinkedList<String>();
 
     String name;
@@ -38,9 +40,9 @@ public class ImageCollector {
         this.name = name;
     }
 
-    public void collect(String graph, BufferedImage image, String ext) throws IOException {
-        String n = name + "_" + graph + "." + ext;
-        ImageIO.write(image, "png", new File(path + "/" + n));
+    public void collect(String graph, BufferedImage image) throws IOException {
+        String n = name + "_" + graph + "." + IMG_TYPE;
+        ImageIO.write(image, IMG_TYPE, new File(path + "/" + n));
         urls.add(n);
         Utils.toFile(path + "/" + name + ".html", html());
     }
