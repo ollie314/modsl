@@ -390,7 +390,7 @@ public class Graph extends AbstractBox<Graph> {
 
         Pt maxXYSize = new Pt(maxXBox.getSize().x, maxYBox.getSize().y);
 
-        final Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding());
+        final Pt newSizeExt = newSize.minus(maxXYSize).decBy(getExtraPadding()).max(1d, 1d);
         final Pt sizeExt = getSize().minus(maxXYSize).max(1d, 1d);
         final Pt topLeft = new Pt(leftPadding, topPadding);
 

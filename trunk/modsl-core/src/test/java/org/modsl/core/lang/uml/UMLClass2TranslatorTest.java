@@ -70,9 +70,12 @@ public class UMLClass2TranslatorTest extends AbstractUMLTest {
 
     @Test
     public void processWide() throws Exception {
-        ic.collect("wide", translator
-                .translate("class wide { abstract class Wide { wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiide; }"
-                        + " class Wide2 extends Wide {}  class Wide3 extends Wide {} }"));
+        ic
+                .collect(
+                        "wide",
+                        translator
+                                .translate("class wide { abstract class Wide { wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiide; }"
+                                        + " class Wide2 extends Wide {}  class Wide3 extends Wide {} }"));
     }
 
 }
