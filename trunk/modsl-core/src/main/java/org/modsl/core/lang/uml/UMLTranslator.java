@@ -24,6 +24,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
+import org.modsl.core.agt.common.ReqLayout;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
@@ -53,7 +54,7 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_ABSTRACT_CLASS_NODE));
             graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_INTERFACE_NODE));
 
-            if ("free".equals(graph.getReqLayout())) {
+            if (ReqLayout.free.equals(graph.getReqLayout())) {
                 graph.accept(new FRLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
             } else {
                 graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
@@ -68,7 +69,7 @@ public class UMLTranslator extends AbstractTranslator {
         } else if (graph.getType().equals(UMLMetaType.COLLAB_GRAPH)) {
 
             graph.accept(new CollabNodeLayoutVisitor().type(UMLMetaType.COLLAB_NODE));
-            if ("free".equals(graph.getReqLayout())) {
+            if (ReqLayout.free.equals(graph.getReqLayout())) {
                 graph.accept(new FRLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
             } else {
                 graph.accept(new SugiyamaLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));

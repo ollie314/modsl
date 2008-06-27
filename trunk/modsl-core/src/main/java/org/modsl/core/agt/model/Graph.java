@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.modsl.core.agt.common.ProcAttrKey;
+import org.modsl.core.agt.common.ReqLayout;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 import org.modsl.core.render.Style;
 
@@ -85,7 +87,7 @@ public class Graph extends AbstractBox<Graph> {
     /**
      * Requested layout type
      */
-    String reqLayout;
+    ReqLayout reqLayout;
 
     public Graph(MetaType type) {
         super(type);
@@ -134,17 +136,18 @@ public class Graph extends AbstractBox<Graph> {
     }
 
     public void addProcAttr(String key, String value) {
-        if (value.startsWith("\"")) {
-            value = value.substring(1, value.length() - 1);
-        }
-        if ("width".equals(key)) {
+        ProcAttrKey pa = ProcAttrKey.fromString(key);
+        switch (pa) {
+        case width:
             reqSize.x = Integer.parseInt(value);
-        } else if
-        ("height".equals(key)) {
+            break;
+        case height:
             reqSize.y = Integer.parseInt(value);
-        } else if("layout".equals(key)) {
-            reqLayout = value;
-        } 
+            break;
+        case layout:
+            reqLayout = ReqLayout.fromString(value);
+            break;
+        }
     }
 
     /**
@@ -426,7 +429,7 @@ public class Graph extends AbstractBox<Graph> {
         this.reqSize.y = y;
     }
 
-    public String getReqLayout() {
+    public ReqLayout getReqLayout() {
         return reqLayout;
     }
 
