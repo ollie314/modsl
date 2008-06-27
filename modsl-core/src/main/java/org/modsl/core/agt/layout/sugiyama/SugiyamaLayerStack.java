@@ -43,9 +43,9 @@ public class SugiyamaLayerStack {
     static final int MAX_SWEEPS = 100;
     static final double X_SEP = 33;
     static final double Y_SEP = 75;
-    
+
     Logger log = Logger.getLogger(getClass());
-    
+
     List<List<AbstractBox<?>>> layers;
     Map<AbstractBox<?>, Integer> nodeMap;
 

@@ -77,7 +77,7 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new CollabEdgeLabelLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
 
         }
-
+        
         graph.rescale();
 
         return graph;
