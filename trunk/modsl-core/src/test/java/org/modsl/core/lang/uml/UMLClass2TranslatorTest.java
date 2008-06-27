@@ -68,4 +68,11 @@ public class UMLClass2TranslatorTest extends AbstractUMLTest {
         ic.collect("c3noagg", translator.translate(Utils.fromFile("samples/uml/class_self_noagg.modsl")));
     }
 
+    @Test
+    public void processWide() throws Exception {
+        ic.collect("wide", translator
+                .translate("class wide { abstract class Wide { wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiide; }"
+                        + " class Wide2 extends Wide {}  class Wide3 extends Wide {} }"));
+    }
+
 }
