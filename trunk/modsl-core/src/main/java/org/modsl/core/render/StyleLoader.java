@@ -24,7 +24,7 @@ import org.modsl.core.agt.model.MetaType;
 import org.modsl.core.cfg.PropLoader;
 
 /**
- * Loads element styles from given (colon-separated) path for
+ * Loads element styles from given (colon-separated) path
  * 
  * @author avishnyakov
  */
@@ -72,6 +72,7 @@ public class StyleLoader {
             }
             if ((p = propLoader.getProp(mt.toString() + ".fillColor")) != null) {
                 last.fillColor = decodeColor(p);
+                last.gradient = decodeGradient(p);
             }
             mt.setStyle((Style) last.clone());
         }
@@ -85,6 +86,9 @@ public class StyleLoader {
      */
     Color decodeColor(String p) {
         StringTokenizer st = new StringTokenizer(p, ",");
+        if (st.countTokens() > 4) {
+            return null;
+        }
         int[] d = new int[4];
         int tokens = 0;
         while (st.hasMoreTokens()) {
@@ -96,6 +100,27 @@ public class StyleLoader {
         } else {
             return new Color(d[0], d[1], d[2]);
         }
+    }
+
+    /**
+     * Decodes string x1, y1, r, g, b[, alpha], x2, y2, r, g, b[, alpha] into a
+     * Gradient object
+     * @param string
+     * @return color object
+     */
+    Gradient decodeGradient(String p) {
+        StringTokenizer st = new StringTokenizer(p, ",");
+        int cnt = st.countTokens();
+        if (cnt < 10) {
+            return null;
+        }
+        int[] d = new int[cnt];
+        int tokens = 0;
+        while (st.hasMoreTokens()) {
+            d[tokens] = Integer.parseInt(st.nextToken().trim());
+            tokens++;
+        }
+        return new Gradient(d);
     }
 
 }
