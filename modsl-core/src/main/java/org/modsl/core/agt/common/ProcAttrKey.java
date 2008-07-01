@@ -16,14 +16,17 @@
 
 package org.modsl.core.agt.common;
 
-import org.modsl.core.utils.Utils;
 
+/**
+ * Processing attributes
+ * @author avishnyakov
+ */
 public enum ProcAttrKey {
 
     width, height, layout;
 
     public static ProcAttrKey fromString(String name) {
-        return Enum.valueOf(ProcAttrKey.class, Utils.stripDQuotes(name));
+        return Enum.valueOf(ProcAttrKey.class, Utils.stripDoubleQuotes(name));
     }
     
 }

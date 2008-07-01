@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.utils;
+package org.modsl.core.agt.common;
 
 import java.io.BufferedInputStream;
 import java.io.FileWriter;
@@ -88,7 +88,7 @@ public class Utils {
      * @param v
      * @return
      */
-    public static String stripDQuotes(String v) {
+    public static String stripDoubleQuotes(String v) {
         if (v.startsWith("\"") && v.endsWith("\"")) {
             return v.substring(1, v.length() - 1);
         } else {

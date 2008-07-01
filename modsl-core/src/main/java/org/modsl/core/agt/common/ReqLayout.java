@@ -16,14 +16,17 @@
 
 package org.modsl.core.agt.common;
 
-import org.modsl.core.utils.Utils;
 
+/**
+ * "layout" processing attribute values
+ * @author avishnyakov
+ */
 public enum ReqLayout {
 
     free, ordered;
 
     public static ReqLayout fromString(String name) {
-        return Enum.valueOf(ReqLayout.class, Utils.stripDQuotes(name));
+        return Enum.valueOf(ReqLayout.class, Utils.stripDoubleQuotes(name));
     }
 
 }
