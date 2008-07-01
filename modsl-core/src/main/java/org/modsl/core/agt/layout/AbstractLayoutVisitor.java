@@ -16,8 +16,6 @@
 
 package org.modsl.core.agt.layout;
 
-import java.util.Map;
-
 import org.modsl.core.agt.visitor.AbstractMetaTypeVisitor;
 
 /**
@@ -25,16 +23,5 @@ import org.modsl.core.agt.visitor.AbstractMetaTypeVisitor;
  * @author AVishnyakov
  */
 public abstract class AbstractLayoutVisitor extends AbstractMetaTypeVisitor {
-
-    /**
-     * @return configuration name (used to initialize this layout visitor)
-     */
-    public abstract String getConfigName();
-
-    /**
-     * Called when the configuration map is loaded from disk
-     * @param propMap
-     */
-    public abstract void setLayoutConfig(Map<String, String> propMap);
 
 }

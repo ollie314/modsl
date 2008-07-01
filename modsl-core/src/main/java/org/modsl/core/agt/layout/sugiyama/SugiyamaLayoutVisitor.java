@@ -58,11 +58,6 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         //log.debug(new ToStringVisitor().toString(graph));
     }
 
-    @Override
-    public String getConfigName() {
-        return "sugiyama_layout";
-    }
-
     void insertDummies() {
         for (Edge currEdge : new ArrayList<Edge>(graph.getEdges())) {
             int fromLayer = stack.getLayer(currEdge.getNode1());
@@ -113,11 +108,6 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
                 }
             }
         }
-    }
-
-    @Override
-    public void setLayoutConfig(Map<String, String> propMap) {
-        //
     }
 
     List<Node> sortByOutDegree() {
