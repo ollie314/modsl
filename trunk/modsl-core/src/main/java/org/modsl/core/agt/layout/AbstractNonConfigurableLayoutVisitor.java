@@ -24,14 +24,4 @@ import java.util.Map;
  */
 public abstract class AbstractNonConfigurableLayoutVisitor extends AbstractLayoutVisitor {
 
-    @Override
-    public String getConfigName() {
-        return null; // non configurable
-    }
-
-    @Override
-    public void setLayoutConfig(Map<String, String> propMap) {
-        // none
-    }
-
 }
