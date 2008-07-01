@@ -44,6 +44,7 @@ public class Style implements Cloneable {
     Color strokeColor;
 
     Color fillColor;
+    Gradient gradient;
 
     @Override
     public Object clone() {
@@ -96,8 +97,7 @@ public class Style implements Cloneable {
 
     /**
      * @param index line number (starting with 0)
-     * @return top (position) of the line <code>index</code> in multi-line
-     * text
+     * @return top (position) of the line <code>index</code> in multi-line text
      */
     public int getExtPosition(int index) {
         return getTopPadding() + index * getFontHeight();
@@ -170,6 +170,10 @@ public class Style implements Cloneable {
 
     public int getFontStyle() {
         return fontStyle;
+    }
+
+    public Gradient getGradient() {
+        return gradient;
     }
 
     /**
