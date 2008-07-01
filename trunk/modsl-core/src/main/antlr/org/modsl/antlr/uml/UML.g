@@ -21,13 +21,14 @@ options {
 	public Graph graph;
 	protected LinkedList<Graph> nodes = new LinkedList<Graph>();
 	protected UMLCollabFactory collabFactory = new UMLCollabFactory();
-	protected UMLClassFactory classFactory = new UMLClassFactory();
+    protected UMLClassFactory classFactory = new UMLClassFactory();
+    protected UMLSeqFactory seqFactory = new UMLSeqFactory();
 	protected List<NodeLabel> curElements = new LinkedList<NodeLabel>();
 	protected LinkedList<String> collabEdges = new LinkedList<String>();
 	protected LinkedList<String> curAggs = new LinkedList<String>();
 }
 
-diagram : classDiagram | collabDiagram;
+diagram : classDiagram | collabDiagram | seqDiagram;
 
 collabDiagram 
 	@init { graph = collabFactory.createGraph();  }
@@ -35,8 +36,6 @@ collabDiagram
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
 
 procAttributes: '(' procAttr (',' procAttr)* ')';
-
-//procAttr: key=ID ':' '"' v=(.*) '"' { graph.addProcAttr($key.text, $v.text); };
 
 procAttr: key=ID ':' (v=INT | v=STRING) { graph.addProcAttr($key.text, $v.text); };
 
@@ -86,6 +85,13 @@ staticMethodClassElementStmt: 'static' method ';'
 
 aggStmt: from=multiplicity EDGEOP to=multiplicity '(' ID ')' ';'
 	{ curAggs.add($from.text); curAggs.add($to.text); curAggs.add($ID.text); };
+
+seqDiagram
+    @init { graph = collabFactory.createGraph(); }
+    @after { graph.accept(new NodeRefVisitor()); }
+    : ('sequence' | 'seq') 'diagram'? ID procAttributes? '{' seqStmt* '}' { graph.setName($ID.text); };
+    
+seqStmt: 'foo';
 
 var: ('-' | '+' | '#' )? ID (':' ID)?;
 

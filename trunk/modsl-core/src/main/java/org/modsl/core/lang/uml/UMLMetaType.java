@@ -55,7 +55,10 @@ public enum UMLMetaType implements MetaType {
     CLASS_AGGREGATION_EDGE,
     CLASS_COMPOSITION_EDGE,
     CLASS_MULTIPLICITY_FROM_EDGE_LABEL,
-    CLASS_MULTIPLICITY_TO_EDGE_LABEL;
+    CLASS_MULTIPLICITY_TO_EDGE_LABEL,
+    
+    // Sequence
+    SEQ_GRAPH;
 
     Style style;
 

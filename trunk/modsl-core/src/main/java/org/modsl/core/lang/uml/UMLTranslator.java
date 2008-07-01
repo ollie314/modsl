@@ -48,7 +48,7 @@ public class UMLTranslator extends AbstractTranslator {
 
     protected Graph layout(Graph graph) {
 
-        if (graph.getType().equals(UMLMetaType.CLASS_GRAPH)) {
+        if (UMLMetaType.CLASS_GRAPH.equals(graph.getType())) {
 
             graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_CLASS_NODE));
             graph.accept(new ClassNodeLayoutVisitor().type(UMLMetaType.CLASS_ABSTRACT_CLASS_NODE));
@@ -66,7 +66,7 @@ public class UMLTranslator extends AbstractTranslator {
 
             graph.accept(new ClassEdgeLabelLayoutVisitor().type(UMLMetaType.CLASS_AGGREGATION_EDGE));
 
-        } else if (graph.getType().equals(UMLMetaType.COLLAB_GRAPH)) {
+        } else if (UMLMetaType.COLLAB_GRAPH.equals(graph.getType())) {
 
             graph.accept(new CollabNodeLayoutVisitor().type(UMLMetaType.COLLAB_NODE));
             if (ReqLayout.free.equals(graph.getReqLayout())) {
@@ -77,7 +77,7 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new CollabEdgeLabelLayoutVisitor().type(UMLMetaType.COLLAB_GRAPH));
 
         }
-        
+
         graph.rescale();
 
         return graph;
@@ -103,7 +103,7 @@ public class UMLTranslator extends AbstractTranslator {
         int w = img.getWidth();
         int h = img.getHeight();
 
-        if (graph.getType().equals(UMLMetaType.CLASS_GRAPH)) {
+        if (UMLMetaType.CLASS_GRAPH.equals(graph.getType())) {
 
             graph.accept(new GraphRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_GRAPH));
 
@@ -128,7 +128,7 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new EdgeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_MULTIPLICITY_FROM_EDGE_LABEL));
             graph.accept(new EdgeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.CLASS_MULTIPLICITY_TO_EDGE_LABEL));
 
-        } else if (graph.getType().equals(UMLMetaType.COLLAB_GRAPH)) {
+        } else if (UMLMetaType.COLLAB_GRAPH.equals(graph.getType())) {
 
             graph.accept(new GraphRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_GRAPH));
             graph.accept(new CollabArrowEdgeRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_EDGE));
