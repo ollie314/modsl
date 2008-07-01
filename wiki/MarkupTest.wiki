@@ -3,4 +3,4 @@
 Nothing to see here...
 
 || *Test* || *Pest* ||
-|| a || b ||
+|| http://modsl.googlecode.com/files/class_sample.png || http://modsl.googlecode.com/files/collab_sample.png ||
