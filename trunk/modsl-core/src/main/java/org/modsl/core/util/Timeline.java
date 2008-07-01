@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.common;
+package org.modsl.core.util;
 
 import java.util.LinkedList;
 import java.util.List;

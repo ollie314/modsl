@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.modsl.core.agt.common;
+package org.modsl.core.util;
 
 import java.io.BufferedInputStream;
 import java.io.FileWriter;

@@ -14,29 +14,21 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.common;
+package org.modsl.core.agt.model;
 
-import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.spi.LoggingEvent;
+import org.modsl.core.util.Utils;
 
-public class ThreadLocalAppender extends AppenderSkeleton {
 
-    protected void append(LoggingEvent event) {
-        ThreadLocalContainer.get().addLogMessage(layout.format(event));
-    }
+/**
+ * "layout" processing attribute values
+ * @author avishnyakov
+ */
+public enum ReqLayout {
 
-    public boolean requiresLayout() {
-        return true;
-    }
+    free, ordered;
 
-    public void close() {
-        ThreadLocalContainer.get().logMessages.clear();
-    }
-
-    @Override
-    public void activateOptions() {
-        super.activateOptions();
-        ThreadLocalContainer.get().logMessages.clear();
+    public static ReqLayout fromString(String name) {
+        return Enum.valueOf(ReqLayout.class, Utils.stripDoubleQuotes(name));
     }
 
 }
