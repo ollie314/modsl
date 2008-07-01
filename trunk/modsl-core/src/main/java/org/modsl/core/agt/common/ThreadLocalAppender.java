@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.utils;
+package org.modsl.core.agt.common;
 
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
