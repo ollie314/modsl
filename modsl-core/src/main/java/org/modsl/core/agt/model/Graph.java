@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.modsl.core.agt.common.ProcAttrKey;
-import org.modsl.core.agt.common.ReqLayout;
 import org.modsl.core.agt.visitor.AbstractVisitor;
 import org.modsl.core.render.Style;
 

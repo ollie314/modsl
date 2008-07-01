@@ -14,30 +14,21 @@
  * limitations under the License. 
  */
 
-package org.modsl.core.agt.common;
+package org.modsl.core.agt.model;
+
+import org.modsl.core.util.Utils;
+
 
 /**
- * Base class for all ModSL exceptions
- * @author AVishnyakov
+ * Processing attributes
+ * @author avishnyakov
  */
-public class ModSLException extends RuntimeException {
+public enum ProcAttrKey {
 
-    private static final long serialVersionUID = 1L;
+    width, height, layout;
 
-    public ModSLException() {
-        super();
+    public static ProcAttrKey fromString(String name) {
+        return Enum.valueOf(ProcAttrKey.class, Utils.stripDoubleQuotes(name));
     }
-
-    public ModSLException(String message) {
-        super(message);
-    }
-
-    public ModSLException(Throwable cause) {
-        super(cause);
-    }
-
-    public ModSLException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
+    
 }

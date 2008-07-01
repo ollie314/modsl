@@ -16,7 +16,7 @@
 
 package org.modsl.core.cfg;
 
-import org.modsl.core.agt.common.ModSLException;
+import org.modsl.core.util.ModSLException;
 
 public class ConfigException extends ModSLException {
 

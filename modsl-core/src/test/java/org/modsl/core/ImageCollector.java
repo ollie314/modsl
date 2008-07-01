@@ -24,7 +24,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.modsl.core.agt.common.Utils;
+import org.modsl.core.util.Utils;
 
 public class ImageCollector {
 
