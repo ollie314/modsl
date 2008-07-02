@@ -42,7 +42,7 @@ procAttr: key=ID ':' (v=INT | v=STRING) { graph.addProcAttr($key.text, $v.text);
 collabStmt: objInstance collab2Stmt+ ';'  
 	{ collabEdges.addFirst($objInstance.text); collabFactory.createEdges(graph, collabEdges); collabEdges.clear(); };
 
-collab2Stmt: EDGEOP objInstance '.' method  
+collab2Stmt: EDGEOP objInstance '.' method
 	{ collabEdges.add($method.text); collabEdges.add($objInstance.text); };
 
 classDiagram 
@@ -89,10 +89,8 @@ aggStmt: from=multiplicity EDGEOP to=multiplicity '(' ID ')' ';'
 seqDiagram
     @init { graph = collabFactory.createGraph(); }
     @after { graph.accept(new NodeRefVisitor()); }
-    : ('sequence' | 'seq') 'diagram'? ID procAttributes? '{' seqStmt* '}' { graph.setName($ID.text); };
+    : ('sequence' | 'seq') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
     
-seqStmt: 'foo';
-
 var: ('-' | '+' | '#' )? ID (':' ID)?;
 
 objInstance: ID? ':' ID | ID;
