@@ -34,6 +34,15 @@ public enum UMLMetaType implements MetaType {
     COLLAB_EDGE,
     COLLAB_EDGE_LABEL,
 
+    // Sequence
+    SEQ_GRAPH,
+
+    SEQ_NODE,
+    SEQ_NODE_LABEL,
+
+    SEQ_EDGE,
+    SEQ_EDGE_LABEL,
+
     // Class
     CLASS_GRAPH,
 
@@ -55,11 +64,8 @@ public enum UMLMetaType implements MetaType {
     CLASS_AGGREGATION_EDGE,
     CLASS_COMPOSITION_EDGE,
     CLASS_MULTIPLICITY_FROM_EDGE_LABEL,
-    CLASS_MULTIPLICITY_TO_EDGE_LABEL,
+    CLASS_MULTIPLICITY_TO_EDGE_LABEL;
     
-    // Sequence
-    SEQ_GRAPH;
-
     Style style;
 
     public Style getStyle() {
