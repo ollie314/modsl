@@ -26,7 +26,12 @@ import org.modsl.core.agt.model.NodeLabel;
 import org.modsl.core.lang.uml.UMLMetaType;
 
 /**
- * @author AVishnyakov
+ * Abstract superclass for sequence and collaboration diagram factories. Both
+ * share the same grammar and element set, the only difference is specific
+ * UMLMetaTypes of the elemetns which are specified in the concrete subclasses
+ * for individual diagram types.
+ * 
+ * @author avishnyakov
  */
 public abstract class AbstractUMLSeqCollabFactory extends AbstractUMLFactory {
 
