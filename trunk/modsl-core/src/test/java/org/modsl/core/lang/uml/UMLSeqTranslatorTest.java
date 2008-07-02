@@ -28,4 +28,10 @@ public class UMLSeqTranslatorTest extends AbstractUMLTest {
         ic.collect("seq0", translator.translate("sequence diagram seq0 { }"));
     }
 
+    @Test
+    public void process25() throws Exception {
+        ic.collect("seq25", translator.translate("seq seq25 { c1:o1->c2:o2.m2()->c3:o3.m3()->c1:o1.m4(); }"));
+    }
+
+    
 }
