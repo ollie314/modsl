@@ -14,21 +14,22 @@
  * the License.
  */
 
-package org.modsl.core.lang.uml.layout.collab;
+package org.modsl.core.lang.uml.layout.seq;
 
-import org.modsl.core.agt.layout.SimpleNodeLabelLayoutVisitor;
-import org.modsl.core.agt.model.Node;
+import org.modsl.core.agt.layout.AbstractLayoutVisitor;
+import org.modsl.core.agt.model.Graph;
 
 /**
- * Does simple node size calculation based on node's text height and width.
+ * Layout algorithm for seq diagram nodes
  * @author avishnyakov
  */
-public class CollabNodeLayoutVisitor extends SimpleNodeLabelLayoutVisitor {
+public class SeqNodeLayoutVisitor extends AbstractLayoutVisitor {
+
+    Graph graph;
 
     @Override
-    public void apply(Node node) {
-        super.apply(node);
-        node.getSize().y += node.getType().getStyle().getBottomPadding();
+    public void apply(Graph graph) {
+        this.graph = graph;
     }
 
 }
