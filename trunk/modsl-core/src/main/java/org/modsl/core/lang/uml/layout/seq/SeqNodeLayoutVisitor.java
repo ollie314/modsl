@@ -18,6 +18,7 @@ package org.modsl.core.lang.uml.layout.seq;
 
 import org.modsl.core.agt.layout.AbstractLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
+import org.modsl.core.agt.model.Node;
 
 /**
  * Layout algorithm for seq diagram nodes
@@ -25,11 +26,16 @@ import org.modsl.core.agt.model.Graph;
  */
 public class SeqNodeLayoutVisitor extends AbstractLayoutVisitor {
 
-    Graph graph;
+    static final double X_SEP = 25;
 
     @Override
     public void apply(Graph graph) {
-        this.graph = graph;
+        double offset = 0d;
+        for (int i = 0; i < graph.getNodes().size(); i++) {
+            Node n = graph.getNode(i);
+            n.getPos().x = offset;
+            offset = n.getPos().x + n.getSize().x + X_SEP;
+        }
     }
 
 }

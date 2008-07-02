@@ -25,6 +25,7 @@ options {
     protected UMLSeqFactory seqFactory = new UMLSeqFactory();
 	protected List<NodeLabel> curElements = new LinkedList<NodeLabel>();
 	protected LinkedList<String> collabEdges = new LinkedList<String>();
+	protected LinkedList<String> seqEdges = new LinkedList<String>();
 	protected LinkedList<String> curAggs = new LinkedList<String>();
 }
 
@@ -35,20 +36,22 @@ collabDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
 
-seqDiagram
-    @init { graph = seqFactory.createGraph(); }
-    @after { graph.accept(new NodeRefVisitor()); }
-    : ('sequence' | 'seq') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
-
-procAttributes: '(' procAttr (',' procAttr)* ')';
-
-procAttr: key=ID ':' (v=INT | v=STRING) { graph.addProcAttr($key.text, $v.text); };
-
 collabStmt: objInstance collab2Stmt+ ';'  
 	{ collabEdges.addFirst($objInstance.text); collabFactory.createEdges(graph, collabEdges); collabEdges.clear(); };
 
 collab2Stmt: EDGEOP objInstance '.' method
 	{ collabEdges.add($method.text); collabEdges.add($objInstance.text); };
+
+seqDiagram
+    @init { graph = seqFactory.createGraph(); }
+    @after { graph.accept(new NodeRefVisitor()); }
+    : ('sequence' | 'seq') 'diagram'? ID procAttributes? '{' seqStmt* '}' { graph.setName($ID.text); };
+
+seqStmt: objInstance seq2Stmt+ ';'  
+	{ seqEdges.addFirst($objInstance.text); seqFactory.createEdges(graph, seqEdges); seqEdges.clear(); };
+
+seq2Stmt: EDGEOP objInstance '.' method
+	{ seqEdges.add($method.text); seqEdges.add($objInstance.text); };
 
 classDiagram 
 	@init { graph = classFactory.createGraph(); }
@@ -90,6 +93,10 @@ staticMethodClassElementStmt: 'static' method ';'
 
 aggStmt: from=multiplicity EDGEOP to=multiplicity '(' ID ')' ';'
 	{ curAggs.add($from.text); curAggs.add($to.text); curAggs.add($ID.text); };
+
+procAttributes: '(' procAttr (',' procAttr)* ')';
+
+procAttr: key=ID ':' (v=INT | v=STRING) { graph.addProcAttr($key.text, $v.text); };
 
 var: ('-' | '+' | '#' )? ID (':' ID)?;
 
