@@ -35,6 +35,11 @@ collabDiagram
 	@after { graph.accept(new NodeRefVisitor()); }
 	: ('collab' | 'collaboration' | 'communication') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
 
+seqDiagram
+    @init { graph = seqFactory.createGraph(); }
+    @after { graph.accept(new NodeRefVisitor()); }
+    : ('sequence' | 'seq') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
+
 procAttributes: '(' procAttr (',' procAttr)* ')';
 
 procAttr: key=ID ':' (v=INT | v=STRING) { graph.addProcAttr($key.text, $v.text); };
@@ -86,11 +91,6 @@ staticMethodClassElementStmt: 'static' method ';'
 aggStmt: from=multiplicity EDGEOP to=multiplicity '(' ID ')' ';'
 	{ curAggs.add($from.text); curAggs.add($to.text); curAggs.add($ID.text); };
 
-seqDiagram
-    @init { graph = collabFactory.createGraph(); }
-    @after { graph.accept(new NodeRefVisitor()); }
-    : ('sequence' | 'seq') 'diagram'? ID procAttributes? '{' collabStmt* '}' { graph.setName($ID.text); };
-    
 var: ('-' | '+' | '#' )? ID (':' ID)?;
 
 objInstance: ID? ':' ID | ID;
