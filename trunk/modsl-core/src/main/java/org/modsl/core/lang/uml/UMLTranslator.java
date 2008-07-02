@@ -39,7 +39,8 @@ import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassRevertGenEdgeLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.collab.CollabNodeLabelLayoutVisitor;
-import org.modsl.core.lang.uml.layout.seq.SeqNodeLayoutVisitor;
+import org.modsl.core.lang.uml.layout.seq.SeqEdgeLabelLayoutVisitor;
+import org.modsl.core.lang.uml.layout.seq.SeqLayoutVisitor;
 import org.modsl.core.lang.uml.render.ClassAggregateArrowEdgeRenderVisitor;
 import org.modsl.core.lang.uml.render.ClassExtendsArrowEdgeRenderVisitor;
 import org.modsl.core.lang.uml.render.ClassImplementsArrowEdgeRenderVisitor;
@@ -81,7 +82,8 @@ public class UMLTranslator extends AbstractTranslator {
         } else if (UMLMetaType.SEQ_GRAPH.equals(graph.getType())) {
 
             graph.accept(new CollabNodeLabelLayoutVisitor().type(UMLMetaType.SEQ_NODE));
-            graph.accept(new SeqNodeLayoutVisitor().type(UMLMetaType.SEQ_GRAPH));
+            graph.accept(new SeqLayoutVisitor().type(UMLMetaType.SEQ_GRAPH));
+            graph.accept(new SeqEdgeLabelLayoutVisitor().type(UMLMetaType.SEQ_GRAPH));
 
         }
 

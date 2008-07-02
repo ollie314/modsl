@@ -21,10 +21,10 @@ import org.modsl.core.agt.model.Graph;
 import org.modsl.core.agt.model.Node;
 
 /**
- * Layout algorithm for seq diagram nodes
+ * Layout algorithm for seq diagram 
  * @author avishnyakov
  */
-public class SeqNodeLayoutVisitor extends AbstractLayoutVisitor {
+public class SeqLayoutVisitor extends AbstractLayoutVisitor {
 
     static final double X_SEP = 25;
 

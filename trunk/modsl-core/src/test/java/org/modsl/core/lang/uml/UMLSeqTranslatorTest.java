@@ -23,7 +23,7 @@ public class UMLSeqTranslatorTest extends AbstractUMLTest {
 
     protected static ImageCollector ic = new ImageCollector("etc/png-out", "uml_seq");
 
-    //@Test
+    @Test
     public void process0() throws Exception {
         ic.collect("seq0", translator.translate("sequence diagram seq0 { }"));
     }

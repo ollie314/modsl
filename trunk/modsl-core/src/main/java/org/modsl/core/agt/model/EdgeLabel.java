@@ -63,7 +63,10 @@ public class EdgeLabel extends AbstractLabel<Edge> {
         switch (placement) {
         case MID:
             Pt mid = ports[0].plus(ports[1].minus(ports[0]).mulBy(0.5d));
-            mid.incBy(offset / anchor1.tan(anchor2), offset);
+            double t = anchor1.tan(anchor2);
+            if (t != 0d) {
+                mid.incBy(offset / t, offset);
+            }
             mid.decBy(getSize().x / 2d, getSize().y / 2d);
             return mid;
         case ANCHOR1:
@@ -72,7 +75,7 @@ public class EdgeLabel extends AbstractLabel<Edge> {
             return p1;
         case ANCHOR2:
             Pt p2 = ports[1].incBy(offset * anchor2.cos(anchor1), offset * anchor2.sin(anchor1));
-            p2.decBy(-2d, getSize().y / 2d); 
+            p2.decBy(-2d, getSize().y / 2d);
             return p2;
         }
         return null;
