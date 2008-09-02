@@ -71,6 +71,7 @@ public class Edge extends AbstractElement<Graph> {
 
     /**
      * Create new
+     * 
      * @param type type
      * @param node1 start node
      * @param node2 end node
@@ -94,6 +95,7 @@ public class Edge extends AbstractElement<Graph> {
 
     /**
      * Create new
+     * 
      * @param type type
      * @param name name
      * @param node1 start node
@@ -119,6 +121,7 @@ public class Edge extends AbstractElement<Graph> {
 
     /**
      * Add new bend
+     * 
      * @param bend
      */
     public void add(Bend bend) {
@@ -282,7 +285,25 @@ public class Edge extends AbstractElement<Graph> {
     }
 
     /**
+     * @return true if this edge is self referencing
+     */
+    public boolean isSelfReference() {
+        return node1.equals(node2);
+    }
+
+    public void revert() {
+        Node tn = node1;
+        node1 = node2;
+        node2 = tn;
+        String tnn = node1Name;
+        node1Name = node2Name;
+        node2Name = tnn;
+        Collections.reverse(bends);
+    }
+
+    /**
      * Set start node
+     * 
      * @param n1 start node
      */
     public void setNode1(Node n1) {
@@ -300,6 +321,7 @@ public class Edge extends AbstractElement<Graph> {
 
     /**
      * Set end node
+     * 
      * @param n2 end node
      */
     public void setNode2(Node n2) {
@@ -317,6 +339,7 @@ public class Edge extends AbstractElement<Graph> {
 
     /**
      * Revert edge's direction (layout)
+     * 
      * @param r
      */
     public void setReverted(boolean r) {
@@ -324,16 +347,6 @@ public class Edge extends AbstractElement<Graph> {
             revert();
             reverted = r;
         }
-    }
-
-    public void revert() {
-        Node tn = node1;
-        node1 = node2;
-        node2 = tn;
-        String tnn = node1Name;
-        node1Name = node2Name;
-        node2Name = tnn;
-        Collections.reverse(bends);
     }
 
     @Override

@@ -27,6 +27,7 @@ import org.modsl.core.agt.visitor.AbstractVisitor;
 
 /**
  * Graph node
+ * 
  * @author AVishnyakov
  * @param <T> type enum
  */
@@ -46,6 +47,7 @@ public class Node extends AbstractBox<Graph> {
 
     /**
      * Create new
+     * 
      * @param type type
      * @param name name
      */
@@ -72,6 +74,21 @@ public class Node extends AbstractBox<Graph> {
         label.setParent(this);
     }
 
+    public void addLabels(List<NodeLabel> labels) {
+        for (NodeLabel l : labels) {
+            addLabel(l);
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Node) {
+            return name.equals(((Node) obj).name);
+        } else {
+            return false;
+        }
+    }
+
     public int getInDegree() {
         return getInEdges().size();
     }
@@ -90,10 +107,6 @@ public class Node extends AbstractBox<Graph> {
         return labels;
     }
 
-    public List<NodeLabel> getLabels(MetaType mt) {
-        return getLabels(Arrays.asList(new MetaType[] { mt }));
-    }
-
     public List<NodeLabel> getLabels(Collection<MetaType> mts) {
         List<NodeLabel> ls = new LinkedList<NodeLabel>();
         for (NodeLabel l : labels) {
@@ -102,6 +115,10 @@ public class Node extends AbstractBox<Graph> {
             }
         }
         return ls;
+    }
+
+    public List<NodeLabel> getLabels(MetaType mt) {
+        return getLabels(Arrays.asList(new MetaType[] { mt }));
     }
 
     public int getOutDegree() {
@@ -118,6 +135,11 @@ public class Node extends AbstractBox<Graph> {
         return ins;
     }
 
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
     public boolean isConnectedTo(AbstractBox<?> b) {
         for (Edge e : connectedEdges) {
             if (e.getDistance(this, b) == 1) {
@@ -129,12 +151,6 @@ public class Node extends AbstractBox<Graph> {
 
     protected boolean removeConnectedEdge(Edge edge) {
         return connectedEdges.remove(edge);
-    }
-
-    public void addLabels(List<NodeLabel> labels) {
-        for (NodeLabel l : labels) {
-            addLabel(l);
-        }
     }
 
     @Override
