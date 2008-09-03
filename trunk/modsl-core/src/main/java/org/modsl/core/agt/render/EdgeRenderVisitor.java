@@ -17,6 +17,8 @@
 package org.modsl.core.agt.render;
 
 import java.awt.BasicStroke;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
@@ -37,6 +39,7 @@ public class EdgeRenderVisitor extends AbstractRenderVisitor {
     }
 
     protected void draw(Edge e, Pt startPoint, Pt endPoint) {
+        List<Bend> srb = addSelfRefBends(e);
         Style s = e.getType().getStyle();
         g.setColor(s.getStrokeColor());
         int cx = (int) startPoint.x;
@@ -49,6 +52,21 @@ public class EdgeRenderVisitor extends AbstractRenderVisitor {
             cy = ny;
         }
         g.drawLine(cx, cy, (int) endPoint.x, (int) endPoint.y);
+        removeSelfRefBends(e, srb);
+    }
+
+    void removeSelfRefBends(Edge e, List<Bend> srb) {
+        for (Bend b : srb) {
+            e.getBends().remove(b);
+        }
+    }
+
+    List<Bend> addSelfRefBends(Edge e) {
+        List<Bend> srb = new LinkedList<Bend>();
+        for (Bend b : srb) {
+            e.getBends().add(b);
+        }
+        return srb;
     }
 
 }
