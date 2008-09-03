@@ -16,11 +16,17 @@
 
 package org.modsl.core.agt.layout;
 
+import org.modsl.core.agt.model.Bend;
+import org.modsl.core.agt.model.Edge;
 
-/**
- * Superclass for all non-configurablee layouts
- * @author AVishnyakov
- */
-public abstract class AbstractNonConfigurableLayoutVisitor extends AbstractLayoutVisitor {
+public class SelfRefBenderVisitor extends AbstractNonConfigurableLayoutVisitor {
+
+    @Override
+    public void apply(Edge e) {
+        if (e.isSelfReference()) {
+            e.getBends().add(new Bend(e.getNode1().getPos().minus(50, 0)));
+            e.getBends().add(new Bend(e.getNode1().getPos().plus(0, e.getNode1().getSize().y).minus(50, 0)));
+        }
+    }
 
 }

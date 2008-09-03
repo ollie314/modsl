@@ -28,6 +28,10 @@ public class Bend extends AbstractBox<Edge> {
         this.index = counter++;
     }
 
+    public Bend(Pt pos) {
+        this.pos = pos;
+    }
+
     @Override
     public boolean isVirtual() {
         return true;
@@ -46,13 +50,14 @@ public class Bend extends AbstractBox<Edge> {
         }
         return false;
     }
-    
+
     public Pt getCtrlPt() {
         Pt p = getPos();
-        /*double c = parent.getNode1().cos(parent.getNode2());
-        double s = parent.getNode1().sin(parent.getNode2());
-        p.x = parent.getNode2().getPos().x;
-        p.y = parent.getNode2().getPos().y;*/
+        /*
+         * double c = parent.getNode1().cos(parent.getNode2()); double s =
+         * parent.getNode1().sin(parent.getNode2()); p.x =
+         * parent.getNode2().getPos().x; p.y = parent.getNode2().getPos().y;
+         */
         return p;
     }
 
