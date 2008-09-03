@@ -29,6 +29,11 @@ public class UMLClassLoopTranslatorTest extends AbstractUMLTest {
     }
 
     @Test
+    public void processSelfRef2b() throws Exception {
+        ic.collect("self_ref2b", translator.translate("class diagram A { class A { 1->1(B); 1->*(B); } class B { 1->1(A); } }"));
+    }
+
+    @Test
     public void processSelfRef3() throws Exception {
         ic.collect("self_ref3", translator
                 .translate("class diagram A { class A { 1->1(B); } class B { 1->1(C); } class C { 1->1(A); } }"));
