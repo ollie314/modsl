@@ -56,42 +56,42 @@ public abstract class AbstractMetaTypeVisitor extends AbstractVisitor {
 
     @Override
     public void in(Bend bend) {
-        if (type.equals(bend.getType())) {
+        if (type == null || type.equals(bend.getType())) {
             apply(bend);
         }
     }
 
     @Override
     public void in(Edge edge) {
-        if (type.equals(edge.getType())) {
+        if (type == null || type.equals(edge.getType())) {
             apply(edge);
         }
     }
 
     @Override
     public void in(EdgeLabel label) {
-        if (type.equals(label.getType())) {
+        if (type == null || type.equals(label.getType())) {
             apply(label);
         }
     }
 
     @Override
     public void in(Graph graph) {
-        if (type.equals(graph.getType())) {
+        if (type == null || type.equals(graph.getType())) {
             apply(graph);
         }
     }
 
     @Override
     public void in(Node node) {
-        if (type.equals(node.getType())) {
+        if (type == null || type.equals(node.getType())) {
             apply(node);
         }
     }
 
     @Override
     public void in(NodeLabel label) {
-        if (type.equals(label.getType())) {
+        if (type == null || type.equals(label.getType())) {
             apply(label);
         }
     }
