@@ -39,7 +39,6 @@ public class EdgeRenderVisitor extends AbstractRenderVisitor {
     }
 
     protected void draw(Edge e, Pt startPoint, Pt endPoint) {
-        List<Bend> srb = addSelfRefBends(e);
         Style s = e.getType().getStyle();
         g.setColor(s.getStrokeColor());
         int cx = (int) startPoint.x;
@@ -52,16 +51,15 @@ public class EdgeRenderVisitor extends AbstractRenderVisitor {
             cy = ny;
         }
         g.drawLine(cx, cy, (int) endPoint.x, (int) endPoint.y);
-        removeSelfRefBends(e, srb);
     }
 
-    void removeSelfRefBends(Edge e, List<Bend> srb) {
+    protected void removeSelfRefBends(Edge e, List<Bend> srb) {
         for (Bend b : srb) {
             e.getBends().remove(b);
         }
     }
 
-    List<Bend> addSelfRefBends(Edge e) {
+    protected List<Bend> addSelfRefBends(Edge e) {
         List<Bend> srb = new LinkedList<Bend>();
         for (Bend b : srb) {
             e.getBends().add(b);

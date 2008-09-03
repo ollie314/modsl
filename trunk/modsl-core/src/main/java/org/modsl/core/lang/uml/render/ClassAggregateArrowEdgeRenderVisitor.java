@@ -18,6 +18,9 @@ package org.modsl.core.lang.uml.render;
 
 import static java.lang.Math.PI;
 
+import java.util.List;
+
+import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
 import org.modsl.core.agt.model.Pt;
 import org.modsl.core.lang.uml.UMLMetaType;
@@ -28,12 +31,14 @@ public class ClassAggregateArrowEdgeRenderVisitor extends AbstractArrowEdgeRende
 
     @Override
     public void apply(Edge e) {
+        List<Bend> srb = addSelfRefBends(e);
         g.setStroke(NORMAL_STROKE);
         draw(e, getDiamondEnd(e), e.getNode2Port());
         g.setStroke(NORMAL_STROKE);
         drawSides(e);
         g.setStroke(NORMAL_STROKE);
         drawDiamond(e);
+        removeSelfRefBends(e, srb);
     }
 
     void drawDiamond(Edge e) {
