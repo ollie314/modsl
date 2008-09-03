@@ -144,15 +144,18 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
 
     List<Node> topologicalSort() {
         List<Node> q = sources();
-        List<Node> l = new LinkedList<Node>();
+        List<Node> l = new ArrayList<Node>(this.graph.getNodes().size());
+        List<Edge> r = new ArrayList<Edge>(this.graph.getEdges().size()); // removed
+                                                                          // edges
         while (q.size() > 0) {
             Node n = q.remove(0);
             l.add(n);
             for (Edge e : n.getOutEdges()) {
                 Node m = e.getNode2();
-                boolean allEdgesRemoved = true;
+                r.add(e); // removing edge from the graph
+                boolean allEdgesRemoved = true; // then checking if target has any more in edges left
                 for (Edge e2 : m.getInEdges()) {
-                    if (!l.contains(e2.getNode1())) {
+                    if (!r.contains(e2)) {
                         allEdgesRemoved = false;
                     }
                 }
