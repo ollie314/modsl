@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
+/*
 package org.modsl.core.lang.uml;
 
 import org.junit.Test;
@@ -23,9 +23,10 @@ public class UMLClassSelfRefTranslatorTest extends AbstractUMLTest {
 
     protected static ImageCollector ic = new ImageCollector("etc/png-out", "uml_selfref");
 
-    //@Test
+    @Test
     public void processSelfRef() throws Exception {
         ic.collect("self_ref", translator.translate("class diagram User { class MenuCategory { 1->1(MenuCategory); } }"));
     }
 
 }
+*/
