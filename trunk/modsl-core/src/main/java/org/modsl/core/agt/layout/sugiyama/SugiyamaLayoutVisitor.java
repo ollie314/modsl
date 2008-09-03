@@ -55,7 +55,7 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         undoRemoveCycles();
         stack.layerHeights();
         stack.xPos();
-        //log.debug(new ToStringVisitor().toString(graph));
+        // log.debug(new ToStringVisitor().toString(graph));
     }
 
     void insertDummies() {
@@ -96,13 +96,15 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         List<Node> nodes = sortByInMinusOutDegree();
         Set<Edge> removed = new HashSet<Edge>(graph.getEdges().size());
         for (Node n : nodes) {
-            for (Edge in : new ArrayList<Edge>(n.getInEdges())) {
+            List<Edge> inEdges = new ArrayList<Edge>(n.getInEdges());
+            List<Edge> outEdges = new ArrayList<Edge>(n.getOutEdges());
+            for (Edge in : inEdges) {
                 if (!removed.contains(in)) {
                     in.setReverted(true);
                     removed.add(in);
                 }
             }
-            for (Edge out : n.getOutEdges()) {
+            for (Edge out : outEdges) {
                 if (!removed.contains(out)) {
                     removed.add(out);
                 }
