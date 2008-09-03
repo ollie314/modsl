@@ -96,7 +96,7 @@ public class Node extends AbstractBox<Graph> {
     public List<Edge> getInEdges() {
         List<Edge> ins = new LinkedList<Edge>();
         for (Edge e : connectedEdges) {
-            if (e.getNode2().equals(this)) {
+            if (e.getNode2().equals(this) && !e.isSelfReference()) {
                 ins.add(e);
             }
         }
@@ -128,7 +128,21 @@ public class Node extends AbstractBox<Graph> {
     public List<Edge> getOutEdges() {
         List<Edge> ins = new LinkedList<Edge>();
         for (Edge e : connectedEdges) {
-            if (e.getNode1().equals(this)) {
+            if (e.getNode1().equals(this) && !e.isSelfReference()) {
+                ins.add(e);
+            }
+        }
+        return ins;
+    }
+
+    public int getSelfDegree() {
+        return getSelfEdges().size();
+    }
+
+    public List<Edge> getSelfEdges() {
+        List<Edge> ins = new LinkedList<Edge>();
+        for (Edge e : connectedEdges) {
+            if (e.isSelfReference()) {
                 ins.add(e);
             }
         }
