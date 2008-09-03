@@ -82,7 +82,8 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         for (Node n1 : sorted) {
             for (Edge out : n1.getOutEdges()) {
                 Node n2 = out.getNode2();
-                lmap.put(n2, max(lmap.get(n1) + 1, lmap.get(n2)));
+                int inc = dup(out) ? 2 : 1; // need to put nodes connected with > 1 edge further away
+                lmap.put(n2, max(lmap.get(n1) + inc, lmap.get(n2)));
                 h = max(h, lmap.get(n2) + 1);
             }
         }
@@ -90,6 +91,17 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         for (Node n : sorted) {
             stack.add(n, lmap.get(n));
         }
+    }
+
+    boolean dup(Edge e1) {
+        for (Edge e2 : e1.getParent().getEdges()) {
+            if (!e2.equals(e1)
+                    && ((e1.getNode1().equals(e2.getNode1()) && e1.getNode2().equals(e2.getNode2())) || (e1.getNode2().equals(
+                            e2.getNode1()) && e1.getNode1().equals(e2.getNode2())))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     void removeCycles() {
@@ -146,14 +158,15 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         List<Node> q = sources();
         List<Node> l = new ArrayList<Node>(this.graph.getNodes().size());
         List<Edge> r = new ArrayList<Edge>(this.graph.getEdges().size()); // removed
-                                                                          // edges
+        // edges
         while (q.size() > 0) {
             Node n = q.remove(0);
             l.add(n);
             for (Edge e : n.getOutEdges()) {
                 Node m = e.getNode2();
                 r.add(e); // removing edge from the graph
-                boolean allEdgesRemoved = true; // then checking if target has any more in edges left
+                boolean allEdgesRemoved = true; // then checking if target has
+                                                // any more in edges left
                 for (Edge e2 : m.getInEdges()) {
                     if (!r.contains(e2)) {
                         allEdgesRemoved = false;

@@ -32,7 +32,6 @@ import org.modsl.core.agt.render.EdgeLabelRenderVisitor;
 import org.modsl.core.agt.render.GraphRenderVisitor;
 import org.modsl.core.agt.render.NodeLabelRenderVisitor;
 import org.modsl.core.agt.render.NodeRenderVisitor;
-import org.modsl.core.agt.visitor.ToStringVisitor;
 import org.modsl.core.lang.AbstractTranslator;
 import org.modsl.core.lang.uml.layout.cls.ClassEdgeLabelLayoutVisitor;
 import org.modsl.core.lang.uml.layout.cls.ClassNodeLayoutVisitor;
@@ -145,7 +144,7 @@ public class UMLTranslator extends AbstractTranslator {
             graph.accept(new NodeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_NODE_LABEL));
             graph.accept(new EdgeLabelRenderVisitor().graphics(g, w, h).type(UMLMetaType.COLLAB_EDGE_LABEL));
 
-        }else if (UMLMetaType.SEQ_GRAPH.equals(graph.getType())) {
+        } else if (UMLMetaType.SEQ_GRAPH.equals(graph.getType())) {
 
             graph.accept(new GraphRenderVisitor().graphics(g, w, h).type(UMLMetaType.SEQ_GRAPH));
             graph.accept(new NodeRenderVisitor().graphics(g, w, h).type(UMLMetaType.SEQ_NODE));
