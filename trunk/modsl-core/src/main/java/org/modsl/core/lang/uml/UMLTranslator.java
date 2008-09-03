@@ -24,6 +24,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.modsl.antlr.uml.UMLLexer;
 import org.modsl.antlr.uml.UMLParser;
+import org.modsl.core.agt.layout.SelfRefBenderVisitor;
 import org.modsl.core.agt.layout.fr.FRLayoutVisitor;
 import org.modsl.core.agt.layout.sugiyama.SugiyamaLayoutVisitor;
 import org.modsl.core.agt.model.Graph;
@@ -59,6 +60,7 @@ public class UMLTranslator extends AbstractTranslator {
             if (ReqLayout.free.equals(graph.getReqLayout())) {
                 graph.accept(new FRLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
             } else {
+                graph.accept(new SelfRefBenderVisitor().type(null));
                 graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
                 graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
                 graph.accept(new SugiyamaLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));

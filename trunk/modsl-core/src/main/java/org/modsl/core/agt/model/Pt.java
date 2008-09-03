@@ -206,6 +206,10 @@ public class Pt {
         return new Pt(Math.max(x, x1), Math.max(y, y1));
     }
 
+    public Pt minus(double x, double y) {
+        return new Pt(this.x - x, this.y - y);
+    }
+
     /**
      * Subtracts parameter from this instance and returns the result as a new
      * instance
