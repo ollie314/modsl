@@ -23,7 +23,7 @@ public class UMLClassLoopTranslatorTest extends AbstractUMLTest {
 
     protected static ImageCollector ic = new ImageCollector("etc/png-out", "uml_loop");
 
-    //@Test
+    @Test
     public void processSelfRef() throws Exception {
         ic.collect("self_ref", translator.translate("class diagram A { class A { 1->1(B); } class B { 1->1(A); } }"));
     }
