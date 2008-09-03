@@ -24,8 +24,8 @@ public class SelfRefBenderVisitor extends AbstractNonConfigurableLayoutVisitor {
     @Override
     public void apply(Edge e) {
         if (e.isSelfReference()) {
-            e.getBends().add(new Bend(e.getNode1().getPos().minus(50, 0)));
-            e.getBends().add(new Bend(e.getNode1().getPos().plus(0, e.getNode1().getSize().y).minus(50, 0)));
+            e.getBends().add(new Bend(e.getNode1().getPos().minus(30, 0)));
+            e.getBends().add(new Bend(e.getNode1().getPos().plus(0, e.getNode1().getSize().y).minus(30, 0)));
         }
     }
 
