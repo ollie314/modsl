@@ -82,7 +82,8 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
         for (Node n1 : sorted) {
             for (Edge out : n1.getOutEdges()) {
                 Node n2 = out.getNode2();
-                int inc = dup(out) ? 2 : 1; // need to put nodes connected with > 1 edge further away
+                int inc = dup(out) ? 2 : 1; // need to put nodes connected with
+                // > 1 edge further away
                 lmap.put(n2, max(lmap.get(n1) + inc, lmap.get(n2)));
                 h = max(h, lmap.get(n2) + 1);
             }
@@ -165,8 +166,8 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
             for (Edge e : n.getOutEdges()) {
                 Node m = e.getNode2();
                 r.add(e); // removing edge from the graph
-                boolean allEdgesRemoved = true; // then checking if target has
-                                                // any more in edges left
+                boolean allEdgesRemoved = true;
+                // then checking if the target has any more "in" edges left
                 for (Edge e2 : m.getInEdges()) {
                     if (!r.contains(e2)) {
                         allEdgesRemoved = false;
@@ -178,7 +179,8 @@ public class SugiyamaLayoutVisitor extends AbstractLayoutVisitor {
             }
         }
         if (graph.getNodes().size() != l.size()) {
-            throw new ModSLException("Topological sort failed for " + graph + " in Sugiyama layout, remaining nodes: " + q);
+            throw new ModSLException("Topological sort failed for " + graph + " in Sugiyama layout, " + graph.getNodes().size()
+                    + " total nodes, " + l.size() + ", sorted nodes, remaining nodes: " + q);
         }
         return l;
     }
