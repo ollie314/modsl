@@ -18,15 +18,24 @@ package org.modsl.core.agt.layout;
 
 import org.modsl.core.agt.model.Bend;
 import org.modsl.core.agt.model.Edge;
+import org.modsl.core.agt.model.Pt;
 
 public class SelfRefBenderVisitor extends AbstractNonConfigurableLayoutVisitor {
+
+    protected double xOffset = 0;
 
     @Override
     public void apply(Edge e) {
         if (e.isSelfReference()) {
-            e.getBends().add(new Bend(e.getNode1().getPos().minus(30, 0)));
-            e.getBends().add(new Bend(e.getNode1().getPos().plus(0, e.getNode1().getSize().y).minus(30, 0)));
+            Pt rt = e.getNode1().getPos().plus(e.getNode1().getSize().x, 0d);
+            e.getBends().add(new Bend(rt.plus(xOffset, 0)));
+            e.getBends().add(new Bend(rt.plus(xOffset, e.getNode1().getSize().y)));
         }
+    }
+
+    public SelfRefBenderVisitor offset(double xOffset) {
+        this.xOffset = xOffset;
+        return this;
     }
 
 }

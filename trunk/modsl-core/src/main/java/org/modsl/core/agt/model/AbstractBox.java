@@ -202,8 +202,8 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
     public Pt getSize() {
         return size;
     }
-
-    public double getWeight() {
+    
+     public double getWeight() {
         return weight;
     }
 
