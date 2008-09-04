@@ -1,8 +1,0 @@
-#summary Google Code Markup Test
-
-Nothing to see here...
-
-|| *Test* || *Pest* ||
-|| http://modsl.googlecode.com/files/class_sample.png || http://modsl.googlecode.com/files/collab_sample.png ||
-|| {{{test
-test}}} || {{{pest}}} ||
