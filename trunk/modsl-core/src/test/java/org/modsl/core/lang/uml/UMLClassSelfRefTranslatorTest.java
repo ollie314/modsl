@@ -24,7 +24,18 @@ public class UMLClassSelfRefTranslatorTest extends AbstractUMLTest {
 
     @Test
     public void processSelfRef() throws Exception {
-        ic.collect("self_ref", translator.translate("class diagram User { class MenuCategory { 1->1(MenuCategory); } }"));
+        ic.collect("self_ref", translator.translate("class diagram SelfRef { class SelfRef { 1->1(SelfRef); } }"));
     }
+
+    @Test
+    public void processSelfRef2() throws Exception {
+        ic.collect("self_ref2", translator.translate("class diagram SelfRef { class SelfRef { i:int; j:int; 1->1(SelfRef); 1->*(SelfRef); } }"));
+    }
+    
+    @Test
+    public void processSelfRef3() throws Exception {
+        ic.collect("self_ref3", translator.translate("class diagram SelfRef { class SelfRef { i:int; j:int; k:int; l:int; m:int; n:int; o:int; 1->1(SelfRef); } }"));
+    }
+
 
 }

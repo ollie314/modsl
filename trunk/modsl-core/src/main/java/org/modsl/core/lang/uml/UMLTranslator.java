@@ -60,7 +60,7 @@ public class UMLTranslator extends AbstractTranslator {
             if (ReqLayout.free.equals(graph.getReqLayout())) {
                 graph.accept(new FRLayoutVisitor().type(UMLMetaType.CLASS_GRAPH));
             } else {
-                graph.accept(new SelfRefBenderVisitor().offset(
+                graph.accept(new SelfRefBenderVisitor().xOffset(
                         2.5d * UMLMetaType.CLASS_AGGREGATION_EDGE.getStyle().getArrowLength()).type(null));
                 graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_IMPLEMENTS_EDGE));
                 graph.accept(new ClassRevertGenEdgeLayoutVisitor().type(UMLMetaType.CLASS_EXTENDS_EDGE));
