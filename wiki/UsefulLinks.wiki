@@ -12,7 +12,3 @@
 === ANTLR ===
    * Antlr homepage http://www.antlr.org/
    * Antlr tutorial http://javadude.com/articles/antlrtut/
-
-=== SVG ===
-   * How To http://www.w3.org/2002/Talks/www2002-svgtut-ih/hwtut.pdf
-   * Tutorial http://apike.ca/prog_svg.html
