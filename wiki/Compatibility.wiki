@@ -1,6 +1,0 @@
-#summary SVG compatibility issues
-=== Firefox ===
-   * No support for filters in 2.x
-
-=== IE/Adobe SVG ===
-  * SVG CSS parser fails when selector names include underscores
