@@ -113,7 +113,7 @@ SL_COMMENT: '//' .* NEWLINE { skip(); };
 STRING: '"' .* '"';
 
 EDGEOP: '->';
-ID: ('_' | 'a'..'z' | 'A'..'Z') (INT | '_' | 'a'..'z' |'A'..'Z' | '[' | ']')*;
+ID: ('_' | 'a'..'z' | 'A'..'Z' | 'À'..'ÿ') (INT | '_' | 'a'..'z' |'A'..'Z' | 'À'..'ÿ' | '[' | ']')*;
 INT : '0'..'9'+ ;
 WS: (' ' | '\t' | NEWLINE)+ { skip(); };
 fragment NEWLINE:'\r'? '\n';

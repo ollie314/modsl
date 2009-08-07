@@ -16,8 +16,12 @@
 
 package org.modsl.core.lang.uml;
 
+import java.io.IOException;
+
+import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.modsl.core.ImageCollector;
+import org.modsl.core.util.Utils;
 
 public class UMLClass1TranslatorTest extends AbstractUMLTest {
 
@@ -63,6 +67,11 @@ public class UMLClass1TranslatorTest extends AbstractUMLTest {
     @Test
     public void process1mp() throws Exception {
         ic.collect("c1mp", translator.translate("class diagram c1mp { class class1 { #m1(p1,     p2, p3):void; } }"));
+    }
+        
+    @Test
+    public void process1int() throws RecognitionException, IOException {
+        ic.collect("c1int", translator.translate("class Àÿ { class Àÿ { Àÿ; } }"));
     }
 
 }

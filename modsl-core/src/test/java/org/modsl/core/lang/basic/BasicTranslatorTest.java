@@ -62,4 +62,10 @@ public class BasicTranslatorTest extends AbstractBasicTest {
                 + "{ n1->n2->n3->n1; n2->n4->n5->n2; n3->n5->n6->n3; " + "n4->n7->n8->n4; n5->n8->n9->n5; n6->n9->n10->n6; }"));
     }
 
+    @Test
+    public void p6int() throws RecognitionException, IOException {
+        ic.collect("g6int", translator.translate("graph g6int (width:400, height:320) "
+                + "{ À->ÿ; }"));
+    }
+
 }

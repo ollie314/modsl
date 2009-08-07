@@ -37,7 +37,7 @@ nodeStatement : ID { Node n = factory.createNode(graph, $ID);  };
 edgeStatement: ids+=ID EDGEOP ids+=ID (EDGEOP ids+=ID)* { factory.createEdges(graph, $ids); };
 
 EDGEOP: '->' | '--';
-ID: '"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' ) (INT | '_' | 'a'..'z' |'A'..'Z')* ;
+ID: '"' .* '"' |  ('_' | 'a'..'z' |'A'..'Z' | 'À'..'ÿ') (INT | '_' | 'a'..'z' |'A'..'Z' | 'À'..'ÿ')* ;
 INT : '0'..'9'+ ;
 NEWLINE:'\r'? '\n';
 WS: (' ' |'\t' | '\r' | '\n')+ { skip(); };
