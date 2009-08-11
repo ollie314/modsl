@@ -55,6 +55,7 @@ public abstract class AbstractBox<P extends AbstractElement<?>> extends Abstract
      * History of named attributes
      */
     //Map<String, List<Double>> attrHistory = new HashMap<String, List<Double>>();
+    
     /**
      * Create new
      */

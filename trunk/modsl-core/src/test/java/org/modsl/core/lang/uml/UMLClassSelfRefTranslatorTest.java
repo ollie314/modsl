@@ -29,13 +29,31 @@ public class UMLClassSelfRefTranslatorTest extends AbstractUMLTest {
 
     @Test
     public void processSelfRef2() throws Exception {
-        ic.collect("self_ref2", translator.translate("class diagram SelfRef { class SelfRef { i:int; j:int; 1->1(SelfRef); 1->*(SelfRef); } }"));
-    }
-    
-    @Test
-    public void processSelfRef3() throws Exception {
-        ic.collect("self_ref3", translator.translate("class diagram SelfRef { class SelfRef { i:int; j:int; k:int; l:int; m:int; n:int; o:int; 1->1(SelfRef); } }"));
+        ic
+                .collect(
+                        "self_ref2",
+                        translator
+                                .translate("class diagram SelfRef { class SelfRef { i:int; j:int; 1->1(SelfRef); 1->*(SelfRef); } class A {1->*(B);} class B{}}"));
     }
 
+    @Test
+    public void processSelfRef3() throws Exception {
+        ic
+                .collect(
+                        "self_ref3",
+                        translator
+                                .translate("class diagram SelfRef { class SelfRef { i:int; j:int; k:int; l:int; m:int; n:int; o:int; 1->1(SelfRef); } }"));
+    }
+
+    @Test
+    public void processSelfRef4() throws Exception {
+        ic.collect("self_ref4", translator.translate("class diagram A { class A { 1->1(A); 1->1(B);} class B { 1->1(B); } }"));
+    }
+
+    @Test
+    public void processSelfRef5() throws Exception {
+        ic.collect("self_ref5", translator
+                .translate("class diagram A { class A { 1->1(A); } class B { 1->1(B); } class C { 1->1(C); }}"));
+    }
 
 }
