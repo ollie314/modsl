@@ -168,6 +168,20 @@ public class Node extends AbstractBox<Graph> {
     }
 
     @Override
+    public void setPos(double x, double y) {
+        double xd = x - this.pos.x;
+        double yd = y - this.pos.y;
+        super.setPos(x, y);
+        // self referencing edges need to move with the parent node
+        List<Edge> se = getSelfEdges();
+        for (Edge e : se) {
+            for (Bend b : e.getBends()) {
+                b.setPos(b.getPos().x + xd, b.getPos().y + yd);
+            }
+        }
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " " + labels;
     }

@@ -19,7 +19,6 @@ package org.modsl.core.agt.render;
 import java.awt.GradientPaint;
 
 import org.modsl.core.agt.model.Node;
-import org.modsl.core.agt.model.Pt;
 import org.modsl.core.render.Gradient;
 import org.modsl.core.render.Style;
 
